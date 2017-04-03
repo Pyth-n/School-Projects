@@ -42,7 +42,7 @@ Game :: Game(Point t1, Point br)
 
 Game :: ~Game()
 {
-   // Deletes memory at the end
+   // Deletes rocks on exit
    list <Rocks*>::iterator it = rock.begin();
    for (it; it != rock.end(); )
    {
@@ -51,6 +51,7 @@ Game :: ~Game()
       it++;
    }
 
+   // Deletes bullets on exit
    vector <Bullet*>::iterator bIt = bullets.begin();
    for (bIt; bIt < bullets.end(); )
    {
@@ -59,13 +60,14 @@ Game :: ~Game()
       bIt++;
    }
 
+   // Deletes rocket on exit
    delete rocket;
    rocket = NULL;
 }
 
 /***************************************
 * GAME :: HANDLE INPUT
-* accept input from the user
+* accept input from the user's keyboard arrows and spacebar
 ***************************************/
 void Game::handleInput(const Interface & ui)
 {
@@ -151,10 +153,12 @@ void Game::advanceBullets()
 ***************************************/
 void Game::advanceRocket()
 {
+   // Check if NULL and enough lives
    if (rocket == NULL && numLives > 0)
    {
       rocket = createRocket();
    }
+   // Else it should be allocated and alive
    else if (rocket != NULL && rocket->isAlive())
    {
       rocket->advance(getTopLeft(), getBottomRight());
@@ -167,6 +171,7 @@ void Game::advanceRocket()
 ***************************************/
 void Game::createLargeRocks()
 {
+   // Adds five rocks to the rock list
    for (int i = 0; i < 5; i++)
    {
       LargeRock* newRock = new LargeRock;
@@ -184,10 +189,9 @@ Ship* Game::createRocket()
    return newShip;
 }
 
-
 /**************************************************************************
 * GAME :: CLEAN UP ZOMBIES
-* Remove any dead objects (take bullets out of the list)
+* Remove any dead objects 
 **************************************************************************/
 void Game::cleanUpZombies()
 {
@@ -240,7 +244,7 @@ void Game::handleCollisions()
          {
             (*rocky)->kill();
             rocket->kill();
-            cout << "\7";
+            cout << "\7"; // Makes an OS sound, hopefully it's not illegal
             numLives--;
             score -= 2;
          }
@@ -309,14 +313,14 @@ void Game::draw(const Interface & ui)
       it++;
    }
 
-   // Draws if rocket is alive, otherwise it draws game over
+   // Draws if rocket is alive
    if (rocket != NULL && rocket->isAlive())
       rocket->draw();
 
    // No lives left!
    if (numLives == 0)
    {
-      // Write score
+      // Write score once
       if (!wrote)
       {
          writeScore(score);
@@ -402,7 +406,7 @@ float Game :: getClosestDistance(const FlyingObject &obj1, const FlyingObject &o
 
 /**********************************************************
 * Function: readScore
-* Reads previous score
+* Reads previous HiScore
 **********************************************************/
 int Game::readScore()
 {
@@ -424,7 +428,7 @@ int Game::readScore()
 
 /**********************************************************
 * Function: writeScore
-* Writes the HISCORE, if its not new, it keeps old value
+* Writes the HISCORE, if not new, keeps old value
 **********************************************************/
 void Game::writeScore(int score)
 {
