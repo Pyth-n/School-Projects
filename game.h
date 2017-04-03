@@ -47,8 +47,8 @@ private:
    void handleCollisions();
    void cleanUpZombies();
 
-   int readScore(); // Reads from score.txt
-   void writeScore(int score); // Writes score to score.txt
+   int readScore();              // Reads from score.txt
+   void writeScore(int score);   // Writes score to score.txt
 
 public:
    Game(Point t1, Point br); 

@@ -31,7 +31,6 @@ public:
 
    // Controls and kills bullet
    void fire(Point point, float angle, Velocity shipVelocity);
-   //void kill();
 };
 
 #endif /* bullet_h */

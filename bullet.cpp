@@ -19,7 +19,7 @@ using namespace std;
 *****************************************/
 Bullet::Bullet()
 {
-   // Alive by default, 0 frames at the beginning
+   // 0 frames at the beginning
    frameCount = 0;
 }
 
