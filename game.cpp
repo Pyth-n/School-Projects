@@ -29,7 +29,7 @@ Game :: Game(Point t1, Point br)
 
    // Displayed numbers
    this->numBullets = 0;
-   this->numLives = 0;
+   this->numLives = 3;
    this->score = 0;
    this->hiScore = readScore();
    this->wrote = false;
