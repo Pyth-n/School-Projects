@@ -327,49 +327,15 @@ void Game::draw(const Interface & ui)
          hiScore = readScore();
          wrote = true;
       }
-      
-      // Game over
-      Point gameOver(-40, 0);
-      drawText(gameOver, "GAME OVER");
-
-      // Score
-      Point sText(-40, -18);
-      drawText(sText, "Score:");
-      Point scoreNum(3,-8);
-      drawNumber(scoreNum, score);
-
-      // Hiscore
-      Point hText(-40, -36);
-      drawText(hText, "HiScore:");
-      Point hNum(12, -26);
-      drawNumber(hNum, hiScore);
+      displayGameOver(); // Game over display
    }
 
    // Displays score, lives
    if (numLives > 0)
    {
-      Point sText(130, 140);
-      drawText(sText, "Score:");
-      Point sNum(172, 150);
-      drawNumber(sNum, score);
-
-      Point lText(-200, 185);
-      drawText(lText, "Lives:");
-      Point lNum(-165, 195);
-      drawNumber(lNum, numLives);
+      displayScoreLives();
    }
-
-   // Draw # of bullets fired
-   Point bText(130, 180);
-   drawText(bText, "Bullets:");
-   Point bNum(172, 190);
-   drawNumber(bNum, numBullets);
-
-   // Draw # of rocks left
-   Point rText(130, 160);
-   drawText(rText, "Rocks:");
-   Point rNum(172, 170);
-   drawNumber(rNum, rock.size());
+   displayRockBulletAmount();
 }
 
 /**********************************************************
@@ -452,4 +418,63 @@ void Game::writeScore(int score)
 
    fout.close();
    return;
+}
+
+/**********************************************************
+* Function: displayGameOver
+* Displays text and numbers when its game over
+**********************************************************/
+void Game::displayGameOver()
+{
+   // Game over
+   Point gameOver(-40, 0);
+   drawText(gameOver, "GAME OVER");
+
+   // Score
+   Point sText(-40, -18);
+   drawText(sText, "Score:");
+   Point scoreNum(3, -8);
+   drawNumber(scoreNum, score);
+
+   // Hiscore
+   Point hText(-40, -36);
+   drawText(hText, "HiScore:");
+   Point hNum(12, -26);
+   drawNumber(hNum, hiScore);
+}
+
+/**********************************************************
+* Function: displayScoreLives
+* Displays text and numbers of score and lives
+**********************************************************/
+void Game::displayScoreLives()
+{
+   Point sText(130, 140);
+   drawText(sText, "Score:");
+   Point sNum(172, 150);
+   drawNumber(sNum, score);
+
+   Point lText(-200, 185);
+   drawText(lText, "Lives:");
+   Point lNum(-165, 195);
+   drawNumber(lNum, numLives);
+}
+
+/**********************************************************
+* Function: displayRockBulletAmount
+* Displays text and numbers for bullets and rocks
+**********************************************************/
+void Game::displayRockBulletAmount()
+{
+   // Draw # of bullets fired
+   Point bText(130, 180);
+   drawText(bText, "Bullets:");
+   Point bNum(172, 190);
+   drawNumber(bNum, numBullets);
+
+   // Draw # of rocks left
+   Point rText(130, 160);
+   drawText(rText, "Rocks:");
+   Point rNum(172, 170);
+   drawNumber(rNum, rock.size());
 }

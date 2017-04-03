@@ -50,6 +50,9 @@ private:
    int readScore();              // Reads from score.txt
    void writeScore(int score);   // Writes score to score.txt
 
+   void displayGameOver();
+   void displayScoreLives();
+   void displayRockBulletAmount();
 public:
    Game(Point t1, Point br); 
    ~Game(); 
