@@ -376,15 +376,19 @@ float Game :: getClosestDistance(const FlyingObject &obj1, const FlyingObject &o
 **********************************************************/
 int Game::readScore()
 {
+   int score = 0;
    ifstream fin("score.txt");
 
    if (fin.fail()) // if file doesn't exist, returns a 0
    {
+      // Create this file if it doesn't exist
+      ofstream fout("score.txt");
+      fout << score;
+      fout.close();
       return 0;
    }
 
    // Load previous score
-   int score = 0;
    fin >> score;
 
    // Close and return
