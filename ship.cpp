@@ -8,7 +8,6 @@
 ************************************************************************/
 
 #include "ship.h"
-#include <iostream>
 
 /***************************************
 * SHIP :: Constructor
@@ -78,6 +77,3 @@ void Ship::moveLeft()
 {
    rotation += ROTATE_AMOUNT;
 }
-
-
-

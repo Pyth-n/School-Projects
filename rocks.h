@@ -10,9 +10,9 @@
 
 #ifndef rocks_h
 #define rocks_h
-#include <vector>
 #include <list>
 #include "flyingObject.h"
+
 #define BIG_ROCK_SIZE 16
 #define MEDIUM_ROCK_SIZE 8
 #define SMALL_ROCK_SIZE 4

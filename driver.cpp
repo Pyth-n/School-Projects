@@ -11,7 +11,7 @@
 #include "uiInteract.h"
 #include <iostream>
 #include <string>
-//using namespace std;
+
 /*************************************
  * All the interesting work happens here, when
  * I get called back from OpenGL to draw a frame.

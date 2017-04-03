@@ -7,7 +7,6 @@
 *    Stores velocity for x and y axis
 **********************************************/
 #include "velocity.h"
-#include <iostream>
 
 /******************************************
 * VELOCITY :: VELOCITY
