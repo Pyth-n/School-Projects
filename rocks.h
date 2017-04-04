@@ -20,7 +20,7 @@
 #define BIG_ROCK_SPIN 2
 #define MEDIUM_ROCK_SPIN 5
 #define SMALL_ROCK_SPIN 10
-#define M_PI 3.14
+#define M_PI 3.14159265358979323846
 
 /******************************************
 * ROCKS : ABSTRACT BASE CLASS
