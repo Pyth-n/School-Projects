@@ -15,7 +15,7 @@
 #include "uiDraw.h"
 
 #define SHIP_SIZE 10
-#define M_PI 3.14
+#define M_PI 3.14159265358979323846
 
 #define ROTATE_AMOUNT 6
 #define THRUST_AMOUNT 0.5
