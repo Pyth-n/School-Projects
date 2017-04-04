@@ -1,15 +1,18 @@
 ###############################################################
 # Program:
-#     Milestone 12, Asteroids
+#     Project 13, Asteroids
 #     Brother McCracken, CS165
 # Author:
 #     David Perez
 # Summary:
-#     Put your summary code here... 
+#     This is a game where the user controls a ship, 
+#     with the goal of trying to break and avoid colloding with rocks
 # Above and Beyond
-#     When you submit your final project (not for milestones),
-#     list anything here that you did to go above and beyond
-#     the base requirements for your project.
+#     What I did for above and beyond was I added more information
+#     on the screen to display bullets fired, rocks currently alive,
+#     score when a rock is hit, and finally a hiscore that is written
+#	  and read from an external file (score.txt). I also added an OS
+#     sound when a life is reduced 
 ###############################################################
 
 
