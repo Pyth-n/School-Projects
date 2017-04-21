@@ -1,10 +1,10 @@
 #include <iostream>
-#include "container.h"
+#include "vector.h"
 using namespace std;
 
 int main()
 {
-	Container <int> lol1;
+	Vector <int> lol1;
 
 	char quit;
 	cin >> quit;
