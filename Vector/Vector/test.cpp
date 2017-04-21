@@ -4,12 +4,11 @@ using namespace std;
 
 int main()
 {
-	Vector <int> lol1(7);
+	Vector <int> lol1(9);
 	Vector <int> lol3;
 	
-	lol3 = lol1;
-	cout << lol1.empty();
-
+	lol1[8] = 3;
+	cout << lol1[8];
 	char quit;
 	cin >> quit;
 }

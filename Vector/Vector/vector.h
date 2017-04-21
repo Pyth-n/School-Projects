@@ -67,6 +67,27 @@ public:
    // Assignment Operator
 	Vector <T> & operator = (const Vector <T> & rhs) throw (const char *);
 
+	// Index operator, non-constant
+	T & operator [](int index)
+	{
+		if (index > (capacity - 1) || index < 0)
+		{
+			throw std::string("ERROR: Invalid index");
+		}
+		else
+			return data[index];
+	}
+
+	// Index operator, constant
+	const T & operator [](int index) const
+	{
+		if (index > (capacity - 1) || index < 0)
+		{
+			throw std::string("ERROR: Invalid index");
+		}
+		else
+			return data[index];
+	}
 
 private:
    T * data;          // dynamically allocated array of T
@@ -257,5 +278,7 @@ Vector <T> & Vector <T>::operator = (const Vector <T> & rhs) throw (const char *
 	cout << "Something!";
 	return *this;
 }
+
+
 #endif // Vector_H
 
