@@ -52,6 +52,9 @@ public:
    // how many items are currently in the Vector?
    int size() const    { return numItems;              }
 
+	// how many indices are available in the Vector?
+	int numCapacity() const { return capacity; }
+
    // add an item to the Vector
    void insert(const T & t) throw (const char *);
    
@@ -61,6 +64,10 @@ public:
    // return an iterator to the end of the list
    VectorIterator <T> end() { return VectorIterator<T>(data + numItems);}
    
+   // Assignment Operator
+	Vector <T> & operator = (const Vector <T> & rhs) throw (const char *);
+
+
 private:
    T * data;          // dynamically allocated array of T
    int numItems;      // how many items are currently in the Vector?
@@ -215,5 +222,40 @@ void Vector <T> :: insert(const T & t) throw (const char *)
 }
 
 
+/***************************************************
+* Vector :: ASSIGNMENT OPERATOR
+* Copies rhs to lhs
+**************************************************/
+template <class T>
+Vector <T> & Vector <T>::operator = (const Vector <T> & rhs) throw (const char *)
+{
+	assert(rhs.capacity >= 0);
+
+	// Attempt to allocate 
+	try
+	{
+		this->data = new T[rhs.capacity];
+	}
+	catch (std::bad_alloc)
+	{
+		throw "ERROR: Unable to allocate buffer";
+	}
+
+	// copy over the capacity and size
+	assert(rhs.numItems >= 0 && rhs.numItems <= rhs.capacity);
+	this->capacity = rhs.capacity;
+	this->numItems = rhs.numItems;
+
+	// copy the items over one at a time using the assignment operator
+	for (int i = 0; i < numItems; i++)
+		this->data[i] = rhs.data[i];
+
+	// the rest needs to be filled with the default value for T
+	for (int i = numItems; i < capacity; i++)
+		this->data[i] = T();
+
+	cout << "Something!";
+	return *this;
+}
 #endif // Vector_H
 
