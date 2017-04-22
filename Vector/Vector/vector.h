@@ -56,7 +56,7 @@ public:
 	int numCapacity() const { return capacity; }
 
    // add an item to the Vector
-   void insert(const T & t) throw (const char *);
+   void push_back(const T & t) throw (const char *);
    
    // return an iterator to the beginning of the list
    VectorIterator <T> begin() { return VectorIterator<T>(data); }
@@ -68,22 +68,52 @@ public:
 	Vector <T> & operator = (const Vector <T> & rhs) throw (const char *);
 
 	// Index operator, non-constant
-	T & operator [](int index)
+	T & operator [](int index) throw (const char *)
 	{
 		if (index > (capacity - 1) || index < 0)
 		{
-			throw std::string("ERROR: Invalid index");
+			throw "ERROR: Invalid index";
 		}
 		else
 			return data[index];
 	}
 
+	// Reallocation method
+	T * reallocate(T * oldBuffer, int & size) throw (const char *)
+	{
+		int oldSize = size;
+
+		// Allocate new buffer
+		T * newBuffer = new(nothrow) T[size *= 2];
+
+		// Allocation failure check
+		if (NULL == newBuffer)
+		{
+			size /= 2;
+			throw "ERROR: Unable to allocate a new buffer for Vector";
+			return oldBuffer;
+		}
+
+		// Copy contents
+		int i;
+		for (i = 0; i < oldSize; i++)
+		{
+			newBuffer[i] = oldBuffer[i];
+		}
+		newBuffer[i] = '\0';
+
+		// Delete nasty buffer
+		delete[] oldBuffer;
+
+		return newBuffer;
+	}
+
 	// Index operator, constant
-	const T & operator [](int index) const
+	const T & operator [](int index) const throw (const char *)
 	{
 		if (index > (capacity - 1) || index < 0)
 		{
-			throw std::string("ERROR: Invalid index");
+			throw "ERROR: Invalid index";
 		}
 		else
 			return data[index];
@@ -228,20 +258,38 @@ Vector <T> :: Vector(int capacity) throw (const char *)
 }
 
 /***************************************************
- * Vector :: INSERT
- * Insert an item on the end of the Vector
+ * Vector :: push_back
+ * push_back an item on the end of the Vector
  **************************************************/
 template <class T>
-void Vector <T> :: insert(const T & t) throw (const char *)
+void Vector <T> :: push_back(const T & t) throw (const char *)
 {
-   // do we have space?
-   if (capacity == 0 || capacity == numItems)
-      throw "ERROR: Insufficient space";
-   
+   // do we have space, or is capacity empty?
+	if (data == NULL)
+	{
+		capacity++;
+
+		// Try to allocate
+		try
+		{
+			data = new T[capacity];
+		}
+		catch (std::bad_alloc)
+		{
+			throw "Error: Unable to allocate a new buffer for vector";
+		}
+	}
+
+	// Doubles capacity with reallocate()
+	if (capacity == numItems)
+	{
+		// Doubles and copies content
+		data = reallocate(data, capacity);
+	}
+
    // add an item to the end
    data[numItems++] = t;
 }
-
 
 /***************************************************
 * Vector :: ASSIGNMENT OPERATOR
