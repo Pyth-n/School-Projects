@@ -90,14 +90,14 @@ void testSimple()
       cout << "Create a bool Vector using default constructor\n";
       Vector <bool> v1;
       cout << "\tSize:     " << v1.size()                   << endl;
-      cout << "\tnumCapacity: " << v1.numCapacity()               << endl;
+      cout << "\tCapacity: " << v1.numCapacity()               << endl;
       cout << "\tEmpty?    " << (v1.empty() ? "Yes" : "No") << endl;
 
       // Test 1.b: double Vector with non-default constructor
       cout << "Create a double Vector using the non-default constructor\n";
       Vector <double> v2(10 /*numCapacity*/);
       cout << "\tSize:     " << v2.size()                   << endl;
-      cout << "\tnumCapacity: " << v2.numCapacity()               << endl;
+      cout << "\tCapacity: " << v2.numCapacity()               << endl;
       cout << "\tEmpty?    " << (v2.empty() ? "Yes" : "No") << endl;
 
       // Test 1.c: copy the Vector using the copy constructor
@@ -105,7 +105,7 @@ void testSimple()
          cout << "Create a double Vector using the copy constructor\n";
          Vector <double> v3(v2);
          cout << "\tSize:     " << v3.size()                   << endl;
-         cout << "\tnumCapacity: " << v3.numCapacity()               << endl;
+         cout << "\tCapacity: " << v3.numCapacity()               << endl;
          cout << "\tEmpty?    " << (v3.empty() ? "Yes" : "No") << endl;
       }
 
@@ -114,7 +114,7 @@ void testSimple()
       Vector <double> v4(2);
       v4 = v2;
       cout << "\tSize:     " << v4.size()                   << endl;
-      cout << "\tnumCapacity: " << v4.numCapacity()               << endl;
+      cout << "\tCapacity: " << v4.numCapacity()               << endl;
       cout << "\tEmpty?    " << (v4.empty() ? "Yes" : "No") << endl;      
    }
    catch (const char * sError)
@@ -178,7 +178,7 @@ void testFill()
          v1.clear();
          v1.push_back(4);
          cout << "\tSize:     " << v2.size()                   << endl;
-         cout << "\tnumCapacity: " << v2.numCapacity()               << endl;
+         cout << "\tCapacity: " << v2.numCapacity()               << endl;
          cout << "\tEmpty?    " << (v2.empty() ? "Yes" : "No") << endl;
       }
       cout << "First vector deleted\n";
@@ -206,7 +206,7 @@ void testFill()
          v1.clear();
          v2.push_back('X');
          cout << "\tSize:     " << v1.size()                   << endl;
-         cout << "\tnumCapacity: " << v1.numCapacity()               << endl;
+         cout << "\tCapacity: " << v1.numCapacity()               << endl;
          cout << "\tEmpty?    " << (v1.empty() ? "Yes" : "No") << endl;
       }
       cout << "\tSecond Vector deleted\n";
