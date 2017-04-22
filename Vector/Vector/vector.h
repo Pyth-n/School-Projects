@@ -68,56 +68,13 @@ public:
 	Vector <T> & operator = (const Vector <T> & rhs) throw (const char *);
 
 	// Index operator, non-constant
-	T & operator [](int index) throw (const char *)
-	{
-		if (index > (capacity - 1) || index < 0)
-		{
-			throw "ERROR: Invalid index";
-		}
-		else
-			return data[index];
-	}
+	T & operator [](int index) throw (const char *);
 
 	// Reallocation method
-	T * reallocate(T * oldBuffer, int & size) throw (const char *)
-	{
-		int oldSize = size;
-
-		// Allocate new buffer
-		T * newBuffer = new T[size *= 2];
-
-		// Allocation failure check
-		if (NULL == newBuffer)
-		{
-			size /= 2;
-			throw "ERROR: Unable to allocate a new buffer for Vector";
-			return oldBuffer;
-		}
-
-		// Copy contents
-		int i;
-		for (i = 0; i < oldSize; i++)
-		{
-			newBuffer[i] = oldBuffer[i];
-		}
-		newBuffer[i] = '\0';
-
-		// Delete nasty buffer
-		delete[] oldBuffer;
-
-		return newBuffer;
-	}
+	T * reallocate(T * oldBuffer, int & size) throw (const char *);
 
 	// Index operator, constant
-	const T & operator [](int index) const throw (const char *)
-	{
-		if (index > (capacity - 1) || index < 0)
-		{
-			throw "ERROR: Invalid index";
-		}
-		else
-			return data[index];
-	}
+	const T & operator [](int index) const throw (const char *);
 
 private:
    T * data;          // dynamically allocated array of T
@@ -326,6 +283,69 @@ Vector <T> & Vector <T>::operator = (const Vector <T> & rhs) throw (const char *
 	return *this;
 }
 
+/***************************************************
+* Vector :: INDEX OPERATOR
+* Accesses index without constant
+**************************************************/
+template <class T>
+T & Vector <T>::operator [](int index) throw (const char *)
+{
+	if (index >(capacity - 1) || index < 0)
+	{
+		throw "ERROR: Invalid index";
+	}
+	else
+		return data[index];
+}
+
+/***************************************************
+* Vector :: INDEX CONSTANT OPERATOR
+* Accesses indices constantly
+**************************************************/
+template <class T>
+const T & Vector <T>::operator [](int index) const throw (const char *)
+{
+	if (index > (capacity - 1) || index < 0)
+	{
+		throw "ERROR: Invalid index";
+	}
+	else
+		return data[index];
+}
+
+/***************************************************
+* Vector :: REALLOCATE
+* Used for doubling the size of the vector
+**************************************************/
+template <class T>
+T * Vector <T>::reallocate(T * oldBuffer, int & size) throw (const char *)
+{
+	int oldSize = size;
+
+	// Allocate new buffer
+	T * newBuffer = new T[size *= 2];
+
+	// Allocation failure check
+	if (NULL == newBuffer)
+	{
+		size /= 2;
+		throw "ERROR: Unable to allocate a new buffer for Vector";
+		return oldBuffer;
+	}
+
+	// Copy contents
+	int i;
+	for (i = 0; i < oldSize; i++)
+	{
+		newBuffer[i] = oldBuffer[i];
+	}
+	newBuffer[i] = '\0';
+
+	// Delete nasty buffer
+	delete[] oldBuffer;
+
+	return newBuffer;
+}
+
 
 #endif // Vector_H
-
