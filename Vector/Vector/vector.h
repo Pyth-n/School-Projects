@@ -22,6 +22,8 @@
 // forward declaration for VectorIterator
 template <class T>
 class VectorIterator;
+template <class T>
+class VectorConstIterator;
 
 /************************************************
  * Vector
@@ -64,6 +66,12 @@ public:
    // return an iterator to the end of the list
    VectorIterator <T> end() { return VectorIterator<T>(data + numItems);}
    
+	// return an iterator to the beginning of the list
+	VectorConstIterator <T> cbegin() const { return VectorConstIterator<T>(data); }
+
+	// return an iterator to the end of the list
+	VectorConstIterator <T> cend() const { return VectorConstIterator<T>(data + numItems); }
+
    // Assignment Operator
 	Vector <T> & operator = (const Vector <T> & rhs) throw (const char *);
 
@@ -132,9 +140,84 @@ class VectorIterator
       p++;
       return tmp;
    }
-   
+
+	VectorIterator <T> & operator -- ()
+	{
+		p--;
+		return *this;
+	}
+
+	VectorIterator <T> operator--(int postfix)
+	{
+		VectorIterator tmp(*this);
+		p--;
+		return tmp;
+	}
+
   private:
    T * p;
+};
+
+/**************************************************
+* Vector ITERATOR
+* An iterator through Vector
+*************************************************/
+template <class T>
+class VectorConstIterator
+{
+public:
+	// default constructor
+	VectorConstIterator() : p(NULL) {}
+
+	// initialize to direct p to some item
+	VectorConstIterator(T * p) : p(p) {}
+
+	// copy constructor
+	VectorConstIterator(const VectorConstIterator & rhs) { *this = rhs; }
+
+	// assignment operator
+	VectorConstIterator & operator = (const VectorConstIterator & rhs)
+	{
+		this->p = rhs.p;
+		return *this;
+	}
+
+	// not equals operator
+	bool operator != (const VectorConstIterator & rhs) const
+	{
+		return rhs.p != this->p;
+	}
+
+	// dereference operator
+	T & operator * ()
+	{
+		return *p;
+	}
+
+	// prefix increment
+	VectorConstIterator <T> & operator ++ ()
+	{
+		p++;
+		return *this;
+	}
+
+	// postfix increment
+	VectorConstIterator <T> operator++(int postfix)
+	{
+		VectorConstIterator tmp(*this);
+		p++;
+		return tmp;
+	}
+
+	// prefix increment
+	VectorConstIterator <T> & operator -- ()
+	{
+		p--;
+		return *this;
+	}
+
+private:
+	T * p;
 };
 
 /*******************************************

@@ -20,7 +20,7 @@ void testSimple();
 void testFill();
 void testIterate();
 void testCopy();
-//void testExtra();
+void testExtra();
 
 // To get your program to compile, you might need to comment out a few
 // of these. The idea is to help you avoid too many compile errors at once.
@@ -30,7 +30,7 @@ void testCopy();
 #define TEST2   // for testFill()
 #define TEST3   // for testIterate()
 #define TEST4   // for testCopy()
-//#define TEST5   // for testExtra()
+#define TEST5   // for testExtra()
 
 /**********************************************************************
  * MAIN
@@ -68,12 +68,13 @@ int main()
          testCopy();
          cout << "Test 4 complete\n";
          break;
-      
+		case 'a':
+			testExtra();
+			break;
       default:
          cout << "Unrecognized command, exiting...\n";
    }
    
-	
    return 0;
 }
 
@@ -355,7 +356,7 @@ void testCopy()
  *    3. Iterate through the Vector backwards
  *    4. Iterate through the Vector with a constant iterator
  *    5. Iterate through the Vector backwards with a constant iterator
- *********************************************************
+ *********************************************************/
 void testExtra()
 {
 #ifdef TEST5
@@ -407,4 +408,4 @@ void testExtra()
       cout << sError << endl;
    }
 #endif // TEST5
-}*/
+}
