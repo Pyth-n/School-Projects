@@ -84,7 +84,7 @@ public:
 		int oldSize = size;
 
 		// Allocate new buffer
-		T * newBuffer = new(nothrow) T[size *= 2];
+		T * newBuffer = new T[size *= 2];
 
 		// Allocation failure check
 		if (NULL == newBuffer)
