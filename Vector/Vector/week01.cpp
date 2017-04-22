@@ -70,6 +70,7 @@ int main()
          break;
 		case 'a':
 			testExtra();
+			cout << "Extra Credit complete\n";
 			break;
       default:
          cout << "Unrecognized command, exiting...\n";
