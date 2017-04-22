@@ -323,7 +323,6 @@ Vector <T> & Vector <T>::operator = (const Vector <T> & rhs) throw (const char *
 	for (int i = numItems; i < capacity; i++)
 		this->data[i] = T();
 
-	cout << "Something!";
 	return *this;
 }
 
