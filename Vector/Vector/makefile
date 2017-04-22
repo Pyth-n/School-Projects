@@ -1,7 +1,7 @@
 ###############################################################
 # Program:
 #     Week 01, Vector
-#     Brother Jones, CS235
+#     Brother JonesL, CS235
 # Author:
 #     David Perez
 # Summary:
