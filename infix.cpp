@@ -12,22 +12,25 @@
 #include <iostream>    // for ISTREAM and COUT
 #include <string>      // for STRING
 #include <cassert>     // for ASSERT
+#include <locale> // Used for isalnum()
+#include "infix.h" // Used as prototypes
 //#include "stack.h"     // for STACK
-#include <stack>
-#include "infix.h"
-#include <locale>
+
+#include <stack>  // DELETE BEFORE TURNING IN AND USE OUR CUSTOM MADE STACK
+
 using namespace std;
 
-int main()
+/*int main()
 {
-	testInfixToPostfix();
+	testInfixToAssembly();
+	//testInfixToPostfix();
 	return 0;
-}
+}*/
 
 /*****************************************************
  * CONVERT INFIX TO POSTFIX
  * Convert infix equation "5 + 2" into postifx "5 2 +"
- * Large chunk of this was off of the textbook examples
+ * Referenced from the book with modified integration
  *****************************************************/
 string convertInfixToPostfix(const string & infix)
 {
@@ -38,15 +41,21 @@ string convertInfixToPostfix(const string & infix)
 
 	const string BLANK = " "; // Give spaces
    
+	bool onePeriod = true;
+
+	// Let's iterate through the string
 	for (int i = 0; i < infix.length(); i++)
 	{
 		token = infix[i];
 		switch (token)
 		{
 		case ' ': break; // Skip spaces
-		case '(': opStack.push(token);
+		case '(':
+			// Push left parenthesis
+			opStack.push(token);
 			break;
 		case ')':
+			// Pop the left parenthesis
 			for (;;)
 			{
 				topToken = opStack.top();
@@ -58,11 +67,13 @@ string convertInfixToPostfix(const string & infix)
 		case '^':
 			for (;;)
 			{
+				// If stack empty, push to stack
 				if (opStack.empty())
 				{
 					opStack.push(token);
 					break;
 				}
+				// If stack not empty, push when top is lesser priority
 				if (!opStack.empty() && priority(opStack.top()) < 3)
 				{
 					opStack.push(token);
@@ -74,9 +85,12 @@ string convertInfixToPostfix(const string & infix)
 		case '-':
 		case '*':
 		case '/':
+			// Add other operators to stack
 			for (;;)
 			{
-				if (opStack.empty() || opStack.top() == '(' || (token == '*' || token == '/' || token == '%') && (opStack.top() == '+' || opStack.top() == '-'))
+				if (opStack.empty() || opStack.top() == '(' || 
+					(token == '*' || token == '/' || token == '%') && 
+					(opStack.top() == '+' || opStack.top() == '-'))
 				{
 					opStack.push(token);
 					break;
@@ -89,13 +103,17 @@ string convertInfixToPostfix(const string & infix)
 				}
 			}
 			break;
-		default: // Posts the operands
-			if (token == '.')
+		default: 
+			// Avoids spaces between periods, otherwise there is spaces
+			if (token == '.' && onePeriod) 
 			{
 				postfix.append(1, token);
+				onePeriod = false;
 			}
 			else
 				postfix.append(BLANK + token);
+			
+			// Outputs remaining operands
 			for (;;)
 			{
 				if (!isalnum(infix[i + 1])) break;
@@ -126,6 +144,11 @@ string convertInfixToPostfix(const string & infix)
    return postfix;
 }
 
+/*****************************************************
+* PRIORITY
+* Returns the priority of operators, used to determine
+* when to pop or push an exponent
+*****************************************************/
 int priority(char token)
 {
 	if (token == '(')
@@ -181,10 +204,87 @@ void testInfixToPostfix()
 string convertPostfixToAssembly(const string & postfix)
 {
    string assembly;
+	char letter = '1';
+	char rhs, lhs;
+	stack <char> operandStack; // Stack for operands
    
+	for (int i = 0; i < postfix.length(); i++)
+	{
+		char token = postfix[i];
+		
+		switch (token)
+		{
+		case ' ': break;
+		case '^':
+			break;
+		case '*':
+		case '/':
+		case '+':
+		case '-':
+			// If it's an operator
+			if (!isalnum(token))
+			{
+				// Store and pop the top of operator
+				rhs = operandStack.top();
+				operandStack.pop();
+
+				// Store and pop the last two operators
+				lhs = operandStack.top();
+				operandStack.pop();
+
+				//cout << "Operater detected: " << tokenToOperator(token) << endl << rhs << ":" << lhs << endl;
+
+				// LOAD LEFT, TOKEN RIGHT and rhs, SAVE letter
+				assembly.append("\tLOAD ");
+				assembly.append(1, lhs);
+				assembly.append(1, '\n');
+
+				// Operator and RHS
+				assembly.append(tokenToOperator(token));
+				assembly.append(1, rhs);
+				assembly.append(1, '\n');
+
+				// Store variable
+				assembly.append("\tSTORE VALUE");
+				assembly.append(1, letter);
+				assembly.append(1, '\n');
+				operandStack.push(letter);
+				letter++;
+
+				/*
+				cout << "LOAD " << lhs << endl;
+				cout << tokenToOperator(token) << " " << rhs << endl;
+				cout << "STORE VALUE" << letter << endl;
+				operandStack.push(letter);
+				letter++;*/
+			}
+				break;
+		default:
+			operandStack.push(token);			
+			break;
+		}
+		
+
+	}
+
    return assembly;
 }
 
+string tokenToOperator(const char token)
+{
+	switch (token)
+	{
+	case '^': return "\tEXPONENT "; break;
+	case '*': return "\tMULTIPLY "; break;
+	case '/': return "\tDIVIDE "; break;
+	case '%': return "\tMODULUS "; break;
+	case '+': return "\tADD "; break;
+	case '-': return "\tSUBTRACT "; break;
+	default:
+		return "";
+		break;
+	}
+}
 /*****************************************************
  * TEST INFIX TO ASSEMBLY
  * Prompt the user for infix text and display the
@@ -216,5 +316,4 @@ void testInfixToAssembly()
       }
    }
    while (input != "quit");
-   
 }
