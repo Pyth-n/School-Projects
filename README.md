@@ -1,2 +1,0 @@
-# Stacks
-Infix to Postfix
