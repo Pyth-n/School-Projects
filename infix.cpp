@@ -9,16 +9,15 @@
  *    and testInfixToAssembly() functions
  ************************************************************************/
 
-#include <iostream>    // for ISTREAM and COUT
-#include <string>      // for STRING
-#include <cassert>     // for ASSERT
-#include <locale> // Used for isalnum()
-#include "infix.h" // Used as prototypes
-#include <sstream> // Used to split a string
-#include <vector>  // Used for split strings
-//#include "stack.h"     // for STACK
+#include <iostream>	// for ISTREAM and COUT
+#include <string>		// for STRING
+#include <cassert>	// for ASSERT
+#include <locale>		// Used for isalnum()
+#include "infix.h"	// Used as prototypes
+#include <sstream>	// Used to split a string
+#include <vector>		// Used for split strings
+#include "stack.h"	// for STACK
 
-#include <stack>  // DELETE BEFORE TURNING IN AND USE OUR CUSTOM MADE STACK
 using namespace std;
 
 /*****************************************************
@@ -29,9 +28,9 @@ using namespace std;
 string convertInfixToPostfix(const string & infix)
 {
 	char token,		// Character in expression
-		  topToken;	// Token on top of stack
+		  topToken;	// Token on top of Stack
    string postfix; // Postfix expression
-	stack <char> opStack; // Stack for operators
+	Stack <char> opStack; // Stack for operators
 
 	const string BLANK = " "; // Give spaces
    
@@ -61,13 +60,13 @@ string convertInfixToPostfix(const string & infix)
 		case '^':
 			for (;;)
 			{
-				// If stack empty, push to stack
+				// If Stack empty, push to Stack
 				if (opStack.empty())
 				{
 					opStack.push(token);
 					break;
 				}
-				// If stack not empty, push when top is lesser priority
+				// If Stack not empty, push when top is lesser priority
 				if (!opStack.empty() && priority(opStack.top()) < 3)
 				{
 					opStack.push(token);
@@ -79,7 +78,7 @@ string convertInfixToPostfix(const string & infix)
 		case '-':
 		case '*':
 		case '/':
-			// Add other operators to stack
+			// Add other operators to Stack
 			for (;;)
 			{
 				if (opStack.empty() || opStack.top() == '(' || 
@@ -118,7 +117,7 @@ string convertInfixToPostfix(const string & infix)
 		}
 	}
 
-	// Pops out remaining operators in stack
+	// Pops out remaining operators in Stack
 	for (;;)
 	{
 		if (opStack.empty()) break;
@@ -206,7 +205,7 @@ string convertPostfixToAssembly(const string & postfix)
 	stringstream ss(str);	// Loads string into future buffer
 	vector <string> tokens;	// Stores split string
 
-	stack <string> operandStack; // Stack for operands
+	Stack <string> operandStack; // Stack for operands
 
 	// Splits the strings and adds to vector
 	while (ss >> buf)
