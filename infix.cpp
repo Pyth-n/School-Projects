@@ -14,18 +14,12 @@
 #include <cassert>     // for ASSERT
 #include <locale> // Used for isalnum()
 #include "infix.h" // Used as prototypes
+#include <sstream> // Used to split a string
+#include <vector>  // Used for split strings
 //#include "stack.h"     // for STACK
 
 #include <stack>  // DELETE BEFORE TURNING IN AND USE OUR CUSTOM MADE STACK
-
 using namespace std;
-
-/*int main()
-{
-	testInfixToAssembly();
-	//testInfixToPostfix();
-	return 0;
-}*/
 
 /*****************************************************
  * CONVERT INFIX TO POSTFIX
@@ -203,73 +197,71 @@ void testInfixToPostfix()
  **********************************************/
 string convertPostfixToAssembly(const string & postfix)
 {
-   string assembly;
-	char letter = '1';
-	char rhs, lhs;
-	stack <char> operandStack; // Stack for operands
-   
-	for (int i = 0; i < postfix.length(); i++)
+   string assembly, rhs, lhs, appending;
+	char valueNum = '1';
+
+	// Used for string splits
+	string str(postfix);		// String to be split
+	string buf;					// Buffer string
+	stringstream ss(str);	// Loads string into future buffer
+	vector <string> tokens;	// Stores split string
+
+	stack <string> operandStack; // Stack for operands
+
+	// Splits the strings and adds to vector
+	while (ss >> buf)
+		tokens.push_back(buf);
+	
+	// Iterate through the split strings
+	for (vector<string>::iterator it = tokens.begin(); it < tokens.end(); it++)
 	{
-		char token = postfix[i];
-		
-		switch (token)
+		// Later on used for appending the number
+		string value = "VALUE";
+
+		switch (it[0][0])
 		{
-		case ' ': break;
 		case '^':
-			break;
 		case '*':
 		case '/':
 		case '+':
 		case '-':
-			// If it's an operator
-			if (!isalnum(token))
-			{
-				// Store and pop the top of operator
-				rhs = operandStack.top();
-				operandStack.pop();
+			// If operator spotted, pop 2 variables
+			rhs = operandStack.top();
+			operandStack.pop();
+			lhs = operandStack.top();
+			operandStack.pop();
 
-				// Store and pop the last two operators
-				lhs = operandStack.top();
-				operandStack.pop();
+			// Display load
+			assembly.append("\tLOAD ");
+			assembly.append(lhs);
+			assembly.append(1, '\n');
 
-				//cout << "Operater detected: " << tokenToOperator(token) << endl << rhs << ":" << lhs << endl;
+			// Display operator
+			assembly.append(tokenToOperator(it[0][0]));
+			assembly.append(rhs);
+			assembly.append(1, '\n');
 
-				// LOAD LEFT, TOKEN RIGHT and rhs, SAVE letter
-				assembly.append("\tLOAD ");
-				assembly.append(1, lhs);
-				assembly.append(1, '\n');
+			// Store value and increase value #
+			assembly.append("\tSTORE ");
+			assembly.append("VALUE");
+			assembly.append(1,valueNum);
+			assembly.append(1, '\n');
+			value.append(1, valueNum);
+			operandStack.push(value);
+			valueNum++;
 
-				// Operator and RHS
-				assembly.append(tokenToOperator(token));
-				assembly.append(1, rhs);
-				assembly.append(1, '\n');
-
-				// Store variable
-				assembly.append("\tSTORE VALUE");
-				assembly.append(1, letter);
-				assembly.append(1, '\n');
-				operandStack.push(letter);
-				letter++;
-
-				/*
-				cout << "LOAD " << lhs << endl;
-				cout << tokenToOperator(token) << " " << rhs << endl;
-				cout << "STORE VALUE" << letter << endl;
-				operandStack.push(letter);
-				letter++;*/
-			}
-				break;
-		default:
-			operandStack.push(token);			
 			break;
+		default:
+				operandStack.push(*it);
 		}
-		
-
 	}
-
    return assembly;
 }
 
+/*****************************************************
+* TOKEN TO OPERATOR
+* Accepts a token, and returns assembly language
+*****************************************************/
 string tokenToOperator(const char token)
 {
 	switch (token)
@@ -285,6 +277,7 @@ string tokenToOperator(const char token)
 		break;
 	}
 }
+
 /*****************************************************
  * TEST INFIX TO ASSEMBLY
  * Prompt the user for infix text and display the

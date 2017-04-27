@@ -46,6 +46,12 @@ std::string convertPostfixToAssembly(const std::string & postfix);
 *****************************************************/
 int priority(char token);
 
+/*****************************************************
+* TOKEN TO OPERATOR
+* Accepts a token, and returns assembly language
+*****************************************************/
 std::string tokenToOperator(const char token);
+
+
 #endif // INFIX_H
 
