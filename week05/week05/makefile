@@ -8,7 +8,7 @@
 #     Implements a deque and is used to solve now serving problem
 # Time:
 #    Pair programming -
-#	  Jeffry Simpson   -
+#	  Jeffry Simpson   -  1.0 
 #     David Perez     -
 #
 # Difficulties:
