@@ -65,7 +65,7 @@ public:
    Set <T> & operator = (const Set<T> &rhs) throw (const char *);
    Set <T> operator || (const Set <T> &rhs) const throw (const char *);
    Set <T> operator && (const Set <T> &rhs) const throw (const char *);
-  // Set <T> operator - (const Set <T> &rhs) const throw (const char *);
+   Set <T> operator - (const Set <T> &rhs) const throw (const char *);
    
    
    
@@ -227,33 +227,30 @@ Set <T> :: Set(int capacity) throw (const char *)
 template <class T>
 void Set <T> :: insert(const T & t) throw (const char *)
 {
+   int i=iNumItems;
+   SetIterator <T> it;
 
-   // NULL CHECK
+   // NULL CHeck and increase capcity
    if (data == NULL)
    {
       iCapacity = 2;
       data = new T[iCapacity];
    }
-   else if (find(t) > 0)  //check if item already exists in Set
+   
+   //check if item already exists in Set and return if it does
+   it = find(t);
+   if (*it == t)
       return;
    
-   
-  
-   //   1234
-   //   xxxx
-   
-   
    // Reallocate if full
-   if (size() == capacity())
-      resize(max);
-      
-      
-  //    12345678
-  //    xxxx
-
+//   if (size() == capacity())
+//      resize(iCapacity);
+   
+/*
       //Figure out where in the list it goes
-      for(int i=0; i < iNumItems; ++)
-         if(data[i] => t)
+      int it=0;
+      for(; it < iNumItems; it++)
+         if(data[it] >= t)
             break;
       
       
@@ -263,9 +260,9 @@ void Set <T> :: insert(const T & t) throw (const char *)
          
          //12345678
         // xx xxx
+        */
          
-         
-         data[it] = t;
+         data[i] = t;
          iNumItems++;
 }
 
@@ -277,13 +274,24 @@ void Set <T> :: insert(const T & t) throw (const char *)
 template <class T>
 SetIterator<T> Set<T>::find(const T & t)
 {
-   iBegin 0
-   iEnd numElements – 1
-   WHILE iBegin ≤ iEnd iMiddle (iBegin + iEnd) / 2 IF element = array[iMiddle]
-   RETURN iMiddle
-   IF element < array[iMiddle]
-   iEnd iMiddle – 1 ELSE
-   iBegin iMiddle + 1 RETURN numElements
+   int iBegin  = 0,
+      iMiddle,
+      iEnd    = iNumItems-1;
+   
+   while(iBegin <= iEnd)
+   {
+      iMiddle = (iBegin + iEnd) /2;
+      
+      if(t == data[iMiddle])
+         return data+iMiddle;
+      
+      if(t < data[iMiddle])
+         iEnd = iMiddle - 1;
+      else
+         iBegin = iMiddle+1;
+   }
+         
+   return end();
 }
 
 /************************************************
@@ -293,7 +301,7 @@ SetIterator<T> Set<T>::find(const T & t)
 template <class T>
 void Set <T>::erase(SetIterator <T> & it)
 {
-   if(it > iNumItems)
+/*   if(it > iNumItems)
       return;
    
    if(it == (iNumItems-1))
@@ -307,7 +315,7 @@ void Set <T>::erase(SetIterator <T> & it)
    
    iNumItems--;
    return;
-   
+   */
    
 }
 
@@ -410,6 +418,7 @@ Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
    
    
 }
+
 /************************************************
 * Set :: resize
 * Doubles the space of the 

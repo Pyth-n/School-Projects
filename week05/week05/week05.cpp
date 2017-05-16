@@ -41,6 +41,35 @@ void testDifference();
  ***********************************************************************/
 int main()
 {
+   Set <int> s1, s2;
+   Set <int> s3(15);
+  
+   s3.insert(2);
+   s3.insert(4);
+   s3.insert(8);
+   s3.insert(4);
+   s3.insert(2);
+   s3.insert(3);
+   s3.insert(4);
+   
+   
+   SetIterator<int> it;
+   
+   it = s3.begin(); // assign it to the start of the set
+   while (it != s3.end()) // while it hasn't reach the end
+   {
+      cout << *it << " "; // print the value of the element it points to
+      ++it; // and iterate to the next element
+   }
+   
+   cout << endl;
+}
+
+
+
+
+int main1()
+{
    // menu
    cout << "Select the test you want to run:\n";
    cout << "\t1. Just create and destroy a Set.\n";
