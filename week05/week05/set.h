@@ -410,10 +410,28 @@ Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
    
    
 }
-
+/************************************************
+* Set :: resize
+* Doubles the space of the 
+***********************************************/
+template <class T>
 void Set <T> :: resize(int & newValue) throw (const char *)
 {
+   assert(newValue > 0);
+   int oldSize = newValue;
 
+   // Double size
+   newValue *= 2;
+   T* newSet = new T[newValue];
+
+   // Copy previous contents
+   for (int i = 0; i < oldSize; i++)
+   {
+      newSet[i] = data[i];
+   }
+
+   delete [] data;
+   data = newSet;
 }
 
 
