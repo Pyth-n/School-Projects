@@ -56,20 +56,19 @@ public:
    SetIterator <T> begin() { return SetIterator<T>(data); }
    SetIterator <T> end() { return SetIterator<T>(data + iNumItems);}
    SetIterator <T> find(const T & t);
-
-   Set <T> sIntersection(Set <T> s);
-   Set <T> sDifference(Set <T> s);
    void insert(const T & t) throw (const char *);
    void erase(SetIterator <T> & it);
-   
-
+   void resize(int & newValue) throw (const char *);
    
    
    // Operator =
    Set <T> & operator = (const Set<T> &rhs) throw (const char *);
    Set <T> operator || (const Set <T> &rhs) const throw (const char *);
    Set <T> operator && (const Set <T> &rhs) const throw (const char *);
-   Set <T> operator - (const Set <T> &rhs) const throw (const char *);
+  // Set <T> operator - (const Set <T> &rhs) const throw (const char *);
+   
+   
+   
    //Operator []
    T& operator[] (int index) throw(const char *)
    {
@@ -228,12 +227,46 @@ Set <T> :: Set(int capacity) throw (const char *)
 template <class T>
 void Set <T> :: insert(const T & t) throw (const char *)
 {
-   // do we have space?
-   if (iCapacity == 0 || iCapacity == iNumItems)
-      throw "ERROR: Insufficient space";
+
+   // NULL CHECK
+   if (data == NULL)
+   {
+      iCapacity = 2;
+      data = new T[iCapacity];
+   }
+   else if (find(t) > 0)  //check if item already exists in Set
+      return;
    
-   // add an item to the end
-   data[iNumItems++] = t;
+   
+  
+   //   1234
+   //   xxxx
+   
+   
+   // Reallocate if full
+   if (size() == capacity())
+      resize(max);
+      
+      
+  //    12345678
+  //    xxxx
+
+      //Figure out where in the list it goes
+      for(int i=0; i < iNumItems; ++)
+         if(data[i] => t)
+            break;
+      
+      
+      for(int i = iNumItems+1; i > it; i--)
+         data[i+1] = data[i];
+         
+         
+         //12345678
+        // xx xxx
+         
+         
+         data[it] = t;
+         iNumItems++;
 }
 
 
@@ -244,7 +277,13 @@ void Set <T> :: insert(const T & t) throw (const char *)
 template <class T>
 SetIterator<T> Set<T>::find(const T & t)
 {
-   return nullptr;
+   iBegin 0
+   iEnd numElements – 1
+   WHILE iBegin ≤ iEnd iMiddle (iBegin + iEnd) / 2 IF element = array[iMiddle]
+   RETURN iMiddle
+   IF element < array[iMiddle]
+   iEnd iMiddle – 1 ELSE
+   iBegin iMiddle + 1 RETURN numElements
 }
 
 /************************************************
@@ -254,6 +293,21 @@ SetIterator<T> Set<T>::find(const T & t)
 template <class T>
 void Set <T>::erase(SetIterator <T> & it)
 {
+   if(it > iNumItems)
+      return;
+   
+   if(it == (iNumItems-1))
+   {
+      iNumItems--;
+      return;
+   }
+   
+   for(int i = it; i < iNumItems; i++)
+      data[i] = data[i+1];
+   
+   iNumItems--;
+   return;
+   
    
 }
 
@@ -313,7 +367,12 @@ throw (const char *)
 template <class T>
 Set <T> Set <T> :: operator || (const Set <T> & rhs) const throw (const char *)
 {
+   //create new set
+   //copy all of first into new assignment =
+   //for loop with set2
+      //insert
 
+   
    return rhs;
 }
 
@@ -325,6 +384,12 @@ Set <T> Set <T> :: operator || (const Set <T> & rhs) const throw (const char *)
 template <class T>
 Set <T> Set <T> :: operator && (const Set <T> & rhs) const throw (const char *)
 {
+   //create new set
+   //for loop with set 1
+      //get set1 items
+         //if set1 item = set2.find
+            //add to new set
+   
    
    return rhs;
 }
@@ -337,7 +402,18 @@ Set <T> Set <T> :: operator && (const Set <T> & rhs) const throw (const char *)
 template <class T>
 Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
 {
+   //create new set
+   //for loop with set 1
+   //get set1 items
+      //if set1 item != set2.find
+         //add set1 item to new set
    
+   
+}
+
+void Set <T> :: resize(int & newValue) throw (const char *)
+{
+
 }
 
 

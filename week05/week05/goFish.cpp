@@ -24,5 +24,22 @@ using namespace std;
  ***********************************************************************/
 void goFish()
 {
+   Set <Card> myHand;
+   
+   //Read from File(myHand, filelocaton)
+   
+   //For loop 5 rounds
+   {
+      //Get input
+      //use Set.Find()
+      //Increment counter if found
+      //Remove from set if found  Set.erase()
+   }
+   
+   //Print out counter of matches
+   //Print out remain items in Set
+   
    return ;
 }
+
+//Read from File()
