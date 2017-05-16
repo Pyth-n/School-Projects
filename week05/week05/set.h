@@ -53,13 +53,23 @@ public:
    void clear()            { iNumItems = 0;             }
    
    //Function definitions
-   void insert(const T & t) throw (const char *);
    SetIterator <T> begin() { return SetIterator<T>(data); }
    SetIterator <T> end() { return SetIterator<T>(data + iNumItems);}
+   SetIterator <T> find(const T & t);
+
+   Set <T> sIntersection(Set <T> s);
+   Set <T> sDifference(Set <T> s);
+   void insert(const T & t) throw (const char *);
+   void erase(SetIterator <T> & it);
+   
+
+   
    
    // Operator =
-   Set & operator = (const Set<T> &rhs) throw (const char *);
-   
+   Set <T> & operator = (const Set<T> &rhs) throw (const char *);
+   Set <T> operator || (const Set <T> &rhs) const throw (const char *);
+   Set <T> operator && (const Set <T> &rhs) const throw (const char *);
+   Set <T> operator - (const Set <T> &rhs) const throw (const char *);
    //Operator []
    T& operator[] (int index) throw(const char *)
    {
@@ -82,12 +92,10 @@ public:
 };
 
 
-
 /************************************************
  * Set ITERATOR
  * An iterator through Set
  ***********************************************/
-
 template <class T>
 class SetIterator
 {
@@ -211,6 +219,8 @@ Set <T> :: Set(int capacity) throw (const char *)
       }
 
 
+
+
 /***************************************************
  * Set :: INSERT
  * Insert an item on the end of the Set
@@ -224,6 +234,27 @@ void Set <T> :: insert(const T & t) throw (const char *)
    
    // add an item to the end
    data[iNumItems++] = t;
+}
+
+
+/************************************************
+ * Set :: FIND
+ * Find function for Set Template
+ ***********************************************/
+template <class T>
+SetIterator<T> Set<T>::find(const T & t)
+{
+   return nullptr;
+}
+
+/************************************************
+ * Set :: ERASE
+ * Erase function for Set Template
+ ***********************************************/
+template <class T>
+void Set <T>::erase(SetIterator <T> & it)
+{
+   
 }
 
 
@@ -274,6 +305,40 @@ throw (const char *)
 }
 
 
+
+/************************************************
+ * Set :: operartor ||
+ * Used for UNION of two sets
+ ***********************************************/
+template <class T>
+Set <T> Set <T> :: operator || (const Set <T> & rhs) const throw (const char *)
+{
+
+   return rhs;
+}
+
+
+/************************************************
+ * Set :: operator &&
+ * Used for Intersection of two sets
+ ***********************************************/
+template <class T>
+Set <T> Set <T> :: operator && (const Set <T> & rhs) const throw (const char *)
+{
+   
+   return rhs;
+}
+
+
+/************************************************
+ * Set :: operator -
+ * Used for difference of two sets
+ ***********************************************/
+template <class T>
+Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
+{
+   
+}
 
 
 #endif /* set_h */
