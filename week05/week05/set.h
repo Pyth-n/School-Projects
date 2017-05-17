@@ -246,7 +246,7 @@ void Set <T> :: insert(const T & t) throw (const char *)
    
    //check if item already exists in Set and return if it does
    it = find(t);
-   if (*it == t)
+   if (it != end())
       return;
    
    // Reallocate if full
@@ -328,6 +328,7 @@ void Set <T>::erase(SetIterator <T> & it)
 {
    int i;
    
+   
    i = findIndex(*it);     //Get Index value from Set
    if(i == -1)
       return;
@@ -338,7 +339,7 @@ void Set <T>::erase(SetIterator <T> & it)
       return;
    }
    
-   for(; i < iNumItems; i++)
+   for(; i < iNumItems-1; i++)
       data[i] = data[i+1];
    
    iNumItems--;
