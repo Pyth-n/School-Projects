@@ -56,6 +56,7 @@ public:
    SetIterator <T> begin() { return SetIterator<T>(data); }
    SetIterator <T> end() { return SetIterator<T>(data + iNumItems);}
    SetIterator <T> find(const T & t);
+   int findIndex(const T & t);
    void insert(const T & t) throw (const char *);
    void erase(SetIterator <T> & it);
    void resize(int & newValue) throw (const char *);
@@ -65,7 +66,7 @@ public:
    Set <T> & operator = (const Set<T> &rhs) throw (const char *);
    Set <T> operator || (const Set <T> &rhs) const throw (const char *);
    Set <T> operator && (const Set <T> &rhs) const throw (const char *);
-  // Set <T> operator - (const Set <T> &rhs) const throw (const char *);
+   Set <T> operator - (const Set <T> &rhs) const throw (const char *);
    
    
    
@@ -227,46 +228,48 @@ Set <T> :: Set(int capacity) throw (const char *)
 template <class T>
 void Set <T> :: insert(const T & t) throw (const char *)
 {
+   int i=0;
+   SetIterator <T> it;
 
-   // NULL CHECK
+   // NULL CHeck and increase capcity
    if (data == NULL)
    {
       iCapacity = 2;
       data = new T[iCapacity];
-   }
-   else if (find(t) > 0)  //check if item already exists in Set
+      
+      data[i] = t;
+      iNumItems++;
+      
       return;
+      
+   }
    
-   
-  
-   //   1234
-   //   xxxx
-   
+   //check if item already exists in Set and return if it does
+   it = find(t);
+   if (*it == t)
+      return;
    
    // Reallocate if full
    if (size() == capacity())
-      resize(max);
-      
-      
-  //    12345678
-  //    xxxx
+      resize(iCapacity);
+   
 
-      //Figure out where in the list it goes
-      for(int i=0; i < iNumItems; ++)
-         if(data[i] => t)
-            break;
-      
-      
-      for(int i = iNumItems+1; i > it; i--)
-         data[i+1] = data[i];
+   //Figure out where in the list it goes
+   for(i=0; i < iNumItems; i++)
+      if(data[i] > t)
+         break;            //Break when we get to items bigger
+
+   
+   //Move everything to the right one above the Insert point
+   for(int j= iNumItems; j > i; j--)
+      data[j] = data[j-1];
          
-         
-         //12345678
-        // xx xxx
-         
-         
-         data[it] = t;
-         iNumItems++;
+   
+   //Add new item
+   data[i] = t;
+   iNumItems++;
+   
+   return;
 }
 
 
@@ -277,13 +280,43 @@ void Set <T> :: insert(const T & t) throw (const char *)
 template <class T>
 SetIterator<T> Set<T>::find(const T & t)
 {
-   iBegin 0
-   iEnd numElements – 1
-   WHILE iBegin ≤ iEnd iMiddle (iBegin + iEnd) / 2 IF element = array[iMiddle]
-   RETURN iMiddle
-   IF element < array[iMiddle]
-   iEnd iMiddle – 1 ELSE
-   iBegin iMiddle + 1 RETURN numElements
+   int i = findIndex(t);
+   
+   if (i >= 0)
+      
+      return SetIterator <T> (data + i);
+   
+   else
+      
+      return end();
+   
+}
+
+/************************************************
+ * Set :: FindIndex
+ * Find function for Set Template
+ ***********************************************/
+template <class T>
+int Set<T>::findIndex(const T & t)
+{
+   int iBegin  = 0,
+       iMiddle,
+       iEnd    = iNumItems-1;
+   
+   while(iBegin <= iEnd)
+   {
+      iMiddle = (iBegin + iEnd) /2;
+      
+      if(t == data[iMiddle])
+         return iMiddle;
+      
+      if(t < data[iMiddle])
+         iEnd = iMiddle - 1;
+      else
+         iBegin = iMiddle+1;
+   }
+   
+   return -1;
 }
 
 /************************************************
@@ -293,22 +326,25 @@ SetIterator<T> Set<T>::find(const T & t)
 template <class T>
 void Set <T>::erase(SetIterator <T> & it)
 {
-   if(it > iNumItems)
+   int i;
+   
+   i = findIndex(*it);     //Get Index value from Set
+   if(i == -1)
       return;
    
-   if(it == (iNumItems-1))
+   if(i == (iNumItems-1))
    {
       iNumItems--;
       return;
    }
    
-   for(int i = it; i < iNumItems; i++)
+   for(; i < iNumItems; i++)
       data[i] = data[i+1];
    
    iNumItems--;
    return;
    
-   
+
 }
 
 
@@ -410,25 +446,27 @@ Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
    
    
 }
+
 /************************************************
 * Set :: resize
 * Doubles the space of the 
 ***********************************************/
+
 template <class T>
 void Set <T> :: resize(int & newValue) throw (const char *)
 {
    assert(newValue > 0);
    int oldSize = newValue;
-
+   
    // Double size
    newValue *= 2;
    T* newSet = new T[newValue];
-
+   
    // Copy previous contents
    for (int i = 0; i < oldSize; i++)
    {
       newSet[i] = data[i];
-   }
+   } 
 
    delete [] data;
    data = newSet;
