@@ -25,19 +25,51 @@ using namespace std;
 void goFish()
 {
    Set <Card> myHand;
+   Card card;
+   int matches = 0,
+       rounds = 5;
+   SetIterator<Card> ct;
+   
    
    //Read from File(myHand, filelocaton)
+   myHand.insert("Shark");
+   myHand.insert("Cod");
+   myHand.insert("AngleFish");
+   myHand.insert("Crab");
+   myHand.insert("Dolphin");
+   myHand.insert("SeaHorse");
+
    
-   //For loop 5 rounds
+   cout << "We will play 5 rounds of Go Fish.  Guess the card in the hand\n";
+   
+   for(int i=1; i <= rounds; i++)
    {
-      //Get input
-      //use Set.Find()
-      //Increment counter if found
-      //Remove from set if found  Set.erase()
+      cout << "round " << i <<": ";
+      
+      cin  >> card;
+      
+      ct = myHand.find(card);
+      
+      if(ct != myHand.end())
+      {
+         cout << "You got a match!\n";
+         myHand.erase(ct);
+         matches++;
+      }
+      else
+      {
+         
+          cout << "\tGo Fish!\n";
+      }
+      
    }
+
    
-   //Print out counter of matches
-   //Print out remain items in Set
+   cout << "You have " << matches << " matches!\n";
+   cout << "The remaining cards: ";
+   for (SetIterator <Card> it = myHand.begin(); it != myHand.end(); it++)
+      cout << *it << ", ";
+
    
    return ;
 }
