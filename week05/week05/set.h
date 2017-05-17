@@ -66,7 +66,7 @@ public:
    Set <T> & operator = (const Set<T> &rhs) throw (const char *);
    Set <T> operator || (const Set <T> &rhs) const throw (const char *);
    Set <T> operator && (const Set <T> &rhs) const throw (const char *);
-   Set <T> operator - (const Set <T> &rhs) const throw (const char *);
+   //Set <T> operator - (const Set <T> &rhs) const throw (const char *);
    
    
    
@@ -349,7 +349,7 @@ void Set <T>::erase(SetIterator <T> & it)
 
 /*******************************************
  * Set :: Operator =
- 
+ *
  *******************************************/
 template <class T>
 Set<T> & Set <T> :: operator = (const Set <T> &rhs)
@@ -400,15 +400,33 @@ throw (const char *)
  * Used for UNION of two sets
  ***********************************************/
 template <class T>
-Set <T> Set <T> :: operator || (const Set <T> & rhs) const throw (const char *)
+Set <T> Set <T> :: operator || (const Set <T> &rhs) const throw (const char *)
 {
    //create new set
-   //copy all of first into new assignment =
-   //for loop with set2
-      //insert
-
+   Set <T> newSet;
+   int iSet1 = 0;
+   int iSet2 = 0;
    
-   return rhs;
+   // Loop and differintiate
+   while (iSet1 < iNumItems || iSet2 > rhs.iNumItems)
+   {
+      if (iSet1 == iNumItems)
+         newSet.insert(rhs.data[iSet2++]);
+      else if (iSet2 == rhs.iNumItems)
+         newSet.insert(rhs.data[iSet1++]);
+      else if (data[iSet1] == rhs.data[iSet2])
+      {
+         newSet.insert(data[iSet1]);
+         iSet1++;
+         iSet2++;
+      }
+      else if (data[iSet1] < rhs.data[iSet2])
+         newSet.insert(data[iSet1++]);
+      else
+         newSet.insert(rhs.data[iSet2++]);
+   }
+   
+   return newSet;
 }
 
 
@@ -417,23 +435,39 @@ Set <T> Set <T> :: operator || (const Set <T> & rhs) const throw (const char *)
  * Used for Intersection of two sets
  ***********************************************/
 template <class T>
-Set <T> Set <T> :: operator && (const Set <T> & rhs) const throw (const char *)
+Set <T> Set <T> :: operator && (const Set <T> &rhs) const throw (const char *)
 {
-   //create new set
-   //for loop with set 1
-      //get set1 items
-         //if set1 item = set2.find
-            //add to new set
+   Set <T> newSet;
    
+   int iSet1 = 0;
+   int iSet2 = 0;
+
+   while (iSet1 < iNumItems || iSet2 < rhs.iNumItems)
+   {
+      if (iSet1 == iNumItems)
+         return newSet;
+      else if (iSet2 == rhs.iNumItems)
+         return newSet;
+      else if (data[iSet1] == rhs.data[iSet2])
+      {
+         newSet.insert(data[iSet1]);
+         iSet1++;
+         iSet2++;
+      }
+      else if (data[iSet1] < data[iSet2])
+         iSet1++;
+      else
+         iSet2++;
+   }
    
-   return rhs;
+   return newSet;
 }
 
 
 /************************************************
  * Set :: operator -
  * Used for difference of two sets
- ***********************************************/
+ **********************************************
 template <class T>
 Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
 {
@@ -444,7 +478,7 @@ Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
          //add set1 item to new set
    
    
-}
+}*/
 
 /************************************************
 * Set :: resize
