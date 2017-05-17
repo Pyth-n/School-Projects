@@ -448,9 +448,10 @@ Set <T> Set <T> :: operator - (const Set <T> & rhs) const throw (const char *)
 }
 
 /************************************************
- * Set :: Resize
- * Used for memory allocation
- ***********************************************/
+* Set :: resize
+* Doubles the space of the 
+***********************************************/
+
 template <class T>
 void Set <T> :: resize(int & newValue) throw (const char *)
 {
@@ -465,8 +466,8 @@ void Set <T> :: resize(int & newValue) throw (const char *)
    for (int i = 0; i < oldSize; i++)
    {
       newSet[i] = data[i];
-   }
-   
+   } 
+
    delete [] data;
    data = newSet;
 }
