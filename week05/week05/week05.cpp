@@ -42,18 +42,50 @@ void testDifference();
 int main()
 {
    Set <int> s1, s2;
-   Set <int> s3(15);
+   Set <string> s3;
+   int i =20;
   
-   s3.insert(2);
-   s3.insert(4);
-   s3.insert(8);
-   s3.insert(4);
-   s3.insert(2);
-   s3.insert(3);
-   s3.insert(4);
+   s2.insert(2);
+   s2.insert(4);
+   s2.insert(8);
+   s2.insert(4);
+   s2.insert(2);
+   s2.insert(3);
+   s2.insert(4);
+   s2.insert(5);
+   s2.insert(1);
+   s2.insert(20);
+   s2.insert(2);
    
+   SetIterator <int> itFind = s2.find(i);
+   s2.erase(itFind);
+
+   SetIterator<int> itInt;
    
-   SetIterator<int> it;
+   itInt = s2.begin(); // assign it to the start of the set
+   while (itInt != s2.end()) // while it hasn't reach the end
+   {
+      cout << *itInt << " "; // print the value of the element it points to
+      ++itInt; // and iterate to the next element
+   }
+   cout << endl;
+   
+   s3.insert("Beta");
+   s3.insert("Julia");
+   s3.insert("Alpha");
+   s3.insert("Best");
+   s3.insert("Man");
+   s3.insert("Alpha");
+   s3.insert("Sam");
+   s3.insert("Omega");
+   s3.insert("Beta");
+   
+   SetIterator <string> itFindStr = s3.find("Same");
+   s3.erase(itFindStr);
+
+   
+
+   SetIterator<string> it;
    
    it = s3.begin(); // assign it to the start of the set
    while (it != s3.end()) // while it hasn't reach the end
