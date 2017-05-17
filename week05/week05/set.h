@@ -240,13 +240,13 @@ void Set <T> :: insert(const T & t) throw (const char *)
       data[i] = t;
       iNumItems++;
       
-      return;
+      return;              //No need to go futher if we added the items here
       
    }
    
    //check if item already exists in Set and return if it does
    it = find(t);
-   if (it != end())
+   if (it != end())                 //means we found the item.
       return;
    
    // Reallocate if full
@@ -254,10 +254,10 @@ void Set <T> :: insert(const T & t) throw (const char *)
       resize(iCapacity);
    
 
-   //Figure out where in the list it goes
+   //Figure out where in the list the new items goes
    for(i=0; i < iNumItems; i++)
       if(data[i] > t)
-         break;            //Break when we get to items bigger
+         break;            //Break when we get to items greater than.
 
    
    //Move everything to the right one above the Insert point
@@ -280,21 +280,19 @@ void Set <T> :: insert(const T & t) throw (const char *)
 template <class T>
 SetIterator<T> Set<T>::find(const T & t)
 {
-   int i = findIndex(t);
+   int i = findIndex(t);                        //Get the index of the item
    
-   if (i >= 0)
-      
+   if (i >= 0)                                  //means we found it
       return SetIterator <T> (data + i);
    
-   else
-      
+   else                                         //means we didn't find it
       return end();
    
 }
 
 /************************************************
  * Set :: FindIndex
- * Find function for Set Template
+ * Find function for Set Template using sort algorithm
  ***********************************************/
 template <class T>
 int Set<T>::findIndex(const T & t)
@@ -316,7 +314,7 @@ int Set<T>::findIndex(const T & t)
          iBegin = iMiddle+1;
    }
    
-   return -1;
+   return -1;                          //Didn't find the item anywhere
 }
 
 /************************************************
@@ -329,17 +327,17 @@ void Set <T>::erase(SetIterator <T> & it)
    int i;
    
    
-   i = findIndex(*it);     //Get Index value from Set
-   if(i == -1)
+   i = findIndex(*it);              //Get Index value from Set
+   if(i == -1)                      //Didn't find it, so nothing to erase
       return;
    
-   if(i == (iNumItems-1))
+   if(i == (iNumItems-1))           //Last items, erase and return
    {
       iNumItems--;
       return;
    }
    
-   for(; i < iNumItems-1; i++)
+   for(; i < iNumItems-1; i++)      //Any other item, shift left to fill hole
       data[i] = data[i+1];
    
    iNumItems--;
