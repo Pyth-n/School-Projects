@@ -7,7 +7,7 @@
 # Summary:
 #     Implements a deque and is used to solve now serving problem
 # Time:
-#    Pair programming -  1.5
+#    Pair programming -  2.5
 #	  Jeffry Simpson   -  1.5
 #     David Perez     -
 #
