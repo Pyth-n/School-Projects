@@ -8,12 +8,14 @@
 #     Implements a deque and is used to solve now serving problem
 # Time:
 #    Pair programming -  2.5
-#	  Jeffry Simpson   -  1.5
+#	  Jeffry Simpson   -  3.5
 #     David Perez     -
 #
 # Difficulties:
 #    David  -
-#    Jeffry -
+#    Jeffry -   Getting the search to find the nearest object and
+#               working with Iterartors.  Also had to review file input
+#               code
 #
 ###############################################################
 
