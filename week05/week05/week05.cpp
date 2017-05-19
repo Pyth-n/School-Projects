@@ -1,14 +1,14 @@
 /***********************************************************************
- * Program:
- *    Week 05, Set
- *    Brother Helfrich, CS 235
- * Author:
- *    Br. Helfrich
- * Summary:
- *    This is a driver program to exercise the Set class.  When you
- *    submit your program, this should not be changed in any way.  That being
- *    said, you may need to modify this once or twice to get it to work.
- ************************************************************************/
+* Program:
+*    Week 05, Set
+*    Brother Helfrich, CS 235
+* Author:
+*    Br. Helfrich
+* Summary: 
+*    This is a driver program to exercise the Set class.  When you
+*    submit your program, this should not be changed in any way.  That being
+*    said, you may need to modify this once or twice to get it to work.
+************************************************************************/
 
 #include <iostream>       // for CIN and COUT
 #include <string>         // because testIterate() uses a Set of string
@@ -32,8 +32,8 @@ void testDifference();
 #define TEST2   // for testFill()
 #define TEST3   // for testFind()
 #define TEST4   // for testUnionItersection()
-//#define TEST5   // for testConstIterator()
-//#define TEST6   // for testDifference()
+#define TEST5   // for testConstIterator()
+#define TEST6   // for testDifference()
 
 /**********************************************************************
  * MAIN
@@ -50,7 +50,7 @@ int main()
    cout << "\t5. Extra credit: test the const iterator.\n";
    cout << "\t6. Extra credit: test the difference operator.\n";
    cout << "\ta. Go Fish!\n";
-   
+
    // select
    char choice;
    cout << "> ";
@@ -106,14 +106,14 @@ void testSimple()
       cout << "\tSize:     " << s1.size()                   << endl;
       cout << "\tCapacity: " << s1.capacity()               << endl;
       cout << "\tEmpty?    " << (s1.empty() ? "Yes" : "No") << endl;
-      
+
       // Test 1.b: double Set with non-default constructor
       cout << "Create a double Set using the non-default constructor\n";
       Set <double> s2(10 /*capacity*/);
       cout << "\tSize:     " << s2.size()                   << endl;
       cout << "\tCapacity: " << s2.capacity()               << endl;
       cout << "\tEmpty?    " << (s2.empty() ? "Yes" : "No") << endl;
-      
+
       // Test 1.c: copy the Set using the copy constructor
       {
          cout << "Create a double Set using the copy constructor\n";
@@ -122,7 +122,7 @@ void testSimple()
          cout << "\tCapacity: " << s3.capacity()               << endl;
          cout << "\tEmpty?    " << (s3.empty() ? "Yes" : "No") << endl;
       }
-      
+
       // Test 1.d: copy the Set using the assignment operator
       cout << "Copy a double Set using the assignment operator\n";
       Set <double> s4(2);
@@ -171,7 +171,7 @@ void testFill()
    {
       // create using the default constructor
       Set <int> s1;
-      
+
       // fill
       cout << "Enter numbers, type 0 when done\n";
       int number;
@@ -183,24 +183,24 @@ void testFill()
             s1.insert(number);
       }
       while (number);
-      
+
       // display how big it is
       cout << "\tSize:     " << s1.size()                   << endl;
       cout << "\tEmpty?    " << (s1.empty() ? "Yes" : "No") << endl;
       cout << "\tCapacity: " << s1.capacity()               << endl;
-      
+
       // mak a copy of it using the assignment operator and copy constructor
       Set <int> s2(2);
       s2 = s1;
       Set <int> s3(s1);
-      
+
       // destroy the old copy
       s1.clear();
-      
+
       // display the two copies
       cout << "\ts1 = " << s1 << endl;
       cout << "\ts2 = " << s2 << endl;
-      cout << "\ts3 = " << s3 << endl;
+      cout << "\ts3 = " << s3 << endl;      
    }
    catch (const char * sError)
    {
@@ -225,7 +225,7 @@ void testFind()
    {
       // create a list using the default constructor
       Set <string> s1;
-      
+
       // fill the Set with text
       cout << "Enter text, type \"quit\" when done\n";
       string text;
@@ -237,10 +237,10 @@ void testFind()
             s1.insert(text);
       }
       while (text != "quit");
-      
+
       // make a copy of the set using the copy constructor
       Set <string> s2(s1);
-      
+   
       // look for an item in the set
       cout << "Find items in the set and delete.\n";
       cout << "Enter words to search for, type \"quit\" when done\n";
@@ -262,11 +262,11 @@ void testFind()
          cin  >> text;
       }
       while (text != "quit");
-      
+
       // show the list again
       cout << "The remaining set after the items were removed\n";
       cout << "\t" << s1 << endl;
-      
+
       // show the list before the items were removed
       cout << "The items in the set before the items were removed\n";
       cout << "\t" << s2 << endl;
@@ -292,7 +292,7 @@ void testUnionIntersection()
    {
       cout.setf(ios::fixed | ios::showpoint);
       cout.precision(1);
-      
+
       // fill the first set with numbers
       Set <float> s1;
       cout << "First set: enter numbers, type 0.0 when done\n";
@@ -305,7 +305,7 @@ void testUnionIntersection()
             s1.insert(number);
       }
       while (number != 0.0);
-      
+
       // fill the second set with numbers
       Set <float> s2;
       cout << "Second set: enter numbers, type 0.0 when done\n";
@@ -317,7 +317,7 @@ void testUnionIntersection()
             s2.insert(number);
       }
       while (number != 0.0);
-      
+
       // compute the union and intersection
       Set <float> sIntersection(s1 && s2);
       Set <float> sUnion(s1 || s2);
@@ -331,7 +331,7 @@ void testUnionIntersection()
    catch (const char * sError)
    {
       cout << sError << endl;
-   }
+   }   
 #endif // TEST4
 }
 
@@ -350,7 +350,7 @@ void testConstIterator()
       s1.insert(4);
       s1.insert(6);
       s1.insert(8);
-      
+
       // display
       cout << "Display the contents using a const iterator\n";
       const Set <int> s2(s1);
@@ -382,7 +382,7 @@ void testDifference()
          cin >> letter;
          s1.insert(letter);
       }
-      
+
       // create a second set of 10 characters
       Set <char> s2;
       cout << "Please enter another 10 characters: ";
@@ -392,18 +392,17 @@ void testDifference()
          cin >> letter;
          s2.insert(letter);
       }
-      
+
       // s1 - s2 and s2 - s1
-      /*
-       Set <char> sDifference;
-       sDifference = s1 - s2;
-       cout << "\t" << s1 << " - " << s2 << " = " << sDifference << endl;
-       sDifference = s2 - s1;
-       cout << "\t" << s2 << " - " << s1 << " = " << sDifference << endl; //*/
+      Set <char> sDifference;
+      sDifference = s1 - s2;
+      cout << "\t" << s1 << " - " << s2 << " = " << sDifference << endl;
+      sDifference = s2 - s1;
+      cout << "\t" << s2 << " - " << s1 << " = " << sDifference << endl;
    }
    catch (const char * sError)
    {
       cout << sError << endl;
-   }
+   }   
 #endif // TEST6
 }

@@ -9,10 +9,11 @@
 # Time:
 #    Pair programming -  2.5
 #	  Jeffry Simpson   -  3.5
-#     David Perez     -
+#     David Perez     -  4.0
 #
 # Difficulties:
-#    David  -
+#    David  -   Finding a way to implement the difference operator by avoiding
+#               many loops. Also looking for a way to solve a bug with union
 #    Jeffry -   Getting the search to find the nearest object and
 #               working with Iterartors.  Also had to review file input
 #               code
@@ -40,3 +41,4 @@ goFish.o: set.h goFish.h goFish.cpp card.h
 
 card.o: card.h card.cpp
 	g++ -std=c++11 -c card.cpp 
+
