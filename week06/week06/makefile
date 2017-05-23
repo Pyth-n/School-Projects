@@ -1,11 +1,23 @@
 ###############################################################
 # Program:
 #     Week 06, NODE
-#     Brother XXXXX, CS235
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Jeffry Simpson, David Perez
+#
 # Summary:
-#     <put a description here>
+#     Implement a linked-list and use it to implement the Insertion Sort.
+#
+# Time:
+#    Pair programming -
+#	  Jeffry Simpson   -
+#     David Perez     -
+#
+# Difficulties:
+#    David  -
+#
+#    Jeffry -
+#
 ###############################################################
 
 ##############################################################
