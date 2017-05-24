@@ -30,7 +30,7 @@ public:
    Node <T> * pNext, * pPrev;
 
    // Constructors
-   Node() : data(NULL), pNext(NULL), pPrev(NULL) {}
+   Node() : data(), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
    friend ostream & operator << (std::ostream &out, Node <T> &rhs);
