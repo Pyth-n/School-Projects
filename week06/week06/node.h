@@ -40,7 +40,10 @@ public:
 template <class T>
 std::ostream & operator << (std::ostream &out, Node <T> &rhs)
 {
+   while p != NULL
+      out << p->data;
    
+   return out;
 }
 
 /***************************************************
@@ -52,8 +55,25 @@ std::ostream & operator << (std::ostream &out, Node <T> &rhs)
 template <class T>
 Node <T> * copy(const Node <T> * pSource) throw (const char *)
 {
-
-   return NULL;
+   // trivial case
+   if (NULL == pSource)
+      return NULL;
+   
+   try
+   {
+      // allocate a new head
+      Node <T> * pDestination = new Node <T> (pSource->data);
+      Node <T> * pCurrent = pDestination;
+      
+      // loop through the rest of the source linked list
+      while (pSource->pNext)
+      {
+         pSource = pSource->pNext;
+         pCurrent->pNext = new Node <T> (pSource->data);
+         pCurrent = pCurrent->pNext;
+      }
+      
+      return pDestination;
 }
 
 /***************************************************
@@ -68,6 +88,19 @@ template <class T>
 Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
 {
    
+   pNew NEW Node(e)
+   IF pCurrent ≠ NULL and after = false
+      pNew->pNext pCurrent
+      pNew->pPrev pCurrent->pPrev
+      pCurrent->pPrev pNew
+   IF pNew->pPrev
+      pNew->pPrev->pNext pNew
+   
+   IF pCurrent ≠ NULL and after = true
+   ... something similar...
+   
+   
+   RETURN pNew
 }
 
 
@@ -83,7 +116,12 @@ Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
 template <class T>
 Node <T> * find(Node <T> * pHead, const T & t)
 {
-   
+  
+   FOR p pHead ... p->next != NULL
+   IF p data = e
+      RETURN p
+  
+   RETURN NULL
 }
 
 /***************************************************
@@ -91,11 +129,11 @@ Node <T> * find(Node <T> * pHead, const T & t)
  *  Delete a single node from a linked list
  *
  **************************************************/
-template <class T>
-Node <T> * remove(const Node <T> * pRemove)
-{
+//template <class T>
+//Node <T> * remove(const Node <T> * pRemove)
+//{
    
-}
+//}
 
 /***************************************************
  * freeData()
@@ -106,12 +144,18 @@ Node <T> * remove(const Node <T> * pRemove)
 template <class T>
 void freeData(Node <T> * & pHead)
 {
-   //WHILE pHead ≠ NULL
+   
+   Node <T> * pNext;
+   for (Node <T> * p = pHead; p; p = pNext)
    {
+      
       //pDelete = pHead
       //pHead =  pHead->pNext
       //DELETE pDelete
+      
    }
+   pHead = NULL;
+   
    
 }
 

@@ -20,6 +20,28 @@
 template <class T>
 void sortInsertion(T array[], int num)
 {
+   //Node n, nHead;
+   
+  // for(i; i < num; i++)
+  // {
+      //if n = NULL
+         //insert(n, array[i]);
+         //nhead = n;
+      
+   //   while((n->data > array[i]) && (n->next != null))
+   //      n = n->next
+         
+  //    insert(n,item,false)
+  // }
+      
+ //  n = nhead;
+         
+ //  for(i; i < num; i++)
+ //  {
+ //      array[i] = n->data;
+ //      n = n->next;
+ //  }
+   
 }
 
 #endif // INSERTION_SORT_H
