@@ -9,6 +9,11 @@
 
 #ifndef node_h
 #define node_h
+#include <iostream>
+using namespace std;
+
+#include <cassert>
+
 
 
 /************************************************
@@ -28,7 +33,7 @@ public:
    Node() : data(NULL), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-   friend std::ostream & operator << (std::ostream &out, Node <T> &rhs);
+   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
    
 };
 
@@ -38,11 +43,14 @@ public:
  
  **************************************************/
 template <class T>
-std::ostream & operator << (std::ostream &out, Node <T> &rhs)
+ostream & operator << (std::ostream &out, Node <T> &rhs)
 {
-   while p != NULL
-      out << p->data;
-   
+   while (rhs)
+   {
+      out << rhs->data;
+      rhs = rhs->next;
+      
+   }
    return out;
 }
 
@@ -74,6 +82,12 @@ Node <T> * copy(const Node <T> * pSource) throw (const char *)
       }
       
       return pDestination;
+   }
+   catch (bad_alloc)
+   {
+        throw "ERROR: Can't allocate memory for a Node!";
+   }
+   
 }
 
 /***************************************************
@@ -88,7 +102,7 @@ template <class T>
 Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
 {
    
-   pNew NEW Node(e)
+/*   pNew NEW Node(e)
    IF pCurrent ≠ NULL and after = false
       pNew->pNext pCurrent
       pNew->pPrev pCurrent->pPrev
@@ -100,7 +114,7 @@ Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
    ... something similar...
    
    
-   RETURN pNew
+   RETURN pNew   */
 }
 
 
@@ -117,11 +131,13 @@ template <class T>
 Node <T> * find(Node <T> * pHead, const T & t)
 {
   
-   FOR p pHead ... p->next != NULL
+  /* FOR p pHead ... p->next != NULL
    IF p data = e
       RETURN p
-  
-   RETURN NULL
+
+      RETURN NULL
+   */
+
 }
 
 /***************************************************

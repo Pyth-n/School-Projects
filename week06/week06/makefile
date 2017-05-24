@@ -9,7 +9,7 @@
 #     Implement a linked-list and use it to implement the Insertion Sort.
 #
 # Time:
-#    Pair programming -
+#    Pair programming - 1 hr
 #	  Jeffry Simpson   - 1 hr
 #     David Perez     -
 #
