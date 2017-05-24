@@ -28,8 +28,7 @@ public:
    Node() : data(NULL), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-   Node <T> operator << (Node <T> &rhs);
-   
+   friend std::ostream & operator << (std::ostream &out, Node <T> &rhs);
    
 };
 
@@ -39,7 +38,7 @@ public:
  
  **************************************************/
 template <class T>
-Node <T> Node <T> :: operator << (Node <T> &rhs)
+std::ostream & operator << (std::ostream &out, Node <T> &rhs)
 {
    
 }
