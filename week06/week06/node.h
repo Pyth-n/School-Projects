@@ -20,7 +20,6 @@ using namespace std;
  * Node
  * Basic class for Linked List Node
  ***********************************************/
-
 template <class T>
 class Node
 {
@@ -99,25 +98,34 @@ Node <T> * copy(const Node <T> * pSource) throw (const char *)
  *  the newly created Node.
  **************************************************/
 template <class T>
-Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
+Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
+   Node<T>* pNew = new Node<T>(t);
+
+   // If it's empty
+   if (NULL == pNode)
+   {
+      pNode = pNew;
+      return pNew;
+   }
+
+   // Adds to back
+   if (NULL != pNode && !after)
+   {
+      pNew->pNext = pNode->pNext;
+      pNew->pPrev = pNode;
+      pNode->pNext = pNew;
+      return pNew;
+   }
    
-/*   pNew NEW Node(e)
-   IF pCurrent ≠ NULL and after = false
-      pNew->pNext pCurrent
-      pNew->pPrev pCurrent->pPrev
-      pCurrent->pPrev pNew
-   IF pNew->pPrev
-      pNew->pPrev->pNext pNew
-   
-   IF pCurrent ≠ NULL and after = true
-   ... something similar...
-   
-   
-   RETURN pNew   */
+   // Adds to head
+   if (NULL != pNode && after)
+   {
+      pNew->pNext = pNode;
+      pNode = pNew;
+      return pNode;
+   }
 }
-
-
 
 /***************************************************
  * find()
@@ -126,53 +134,45 @@ Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
  *  value to be found. The return value is a pointer to the found node if one 
  *  exists.
  **************************************************/
-
 template <class T>
 Node <T> * find(Node <T> * pHead, const T & t)
 {
-  
-  /* FOR p pHead ... p->next != NULL
-   IF p data = e
-      RETURN p
+   for (Node<T> *p = pHead; p; p = p->pNext)
+   {
+      if (p->data == t)
+      {
+         cout << "FOUND\n";
+         return p;
+      }
+   }
 
-      RETURN NULL
-   */
-
+   return NULL;
 }
-
-/***************************************************
- * Remove()
- *  Delete a single node from a linked list
- *
- **************************************************/
-//template <class T>
-//Node <T> * remove(const Node <T> * pRemove)
-//{
-   
-//}
 
 /***************************************************
  * freeData()
  * Release all the memory contained in a given linked-list. 
  * The one parameter is a pointer to the head of the list.
-
  **************************************************/
 template <class T>
 void freeData(Node <T> * & pHead)
 {
-   
-   Node <T> * pNext;
-   for (Node <T> * p = pHead; p; p = pNext)
+   while (pHead != NULL)
    {
-      
-      //pDelete = pHead
-      //pHead =  pHead->pNext
-      //DELETE pDelete
-      
+      Node <T> *pDelete = pHead;
+      pHead = pHead->pNext;
+      delete pDelete;
    }
-   pHead = NULL;
-   
-   
 }
 
+/***************************************************
+* Remove()
+*  Delete a single node from a linked list
+*
+**************************************************/
+//template <class T>
+//Node <T> * remove(const Node <T> * pRemove)
+//{
+
+//}
 #endif /* node_h */
