@@ -102,13 +102,11 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
    Node<T>* pNew = new Node<T>(t);
 
-   
    // If it's empty
    if (NULL == pNode)
    {
       pNode = pNew;
       return pNew;
-
    }
    
    // Adds before
@@ -123,12 +121,18 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
    // Adds after
    if (NULL != pNode && after)
    {
-      
-      pNew->pNext = pNode->pNext;
-      pNew->pPrev = pNode;
-      pNode->pNext = pNew;
+      // Traverse until the end
+      for (Node<T> *p = pNode; p; p = p->pNext)
+      {
+         // If next doesn't exist, add new to that link
+         if (p->pNext == NULL)
+         {
+            p->pNext = pNew;
+            pNew->pPrev = p;
+            break;
+         }
+      }
       return pNew;
-
    }
 
    cout << "Never get here\n";
@@ -151,7 +155,6 @@ Node <T> * find(Node <T> * pHead, const T & t)
    {
       if (p->data == t)
       {
-         cout << "FOUND\n";
          return p;
       }
    }
