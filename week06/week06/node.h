@@ -41,7 +41,6 @@ public:
  * Display the contents of a given linked-list.
  
  **************************************************/
-//ostream & operator<< (std::ostream &out, Node <T> &rhs)
 template <class T>
 ostream & operator << (ostream & out, Node <T> * rhs)
 {
