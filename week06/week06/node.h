@@ -32,8 +32,6 @@ public:
    Node() : data(), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-   //friend ostream & operator << (std::ostream &out, Node <T> &rhs);
-   
 };
 
 /***************************************************
