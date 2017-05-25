@@ -32,7 +32,7 @@ public:
    Node() : data(), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
+//   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
    
 };
 
@@ -102,20 +102,21 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
    Node<T>* pNew = new Node<T>(t);
 
+   
    // If it's empty
    if (NULL == pNode)
    {
       pNode = pNew;
-      return pNew;
-   }
 
+   }
+   
    // Adds to back
    if (NULL != pNode && !after)
    {
       pNew->pNext = pNode->pNext;
       pNew->pPrev = pNode;
       pNode->pNext = pNew;
-      return pNew;
+ 
    }
    
    // Adds to head
@@ -125,7 +126,11 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
       pNode = pNew;
       return pNode;
    }
+
+   return pNew;
+
 }
+
 
 /***************************************************
  * find()
@@ -157,6 +162,7 @@ Node <T> * find(Node <T> * pHead, const T & t)
 template <class T>
 void freeData(Node <T> * & pHead)
 {
+
    while (pHead != NULL)
    {
       Node <T> *pDelete = pHead;

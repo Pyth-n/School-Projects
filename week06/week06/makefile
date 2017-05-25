@@ -10,7 +10,7 @@
 #
 # Time:
 #    Pair programming - 1 hr
-#	  Jeffry Simpson   - 1 hr
+#	  Jeffry Simpson   - 1.5 hr
 #     David Perez     -
 #
 # Difficulties:
@@ -33,4 +33,5 @@ a.out: node.h week06.o
 #      <anything else?>
 ##############################################################
 week06.o: node.h week06.cpp sortInsertion.h
-	g++ -c week06.cpp -g
+	g++ -std=c++11 -c week06.cpp -g
+
