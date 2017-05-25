@@ -32,7 +32,7 @@ public:
    Node() : data(), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-//   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
+   //friend ostream & operator << (std::ostream &out, Node <T> &rhs);
    
 };
 
@@ -41,14 +41,17 @@ public:
  * Display the contents of a given linked-list.
  
  **************************************************/
+//ostream & operator<< (std::ostream &out, Node <T> &rhs)
 template <class T>
-ostream & operator << (std::ostream &out, Node <T> &rhs)
+ostream & operator << (ostream & out, Node <T> * rhs)
 {
    while (rhs)
    {
       out << rhs->data;
-      rhs = rhs->next;
-      
+      if(rhs->pNext)
+         out << ", ";
+      rhs = rhs->pNext;
+
    }
    return out;
 }
@@ -107,6 +110,7 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
    if (NULL == pNode)
    {
       pNode = pNew;
+      return pNew;
 
    }
    
