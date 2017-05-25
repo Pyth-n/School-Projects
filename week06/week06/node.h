@@ -20,7 +20,6 @@ using namespace std;
  * Node
  * Basic class for Linked List Node
  ***********************************************/
-
 template <class T>
 class Node
 {
@@ -102,6 +101,7 @@ template <class T>
 Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
    Node<T>* pNew = new Node<T>(t);
+
    
    // If it's empty
    if (NULL == pNode)
@@ -139,54 +139,46 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
  *  value to be found. The return value is a pointer to the found node if one 
  *  exists.
  **************************************************/
-
 template <class T>
 Node <T> * find(Node <T> * pHead, const T & t)
 {
-  
-  /* FOR p pHead ... p->next != NULL
-   IF p data = e
-      RETURN p
+   for (Node<T> *p = pHead; p; p = p->pNext)
+   {
+      if (p->data == t)
+      {
+         cout << "FOUND\n";
+         return p;
+      }
+   }
 
-      RETURN NULL
-   */
-
+   return NULL;
 }
-
-/***************************************************
- * Remove()
- *  Delete a single node from a linked list
- *
- **************************************************/
-//template <class T>
-//Node <T> * remove(const Node <T> * pRemove)
-//{
-   
-//}
 
 /***************************************************
  * freeData()
  * Release all the memory contained in a given linked-list. 
  * The one parameter is a pointer to the head of the list.
-
  **************************************************/
 template <class T>
 void freeData(Node <T> * & pHead)
 {
-   
-   Node <T> * pNext;
-//   for (Node <T> * p = pHead; p; p = pNext)
-//
- //  {
-      
-      //pDelete = pHead
-      //pHead =  pHead->pNext
-      //DELETE pDelete
-      
-//   }
-   pHead = NULL;
-   
-   
+
+   while (pHead != NULL)
+   {
+      Node <T> *pDelete = pHead;
+      pHead = pHead->pNext;
+      delete pDelete;
+   }
 }
 
+/***************************************************
+* Remove()
+*  Delete a single node from a linked list
+*
+**************************************************/
+//template <class T>
+//Node <T> * remove(const Node <T> * pRemove)
+//{
+
+//}
 #endif /* node_h */
