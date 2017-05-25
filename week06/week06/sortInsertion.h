@@ -20,27 +20,33 @@
 template <class T>
 void sortInsertion(T array[], int num)
 {
-   //Node n, nHead;
+   Node <T> *nCurrent, *nHead;
    
-  // for(i; i < num; i++)
-  // {
-      //if n = NULL
-         //insert(n, array[i]);
-         //nhead = n;
-      
-   //   while((n->data > array[i]) && (n->next != null))
-   //      n = n->next
+  for(int i=0; i < num; i++)
+  {
+     if(nCurrent == NULL)
+     {
+         insert(array[i], nCurrent);
+         nHead = nCurrent;
+     }
+     else
+     {
+        nCurrent = nHead;
+        while((array[i] > nCurrent->data) && (nCurrent->pNext != NULL))
+        {
+           nCurrent = nCurrent->pNext;
+        }
+        
+        insert(array[i],nCurrent,false);
+     }
+  }
+   nCurrent = nHead;
          
-  //    insert(n,item,false)
-  // }
-      
- //  n = nhead;
-         
- //  for(i; i < num; i++)
- //  {
- //      array[i] = n->data;
- //      n = n->next;
- //  }
+   for(int i=0; i < num; i++)
+   {
+       array[i] = nCurrent->data;
+       nCurrent = nCurrent->pNext;
+   }
    
 }
 

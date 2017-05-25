@@ -33,7 +33,7 @@ public:
    Node() : data(), pNext(NULL), pPrev(NULL) {}
    Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
    
-   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
+//   friend ostream & operator << (std::ostream &out, Node <T> &rhs);
    
 };
 
@@ -99,24 +99,37 @@ Node <T> * copy(const Node <T> * pSource) throw (const char *)
  *  the newly created Node.
  **************************************************/
 template <class T>
-Node <T> * insert(Node <T> * pNode, const T & t, bool after = false)
+Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
+   Node<T>* pNew = new Node<T>(t);
    
-/*   pNew NEW Node(e)
-   IF pCurrent ≠ NULL and after = false
-      pNew->pNext pCurrent
-      pNew->pPrev pCurrent->pPrev
-      pCurrent->pPrev pNew
-   IF pNew->pPrev
-      pNew->pPrev->pNext pNew
-   
-   IF pCurrent ≠ NULL and after = true
-   ... something similar...
-   
-   
-   RETURN pNew   */
-}
+   // If it's empty
+   if (NULL == pNode)
+   {
+      pNode = pNew;
 
+   }
+   
+   // Adds to back
+   if (NULL != pNode && !after)
+   {
+      pNew->pNext = pNode->pNext;
+      pNew->pPrev = pNode;
+      pNode->pNext = pNew;
+ 
+   }
+   
+   // Adds to head
+   if (NULL != pNode && after)
+   {
+      pNew->pNext = pNode;
+      pNode = pNew;
+      return pNode;
+   }
+
+   return pNew;
+
+}
 
 
 /***************************************************
@@ -162,14 +175,15 @@ void freeData(Node <T> * & pHead)
 {
    
    Node <T> * pNext;
-   for (Node <T> * p = pHead; p; p = pNext)
-   {
+//   for (Node <T> * p = pHead; p; p = pNext)
+//
+ //  {
       
       //pDelete = pHead
       //pHead =  pHead->pNext
       //DELETE pDelete
       
-   }
+//   }
    pHead = NULL;
    
    
