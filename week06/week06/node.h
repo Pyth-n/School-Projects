@@ -151,7 +151,6 @@ Node <T> * find(Node <T> * pHead, const T & t)
    {
       if (p->data == t)
       {
-         cout << "FOUND\n";
          return p;
       }
    }
