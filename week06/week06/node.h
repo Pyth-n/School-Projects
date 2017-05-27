@@ -111,29 +111,29 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
       
    }
    
-   
-   // Adds to head
-   if (NULL != pNode && after)
+   // Adds before
+   if (NULL != pNode && !after)
    {
       pNew->pNext = pNode;
       pNode = pNew;
       return pNode;
+      
    }
    
-   
-   // Adds to back
-   if (NULL != pNode && !after)
+   // Adds after
+   if (NULL != pNode && after)
    {
+      
       pNew->pNext = pNode->pNext;
+      pNew->pPrev = pNode;
       pNode->pNext = pNew;
       return pNew;
+      
    }
    
-
-
    cout << "Never get here\n";
    return NULL;
-
+   
 }
 
 
