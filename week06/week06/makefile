@@ -10,13 +10,14 @@
 #
 # Time:
 #    Pair programming - 1 hr
-#	  Jeffry Simpson   - 1.5 hr
+#	  Jeffry Simpson   - 4.5 hr
 #     David Perez     -
 #
 # Difficulties:
 #    David  -
 #
-#    Jeffry -
+#    Jeffry -  Trouble getting my head wrapped around Inserting in LinkedList
+#              Finally came to same solution Bro Jones posted on Discussion boards
 #
 ###############################################################
 

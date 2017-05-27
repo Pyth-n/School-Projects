@@ -1,4 +1,4 @@
-/***********************************************************************
+   /***********************************************************************
  * Header:
  *    set.h
  * Summary:
@@ -117,7 +117,7 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
       pNew->pNext = pNode;
       pNode = pNew;
       return pNode;
- 
+      
    }
    
    // Adds after
@@ -130,10 +130,10 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
       return pNew;
 
    }
-
+   
    cout << "Never get here\n";
    return NULL;
-
+   
 }
 
 
