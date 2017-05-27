@@ -1,4 +1,4 @@
-   /***********************************************************************
+/***********************************************************************
  * Header:
  *    set.h
  * Summary:
@@ -101,35 +101,35 @@ template <class T>
 Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
    Node<T>* pNew = new Node<T>(t);
-
+   
    
    // If it's empty
    if (NULL == pNode)
    {
       pNode = pNew;
       return pNew;
-
+      
    }
    
-   // Adds before
-   if (NULL != pNode && !after)
+   
+   // Adds to head
+   if (NULL != pNode && after)
    {
       pNew->pNext = pNode;
       pNode = pNew;
       return pNode;
-      
    }
    
-   // Adds after
-   if (NULL != pNode && after)
+   
+   // Adds to back
+   if (NULL != pNode && !after)
    {
-      
       pNew->pNext = pNode->pNext;
-      pNew->pPrev = pNode;
       pNode->pNext = pNew;
       return pNew;
-
    }
+   
+   
    
    cout << "Never get here\n";
    return NULL;
