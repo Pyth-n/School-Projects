@@ -101,14 +101,14 @@ template <class T>
 Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
 {
    Node<T>* pNew = new Node<T>(t);
-   
+
    
    // If it's empty
    if (NULL == pNode)
    {
       pNode = pNew;
       return pNew;
-      
+
    }
    
    // Adds before
@@ -128,7 +128,7 @@ Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
       pNew->pPrev = pNode;
       pNode->pNext = pNew;
       return pNew;
-      
+
    }
    
    cout << "Never get here\n";
