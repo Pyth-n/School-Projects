@@ -20,35 +20,108 @@
 template <class T>
 void sortInsertion(T array[], int num)
 {
-   Node <T> *nCurrent, *nHead;
+   // build the linked list
+   Node <T> * pHead = NULL;
+   for (int i = 0; i < num; i++)
+      insertSorted(array[i], pHead);
    
-  for(int i=0; i < num; i++)
-  {
-     if(nCurrent == NULL)
-     {
-         insert(array[i], nCurrent);
-         nHead = nCurrent;
-     }
-     else
-     {
-        nCurrent = nHead;
-        while((array[i] > nCurrent->data) && (nCurrent->pNext != NULL))
-        {
-           nCurrent = nCurrent->pNext;
-        }
-        
-        insert(array[i],nCurrent,false);
-     }
-  }
-   nCurrent = nHead;
-         
-   for(int i=0; i < num; i++)
+   // copy the data from the link list back to the array
+   Node <T> * p = pHead;
+   for (int i = 0; i < num; i++)
    {
-       array[i] = nCurrent->data;
-       nCurrent = nCurrent->pNext;
+
+      array[i] = p->data;
+      p = p->pNext;
+ 
    }
    
+   // do not forget to delete the data when finished
+   freeData(pHead);
 }
+
+/**********************************************
+ * INSERT SORTED
+ * Insert a new node the the value in "t" into a linked
+ * list denoted by pHead.  Place the new node in sorted order
+ *   INPUT   : the new value to be put into the linked list
+ *             a pointer to the head of the linked list
+ *   OUTPUT  : the newly created item
+ *   COST    : O(n)
+ **********************************************/
+template <class T>
+Node <T> * insertSorted(const T & t, Node <T> * & pHead) throw (const char *)
+{
+   try
+   {
+      // allocate a new node
+      Node <T> * pNew = new Node <T> (t);
+      
+      // find the location in the linked list immediately before
+      // the new node to be inserted
+      Node <T> * pFind = findSorted(pHead, t);
+      
+      // insert the new node to the head of the list
+      if (pFind == NULL)
+      {
+         pNew->pNext = pHead;
+         if(pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+         pHead = pNew;
+      }
+      // otherwise, insert the new node after the found one
+      else
+      {
+         pNew->pNext = pFind->pNext;
+         pNew->pPrev = pFind;
+         pFind->pNext = pNew;
+         if(pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+      }
+      
+   }
+   catch (...)
+   {
+      throw "ERROR: Unable to allocate a new Node";
+   }
+   
+   return NULL;
+}
+
+
+/**********************************************
+ * FindSorted
+ * Find a node in a list
+ *   INPUT   : the value to be found
+ *             a pointer to the head of the linked list
+ *   OUTPUT  : the found Node or NULL
+ **********************************************/
+template <class T>
+Node <T> * findSorted(Node <T> * pHead, const T & t)
+{
+
+   if(!pHead)                               //No items to find in list so return
+      return NULL;
+   
+   if(t < pHead->data)                     //new item is smallest in list so return
+      return NULL;
+   
+   Node<T> *p = pHead;
+   
+   while(t > p->data)
+   {
+      if(!p->pNext)                        //End of the list, so return last item
+         return p;
+      else
+         p = p->pNext;                    //Keep iterating to next item in list
+   }
+   
+
+   p = p->pPrev;                          //Go back to prev Node that was smaller
+   return p;
+
+   
+}
+
 
 #endif // INSERTION_SORT_H
 
