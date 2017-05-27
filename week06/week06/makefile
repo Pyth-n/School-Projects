@@ -11,10 +11,11 @@
 # Time:
 #    Pair programming - 1 hr
 #	  Jeffry Simpson   - 4.5 hr
-#     David Perez     -
+#     David Perez     - 3hr
 #
 # Difficulties:
-#    David  -
+#    David  -	The hard thing for me was the logic for the insert to link
+#				nodes correctly. 
 #
 #    Jeffry -  Trouble getting my head wrapped around Inserting in LinkedList
 #              Finally came to same solution Bro Jones posted on Discussion boards
