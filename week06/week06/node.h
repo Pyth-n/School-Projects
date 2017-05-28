@@ -77,9 +77,11 @@ Node <T> * copy(const Node <T> * pSource) throw (const char *)
       {
          pSource = pSource->pNext;
          pCurrent->pNext = new Node <T> (pSource->data);
+         pCurrent->pPrev = pSource->pPrev;
          pCurrent = pCurrent->pNext;
       }
       
+      pCurrent->pPrev = pSource->pPrev;
       return pDestination;
    }
    catch (bad_alloc)
@@ -98,35 +100,47 @@ Node <T> * copy(const Node <T> * pSource) throw (const char *)
  *  the newly created Node.
  **************************************************/
 template <class T>
-Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false)
+Node <T> * insert(const T & t, Node <T> * &pNode,  bool after = false) throw (const char *)
 {
-   Node<T>* pNew = new Node<T>(t);
    
-   
-   // If it's empty
-   if (NULL == pNode)
+   try
    {
-      pNode = pNew;
-      return pNew;
+      Node<T>* pNew = new Node<T>(t);
       
+      
+      // If it's empty
+      if (NULL == pNode)
+      {
+         pNode = pNew;
+         return pNew;
+         
+      }
+    
+      // Adds to head
+      if (NULL != pNode && after)
+      {
+         pNew->pNext = pNode;
+         if(pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+         pNode = pNew;
+         return pNode;
+      }
+      
+      
+      // Adds to back
+      if (NULL != pNode && !after)
+      {
+         pNew->pNext = pNode->pNext;
+         pNew->pPrev = pNode;
+         pNode->pNext = pNew;
+         if(pNew->pNext)
+            pNew->pNext->pPrev = pNew;
+         return pNew;
+      }
    }
-   
-   
-   // Adds to head
-   if (NULL != pNode && after)
+   catch (bad_alloc)
    {
-      pNew->pNext = pNode;
-      pNode = pNew;
-      return pNode;
-   }
-   
-   
-   // Adds to back
-   if (NULL != pNode && !after)
-   {
-      pNew->pNext = pNode->pNext;
-      pNode->pNext = pNew;
-      return pNew;
+      throw "ERROR: Can't allocate memory for a Node!";
    }
    
    

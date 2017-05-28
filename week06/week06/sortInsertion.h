@@ -105,19 +105,17 @@ Node <T> * findSorted(Node <T> * pHead, const T & t)
    if(t < pHead->data)                     //new item is smallest in list so return
       return NULL;
    
-   Node<T> *p = pHead;
-   
-   while(t > p->data)
+   while(t > pHead->data)
    {
-      if(!p->pNext)                        //End of the list, so return last item
-         return p;
+      if(!pHead->pNext)                        //End of the list, so return last item
+         return pHead;
       else
-         p = p->pNext;                    //Keep iterating to next item in list
+         pHead = pHead->pNext;                    //Keep iterating to next item in list
    }
    
 
-   p = p->pPrev;                          //Go back to prev Node that was smaller
-   return p;
+   pHead = pHead->pPrev;                          //Go back to prev Node that was smaller
+   return pHead;
 
    
 }
