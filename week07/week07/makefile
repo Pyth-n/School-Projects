@@ -9,8 +9,8 @@
 #    Create a class encapsulating the notion of a list.
 #
 # Time:
-#    Pair programming -
-#	  Jeffry Simpson   - 1.5 hour
+#    Pair programming - 1.5 hour
+#	  Jeffry Simpson   - 2.5 hour
 #     David Perez     -
 #
 # Difficulties:

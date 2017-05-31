@@ -50,7 +50,7 @@ public:
    //Constructors
    List(): pHead(NULL), pTail(NULL), numElements(0){}
    List(const T & t)            throw (const char *);
-   List(const List<T> * rhs)    throw (const char *);
+   List(List<T> & rhs)    throw (const char *);
    ~List();
    
    
@@ -59,7 +59,7 @@ public:
    int size()           { return numElements; }
    
    //Operator =
-   List <T> * operator = (const List <T> * rightHandSide) throw(const char *);
+   List <T> & operator = (List <T> & rightHandSide) throw(const char *);
    
    //Function definitions
    void clear();
@@ -100,31 +100,33 @@ List <T> ::List(const T & t) throw (const char *)
  * List :: Copy Constructor
  *******************************************/
 template <class T>
-List <T> ::List(const List<T> * pSource) throw (const char *)
+List <T> ::List(List<T> & pSource) throw (const char *)
 {
+   numElements= 0;
+   
    //Verify we got something to copy
-   if (NULL != pSource)
+   if (NULL != pSource.pHead)
    {
 
       try
       {
          // allocate a new head
-         pHead = new Node <T> (pSource->data);
+         pHead = new Node <T> (pSource.pHead->data);
          numElements++;
          Node <T> * pCurrent = pHead;
         
          
          // loop through the rest of the source linked list
-         while (pSource->pNext)
+         while (pSource.pHead->pNext)
          {
-            pSource = pSource->pNext;
-            pCurrent->pNext = new Node <T> (pSource->data);
-            pCurrent->pPrev = pSource->pPrev;
+            pSource.pHead = pSource.pHead->pNext;
+            pCurrent->pNext = new Node <T> (pSource.pHead->data);
+            pCurrent->pPrev = pSource.pHead->pPrev;
             pCurrent = pCurrent->pNext;
             numElements++;
          }
          
-         pCurrent->pPrev = pSource->pPrev;
+         pCurrent->pPrev = pSource.pHead->pPrev;
          pTail = pCurrent;
 
       }
@@ -140,28 +142,34 @@ List <T> ::List(const List<T> * pSource) throw (const char *)
  * List :: Operator =
  *******************************************/
 template <class T>
-List <T> * List <T>::operator=(const List <T> * pSource) throw(const char *)
+List <T> & List <T>::operator=(List <T> & pSource) throw(const char *)
 {
-   cout << "here";
+
    if (this != &pSource)                // check that not st = st
    {
       try
       {
          // allocate a new head
-         Node <T> * pDestination = new Node <T> (pSource->data);
+         Node <T> * pDestination = new Node <T> (pSource.pHead->data);
          Node <T> * pCurrent = pDestination;
          
+ 
+         
          // loop through the rest of the source linked list
-         while (pSource->pNext)
+         while (pSource.pHead->pNext)
          {
-            pSource = pSource->pNext;
-            pCurrent->pNext = new Node <T> (pSource->data);
-            pCurrent->pPrev = pSource->pPrev;
+            pSource.pHead = pSource.pHead->pNext;
+            pCurrent->pNext = new Node <T> (pSource.pHead->data);
+            pCurrent->pPrev = pSource.pHead->pPrev;
             pCurrent = pCurrent->pNext;
          }
          
-         pCurrent->pPrev = pSource->pPrev;
-         return pDestination;
+         pCurrent->pPrev = pSource.pHead->pPrev;
+         pTail = pCurrent;
+
+         pHead = pDestination;
+         
+
       }
       catch (bad_alloc)
       {
@@ -169,7 +177,7 @@ List <T> * List <T>::operator=(const List <T> * pSource) throw(const char *)
       }
       
    }
-   return this;
+   return *this;
 }
 
 
