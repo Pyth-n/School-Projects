@@ -10,26 +10,14 @@
 #ifndef list_h
 #define list_h
 #include <iostream>
+#include "../../week06/week06/node.h"
 using namespace std;
 
 #include <cassert>
 
-/************************************************
- * Node
- * Basic class Node
- ***********************************************/
+// Iterators prototypes
 template <class T>
-class Node
-{
-public:
-   // Member variables
-   T data;
-   Node <T> * pNext, * pPrev;
-   
-   // Constructors
-   Node() : data(), pNext(NULL), pPrev(NULL) {}
-   Node(const T & t) :data(t), pNext(NULL), pPrev(NULL) {}
-};
+class ListIterator;
 
 
 /************************************************
@@ -37,7 +25,7 @@ public:
  * Class for Linked List
  ***********************************************/
 template <class T>
-class List
+class List : public Node<T>
 {
 private:
 
@@ -301,7 +289,52 @@ void List <T> :: push_back(const T & t) throw (const char *)
 }
    
 
+/************************************************
+* ListIterator
+* Class iterator used for list
+***********************************************/
+template <class T>
+class ListIterator : public Node<T>
+{
+public:
+   // Constructors
+   ListIterator() : p(NULL) {}
+   ListIterator(Node<T>* p) : p(p) {}
 
+   // Operators
+   bool operator==(const ListIterator<T> &rhs) const {
+      return rhs.p == this->p;
+   }
+   bool operator!=(const ListIterator<T> &rhs) const {
+      return rhs.p != this->p;
+   }
+   ListIterator<T> & operator=(const ListIterator<T> &rhs) {
+      this->p = rhs.p;
+      return *this;
+   }
+   ListIterator<T> & operator++() {
+      this->p = this->p->pNext;
+      return *this;
+   }
+   ListIterator<T> & operator--() {
+      this->p = this->p->pPrev;
+      return *this;
+   }
+   T & operator*() {
+      if (NULL != this->p)
+         return this->p->data;
+      else
+         return NULL; // Doesn't exist
+   }
+private:
+   Node <T>* p;
+};
+
+/************************************************
+* ListIterator
+* Class iterator used for list
+***********************************************/
+template <class T>
 
 
 #endif /* list_h */
