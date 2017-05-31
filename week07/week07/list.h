@@ -89,7 +89,7 @@ List <T> ::List(const T & t) throw (const char *)
    }
    catch (bad_alloc)
    {
-      throw "ERROR: Can't allocate memory for a Node!";
+      throw "ERROR: unable to allocate a new node for a list";
    }
    
    
@@ -132,7 +132,7 @@ List <T> ::List(List<T> & pSource) throw (const char *)
       }
       catch (bad_alloc)
       {
-         throw "ERROR: Can't allocate memory for a Node!";
+         throw "ERROR: unable to allocate a new node for a list";
       }
    }
 
@@ -173,7 +173,7 @@ List <T> & List <T>::operator=(List <T> & pSource) throw(const char *)
       }
       catch (bad_alloc)
       {
-         throw "ERROR: Can't allocate memory for a Node!";
+         throw "ERROR: unable to allocate a new node for a list";
       }
       
    }
