@@ -10,7 +10,7 @@
 #ifndef list_h
 #define list_h
 #include <iostream>
-#include "../../week06/week06/node.h"
+#include "node.h"
 using namespace std;
 
 #include <cassert>
@@ -25,7 +25,7 @@ class ListIterator;
  * Class for Linked List
  ***********************************************/
 template <class T>
-class List : public Node<T>
+class List
 {
 private:
 
@@ -60,7 +60,13 @@ public:
    T   back()              const throw (const char *);
    T   front()             const throw (const char *);
    
-   
+   // Iterator operations
+   ListIterator<T> remove(ListIterator<T> &it) throw(const char *);
+   ListIterator<T> begin() { return ListIterator<T>(pHead); }
+   ListIterator<T> rbegin() { return ListIterator<T>(pTail); }
+   ListIterator<T> end() { return ListIterator<T>(NULL); }
+   ListIterator<T> rend() { return ListIterator<T>(NULL); }
+
 };
 
 
@@ -359,7 +365,7 @@ void List <T> :: pop_front()
 * Class iterator used for list
 ***********************************************/
 template <class T>
-class ListIterator : public Node<T>
+class ListIterator 
 {
 public:
    // Constructors
@@ -377,31 +383,82 @@ public:
       this->p = rhs.p;
       return *this;
    }
+
+   // Prefix operators
    ListIterator<T> & operator++() {
-      this->p = this->p->pNext;
+      p = p->pNext;
       return *this;
    }
    ListIterator<T> & operator--() {
-      this->p = this->p->pPrev;
+      p = p->pPrev;
       return *this;
    }
-   T & operator*() {
+
+   // Postfix operators
+   ListIterator<T> & operator++(int increment) {
+      ListIterator<T> before(*this);
+      p = p->pNext;
+      return before;
+   }
+   ListIterator<T> & operator--(int decrement) {
+      ListIterator<T> before(*this);
+      p = p->pPrev;
+      return before;
+   }
+
+   T & operator*() throw(const char *) {
       if (NULL != this->p)
          return this->p->data;
       else
-         return NULL; // Doesn't exist
+      {
+         throw "Iterator not dereferencable!";
+      }
    }
+   friend ListIterator<T> List<T>::remove(ListIterator<T> &it) throw(const char *);
 private:
    Node <T>* p;
 };
 
-<<<<<<< HEAD
-/************************************************
-* ListIterator
-* Class iterator used for list
-***********************************************/
-template <class T>
-=======
+template<class T>
+ListIterator<T> List<T>::remove(ListIterator<T>& it) throw(const char *)
+{
+   // Default it as NULL
+   ListIterator<T> itNext = end();
+
+   if (it == end())
+   {
+      throw "ERROR: unable to remove from an invalid location in a list";
+   }
+
+   // Make sure previous is not NULL
+   if (it.p->pPrev)
+   {
+      it.p->pPrev->pNext = it.p->pNext;
+   }
+   else
+   {
+      pHead = pHead->pNext;
+   }
+   // Make sure next is not NULL
+   if (it.p->pNext)
+   {
+      it.p->pNext->pPrev = it.p->pPrev;
+      itNext = it.p->pNext;
+   }
+   else
+   {
+      pTail = pTail->pPrev;
+   }
+
+   // Delete pointer, decrement size
+   delete it.p;
+   numElements--;
+
+   // Return next pointed node
+   return itNext;
+  
+}
+
 /*******************************************
  * List :: Pop_back
  *  Remove a node from the end of the list
@@ -422,7 +479,5 @@ void List <T> :: pop_back()
    
    
 }
->>>>>>> master
-
 
 #endif /* list_h */
