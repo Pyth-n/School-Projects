@@ -112,7 +112,7 @@ List <T> ::List(const List<T> & givenList) throw (const char *)
    //Verify we got something to copy
    if (NULL != givenList.pHead)
    {
-       clear();
+      // clear();
 
       try
       {

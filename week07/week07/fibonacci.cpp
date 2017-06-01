@@ -26,6 +26,17 @@ void fibonacci()
    cout << "How many Fibonacci numbers would you like to see? ";
    cin  >> number;
 
+   {
+      Fib first(610);
+      Fib second(987);
+      Fib next(0);
+      
+      next.add(first,second);
+      cout << next;
+      
+   }
+   
+   
    {   // your code to display the first <number> Fibonacci numbers
 
      Fib first(0);
@@ -57,11 +68,12 @@ void fibonacci()
 
    // your code to display the <number>th Fibonacci number
    {
+
       Fib first(0);
       Fib second(1);
       Fib next(2);
-    
-      
+  
+  
       for ( int c = 1 ; c < number+1 ; c++ )
       {
          if ( c <= 1 )
@@ -79,6 +91,7 @@ void fibonacci()
       
        cout << next;
 
+  
    }
 
 
@@ -149,14 +162,26 @@ Fib & Fib::operator + (const Fib & rhs)
  *    Add two link lists (simple)
  *******************************************/
 
-void Fib::add(const Fib & first, const Fib & second)
+void Fib::add(const Fib & f, const Fib & s)
 {
-   unsigned int temp=0;
+   unsigned int sum=0,carryover=0;
+   List <unsigned int> first(f.digits), second(s.digits);
    
-   temp = first.digits.back() + second.digits.back();
-   
-   this->digits.back() = temp;
-   
+   do
+   {
+      sum = first.back() + second.back();
+      
+      if(sum > 999)
+      {
+         carryover = sum * .001;  //get the carryover for next
+         sum = sum % 1000;
+      }
+         
+         
+      
+      this->digits.back() = sum;
+      
+   }while(!first.empty() && !second.empty());
 }
 
 
