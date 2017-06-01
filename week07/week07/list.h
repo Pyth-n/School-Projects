@@ -55,7 +55,7 @@ public:
    
    
    //inLine functions
-   bool empty()         { return (!pHead && !pTail && (numElements== 0));}
+   bool empty()         { return (numElements== 0);}
    int size()           { return numElements; }
    
    //Operator =
@@ -82,6 +82,9 @@ public:
 template <class T>
 List <T> ::List(const T & t) throw (const char *)
 {
+   
+   numElements= 0;
+   
    try
    {
       pHead = new Node<T>(t);
@@ -109,6 +112,7 @@ List <T> ::List(const List<T> & givenList) throw (const char *)
    //Verify we got something to copy
    if (NULL != givenList.pHead)
    {
+       clear();
 
       try
       {
@@ -146,7 +150,7 @@ List <T> ::List(const List<T> & givenList) throw (const char *)
  * List :: Operator =
  *******************************************/
 template <class T>
-List <T> & List <T>::operator=(const List <T> & givenList) throw(const char *)
+List <T> & List <T> :: operator = (const List <T> & givenList) throw(const char *)
 {
 
    if (this != &givenList)                // check that both lists are the same
@@ -158,6 +162,7 @@ List <T> & List <T>::operator=(const List <T> & givenList) throw(const char *)
          // allocate a new head
          Node <T> * pDestination = new Node <T> (pSource->data);
          Node <T> * pCurrent = pDestination;
+         numElements++;
          
  
          
@@ -168,6 +173,7 @@ List <T> & List <T>::operator=(const List <T> & givenList) throw(const char *)
             pCurrent->pNext = new Node <T> (pSource->data);
             pCurrent->pPrev = pSource->pPrev;
             pCurrent = pCurrent->pNext;
+            numElements++;
          }
          
          pCurrent->pPrev = pSource->pPrev;
@@ -237,6 +243,8 @@ T   List <T> :: back() const throw (const char *)
 {
    if(NULL != pTail)
       return pTail->data;
+
+   throw "ERROR: Empty List";
    
 }
 
@@ -248,6 +256,8 @@ T   List <T> :: front() const throw (const char *)
 {
    if(NULL != pHead)
       return pHead->data;
+   
+   throw "ERROR: Empty List";
    
 }
 
@@ -354,16 +364,19 @@ void List <T> :: push_front(const T & t) throw (const char *)
 template <class T>
 void List <T> :: pop_front()
 {
-   Node <T> * pDelete = pHead;
+   if(pHead)
+   {
    
-   pHead = pHead->pNext;
-   pHead->pPrev = NULL;
-   pHead->pNext->pPrev = pHead;
+      Node <T> * pDelete = pHead;
+      
+      pHead = pHead->pNext;
+      if(pHead && pHead->pNext)
+         pHead->pNext->pPrev = pHead;
+      
+      delete pDelete;
+      numElements--;
    
-   delete pDelete;
-   numElements--;
-   
-   
+   }
 }
 
 
@@ -375,15 +388,18 @@ template <class T>
 void List <T> :: pop_back()
 {
    
-   
-   Node <T> * pDelete = pTail;
-   
-   pTail = pTail->pPrev;
-   pTail->pNext = NULL;
-   pTail->pPrev->pNext = pTail;
-   
-   delete pDelete;
-   numElements--;
+   if(pTail)
+   {
+      
+      Node <T> * pDelete = pTail;
+      
+      pTail = pTail->pPrev;
+      if(pTail && pTail->pNext)
+         pTail->pPrev->pNext = pTail;
+      
+      delete pDelete;
+      numElements--;
+   }
    
    
 }
