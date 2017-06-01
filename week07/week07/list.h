@@ -38,7 +38,7 @@ public:
    //Constructors
    List(): pHead(NULL), pTail(NULL), numElements(0){}
    List(const T & t)            throw (const char *);
-   List(List<T> & rhs)    throw (const char *);
+   List(const List<T> & rhs)    throw (const char *);
    ~List();
    
    
@@ -47,10 +47,12 @@ public:
    int size()           { return numElements; }
    
    //Operator =
-   List <T> & operator = (List <T> & rightHandSide) throw(const char *);
+   List <T> & operator = (const List <T> & rightHandSide) throw(const char *);
    
    //Function definitions
    void clear();
+   void pop_back();
+   void pop_front();
    void push_back (const T & t)  throw (const char *);
    void push_front (const T & t) throw (const char *);
    T & back()                    throw (const char *);
@@ -77,7 +79,7 @@ List <T> ::List(const T & t) throw (const char *)
    }
    catch (bad_alloc)
    {
-      throw "ERROR: Can't allocate memory for a Node!";
+      throw "ERROR: unable to allocate a new node for a list";
    }
    
    
@@ -88,39 +90,41 @@ List <T> ::List(const T & t) throw (const char *)
  * List :: Copy Constructor
  *******************************************/
 template <class T>
-List <T> ::List(List<T> & pSource) throw (const char *)
+List <T> ::List(const List<T> & givenList) throw (const char *)
 {
    numElements= 0;
    
    //Verify we got something to copy
-   if (NULL != pSource.pHead)
+   if (NULL != givenList.pHead)
    {
 
       try
       {
          // allocate a new head
-         pHead = new Node <T> (pSource.pHead->data);
+         pHead = new Node <T> (givenList.pHead->data);
          numElements++;
+         
          Node <T> * pCurrent = pHead;
+         Node <T> * pSource = givenList.pHead;     //create a Node to traverse list
         
          
          // loop through the rest of the source linked list
-         while (pSource.pHead->pNext)
+         while (pSource->pNext)
          {
-            pSource.pHead = pSource.pHead->pNext;
-            pCurrent->pNext = new Node <T> (pSource.pHead->data);
-            pCurrent->pPrev = pSource.pHead->pPrev;
+            pSource = pSource->pNext;
+            pCurrent->pNext = new Node <T> (pSource->data);
+            pCurrent->pPrev = pSource->pPrev;
             pCurrent = pCurrent->pNext;
             numElements++;
          }
          
-         pCurrent->pPrev = pSource.pHead->pPrev;
+         pCurrent->pPrev = pSource->pPrev;
          pTail = pCurrent;
 
       }
       catch (bad_alloc)
       {
-         throw "ERROR: Can't allocate memory for a Node!";
+         throw "ERROR: unable to allocate a new node for a list";
       }
    }
 
@@ -130,29 +134,31 @@ List <T> ::List(List<T> & pSource) throw (const char *)
  * List :: Operator =
  *******************************************/
 template <class T>
-List <T> & List <T>::operator=(List <T> & pSource) throw(const char *)
+List <T> & List <T>::operator=(const List <T> & givenList) throw(const char *)
 {
 
-   if (this != &pSource)                // check that not st = st
+   if (this != &givenList)                // check that both lists are the same
    {
       try
       {
+         Node <T> * pSource = givenList.pHead;        //Create a node to traverse list
+         
          // allocate a new head
-         Node <T> * pDestination = new Node <T> (pSource.pHead->data);
+         Node <T> * pDestination = new Node <T> (pSource->data);
          Node <T> * pCurrent = pDestination;
          
  
          
          // loop through the rest of the source linked list
-         while (pSource.pHead->pNext)
+         while (pSource->pNext)
          {
-            pSource.pHead = pSource.pHead->pNext;
-            pCurrent->pNext = new Node <T> (pSource.pHead->data);
-            pCurrent->pPrev = pSource.pHead->pPrev;
+            pSource = pSource->pNext;
+            pCurrent->pNext = new Node <T> (pSource->data);
+            pCurrent->pPrev = pSource->pPrev;
             pCurrent = pCurrent->pNext;
          }
          
-         pCurrent->pPrev = pSource.pHead->pPrev;
+         pCurrent->pPrev = pSource->pPrev;
          pTail = pCurrent;
 
          pHead = pDestination;
@@ -161,7 +167,7 @@ List <T> & List <T>::operator=(List <T> & pSource) throw(const char *)
       }
       catch (bad_alloc)
       {
-         throw "ERROR: Can't allocate memory for a Node!";
+         throw "ERROR: unable to allocate a new node for a list";
       }
       
    }
@@ -247,12 +253,15 @@ void List <T> ::clear()
       pHead = pHead->pNext;
       delete pDelete;
    }
+   
+   pTail = pHead;
+   numElements = 0;
 }
 
 
 /*******************************************
  * List :: Push_back
- *  Adds a member to the end of the list
+ *  Adds a Node to the end of the list
  *******************************************/
 template <class T>
 void List <T> :: push_back(const T & t) throw (const char *)
@@ -287,7 +296,63 @@ void List <T> :: push_back(const T & t) throw (const char *)
    
 
 }
+
+/*******************************************
+ * List :: Push_front
+ *  Adds a node to the front of the list
+ *******************************************/
+template <class T>
+void List <T> :: push_front(const T & t) throw (const char *)
+{
    
+   try
+   {
+      Node<T>* pNew = new Node<T>(t);
+      
+      
+      // If it's empty
+      if (NULL == pHead)
+      {
+         pHead = pNew;
+         pTail = pNew;
+         numElements++;
+         
+      }
+      else
+      {
+         pHead->pPrev = pNew;
+         pNew->pNext = pHead;
+         pHead = pNew;
+         numElements++;
+         
+      }
+   }
+   catch (bad_alloc)
+   {
+      throw "ERROR: Can't allocate memory for a Node!";
+   }
+   
+   
+}
+   
+/*******************************************
+ * List :: Pop_front
+ *  Remove a node from the front of the list
+ *******************************************/
+template <class T>
+void List <T> :: pop_front()
+{
+   Node <T> * pDelete = pHead;
+   
+   pHead = pHead->pNext;
+   pHead->pPrev = NULL;
+   pHead->pNext->pPrev = pHead;
+   
+   delete pDelete;
+   numElements--;
+   
+   
+}
 
 /************************************************
 * ListIterator
@@ -330,11 +395,34 @@ private:
    Node <T>* p;
 };
 
+<<<<<<< HEAD
 /************************************************
 * ListIterator
 * Class iterator used for list
 ***********************************************/
 template <class T>
+=======
+/*******************************************
+ * List :: Pop_back
+ *  Remove a node from the end of the list
+ *******************************************/
+template <class T>
+void List <T> :: pop_back()
+{
+   
+   
+   Node <T> * pDelete = pTail;
+   
+   pTail = pTail->pPrev;
+   pTail->pNext = NULL;
+   pTail->pPrev->pNext = pTail;
+   
+   delete pDelete;
+   numElements--;
+   
+   
+}
+>>>>>>> master
 
 
 #endif /* list_h */
