@@ -63,6 +63,8 @@ public:
    
    //Function definitions
    void clear();
+   void pop_back();
+   void pop_front();
    void push_back (const T & t)  throw (const char *);
    void push_front (const T & t) throw (const char *);
    T & back()                    throw (const char *);
@@ -271,7 +273,7 @@ void List <T> ::clear()
 
 /*******************************************
  * List :: Push_back
- *  Adds a member to the end of the list
+ *  Adds a Node to the end of the list
  *******************************************/
 template <class T>
 void List <T> :: push_back(const T & t) throw (const char *)
@@ -309,7 +311,7 @@ void List <T> :: push_back(const T & t) throw (const char *)
 
 /*******************************************
  * List :: Push_front
- *  Adds a member to the end of the list
+ *  Adds a node to the front of the list
  *******************************************/
 template <class T>
 void List <T> :: push_front(const T & t) throw (const char *)
@@ -345,8 +347,46 @@ void List <T> :: push_front(const T & t) throw (const char *)
    
 }
    
+/*******************************************
+ * List :: Pop_front
+ *  Remove a node from the front of the list
+ *******************************************/
+template <class T>
+void List <T> :: pop_front()
+{
+   Node <T> * pDelete = pHead;
+   
+   pHead = pHead->pNext;
+   pHead->pPrev = NULL;
+   pHead->pNext->pPrev = pHead;
+   
+   delete pDelete;
+   numElements--;
+   
+   
+}
 
 
+/*******************************************
+ * List :: Pop_back
+ *  Remove a node from the end of the list
+ *******************************************/
+template <class T>
+void List <T> :: pop_back()
+{
+   
+   
+   Node <T> * pDelete = pTail;
+   
+   pTail = pTail->pPrev;
+   pTail->pNext = NULL;
+   pTail->pPrev->pNext = pTail;
+   
+   delete pDelete;
+   numElements--;
+   
+   
+}
 
 
 #endif /* list_h */
