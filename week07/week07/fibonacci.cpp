@@ -26,15 +26,21 @@ void fibonacci()
    cout << "How many Fibonacci numbers would you like to see? ";
    cin  >> number;
 
-   {
+ /*  {
       Fib first(610);
       Fib second(987);
       Fib next(0);
       
-      next.add(first,second);
-      cout << next;
+      for ( int c = 1 ; c < 12 ; c++ )
+      {
+         next.add(first,second);
+         first = second;
+         second = next;
+         cout << next << endl;
+         
+      }
       
-   }
+   } */
    
    
    {   // your code to display the first <number> Fibonacci numbers
@@ -42,7 +48,7 @@ void fibonacci()
      Fib first(0);
      Fib second(1);
      Fib next(2);
-    
+      
 
       for ( int c = 1 ; c < number+1 ; c++ )
       {
@@ -50,12 +56,15 @@ void fibonacci()
             next = second;
          else
          {
+   //         if(c == number)
+    //           cout << "pause\n";
+            
             next.add(first,second);
             first = second;
             second = next;
          }
          
-         cout << next;
+         cout <<"\t"<< next << endl;
          
       }
       
@@ -89,12 +98,10 @@ void fibonacci()
          
       }
       
-       cout << next;
+       cout <<"\t"<< next << endl;
 
   
    }
-
-
 
 
 
@@ -166,23 +173,46 @@ void Fib::add(const Fib & f, const Fib & s)
 {
    unsigned int sum=0,carryover=0;
    List <unsigned int> first(f.digits), second(s.digits);
+   ListIterator <unsigned int> it1, it2, it3;
    
-   do
+   it1 = first.rbegin();
+   it2 = second.rbegin();
+   it3 = this->digits.rbegin();
+   
+   for (; it1 != first.rend(); it1--, it2--)
    {
-      sum = first.back() + second.back();
+      sum = *it1 + *it2 + carryover;
       
       if(sum > 999)
       {
-         carryover = sum * .001;  //get the carryover for next
+         carryover = (sum * .001);  //get the carryover for next
          sum = sum % 1000;
       }
-         
-         
+      else
+         carryover = 0;
       
-      this->digits.back() = sum;
+      *it3-- = sum;
       
-   }while(!first.empty() && !second.empty());
+   }
+   
+   if(it2 != second.rend())
+   {
+      sum = *it2 + carryover;
+      
+      *it3 = sum;
+      carryover = 0;
+      
+      
+   }
+   
+if(carryover > 0)
+      this->digits.push_front(carryover);
+
+
+   
 }
+
+
 
 
 /*******************************************
@@ -201,13 +231,29 @@ void Fib::clear()
 ostream & operator << (ostream & out, const Fib & fib)
 {
    Fib local(fib);
+   ListIterator<unsigned int> it;
    
-   while(!local.digits.empty())
+   for (it = local.digits.begin(); it != local.digits.end(); ++it)
    {
-   
-      out << "\t" << local.digits.front() << endl;
-      local.digits.pop_front();
+      
+      if(it != local.digits.begin())
+      {
+         if(*it < 99)
+            out << ",0" << *it;      //zero padding
+         else
+             out << "," << *it;
+      }
+      else
+         out << *it;
+      
    }
+   
+ /*while(!local.digits.empty())
+  {
+   
+     out << local.digits.front();
+     local.digits.pop_front();
+  }*/
    
    return out;
 }
@@ -215,34 +261,4 @@ ostream & operator << (ostream & out, const Fib & fib)
 
 
 
-/*  
- 
- list2nd.pop_front();
- list1st.push_back(5);
- list1st.push_back(6);
- 
- cout << list1.front() << endl;
- list1.front() = list1.front() + list1.back();
- cout << list1.front() << ", " << list1.back() << endl;
- list1.back() = list1.back() - list1.front();
- cout << list1.back() << endl;
- 
- 
- int first = 0, second = 1, next;
- 
- for ( int c = 1 ; c < number+1 ; c++ )
- {
-    if ( c <= 1 )
-      next = c;
-    else
-    {
-    next = first + second;
-    first = second;
-    second = next;
-    }
- 
- cout << next << endl;
- 
- }
- 
- display(list1);  */
+

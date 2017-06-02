@@ -150,46 +150,24 @@ List <T> ::List(const List<T> & givenList) throw (const char *)
 
 }
 
-/*******************************************
- * List :: Operator =
- *******************************************/
+/**********************************************
+ * LIST :: assignment operator
+ * Copy one list onto another
+ *********************************************/
 template <class T>
-List <T> & List <T> :: operator = (const List <T> & givenList) throw(const char *)
+List <T> & List <T> :: operator = (const List <T> & rhs) throw (const char *)
 {
+   // erase all the existing elements
+   clear();
+   
+   // now allocate the new nodes
+   for (Node <T> * p = rhs.pHead; p; p = p->pNext)
+      push_back(p->data); // this could throw
+      
+      // return the new buffer
+      return *this;
+} 
 
-   if (this != &givenList)                // check that both lists are the same
-   {
-      try
-      {
-         Node <T> * pSource = givenList.pHead;        //Create a node to traverse list
-
-         // allocate a new head
-         Node <T> * pDestination = new Node <T>(pSource->data);
-         Node <T> * pCurrent = pDestination;
-         numElements++;
-         
-         // loop through the rest of the source linked list
-         while (pSource->pNext)
-         {
-            pSource = pSource->pNext;
-            pCurrent->pNext = new Node <T>(pSource->data);
-            pCurrent->pPrev = pSource->pPrev;
-            pCurrent = pCurrent->pNext;
-            numElements++;
-         }
-
-         pCurrent->pPrev = pSource->pPrev;
-         pTail = pCurrent;
-
-         pHead = pDestination;
-      }
-      catch (bad_alloc)
-      {
-         throw "ERROR: unable to allocate a new node for a list";
-      }
-   }
-   return *this;
-}
 
 /*******************************************
  * List :: Destructor
@@ -374,8 +352,39 @@ void List <T> ::pop_front()
       
       delete pDelete;
       numElements--;
+      
+      if(!pHead)
+         pTail = pHead;
    
    }
+}
+
+
+/*******************************************
+ * List :: Pop_back
+ *  Remove a node from the end of the list
+ *******************************************/
+template <class T>
+void List <T> ::pop_back()
+{
+   
+   if(pTail)
+   {
+      
+      Node <T> * pDelete = pTail;
+      
+      pTail = pTail->pPrev;
+      if(pTail && pTail->pPrev)
+         pTail->pPrev->pNext = pTail;
+      
+      delete pDelete;
+      numElements--;
+      
+      if(!pTail)
+         pHead = pTail;
+   }
+   
+   
 }
 
 /************************************************
@@ -527,28 +536,5 @@ ListIterator<T> List<T>::remove(ListIterator<T>& it) throw(const char *)
    return itNext;
 }
 
-/*******************************************
- * List :: Pop_back
- *  Remove a node from the end of the list
- *******************************************/
-template <class T>
-void List <T> ::pop_back()
-{
-   
-   if(pTail)
-   {
-      
-      Node <T> * pDelete = pTail;
-      
-      pTail = pTail->pPrev;
-      if(pTail && pTail->pNext)
-         pTail->pPrev->pNext = pTail;
-      
-      delete pDelete;
-      numElements--;
-   }
-   
-
-}
 
 #endif /* list_h */
