@@ -449,6 +449,10 @@ private:
    Node <T>* p;
 };
 
+/************************************************
+* ListConstIterator
+* Class iterator used for list
+***********************************************/
 template <class T>
 class ListConstIterator
 {
@@ -504,12 +508,24 @@ public:
       return *this;
    }
    // Dereference operator
-   T operator * () const { return p->data; }
+   T operator * () const
+   {
+      if (NULL != this->p)
+         return this->p->data;
+      else
+      {
+         throw "Iterator not dereferencable!";
+      }
+   }
 
 private:
    Node<T>* p;
 };
 
+/************************************************
+* Insert
+* Inserts data into the iterator chosen
+***********************************************/
 template <class T>
 ListIterator<T> List<T>::insert(ListIterator<T> &it, const T &data) throw(const char *)
 {
@@ -564,6 +580,10 @@ ListIterator<T> List<T>::insert(ListIterator<T> &it, const T &data) throw(const 
    }
 }
 
+/************************************************
+* ListIterator
+* Class iterator used for list
+***********************************************/
 template<class T>
 ListIterator<T> List<T>::remove(ListIterator<T>& it) throw(const char *)
 {

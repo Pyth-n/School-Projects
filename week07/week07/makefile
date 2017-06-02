@@ -11,10 +11,12 @@
 # Time:
 #    Pair programming - 1.5 hour
 #	  Jeffry Simpson   - 9.5 hour
-#     David Perez     -
+#     David Perez     - 6
 #
 # Difficulties:
-#    David  -
+#    David  - Getting the iterator to work. Didn't know I needed a 
+#             friend to make it work. Also had some problems with the remove()
+#              in visual studio, though it worked in linux.
 #
 #    Jeffry - Figuring out how to get the fibonacci numbers to build
 #             in a linked list, and using the Lists inside another class
