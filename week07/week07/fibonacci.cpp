@@ -25,46 +25,26 @@ void fibonacci()
    int number;
    cout << "How many Fibonacci numbers would you like to see? ";
    cin  >> number;
-
- /*  {
-      Fib first(610);
-      Fib second(987);
-      Fib next(0);
-      
-      for ( int c = 1 ; c < 12 ; c++ )
-      {
-         next.add(first,second);
-         first = second;
-         second = next;
-         cout << next << endl;
-         
-      }
-      
-   } */
    
    
-   {   // your code to display the first <number> Fibonacci numbers
+   // your code to display the first <number> Fibonacci numbers
+   {
 
-     Fib first(0);
-     Fib second(1);
-     Fib next(2);
+     Fib first(0), second(1), next;       //Create 3 Fib objects
       
 
-      for ( int c = 1 ; c < number+1 ; c++ )
+      for (int c = 1; c < number+1 ; c++ )
       {
          if ( c <= 1 )
             next = second;
          else
          {
-   //         if(c == number)
-    //           cout << "pause\n";
-            
-            next.add(first,second);
-            first = second;
+            next.add(first,second);          //Add the two Fibonacci numbers
+            first = second;                  //increment up
             second = next;
          }
          
-         cout <<"\t"<< next << endl;
+         cout <<"\t"<< next << endl;         //Display output for each loop
          
       }
       
@@ -78,12 +58,10 @@ void fibonacci()
    // your code to display the <number>th Fibonacci number
    {
 
-      Fib first(0);
-      Fib second(1);
-      Fib next(2);
+     Fib first(0), second(1), next;       //Create 3 Fib objects
   
   
-      for ( int c = 1 ; c < number+1 ; c++ )
+      for (int c = 1; c < number+1 ; c++ )
       {
          if ( c <= 1 )
             next = second;
@@ -94,22 +72,17 @@ void fibonacci()
             second = next;
          }
          
-        
-         
       }
       
-       cout <<"\t"<< next << endl;
-
+      cout <<"\t"<< next << endl;        //display final number at the end.
   
    }
-
-
 
 }
 
 
 /*******************************************
- * Fib Non-Default Constructor
+ *    Fib Non-Default Constructor
  *
  *******************************************/
 Fib::Fib(const unsigned int & t)throw (const char *)
@@ -141,29 +114,6 @@ Fib & Fib::operator = (const Fib & rhs) throw(const char *)
    return *this;
 }
 
-
-
-/*******************************************
- * Fib :: += Operator
- *
- *******************************************/
-Fib & Fib::operator += (const Fib & rhs)
-{
-   cout << "nothing here";
-   
-   return *this;
-}
-
-/*******************************************
- * Fib :: + Operator
- *
- *******************************************/
-Fib & Fib::operator + (const Fib & rhs)
-{
-   
-   return *this;
-}
-
 /*******************************************
  * Fib :: Add
  *    Add two link lists (simple)
@@ -171,9 +121,9 @@ Fib & Fib::operator + (const Fib & rhs)
 
 void Fib::add(const Fib & f, const Fib & s)
 {
-   unsigned int sum=0,carryover=0;
-   List <unsigned int> first(f.digits), second(s.digits);
-   ListIterator <unsigned int> it1, it2, it3;
+   List <unsigned int> first(f.digits), second(s.digits);  //List to work with
+   ListIterator <unsigned int> it1, it2, it3;             //Iterators for the lists
+   unsigned int sum=0,carryover=0;                        //addition variables
    
    it1 = first.rbegin();
    it2 = second.rbegin();
@@ -181,51 +131,39 @@ void Fib::add(const Fib & f, const Fib & s)
    
    for (; it1 != first.rend(); it1--, it2--)
    {
-      sum = *it1 + *it2 + carryover;
+      sum = *it1 + *it2 + carryover;                  //add up the node + carryover
       
-      if(sum > 999)
+      if(sum > 999)                                   //see if we have carryover
       {
-         carryover = (sum * .001);  //get the carryover for next
-         sum = sum % 1000;
+         carryover = (sum * .001);                    //get the carryover for next Node
+         sum = sum % 1000;                            //remove carryover
       }
       else
-         carryover = 0;
+         carryover = 0;                               //reset
       
-      *it3-- = sum;
+      *it3-- = sum;                                   //assign value to this node
       
    }
    
-   if(it2 != second.rend())
+   
+   if(it2 != second.rend())                           //check if second # is one node bigger  (2nd will always be bigger first)
    {
-      sum = *it2 + carryover;
+      sum = *it2 + carryover;                         //if it is add the numbers
       
-      *it3 = sum;
-      carryover = 0;
-      
+      *it3 = sum;                                     //assign value to this node
+      carryover = 0;                                  //reset
       
    }
    
-if(carryover > 0)
-      this->digits.push_front(carryover);
-
+if(carryover > 0)                                     //means we have carryover we haven't assigned
+      this->digits.push_front(carryover);             //create a new node
 
    
 }
 
 
-
-
 /*******************************************
- * Fib :: Clear
- *    Clear the Fib lists
- *******************************************/
-void Fib::clear()
-{
-   this->digits.clear();
-}
-
-/*******************************************
- * Fib :: Friend streaming In function
+ * Friend streaming In function
  *
  *******************************************/
 ostream & operator << (ostream & out, const Fib & fib)
@@ -239,22 +177,15 @@ ostream & operator << (ostream & out, const Fib & fib)
       if(it != local.digits.begin())
       {
          if(*it < 99)
-            out << ",0" << *it;      //zero padding
+            out << ",0" << *it;        //zero padding and comma deliminator
          else
-             out << "," << *it;
+             out << "," << *it;        //common deliminator
       }
       else
          out << *it;
       
    }
-   
- /*while(!local.digits.empty())
-  {
-   
-     out << local.digits.front();
-     local.digits.pop_front();
-  }*/
-   
+
    return out;
 }
 

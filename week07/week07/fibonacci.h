@@ -34,11 +34,8 @@ public:
    
    //Operator =
    Fib & operator = (const Fib & rhs) throw(const char *);
-   Fib & operator += (const Fib & rhs);
-   Fib & operator + (const Fib & rhs);
    
    void add(const Fib & first, const Fib & second);
-   void clear();
    
    // insertion and extraction operators
    friend std::ostream & operator << (std::ostream & out, const Fib & fib);
