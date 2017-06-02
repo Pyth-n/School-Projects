@@ -17,7 +17,8 @@ using namespace std;
 // Iterators prototypes
 template <class T>
 class ListIterator;
-
+template <class T>
+class ListConstIterator;
 
 /************************************************
 * Node
@@ -398,6 +399,7 @@ public:
    // Constructors
    ListIterator() : p(NULL) {}
    ListIterator(Node<T>* p) : p(p) {}
+   ListIterator(const ListIterator<T>& rhs):p(rhs.p){}
 
    // Operators
    bool operator==(const ListIterator<T> &rhs) const {
@@ -422,12 +424,12 @@ public:
    }
 
    // Postfix operators
-   ListIterator<T> & operator++(int increment) {
+   ListIterator<T> & operator++(int postfix) {
       ListIterator<T> before(*this);
       p = p->pNext;
       return before;
    }
-   ListIterator<T> & operator--(int decrement) {
+   ListIterator<T> & operator--(int postfix) {
       ListIterator<T> before(*this);
       p = p->pPrev;
       return before;
@@ -448,6 +450,67 @@ private:
 };
 
 template <class T>
+class ListConstIterator
+{
+public:
+   // Constructors
+   ListConstIterator() : p(NULL) {}
+   ListConstIterator(const Node<T>* p): p(p) {}
+   ListConstIterator(const ListConstIterator<T>& rhs) : p(rhs.p) {}
+
+   // Operations
+   ListConstIterator <T> & operator = (const ListConstIterator <T> & rhs)
+   {
+      p = rhs.p;
+      return *this;
+   }
+   bool operator == (const ListConstIterator <T> & rhs) const
+   {
+      return rhs.p == this->p;
+   }
+   bool operator != (const ListConstIterator <T> & rhs) const
+   {
+      return rhs.p != this->p;
+   }
+   // postfix ++
+   ListConstIterator <T> operator ++ (int postfix)
+   {
+      ListConstIterator <T> old(*this);
+      assert(p);
+      p = p->pNext;
+      return old;
+   }
+   // prefix ++
+   ListConstIterator <T> & operator ++ ()
+   {
+      assert(p);
+      p = p->pNext;
+      return *this;
+   }
+
+   // postfix --
+   ListConstIterator <T> operator -- (int postfix)
+   {
+      ListConstIterator <T> old(*this);
+      assert(p);
+      p = p->pPrev;
+      return old;
+   }
+   // prefix --
+   ListConstIterator <T> & operator -- ()
+   {
+      assert(p);
+      p = p->pPrev;
+      return *this;
+   }
+   // Dereference operator
+   T operator * () const { return p->data; }
+
+private:
+   Node<T>* p;
+};
+
+template <class T>
 ListIterator<T> List<T>::insert(ListIterator<T> &it, const T &data) throw(const char *)
 {
    // If list is empty
@@ -458,42 +521,47 @@ ListIterator<T> List<T>::insert(ListIterator<T> &it, const T &data) throw(const 
       // Returns pHead (first element in list)
       return begin();
    }
+   try {
+      // Otherwise, let's put it in place
+      Node<T>* pNode = new Node<T>(data);
 
-   // Otherwise, let's put it in place
-   Node<T>* pNode = new Node<T>(data);
-
-   // If we're at the end of the list
-   if (it == end())
-   {
-      // Setup the tail
-      pTail->pNext = pNode;
-      pNode->pPrev = pTail;
-      pTail = pNode;
-      it = pNode;
-   }
-   else
-   {
-      // Setup new node's next and previous
-      pNode->pNext = it.p;
-      pNode->pPrev = it.p->pPrev;
-
-      // Check tail, assign
-      if (pNode->pNext)
-         pNode->pNext->pPrev = pNode;
-      else
+      // If we're at the end of the list
+      if (it == end())
+      {
+         // Setup the tail
+         pTail->pNext = pNode;
+         pNode->pPrev = pTail;
          pTail = pNode;
-
-      // Check head, assign
-      if (pNode->pPrev)
-         pNode->pPrev->pNext = pNode;
+         it = pNode;
+      }
       else
-         pHead = pNode;
+      {
+         // Setup new node's next and previous
+         pNode->pNext = it.p;
+         pNode->pPrev = it.p->pPrev;
 
-      it = pNode;
+         // Check tail, assign
+         if (pNode->pNext)
+            pNode->pNext->pPrev = pNode;
+         else
+            pTail = pNode;
+
+         // Check head, assign
+         if (pNode->pPrev)
+            pNode->pPrev->pNext = pNode;
+         else
+            pHead = pNode;
+
+         it = pNode;
+      }
+      numElements++;
+
+      return it;
    }
-   numElements++;
-
-   return it;
+   catch (bad_alloc)
+   {
+      throw "ERROR: unable to allocate a new node for a list";
+   }
 }
 
 template<class T>
