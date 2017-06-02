@@ -10,14 +10,15 @@
 #
 # Time:
 #    Pair programming - 1.5 hour
-#	  Jeffry Simpson   - 6.5 hour
+#	  Jeffry Simpson   - 9.5 hour
 #     David Perez     -
 #
 # Difficulties:
 #    David  -
 #
-#    Jeffry -
-#
+#    Jeffry - Figuring out how to get the fibonacci numbers to build
+#             in a linked list, and using the Lists inside another class
+#             for the Fibonacci tests.
 #
 ###############################################################
 
