@@ -21,62 +21,42 @@ using namespace std;
  ***********************************************/
 void fibonacci()
 {
-   // show the first serveral Fibonacci numbers
-   int number;
-   cout << "How many Fibonacci numbers would you like to see? ";
-   cin  >> number;
    
-   
-   // your code to display the first <number> Fibonacci numbers
+   int flag=0, number;        // Flag for do-while loop
+
+
+   do
    {
 
-     Fib first(0), second(1), next;       //Create 3 Fib objects
+      if(!flag)  //first time
+         cout << "How many Fibonacci numbers would you like to see? ";
+      else      //second time
+         cout << "Which Fibonacci number would you like to display? ";
+     
+      cin  >> number;
       
-
-      for (int c = 1; c < number+1 ; c++ )
       {
-         if ( c <= 1 )
-            next = second;
-         else
+
+        Fib first(0), second(1), temp;       //Create 3 Fib objects
+         
+
+         for (int c = 1; c < number+1 ; c++ )
          {
-            next.add(first,second);          //Add the two Fibonacci numbers
-            first = second;                  //increment up
-            second = next;
+            if(c > 1)
+            {
+               temp = second;             //Temp Holder
+               second += first;          //Add the two Fibonacci numbers
+               first = temp;             //increment up
+            }
+            if(!flag)
+               cout <<"\t"<< second << endl;         //Display output for each loop
+            
          }
-         
-         cout <<"\t"<< next << endl;         //Display output for each loop
-         
+         if(flag)
+            cout <<"\t"<< second << endl;         //Display output once at end of loop
       }
-      
-   }
-
-
-   // prompt for a single large Fibonacci
-   cout << "Which Fibonacci number would you like to display? ";
-   cin  >> number;
-
-   // your code to display the <number>th Fibonacci number
-   {
-
-     Fib first(0), second(1), next;       //Create 3 Fib objects
-  
-  
-      for (int c = 1; c < number+1 ; c++ )
-      {
-         if ( c <= 1 )
-            next = second;
-         else
-         {
-            next.add(first,second);
-            first = second;
-            second = next;
-         }
-         
-      }
-      
-      cout <<"\t"<< next << endl;        //display final number at the end.
-  
-   }
+   
+   }while(flag++ < 1);
 
 }
 
@@ -115,13 +95,12 @@ Fib & Fib::operator = (const Fib & rhs) throw(const char *)
 }
 
 /*******************************************
- * Fib :: Add
- *    Add two link lists (simple)
+ * Fib :: Add-onto Operator
+ *    Add two link lists together
  *******************************************/
-
-void Fib::add(const Fib & f, const Fib & s)
+Fib & Fib::operator += (const Fib & f) throw(const char *)
 {
-   List <unsigned int> first(f.digits), second(s.digits);  //List to work with
+   List <unsigned int> first(f.digits), second(this->digits);  //List to work with
    ListIterator <unsigned int> it1, it2, it3;             //Iterators for the lists
    unsigned int sum=0,carryover=0;                        //addition variables
    
@@ -155,12 +134,13 @@ void Fib::add(const Fib & f, const Fib & s)
       
    }
    
-if(carryover > 0)                                     //means we have carryover we haven't assigned
+   if(carryover > 0)                                     //means we have carryover we haven't assigned
       this->digits.push_front(carryover);             //create a new node
-
+   
+   return *this;
    
 }
-
+ 
 
 /*******************************************
  * Friend streaming In function

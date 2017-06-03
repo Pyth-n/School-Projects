@@ -13,6 +13,8 @@
 #	  Jeffry Simpson   - 9.5 hour
 #     David Perez     - 6
 #
+#     Extra Credit:  Implemented Const Iterators
+#
 # Difficulties:
 #    David  - Getting the iterator to work. Didn't know I needed a 
 #             friend to make it work. Also had some problems with the remove()

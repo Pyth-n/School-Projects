@@ -34,8 +34,7 @@ public:
    
    //Operator =
    Fib & operator = (const Fib & rhs) throw(const char *);
-   
-   void add(const Fib & first, const Fib & second);
+   Fib & operator += (const Fib & rhs) throw(const char *);
    
    // insertion and extraction operators
    friend std::ostream & operator << (std::ostream & out, const Fib & fib);
