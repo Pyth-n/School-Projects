@@ -11,6 +11,12 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
-void huffman();
+#include <iostream>    // for CIN and COUT
+#include <string>      // for STRING
+#include <cassert>     // for ASSERT
+
+using namespace std;
+
+void huffman(string fileName);
 
 #endif // HUFFMAN_h

@@ -8,13 +8,14 @@
  *    This program will implement the huffman() function
  ************************************************************************/
 
+
 #include "huffman.h"       // for HUFFMAN() prototype
 
 /*******************************************
  * HUFFMAN
  * Driver program to exercise the huffman generation code
  *******************************************/
-void huffman()
+void huffman(string fileName)
 {
    
    

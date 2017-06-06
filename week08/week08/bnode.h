@@ -14,6 +14,7 @@ using namespace std;
 
 #include <cassert>
 
+
 /************************************************
  * Node
  * Basic class Node
@@ -27,10 +28,12 @@ public:
    BinaryNode <T> * pLeft, *pRight, *pParent;
    
    
-   BinaryNode();
-   BinaryNode(const T & t);
+   BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+   BinaryNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
    
-   int size(){return(sizeBtree(this));}
+   friend int sizeBtree(BinaryNode <T> * pAdd);
+   
+   int size();
    void addLeft (BinaryNode <T> * pAdd);
    void addRight(BinaryNode <T> * pAdd);
    void addLeft (const T & t) throw (const char *);
@@ -73,13 +76,13 @@ BinaryNode <T> * copyBTree(const BinaryNode <T> * pSrc) throw (const char *)
 
 
 template <class T>
-int sizeBTree(const BinaryNode <T> * node)
+int BinaryNode <T>::size()
 {
    
-   if(node == NULL)
+   if(NULL == this )
       return 0;
    else
-      return (sizeBTree(node->pLeft) + 1 + sizeBTree(node->pRight));
+      return (this->pLeft->size() + 1 + this->pRight->size());
 }
 
 template <class T>
@@ -94,5 +97,18 @@ void deleteBTree(BinaryNode <T> * & pNode)
    
 }
 
+
+
+
+
+/*
+ int sizeBTree(const BinaryNode <T> * node)
+ {
+ 
+ if(node == NULL)
+ return 0;
+ else
+ return (sizeBTree(node->pLeft) + 1 + sizeBTree(node->pRight));
+ }*/
 
 #endif /* bnode_h */

@@ -9,7 +9,7 @@
 #
 # Time:
 #    Pair programming - 1.5 hours
-#	  Jeffry Simpson    1 -  hours
+#	  Jeffry Simpson   - 1.5 hours
 #     David Perez     -  hours
 #
 # Difficulties:
@@ -23,8 +23,8 @@
 # The main rule
 ##############################################################
 a.out: week08.o huffman.o
-g++ -o a.out week08.o huffman.o -g
-tar -cf week08.tar *.h *.cpp makefile
+	g++ -o a.out week08.o huffman.o -g
+	tar -cf week08.tar *.h *.cpp makefile
 
 ##############################################################
 # The individual components
@@ -32,10 +32,10 @@ tar -cf week08.tar *.h *.cpp makefile
 #      huffman.o      : the logic for the huffman code program
 ##############################################################
 week08.o: bnode.h huffman.h week08.cpp
-g++ -std=c++11 -c week08.cpp -g
+	g++ -std=c++11 -c week08.cpp -g
 
 huffman.o: bnode.h huffman.h huffman.cpp
-g++ -std=c++11 -c huffman.cpp -g
+	g++ -std=c++11 -c huffman.cpp -g
 
 
 
