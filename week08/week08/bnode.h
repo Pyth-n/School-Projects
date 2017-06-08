@@ -48,7 +48,9 @@ ostream & operator << (ostream & out, BinaryNode<T> * pNode)
 {
    if (NULL != pNode)
    {
-      out << pNode->pLeft << " " << pNode->pRight;
+      cout << pNode->pLeft;
+      out << pNode->data << " ";
+      cout << pNode->pRight;
    }
    return out;
 }
