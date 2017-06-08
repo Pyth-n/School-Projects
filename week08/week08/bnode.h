@@ -24,7 +24,7 @@ class BinaryNode
 public:
    // Member variables
    T data;
-   BinaryNode <T> * pLeft, *pRight, *pParent;
+   BinaryNode <T> *pLeft, *pRight, *pParent;
    
    
    BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL) {}
@@ -35,10 +35,10 @@ public:
    
    int size();
    // Left data and nodes
-   void addLeft (const T t) throw (const char *);
+   void addLeft (const T & t) throw (const char *);
    void addLeft(BinaryNode<T> * left);
    // Add right data and nodes
-   void addRight(const T t) throw (const char *);
+   void addRight(const T & t) throw (const char *);
    void addRight(BinaryNode<T> * right);
 };
  
@@ -63,7 +63,7 @@ BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL),
 
 // Add data to node
 template <class T>
-void BinaryNode <T>::addLeft(const T t) throw (const char *)
+void BinaryNode <T>::addLeft(const T & t) throw (const char *)
 {
    if (!t)
       return;
@@ -77,11 +77,16 @@ template <class T>
 void BinaryNode<T>::addLeft(BinaryNode<T> * left)
 {
    pLeft = left;
+
+   // NULL check, set parents
+   if (NULL != left)
+      pLeft->pParent = this;
+   
 }
 
 // Add data to node
 template <class T>
-void BinaryNode<T>::addRight(const T t) throw(const char *)
+void BinaryNode<T>::addRight(const T & t) throw(const char *)
 {
    if (!t)
       return;
@@ -94,6 +99,10 @@ template <class T>
 void BinaryNode<T>::addRight(BinaryNode<T> * right)
 {
    pRight = right;
+
+   // NULL Check, set parents
+   if (NULL != right)
+      pRight->pParent = this;
 }
 
 template <class T>
