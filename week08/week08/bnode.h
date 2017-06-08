@@ -14,7 +14,6 @@ using namespace std;
 
 #include <cassert>
 
-
 /************************************************
  * Node
  * Basic class Node
@@ -25,34 +24,86 @@ class BinaryNode
 public:
    // Member variables
    T data;
-   BinaryNode <T> * pLeft, *pRight, *pParent;
+   BinaryNode <T> *pLeft, *pRight, *pParent;
    
    
    BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL) {}
-   BinaryNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+   BinaryNode(T t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+   BinaryNode(const BinaryNode<T> &rhs);
    
-   friend int sizeBtree(BinaryNode <T> * pAdd);
+   //friend int sizeBtree(BinaryNode <T> * pAdd);
    
    int size();
-   void addLeft (BinaryNode <T> * pAdd);
-   void addRight(BinaryNode <T> * pAdd);
+   // Left data and nodes
    void addLeft (const T & t) throw (const char *);
+   void addLeft(BinaryNode<T> * left);
+   // Add right data and nodes
    void addRight(const T & t) throw (const char *);
-   
-   //outstream insertion operator
-   
+   void addRight(BinaryNode<T> * right);
 };
+ 
+//outstream insertion operator
+template <class T>
+ostream & operator << (ostream & out, BinaryNode<T> * pNode)
+{
+   if (NULL != pNode)
+   {
+      cout << pNode->pLeft;
+      out << pNode->data << " ";
+      cout << pNode->pRight;
+   }
+   return out;
+}
 
+template<class T>
+BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL), pParent(NULL)
+{
+   *this = rhs;
+}
 
+// Add data to node
 template <class T>
 void BinaryNode <T>::addLeft(const T & t) throw (const char *)
 {
+   if (!t)
+      return;
    BinaryNode <T> * pAdd = new BinaryNode <T>(t);
    pAdd->pParent = this;
-   this->pLeft = pAdd;
+   pLeft = pAdd;
+}
+
+// Add a node to a node
+template <class T>
+void BinaryNode<T>::addLeft(BinaryNode<T> * left)
+{
+   pLeft = left;
+
+   // NULL check, set parents
+   if (NULL != left)
+      pLeft->pParent = this;
    
 }
 
+// Add data to node
+template <class T>
+void BinaryNode<T>::addRight(const T & t) throw(const char *)
+{
+   if (!t)
+      return;
+   BinaryNode <T> * pAdd = new BinaryNode<T>(t);
+   pAdd->pParent = this;
+   pRight = pAdd;
+}
+
+template <class T>
+void BinaryNode<T>::addRight(BinaryNode<T> * right)
+{
+   pRight = right;
+
+   // NULL Check, set parents
+   if (NULL != right)
+      pRight->pParent = this;
+}
 
 template <class T>
 BinaryNode <T> * copyBTree(const BinaryNode <T> * pSrc) throw (const char *)
@@ -86,13 +137,13 @@ int BinaryNode <T>::size()
 }
 
 template <class T>
-void deleteBTree(BinaryNode <T> * & pNode)
+void deleteBinaryTree(BinaryNode <T> * & pNode)
 {
    if(pNode == NULL)
       return;
    
-   deleteBTree(pNode->pLeft);
-   deleteBTree(pNode->pRight);
+   deleteBinaryTree(pNode->pLeft);
+   deleteBinaryTree(pNode->pRight);
    delete pNode;
    
 }
