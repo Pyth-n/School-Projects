@@ -28,20 +28,20 @@ public:
    
    
    BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL) {}
-   BinaryNode(const T & t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+   BinaryNode(T t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
    BinaryNode(const BinaryNode<T> &rhs);
    
    //friend int sizeBtree(BinaryNode <T> * pAdd);
    
    int size();
    // Left data and nodes
-   void addLeft (const T & t) throw (const char *);
+   void addLeft (const T t) throw (const char *);
    void addLeft(BinaryNode<T> * left);
    // Add right data and nodes
-   void addRight(const T & t) throw (const char *);
+   void addRight(const T t) throw (const char *);
    void addRight(BinaryNode<T> * right);
 };
-
+ 
 //outstream insertion operator
 template <class T>
 ostream & operator << (ostream & out, BinaryNode<T> * pNode)
@@ -61,12 +61,13 @@ BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL),
 
 // Add data to node
 template <class T>
-void BinaryNode <T>::addLeft(const T & t) throw (const char *)
+void BinaryNode <T>::addLeft(const T t) throw (const char *)
 {
-
+   if (!t)
+      return;
    BinaryNode <T> * pAdd = new BinaryNode <T>(t);
    pAdd->pParent = this;
-   this->pLeft = pAdd;
+   pLeft = pAdd;
 }
 
 // Add a node to a node
@@ -78,11 +79,13 @@ void BinaryNode<T>::addLeft(BinaryNode<T> * left)
 
 // Add data to node
 template <class T>
-void BinaryNode<T>::addRight(const T & t) throw(const char *)
+void BinaryNode<T>::addRight(const T t) throw(const char *)
 {
-   BinaryNode <T> * pNew = new BinaryNode<T>(t);
-   pNew->pParent = this;
-   this->pRight = pNew;
+   if (!t)
+      return;
+   BinaryNode <T> * pAdd = new BinaryNode<T>(t);
+   pAdd->pParent = this;
+   pRight = pAdd;
 }
 
 template <class T>
@@ -123,13 +126,13 @@ int BinaryNode <T>::size()
 }
 
 template <class T>
-void deleteBTree(BinaryNode <T> * & pNode)
+void deleteBinaryTree(BinaryNode <T> * & pNode)
 {
    if(pNode == NULL)
       return;
    
-   deleteBTree(pNode->pLeft);
-   deleteBTree(pNode->pRight);
+   deleteBinaryTree(pNode->pLeft);
+   deleteBinaryTree(pNode->pRight);
    delete pNode;
    
 }
