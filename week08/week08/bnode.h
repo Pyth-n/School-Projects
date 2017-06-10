@@ -137,7 +137,7 @@ int BinaryNode <T>::size()
 }
 
 template <class T>
-void deleteBinaryTree(BinaryNode <T> * & pNode)
+void deleteBinaryTree(BinaryNode <T> *  pNode)
 {
    if(pNode == NULL)
       return;

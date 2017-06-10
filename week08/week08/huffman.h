@@ -16,9 +16,15 @@
 #include <cassert>     // for ASSERT
 #include <fstream>
 #include <string.h>
+#include <vector>
 #include "queue.h"
+#include "bnode.h"
+#include "pair.h"
 
 using namespace std;
+
+typedef vector <pair <string,float >> vectPairNode;
+typedef Pair <string, float> pairNode;
 
 struct HuffHolder
 {
@@ -26,10 +32,57 @@ struct HuffHolder
    double value = 0.0;
 };
 
-BinaryNode <Pair<T1, T2>> hTree;
+//BinaryNode <Pair<T1, T2>> hTree;
+
+class Huffman
+{
+public:
+   
+   Huffman() { tree = NULL; }
+ //  ~Huffman() { cout << "destructor\n"; deleteBinaryTree(tree); }
+   
+   Huffman(const pairNode & rhs) throw (bad_alloc)
+   {
+      tree = new BinaryNode < pairNode > (rhs);
+   }
+   
+   Huffman(const string & first, float second) throw (bad_alloc)
+   {
+      pairNode pair(first, second);
+      tree = new BinaryNode < pairNode > (pair);
+     //tree = new BinaryNode < Pair <string, float> > (pair);
+   }
+
+   
+   
+   // add a sub-tree to our current tree
+   void add(Huffman * pTree);
+   void Delete() { cout << "Delete\n"; deleteBinaryTree(tree); }
+   
+   // get the weight of the top-most element in the tree
+   float getWeight() const  { return tree->data.second; }
+   
+   // extract the values from the tree
+   void extract(const vectPairNode & input,
+                Pair <string, string> output [])
+   {
+      extractRecursive(tree, string(""), input, output);
+   }
+   
+private:
+   // the recursive verson of extract
+   void extractRecursive(BinaryNode < pairNode > * tree,
+                         string sPrefix,
+                         const vectPairNode & input,
+                         Pair <string, string> output []);
+   
+   BinaryNode < pairNode > * tree;
+};
+
 
 void huffman(string fileName);
-bool readFromFile(Queue<HuffHolder> & huffmanQue, const string fileName);
-
+bool readFromFile(vectPairNode & huffmanQue, const string fileName);
+bool readFromFile(vector <BinaryNode < Pair <string, float>>> & vectHuff, const string fileName);
+bool readFromFile(vector <Huffman> & vectHuff, const string fileName);
 
 #endif // HUFFMAN_h
