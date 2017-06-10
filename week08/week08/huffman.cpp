@@ -88,31 +88,6 @@ void huffman(string fileName)
    return;
 }
 
-/************************************************
- * add
- * Get input from text file
- ***********************************************/
-void Huffman::add(Huffman * second)
-{
-  
-   Huffman * newHuff = new Huffman(".",second->getWeight() + getWeight());
-   Huffman * newSecond = new Huffman(second->tree->data.first,second->tree->data.second );
-   
-   if(second->getWeight() < getWeight())
-   {
-      newHuff->tree->addLeft(newSecond->tree);
-      newHuff->tree->addRight(tree);
-   }
-   else
-   {
-      newHuff->tree->addLeft(tree);
-      newHuff->tree->addRight(newSecond->tree);
-
-   }
-   
-   *this = *newHuff;
-   
-}
 
 /************************************************
  * Find
@@ -188,10 +163,37 @@ bool Huffman :: FindRecursive(const BinaryNode < Pair <string, float> > * pTree,
    return flag;
 }
 
+
+/************************************************
+ * add
+ * Get input from text file
+ ***********************************************/
+void Huffman::add(Huffman * second)
+{
    
+   Huffman * newHuff = new Huffman(".",second->getWeight() + getWeight());
+   Huffman * newSecond = new Huffman(second->tree->data.first,second->tree->data.second );
+   
+   if(second->getWeight() < getWeight())
+   {
+      newHuff->tree->addLeft(newSecond->tree);
+      newHuff->tree->addRight(tree);
+   }
+   else
+   {
+      newHuff->tree->addLeft(tree);
+      newHuff->tree->addRight(newSecond->tree);
+      
+   }
+   
+   *this = *newHuff;
+   
+}
+
+
 /****************************************************
  * HUFFMAN :: merge
- * Add the subtree (pTree) to the current Huffman Tree
+ * Merge one subtree (pTree) to the current Huffman Tree
  ***************************************************/
 void Huffman :: merge(Huffman Tree)
 {
