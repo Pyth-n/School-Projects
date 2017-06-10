@@ -26,13 +26,6 @@ using namespace std;
 typedef vector <pair <string,float >> vectPairNode;
 typedef Pair <string, float> pairNode;
 
-struct HuffHolder
-{
-   string name = "", huffcode = "";
-   double value = 0.0;
-};
-
-//BinaryNode <Pair<T1, T2>> hTree;
 
 class Huffman
 {
@@ -57,7 +50,10 @@ public:
    
    // add a sub-tree to our current tree
    void add(Huffman * pTree);
-   void Delete() { cout << "Delete\n"; deleteBinaryTree(tree); }
+   void merge(Huffman tree);
+   void Print() { cout << tree;}
+   string Find(const string item);
+   bool FindRecursive(const BinaryNode < Pair <string, float> > * pTree, const string item, string *result, string path = "" );
    
    // get the weight of the top-most element in the tree
    float getWeight() const  { return tree->data.second; }
