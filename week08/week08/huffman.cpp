@@ -17,8 +17,6 @@
  * Driver program to exercise the huffman generation code
  *******************************************/
 
-
-
 void huffman(string fileName)
 {
    bool fileFlag = true;
@@ -37,15 +35,15 @@ void huffman(string fileName)
       return;
    }
    
-   vPrint = vHuffman;
+   vPrint = vHuffman;  //Make a copy to be used later
    
    do
    {
 
-      i = one = two =0;
-      while(i < vHuffman.size())
+      i = one = two =0;                      //set all the variables
+      while(i < vHuffman.size())             //get the smallest two items
       {
-         if(vHuffman[one].second > vHuffman[i].second )
+         if(vHuffman[one].second > vHuffman[i].second )     //First the smallest
             one = i;
          i++;
       }
@@ -54,7 +52,7 @@ void huffman(string fileName)
       if(one == 0)
          two = 1;
       
-      while(i < vHuffman.size())
+      while(i < vHuffman.size())                         //then the next smallest
       {
          if(vHuffman[two].second > vHuffman[i].second )
             if(one != i)
@@ -63,25 +61,25 @@ void huffman(string fileName)
       }
 
       
-      if(vHuffman[two].first == "---")
+      if(vHuffman[two].first == "---")                 //symbolizes a place holder node from a created one
       {
-         vTree[one].merge(vTree[two]);
+         vTree[one].merge(vTree[two]);                //merge means its a tree, not a single node
       }
       else
       {
-         Huffman huff1(vHuffman[two].first, vHuffman[two].second);
-         vTree[one].add(&huff1);
+         Huffman huff1(vHuffman[two].first, vHuffman[two].second);      //create a new node to add
+         vTree[one].add(&huff1);                                        //add the node to the tree
       }
       
-      vHuffman[one].second += vHuffman[two].second;
-      vHuffman[one].first = "---";
-      vTree.erase(vTree.begin() + two);
-      vHuffman.erase(vHuffman.begin() + two);
+      vHuffman[one].second += vHuffman[two].second;            //set new value
+      vHuffman[one].first = "---";                             //ceate placeholder name value
+      vTree.erase(vTree.begin() + two);                        //remove added node
+      vHuffman.erase(vHuffman.begin() + two);                  //from both lists
    
       
-   }while(vTree.size() > 1);
+   }while(vTree.size() > 1);                         //when we are down to one, everyone thing is in the tree
 
-//Print the output for Huffman Codes
+   //Print the output for Huffman Codes
    for(int x=0; x < vPrint.size(); x++)
       cout << vPrint[x].first << " = " << vTree[0].Find(vPrint[x].first) << endl;
    
@@ -96,39 +94,39 @@ void huffman(string fileName)
 
 string Huffman :: Find(const string item)
 {
-   string result="";
+   string sResult="",sLeft = "0", sRight = "1";;
    bool flag = false;
    
    if(tree->data.first == item || (tree->pLeft == NULL && tree->pRight == NULL))
-      return result;
+      return sResult;
    
-   flag = FindRecursive(tree->pLeft, item, &result, "0");
+   flag = FindRecursive(tree->pLeft, item, &sResult, sLeft);
    if(flag)
    {
-      string temp = "0" + result;
-      result = temp;
-      return result;
+      string temp = sLeft + sResult;
+      sResult = temp;
+      return sResult;
    };
    
-   flag =  FindRecursive(tree->pRight, item, &result, "1");
+   flag =  FindRecursive(tree->pRight, item, &sResult, sRight);
    if(flag)
    {
-      string temp = "1" + result;
-      result = temp;
-      return result;
+      string temp = sRight + sResult;
+      sResult = temp;
+      return sResult;
    }
    
-   return result;
+   return sResult;
 }
 
 /************************************************
  * FindRecursive
  * Find a value from a Sub-Tree
  ***********************************************/
-bool Huffman :: FindRecursive(const BinaryNode < Pair <string, float> > * pTree, const string item,string *result, string path)
+bool Huffman :: FindRecursive(const BinaryNode < Pair <string, float> > * pTree, const string item,string *sResult, string path)
 {
    bool flag = false;
-   string m = pTree->data.first;
+   string sLeft = "0", sRight = "1";
    
    if(pTree->data.first == item )
       return true;
@@ -136,29 +134,27 @@ bool Huffman :: FindRecursive(const BinaryNode < Pair <string, float> > * pTree,
    
    if(pTree->pLeft != NULL)
    {
-      flag = FindRecursive(pTree->pLeft, item, result, "0");
+      flag = FindRecursive(pTree->pLeft, item, sResult, sLeft);
    
       if(flag)
       {
-         string temp = "0" + *result;
-         *result = temp;
-         return true;
+         string temp = sLeft + *sResult;
+         *sResult = temp;
+         return flag;
       }
    }
    
    if(pTree->pRight != NULL)
    {
-      flag = FindRecursive(pTree->pRight, item, result, "1");
-      
+      flag = FindRecursive(pTree->pRight, item, sResult, sRight);
       if(flag)
       {
-         string temp = "1" + *result;
-         *result = temp;
-         return true;
+         string temp = sRight + *sResult;
+         *sResult = temp;
+         return flag;
       }
    }
    
-
    
    return flag;
 }
@@ -166,7 +162,7 @@ bool Huffman :: FindRecursive(const BinaryNode < Pair <string, float> > * pTree,
 
 /************************************************
  * add
- * Get input from text file
+ * add a sub tree to our existing tree
  ***********************************************/
 void Huffman::add(Huffman * second)
 {
@@ -223,7 +219,7 @@ void Huffman :: merge(Huffman Tree)
 
 /************************************************
  * readfromFile
- * Get input from text file
+ * Get input from text and put it in a Vector Pair object
  ***********************************************/
 bool readFromFile(vectPairNode & huffmanQue, const string fileName)
 {
@@ -270,62 +266,10 @@ bool readFromFile(vectPairNode & huffmanQue, const string fileName)
 }
 
 
-/************************************************
- * readfromFile
- * Get input from text file
- 
- ***********************************************/
-
-bool readFromFile(vector <BinaryNode < Pair <string, float>>>  & vectHuff, const string fileName)
-{
-   string stringInput;              //String from file
-   float valueInput;               //double from file
-   
-   ifstream fin(fileName);          //Open file
-   if (fin.fail())
-   {
-      cout << "Unable to open file " << fileName << endl;
-      return false;
-   }
-   
-   while(!fin.eof())                //While not at End of File
-   {
-      fin >> stringInput;
-      fin >> valueInput;
-      
-      if (fin.eof())
-      {
-         return true;
-      }
-      else if (fin.fail())
-      {
-         cout << "Error reading from file\n";
-         return false;
-      }
-      else
-      {
-         
-         
-         char *cstr = new char[stringInput.length() + 1];      //Create Char variable
-         strcpy(cstr, stringInput.c_str());                    //String copy
-         // Huffman newItem(cstr,valueInput);
-         //  Huffman * newHuff = new Huffman(".",second->getWeight() + getWeight());
-         vectHuff.push_back(BinaryNode < Pair < string, float > >(Pair < string , float >(cstr,valueInput)));
-         //vectHuff.push_back(newItem);                         //Insert string
-         delete [] cstr;                                       //Delete Char variable
-      }
-      
-   }
-   
-   
-   return true;
-}
-
-
 
 /************************************************
  * readfromFile
- * Get input from text file
+ * Get input from text file and put it in Vector Huffman object
  
  ***********************************************/
 
