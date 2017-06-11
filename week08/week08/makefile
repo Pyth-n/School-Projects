@@ -9,13 +9,15 @@
 #
 # Time:
 #    Pair programming - 1.5 hours
-#	  Jeffry Simpson   - 1.5 hours
-#     David Perez     -  hours
+#	  Jeffry Simpson   - 10.5 hours
+#     David Perez     - 4.5 hours
 #
 # Difficulties:
-#    David  -
+#    David  - Getting the AddLeft and AddRight done for the tests
 #
-#    Jeffry -
+#    Jeffry - Wrapping my head around how to get the huffman code to work
+#             Finally when I pseudo coded it, it took me a long time to get the
+#             Vector of Huffman working.   Once I did that, the rest worked well.
 #
 ###############################################################
 

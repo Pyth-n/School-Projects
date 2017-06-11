@@ -17,7 +17,6 @@
 #include <fstream>
 #include <string.h>
 #include <vector>
-#include "queue.h"
 #include "bnode.h"
 #include "pair.h"
 
