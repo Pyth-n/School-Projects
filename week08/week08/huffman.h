@@ -32,7 +32,6 @@ class Huffman
 public:
    
    Huffman() { tree = NULL; }
- //  ~Huffman() { cout << "destructor\n"; deleteBinaryTree(tree); }
    
    Huffman(const pairNode & rhs) throw (bad_alloc)
    {
@@ -43,34 +42,26 @@ public:
    {
       pairNode pair(first, second);
       tree = new BinaryNode < pairNode > (pair);
-     //tree = new BinaryNode < Pair <string, float> > (pair);
+  
    }
 
    
    
-   // add a sub-tree to our current tree
-   void add(Huffman * pTree);
-   void merge(Huffman tree);
-   void Print() { cout << tree;}
-   string Find(const string item);
-   bool FindRecursive(const BinaryNode < Pair <string, float> > * pTree, const string item, string *result, string path = "" );
+   void add(Huffman * pTree);             // add a sub-tree to our current tree
+   void merge(Huffman tree);              // merge an existing tree with current
+   void Print() { cout << tree;}          //Bring out tree
+   string Find(const string item);        //Find Name in tree
+ 
    
    // get the weight of the top-most element in the tree
    float getWeight() const  { return tree->data.second; }
    
-   // extract the values from the tree
-   void extract(const vectPairNode & input,
-                Pair <string, string> output [])
-   {
-      extractRecursive(tree, string(""), input, output);
-   }
    
 private:
-   // the recursive verson of extract
-   void extractRecursive(BinaryNode < pairNode > * tree,
-                         string sPrefix,
-                         const vectPairNode & input,
-                         Pair <string, string> output []);
+  bool FindRecursive(const BinaryNode < Pair <string, float> > * pTree,
+                     const string item,
+                     string *result,
+                     string path = "" );
    
    BinaryNode < pairNode > * tree;
 };
@@ -78,7 +69,6 @@ private:
 
 void huffman(string fileName);
 bool readFromFile(vectPairNode & huffmanQue, const string fileName);
-bool readFromFile(vector <BinaryNode < Pair <string, float>>> & vectHuff, const string fileName);
 bool readFromFile(vector <Huffman> & vectHuff, const string fileName);
 
 #endif // HUFFMAN_h
