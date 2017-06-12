@@ -14,6 +14,7 @@
 #include <string>        // for STRING
 #include "bst.h"         // for BST class which should be in bst.h
 #include "sortBinary.h"  // for sortBinary()
+
 using namespace std;
 
 
@@ -30,8 +31,8 @@ void testSort();
 // TEST1.  Then, when TEST1 works, try TEST2 and so on.
 #define TEST1   // for testSimple()
 #define TEST2   // for testAdd()
-#define TEST3   // for testIterate()
-#define TEST4   // for testDelete()
+//#define TEST3   // for testIterate()
+//#define TEST4   // for testDelete()
 
 /**********************************************************************
  * MAIN

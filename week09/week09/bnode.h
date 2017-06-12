@@ -10,9 +10,10 @@
 #ifndef bnode_h
 #define bnode_h
 #include <iostream>
+#include <cassert>
+
 using namespace std;
 
-#include <cassert>
 
 /************************************************
  * Node
@@ -25,10 +26,11 @@ public:
    // Member variables
    T data;
    BinaryNode <T> *pLeft, *pRight, *pParent;
+   bool isRed;
    
    
-   BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL) {}
-   BinaryNode(T t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL) {}
+   BinaryNode() : data(), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(false) {}
+   BinaryNode(T t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(false) {}
    BinaryNode(const BinaryNode<T> &rhs);
    
    //friend int sizeBtree(BinaryNode <T> * pAdd);
@@ -56,7 +58,7 @@ ostream & operator << (ostream & out, BinaryNode<T> * pNode)
 }
 
 template<class T>
-BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL), pParent(NULL)
+BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL), pParent(NULL), isRed(false)
 {
    *this = rhs;
 }
@@ -105,6 +107,7 @@ void BinaryNode<T>::addRight(BinaryNode<T> * right)
       pRight->pParent = this;
 }
 
+
 template <class T>
 BinaryNode <T> * copyBTree(const BinaryNode <T> * pSrc) throw (const char *)
 {
@@ -116,11 +119,11 @@ BinaryNode <T> * copyBTree(const BinaryNode <T> * pSrc) throw (const char *)
    nDestination->pLeft =  copyBTree(pSrc->pLeft);
    
    if(nDestination->pLeft != NULL)
-      nDestination->pLeft.pParent = nDestination;
+      nDestination->pLeft->pParent = nDestination;
       
       nDestination->pRight = copyBTree(pSrc->pRight);
       if(nDestination->pRight != NULL)
-         nDestination->pRight.pParent = nDestination;
+         nDestination->pRight->pParent = nDestination;
          
          return nDestination;
 }

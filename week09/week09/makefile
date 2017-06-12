@@ -1,13 +1,23 @@
 ###############################################################
 # Program:
 #     Week 09, Binary Search Tree
-#     Brother XXXXX, CS265
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Jeffry Simpson, David Perez
 # Summary:
 #     <put a description here>
+#
 # Time:
-#     <how long did it take to complete this program>?
+#    Pair programming - hours
+#	  Jeffry Simpson   - 2 hours
+#     David Perez     - hours
+#
+## Difficulties:
+#    David  -
+#
+#    Jeffry -
+#
+#
 ###############################################################
 
 ##############################################################
@@ -21,6 +31,7 @@ a.out: week09.o
 # The individual components
 #      week09.o     : the driver program
 ##############################################################
-week09.o: bnode.h bst.h stack.h week09.cpp sortBinary.h
-	g++ -c week09.cpp -g
+#week09.o: bnode.h bst.h stack.h week09.cpp sortBinary.h
+week09.o: bnode.h bst.h week09.cpp sortBinary.h
+	g++ -std=c++11 -c week09.cpp -g
 
