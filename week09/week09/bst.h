@@ -41,7 +41,7 @@ public:
    BST <T> & operator = (const BST <T> & rhs) throw(const char *);
    
    //inLine functions
-   int size()     { return numElements; }
+   int size()     { return pRoot->size(); }
    bool empty()   { return (numElements== 0); }
    
    //Function
@@ -91,6 +91,8 @@ BST <T> :: BST(const BST <T> & rhs) throw (const char *)
          throw "ERROR: unable to allocate a new node for this tree.";
       }
    }
+   else
+      pRoot = rhs.pRoot;  //Set Copy Node to Null to match RHS
    
    
 }
