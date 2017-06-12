@@ -33,9 +33,14 @@ public:
    BinaryNode(T t) : data(t), pLeft(NULL), pRight(NULL), pParent(NULL), isRed(false) {}
    BinaryNode(const BinaryNode<T> &rhs);
    
-   //friend int sizeBtree(BinaryNode <T> * pAdd);
+   
+   //inline
+   void setBlack()   { isRed == true;}
+   void setRed()     { isRed == false;}
+   bool getRed()     { return isRed;}
    
    int size();
+   
    // Left data and nodes
    void addLeft (const T & t) throw (const char *);
    void addLeft(BinaryNode<T> * left);

@@ -9,7 +9,7 @@
 #
 # Time:
 #    Pair programming - hours
-#	  Jeffry Simpson   - 2 hours
+#	  Jeffry Simpson   - 2.5 hours
 #     David Perez     - hours
 #
 ## Difficulties:

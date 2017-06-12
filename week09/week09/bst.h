@@ -25,7 +25,11 @@ class BST
 {
 private:
    BinaryNode<T> * pRoot;
-      int numElements;
+   int numElements;
+   
+   void insertRecursive(BST<T> & pRoot,const T & t) throw (const char *);
+   
+
    
 public:
    BST() : pRoot(NULL), numElements(0){}
@@ -42,12 +46,15 @@ public:
    
    //Function
    void insert(const T & t) throw (const char *);
-   void erase(BSTIterator<T> & it);
-   BSTIterator<T> find(const T & t);
-
-
-      //Iterator functions
    
+      //Iterator functions
+   void remove(BSTIterator<T> & it);
+   BSTIterator<T> find(const T & t);
+   BSTIterator<T> begin()  { return BSTIterator<T>(pRoot); }
+   //BSTIterator<T> rbegin() { return BSTIterator<T>(pTail); }
+   BSTIterator<T> end()    { return BSTIterator<T>(NULL); }
+   BSTIterator<T> rend()   { return BSTIterator<T>(NULL); }
+
 };
 
 /************************************************
@@ -106,23 +113,34 @@ BST <T> & BST <T> :: operator = (const BST <T> & rhs) throw (const char *)
  * Used to insert a new node into the tree
  ***********************************************/
 template <class T>
- void BST <T> :: insert(const T & t) throw (const char *)
+ void BST <T> :: insert(const T & item) throw (const char *)
 {
    try
    {
-      if(NULL == pRoot)
-      {
-         pRoot = new BinaryNode<T>(t);
-         numElements++;
-         return;
-      }
+      BinaryNode<T> * locptr = pRoot;
+      BinaryNode<T> * parent = 0;
       
-      if( t < pRoot->data)
-         pRoot->addLeft(t);
-      else
-         pRoot->addRight(t);
-         
-      numElements++;
+      while (locptr != NULL  ) {
+         parent = locptr;
+         if (item < locptr->data)
+            locptr = locptr->pLeft;
+            else
+               locptr = locptr->pRight;
+               }
+      
+      locptr = new BinaryNode<T>(item);
+      if(parent == NULL)
+         pRoot = locptr;
+         else if (item < parent->data)
+         {
+            parent->pLeft = locptr;
+            locptr->pParent = parent;
+         }
+         else
+         {
+            parent->pRight = locptr;
+            locptr->pParent = parent;
+         }
          
    }
    catch (bad_alloc)
@@ -132,12 +150,14 @@ template <class T>
 }
 
 
+
+
 /************************************************
  * Erase funciton
  * Used to erase a node from the tree
  ***********************************************/
 template <class T>
-void BST<T> ::erase(BSTIterator<T> & it)
+void BST<T> ::remove(BSTIterator<T> & it)
 {
    
 }
