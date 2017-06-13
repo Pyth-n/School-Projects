@@ -24,12 +24,7 @@ class BST
 private:
    BinaryNode<T> * pRoot;
 
-   
-   // delete a single node from the tree
-   void deleteNode (BinaryNode <T> * & pDelete, bool toRight);
-   
 
-   
 public:
    BST() : pRoot(NULL){}
    BST(const BST<T> & rhs) throw (const char *);
@@ -244,6 +239,12 @@ void BST<T> ::remove(BSTIterator<T> & it)
 template <class T>
 class BSTIterator
 {
+   
+private:
+   stack < BinaryNode <T> * > nodes;
+   
+   
+   
 public:
    //Constructor
    BSTIterator(BinaryNode <T> * t = NULL) {nodes.push(t);}
@@ -262,12 +263,20 @@ public:
       // only need to compare the leaf node
       return rhs.nodes.top() != nodes.top();
    }
+   
+   T & operator*() throw(const char *)
+   {
+      return nodes.top()->data;
+      
+   }
+   
    BSTIterator<T> & operator=(const BSTIterator<T> &rhs)
    {
       this->nodes = rhs.nodes;
       return *this;
    }
    
+
    BinaryNode <T> * getNode() { return nodes.top(); }
    
    // Increment & Decrement operators
@@ -276,16 +285,7 @@ public:
    BSTIterator<T> & operator++();
    BSTIterator<T> & operator++(int postfix);
 
-   T & operator*() throw(const char *)
-   {
-     return nodes.top()->data;
 
-   }
-   
-   private:
-      stack < BinaryNode <T> * > nodes;
-   
-   
 };
 
 /*****************************************************
