@@ -50,8 +50,9 @@ public:
       //Iterator functions
    void remove(BSTIterator<T> & it);
    BSTIterator<T> find(const T & t);
-   BSTIterator<T> begin()  { return BSTIterator<T>(pRoot); }
-   //BSTIterator<T> rbegin() { return BSTIterator<T>(pTail); }
+   
+   BSTIterator<T> begin();
+   BSTIterator<T> rbegin();
    BSTIterator<T> end()    { return BSTIterator<T>(NULL); }
    BSTIterator<T> rend()   { return BSTIterator<T>(NULL); }
 
@@ -63,6 +64,18 @@ public:
  ***********************************************/
 template <class T>
 BST <T> :: BST(const BST <T> & rhs) throw (const char *)
+{
+
+   *this = rhs;  //Use assignment operator
+   
+}
+
+/**********************************************
+ * BST :: assignment operator
+ * Copy one list onto another
+ *********************************************/
+template <class T>
+BST <T> & BST <T> :: operator = (const BST <T> & rhs) throw (const char *)
 {
    numElements = rhs.numElements;
    
@@ -81,11 +94,11 @@ BST <T> :: BST(const BST <T> & rhs) throw (const char *)
          if(pRoot->pLeft != NULL)
             pRoot->pLeft->pParent = pRoot;
             
-         pRoot->pRight = copyBTree(rhs.pRoot->pRight);
-         if(pRoot->pRight != NULL)
-            pRoot->pRight->pParent = pRoot;
- 
-      }
+            pRoot->pRight = copyBTree(rhs.pRoot->pRight);
+            if(pRoot->pRight != NULL)
+               pRoot->pRight->pParent = pRoot;
+               
+               }
       catch (bad_alloc)
       {
          throw "ERROR: unable to allocate a new node for this tree.";
@@ -93,21 +106,9 @@ BST <T> :: BST(const BST <T> & rhs) throw (const char *)
    }
    else
       pRoot = rhs.pRoot;  //Set Copy Node to Null to match RHS
-   
-   
-}
-
-/**********************************************
- * BST :: assignment operator
- * Copy one list onto another
- *********************************************/
-template <class T>
-BST <T> & BST <T> :: operator = (const BST <T> & rhs) throw (const char *)
-{
-
       
       // return the new buffer
-      return *this;
+   return *this;
 }
 
 /************************************************
@@ -151,11 +152,35 @@ template <class T>
    }
 }
 
+/************************************************
+ * Find function
+ * Used to find a node from the tree
+ ***********************************************/
+template <class T>
+BSTIterator <T> BST <T> :: find(const T & t)
+{
+   BinaryNode<T> * pNode = pRoot;
+   bool bFound = false;
+   
+   while(!bFound && pNode != NULL)
+   {
+      if(t < pNode->data)
+         pNode = pNode->pLeft;
+      else if (pNode->data < t)
+         pNode = pNode->pRight;
+      else
+         bFound=true;
+   }
+   if(bFound)
+      return pNode;
+   else
+      return end();
+}
 
 
 
 /************************************************
- * Erase funciton
+ * Erase function
  * Used to erase a node from the tree
  ***********************************************/
 template <class T>
@@ -166,20 +191,58 @@ void BST<T> ::remove(BSTIterator<T> & it)
 
 
 /************************************************
- * ListIterator
- * Class iterator used for list
+ * BSTIterator
+ * Class iterator used for th BST
  ***********************************************/
 template <class T>
 class BSTIterator
 {
-private:
-   stack<BinaryNode<T>> nodes;
-
 public:
-   BSTIterator<T> & operator -- ();
+   //Constructor
+   BSTIterator(): nodes(NULL) {}
+   BSTIterator(BinaryNode<T> * nodes) : nodes(nodes) {}
+   BSTIterator(const BSTIterator<T>& rhs):nodes(rhs.nodes){}
    
+   //Operators
+   bool operator==(const BSTIterator<T> &rhs) const   //only compare the top elements of the stacks.
+   {
+      return rhs.p == this->p;
+   }
+   bool operator!=(const BSTIterator<T> &rhs) const
+   {
+      return rhs.p != this->p;
+   }
+   BSTIterator<T> & operator=(const BSTIterator<T> &rhs)
+   {
+      this->p = rhs.p;
+      return *this;
+   }
+   
+   
+   // Increment & Decrement operators
+   BSTIterator<T> & operator -- ();
+   BSTIterator<T> & operator--(int postfix);
+   BSTIterator<T> & operator++();
+   BSTIterator<T> & operator++(int postfix);
+
+   T & operator*() throw(const char *)
+   {
+      if (NULL != this->p)
+         return this->p->data;
+      else
+      {
+         throw "Iterator not dereferencable!";
+      }
+   }
+   
+   private:
+      stack<BinaryNode<T>> nodes;
+
+
    
 };
+
+
 
 /**************************************************
  * BST ITERATOR :: DECREMENT PREFIX
