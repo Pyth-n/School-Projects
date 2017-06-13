@@ -9,13 +9,16 @@
 #
 # Time:
 #    Pair programming - hours
-#	  Jeffry Simpson   - 3.5 hours
+#	  Jeffry Simpson   - 5.5 hours
 #     David Perez     - hours
 #
 ## Difficulties:
 #    David  -
 #
-#    Jeffry -
+#    Jeffry - Getting the iterators to work correctly with stack
+#             reversing the code for the ++ from the --
+#             Getting DeleteTree to work corretly and not give a
+#             NULL pointer exception
 #
 #
 ###############################################################
