@@ -190,49 +190,49 @@ BSTIterator <T> BST <T> :: find(const T & t)
 template <class T>
 void BST<T> ::remove(BSTIterator<T> & it)
 {
-   BinaryNode<T> * x = it.getNode();
-   BinaryNode<T> * parent = x->pParent;
+   BinaryNode<T> * pRemove = it.getNode();
+   BinaryNode<T> * pParent = pRemove->pParent;
+   BinaryNode<T> * pNext;
    
    
    if(it != end())  // assume iterator is valid
    {
 
-      
       //Node has 2 children
-      if(x->pLeft != 0 && x->pRight !=0)
+      if(pRemove->pLeft != NULL && pRemove->pRight != NULL)
       {
          //Find x's inorder successor and its parent
-         BinaryNode<T> * xSucc = x->pRight;
-         parent = x;
-         while (xSucc->pLeft != 0)      //descend left
+         pNext = pRemove->pRight;
+         pParent = pRemove;
+         while (pNext->pLeft != 0)      //descend left
          {
-            parent = xSucc;
-            xSucc = xSucc->pLeft;
+            pParent = pNext;
+            pNext = pNext->pLeft;
          }
          
-         //Move contents of xSucc to x and change x to apoint to successor, which will be remove
-         x->data = xSucc->data;
-         x = xSucc;
-      }
+         //Move contents of next  to Remove and change Remove to apoint to Next, which will be remove
+         pRemove->data = pNext->data;
+         pRemove = pNext;
          
-      
-   }  //end if node has 2 children
+      } //end if node has 2 children
+         
+
    
-   //Node was 0 or 1 child
-   BinaryNode<T> * subtree = x->pLeft;          //pointer to a subtree of x
-   
-   if(subtree ==0)
-      subtree = x->pRight;
-   
-   if(parent == 0)                              //root being removed
-      pRoot = subtree;
-   else if(parent->pLeft == x)                  //left child of parent
-      parent->pLeft = subtree;
-   else
-      parent->pRight = subtree;                  //rigth child of parent
-   
-   delete x;
-   
+      //Node was 0 or 1 child
+      pNext = pRemove->pLeft;          //pointer to next part of the tree
+
+      if(pNext ==0)
+         pNext = pRemove->pRight;
+
+      if(pParent == NULL)                              //root being removed
+         pRoot = pNext;
+      else if(pParent->pLeft == pRemove)               //left child of parent
+         pParent->pLeft = pNext;
+      else
+         pParent->pRight = pNext;                     //rigth child of parent
+
+      delete pRemove;
+   }
    
 }
 
@@ -285,9 +285,6 @@ public:
    private:
       stack < BinaryNode <T> * > nodes;
    
-
-
-
    
 };
 
@@ -343,7 +340,7 @@ BSTIterator <T> & BSTIterator <T> :: operator ++ ()
    {
       nodes.push(nodes.top()->pRight);
       
-      // there might be more left-most children
+      // there might be more right-most children
       while (nodes.top()->pLeft)
          nodes.push(nodes.top()->pLeft);
       return *this;
@@ -361,6 +358,7 @@ BSTIterator <T> & BSTIterator <T> :: operator ++ ()
    // if we are the left-child, got to the parent.
    if (pSave == nodes.top()->pLeft)
       return *this;
+
    
    // we are the right-child, go up as long as we are the right child!
    while (nodes.top() != NULL && pSave == nodes.top()->pRight)
@@ -370,6 +368,8 @@ BSTIterator <T> & BSTIterator <T> :: operator ++ ()
    }
    
    return *this;
+
+
 }
 
 
