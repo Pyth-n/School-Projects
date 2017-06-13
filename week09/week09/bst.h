@@ -120,7 +120,7 @@ template <class T>
    try
    {
       BinaryNode<T> * locptr = pRoot;
-      BinaryNode<T> * parent = 0;
+      BinaryNode<T> * parent = NULL;
       
       while (locptr != NULL  ) {
          parent = locptr;
@@ -199,7 +199,7 @@ void BST<T> ::remove(BSTIterator<T> & it)
          //Find x's inorder successor and its parent
          pNext = pRemove->pRight;
          pParent = pRemove;
-         while (pNext->pLeft != 0)      //descend left
+         while (pNext->pLeft != NULL)      //descend left
          {
             pParent = pNext;
             pNext = pNext->pLeft;
@@ -216,7 +216,7 @@ void BST<T> ::remove(BSTIterator<T> & it)
       //Node was 0 or 1 child
       pNext = pRemove->pLeft;          //pointer to next part of the tree
 
-      if(pNext ==0)
+      if(pNext == NULL)
          pNext = pRemove->pRight;
 
       if(pParent == NULL)                              //root being removed
