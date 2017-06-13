@@ -149,9 +149,10 @@ void deleteBinaryTree(BinaryNode <T> *  pNode)
 {
    if(pNode == NULL)
       return;
-   
-   deleteBinaryTree(pNode->pLeft);
-   deleteBinaryTree(pNode->pRight);
+   if (pNode->pLeft != NULL)
+      deleteBinaryTree(pNode->pLeft);
+   if (pNode->pRight != NULL)
+      deleteBinaryTree(pNode->pRight);
    delete pNode;
    
 }
