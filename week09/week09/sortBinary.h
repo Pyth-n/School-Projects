@@ -20,7 +20,17 @@
 template <class T>
 void sortBinary(T array[], int num)
 {
-}
 
+   BST <T> bst;
+   int i;
+   for (i = 0; i < num; i++)
+      bst.insert(array[i]);
+   
+   i = 0;
+   for (BSTIterator<T> it = bst.begin(); it != bst.end(); ++it)
+      array[i++] = *it;
+
+
+}
 
 #endif // SORT_BINARY_H
