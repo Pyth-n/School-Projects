@@ -10,10 +10,11 @@
 # Time:
 #    Pair programming - 1 hour
 #	  Jeffry Simpson   - 4.5 hour
-#     David Perez     - hours
+#     David Perez     - 2 hours
 #
 ## Difficulties:
-#    David  -
+#    David  - Attempted converting insert and remove functions
+#              into a recursion but was not able to figure it out. 
 #
 #    Jeffry - Getting the iterators to work correctly with stack
 #             reversing the code for the ++ from the --
