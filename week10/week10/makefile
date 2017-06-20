@@ -1,13 +1,22 @@
 ###############################################################
 # Program:
 #     Week 10, Map
-#     Brother XXXXX, CS265
+#     Brother JonesL, CS235
 # Author:
-#     <your name here>
+#     Jeffry Simpson, David Perez
 # Summary:
-#     <put a description here>
-###############################################################
-
+#     Week 10 Map Assignment
+#
+# Time:
+#    Pair programming - 1 hour
+#	  Jeffry Simpson   - hour
+#     David Perez     - hour
+#
+## Difficulties:
+#    David -
+#
+#    Jeffry -
+#
 ##############################################################
 # The main rule
 ##############################################################
