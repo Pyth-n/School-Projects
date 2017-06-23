@@ -37,7 +37,7 @@ public:
    //inline
    void setBlack()   { isRed == true;}
    void setRed()     { isRed == false;}
-   bool isRed()      { return isRed;}
+   //bool isRed()      { return isRed;}
    
    int size();
    
