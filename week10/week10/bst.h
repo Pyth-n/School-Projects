@@ -23,14 +23,14 @@ class BST
 {
 private:
    BinaryNode<T> * pRoot;
-
-
+   
+   
 public:
    BST() : pRoot(NULL){}
    BST(const BST<T> & rhs) throw (const char *);
    
    ~BST(){clear();}
-
+   
    //Operator =
    BST <T> & operator = (const BST <T> & rhs) throw(const char *);
    
@@ -39,14 +39,18 @@ public:
    bool empty()   const { return pRoot == NULL; }
    void clear()
    {  if(pRoot)
-         deleteBinaryTree(pRoot);
+      deleteBinaryTree(pRoot);
       pRoot = NULL;
    }
    
    //Function
    void insert(const T & t) throw (const char *);
    
-      //Iterator functions
+   // for debug purposes so we can validate the tree
+   BinaryNode <T> * getRoot() { return pRoot; }
+   void verify() const;
+   
+   //Iterator functions
    void remove(BSTIterator<T> & it);
    BSTIterator<T> find(const T & t);
    
@@ -55,7 +59,7 @@ public:
    BSTIterator <T> end() { return BSTIterator <T> (NULL); }
    BSTIterator <T> rbegin();
    BSTIterator <T> rend() { return BSTIterator <T> (NULL); }
-
+   
 };
 
 /************************************************
@@ -65,7 +69,7 @@ public:
 template <class T>
 BST <T> :: BST(const BST <T> & rhs) throw (const char *)
 {
-
+   
    *this = rhs;  //Use assignment operator
    
 }
@@ -87,6 +91,7 @@ BST <T> & BST <T> :: operator = (const BST <T> & rhs) throw (const char *)
       {
          // allocate a new head
          pRoot = new BinaryNode<T>(rhs.pRoot->data);
+         this->pRoot->isRed = false;
          
          pRoot->pLeft =  copyBTree(rhs.pRoot->pLeft);
          
@@ -107,49 +112,78 @@ BST <T> & BST <T> :: operator = (const BST <T> & rhs) throw (const char *)
       pRoot = rhs.pRoot;  //Set Copy Node to Null to match RHS
       
       // return the new buffer
-   return *this;
+      return *this;
 }
 
-/************************************************
- * Insert function
- * Used to insert a new node into the tree
- ***********************************************/
+/*****************************************************
+ * BST :: INSERT
+ * Insert a node at a given location in the tree
+ ****************************************************/
 template <class T>
- void BST <T> :: insert(const T & item) throw (const char *)
+void BST <T> :: insert(const T & t) throw (const char *)
 {
-   try
+   debug(std::cerr << "===== insert(" << t << ") =====\n");
+   // if we are at a trivial state (empty tree), then create a new root
+   if (pRoot == NULL)
    {
-      BinaryNode<T> * locptr = pRoot;
-      BinaryNode<T> * parent = NULL;
-      
-      while (locptr != NULL  ) {
-         parent = locptr;
-         if (item < locptr->data)
-            locptr = locptr->pLeft;
-            else
-               locptr = locptr->pRight;
-               }
-      
-      locptr = new BinaryNode<T>(item);
-      if(parent == NULL)
-         pRoot = locptr;
-         else if (item < parent->data)
+      pRoot = new BinaryNode <T> (t);
+      pRoot->balance();
+      debug(verify());
+      return;
+   }
+   
+   debug(std::cerr << "root:" << pRoot->data << ' ');
+   
+   // otherwise, go a searching for the correct spot
+   BinaryNode <T> * node = pRoot;
+   bool done = false;
+   debug(verify());
+   while (!done)
+   {
+      // if the center node is larger, go left
+      if (node->data > t)
+      {
+         // if there is a node to the left, follow it
+         if (node->pLeft)
          {
-            parent->pLeft = locptr;
-            locptr->pParent = parent;
+            debug(std::cerr << "left->");
+            node = node->pLeft;
          }
+         // if we are at the leaf, then create a new node
          else
          {
-            parent->pRight = locptr;
-            locptr->pParent = parent;
+            node->addLeft(t);
+            node = NULL;
+            done = true;
          }
          
+      }
+      
+      // if the center node is smaller, go right
+      else
+      {
+         // if there is a node to the right, follow it
+         if (node->pRight)
+         {
+            node = node->pRight;
+            debug(std::cerr << "right->");
+         }
+         // if we are at the left, then create a new node.
+         else
+         {
+            node->addRight(t);
+            node = NULL;
+            done = true;
+         }
+      }
    }
-   catch (bad_alloc)
-   {
-      throw "ERROR: unable to allocate a new node for this tree.";
-   }
-}
+   
+   // the root might have shifted due to rotation
+   while (pRoot->pParent != NULL)
+      pRoot = pRoot->pParent;
+      assert(pRoot->pParent == NULL);
+      debug(verify());
+      }
 
 /************************************************
  * Find function
@@ -192,7 +226,7 @@ void BST<T> ::remove(BSTIterator<T> & it)
    
    if(it != end())  // assume iterator is valid
    {
-
+      
       //Node has 2 children
       if(pRemove->pLeft != NULL && pRemove->pRight != NULL)
       {
@@ -210,22 +244,22 @@ void BST<T> ::remove(BSTIterator<T> & it)
          pRemove = pNext;
          
       } //end if node has 2 children
-         
-
-   
+      
+      
+      
       //Node was 0 or 1 child
       pNext = pRemove->pLeft;          //pointer to next part of the tree
-
+      
       if(pNext == NULL)
          pNext = pRemove->pRight;
-
+      
       if(pParent == NULL)                              //root being removed
          pRoot = pNext;
       else if(pParent->pLeft == pRemove)               //left child of parent
          pParent->pLeft = pNext;
       else
          pParent->pRight = pNext;                     //rigth child of parent
-
+      
       delete pRemove;
    }
    
@@ -276,7 +310,7 @@ public:
       return *this;
    }
    
-
+   
    BinaryNode <T> * getNode() { return nodes.top(); }
    
    // Increment & Decrement operators
@@ -284,8 +318,8 @@ public:
    BSTIterator<T> & operator--(int postfix);
    BSTIterator<T> & operator++();
    BSTIterator<T> & operator++(int postfix);
-
-
+   
+   
 };
 
 /*****************************************************
@@ -358,7 +392,7 @@ BSTIterator <T> & BSTIterator <T> :: operator ++ ()
    // if we are the left-child, got to the parent.
    if (pSave == nodes.top()->pLeft)
       return *this;
-
+   
    
    // we are the right-child, go up as long as we are the right child!
    while (nodes.top() != NULL && pSave == nodes.top()->pRight)
@@ -368,8 +402,8 @@ BSTIterator <T> & BSTIterator <T> :: operator ++ ()
    }
    
    return *this;
-
-
+   
+   
 }
 
 
@@ -387,40 +421,60 @@ BSTIterator <T> & BSTIterator <T> :: operator -- ()
    // do nothing if we have nothing
    if (nodes.top() == NULL)
       return *this;
-
+   
    // if there is a left node, take it
    if (nodes.top()->pLeft != NULL)
    {
       nodes.push(nodes.top()->pLeft);
-
+      
       // there might be more right-most children
       while (nodes.top()->pRight)
          nodes.push(nodes.top()->pRight);
       return *this;
    }
-
+   
    // there are no left children, the right are done
    assert(nodes.top()->pLeft == NULL);
    BinaryNode <T> * pSave = nodes.top();
    nodes.pop();
-
+   
    // if the parent is the NULL, we are done!
    if (NULL == nodes.top())
       return *this;
-
+   
    // if we are the right-child, got to the parent.
    if (pSave == nodes.top()->pRight)
       return *this;
-
+   
    // we are the left-child, go up as long as we are the left child!
    while (nodes.top() != NULL && pSave == nodes.top()->pLeft)
    {
       pSave = nodes.top();
       nodes.pop();
    }
-
+   
    return *this;
 }
+
+
+#ifdef DEBUG
+/**************************************************
+ * BST :: VERIFY
+ * Verify that the tree under the root is well-formed
+ *************************************************/
+template <class T>
+void BST <T> :: verify() const
+{
+   // verify that every node is where it should be
+   pRoot->verifyBTree();
+   
+   // find the depth of the black nodes
+   int depth = pRoot->findDepth();
+   
+   // verify the red-black tree under here
+   pRoot->verifyRedBlack(depth);
+}
+#endif // DEBUG
 
 #endif // BST_H
 
