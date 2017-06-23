@@ -23,7 +23,7 @@ class Map
 {
 private:
    int numItems;
-   BST <Pair<K, V>> bst;
+   BST <Pair<K, V> > bst;
 public:
    // Default constructors
    Map() :  numItems(0), bst() {}
@@ -33,7 +33,7 @@ public:
    V & operator [] (const K &key)
    {
       Pair<K, V> pair(key, V());
-      BSTIterator<Pair<K, V>> it = bst.find(pair);
+      BSTIterator<Pair<K, V> > it = bst.find(pair);
       if (it == NULL)
       {
          bst.insert(pair);
@@ -47,7 +47,7 @@ public:
    Map<K, V> &operator = (Map<K, V> &rhs) throw (const char*);
 
    // Getter and setters
-   BST<Pair<K, V>> * getBST() { return &bst; }
+   BST<Pair<K, V> > * getBST() { return &bst; }
    //void increaseItems{ numItems++; }
    int getNumItems() { return numItems; }
    int size() { return numItems; }
@@ -65,11 +65,11 @@ public:
 };
 
 template <class K, class V>
-ostream& operator<< (ostream& out, BinaryNode<Pair<K, V>> d)
+ostream& operator<< (ostream& out, BinaryNode<Pair<K, V> > d)
 {
-   if (&p != NULL)
+   if (&d != NULL)
    {
-      out << p.data.second;
+      out << d.data.second;
    }
    return out;
 }
@@ -91,12 +91,12 @@ template <class K, class V>
 class MapIterator
 {
 private:
-   BSTIterator <Pair<K, V>> it;
+   BSTIterator <Pair<K, V> > it;
 public:
    // Constructors
    MapIterator() : it(NULL) {}
-   MapIterator(BinaryNode<Pair<K,V>> * x) { it = x; }
-   MapIterator(BSTIterator<Pair<K,V>> x) : it(0) { it = x; }
+   MapIterator(BinaryNode<Pair<K,V> > * x) { it = x; }
+   MapIterator(BSTIterator<Pair<K,V> > x) : it(0) { it = x; }
    MapIterator(const MapIterator<K,V> & rhs) { it = rhs.it; }
 
    // Copy constructor
@@ -134,12 +134,12 @@ public:
 template<class K, class V>
 MapIterator<K, V> Map<K, V> ::begin()
 {
-   return MapIterator<K, V>(BSTIterator<Pair <K, V>>(bst.begin()));
+   return MapIterator<K, V>(BSTIterator<Pair <K, V> >(bst.begin()));
 }
 
 template <class K, class V>
 MapIterator<K, V> Map<K, V> ::rbegin()
 {
-   return MapIterator<K, V>(BSTIterator<Pair<K, V>>(bst.rbegin()));
+   return MapIterator<K, V>(BSTIterator<Pair<K, V> >(bst.rbegin()));
 }
 #endif /* map_h */
