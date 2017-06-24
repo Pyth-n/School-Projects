@@ -11,11 +11,15 @@
 #ifndef WORD_COUNT_H
 #define WORD_COUNT_H
 
-/*****************************************************
- * WORD COUNT
- * Prompt the user for a file to read, then prompt the
- * user for words to get the count from
- *****************************************************/
+#include <string>      // for STRING
+#include <cassert>     // for ASSERT
+#include <fstream>
+#include "map.h"       // for MAP
+
+using namespace std;
+
+//Function definitions
+void readFromFile(Map <string, int> & counts, const string & fileName);
 void wordCount();
 
 #endif // WORD_COUNT_H
