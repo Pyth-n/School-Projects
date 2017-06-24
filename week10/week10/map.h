@@ -14,10 +14,13 @@
 #include "bst.h"
 #include "pair.h"
 
-// Map iterator
+// Map iterator prototype
 template<class K, class V>
 class MapIterator;
 
+/************************************************************************
+* MAP: Implementation for map with operators and function operations
+************************************************************************/
 template<class K, class V>
 class Map 
 {
@@ -48,7 +51,6 @@ public:
 
    // Getter and setters
    BST<Pair<K, V> > * getBST() { return &bst; }
-   //void increaseItems{ numItems++; }
    int getNumItems() { return numItems; }
    int size() { return numItems; }
 
@@ -56,17 +58,21 @@ public:
    bool empty() { return bst.empty(); }
    void clear() { this->bst.clear(); this->numItems = 0; }
    
-   // Iterators
+   // Iterator functions
    MapIterator<K, V> begin();
-   MapIterator<K, V> end() { return MapIterator<K, V>(NULL); }
    MapIterator<K, V> rbegin();
+   MapIterator<K, V> end() { return MapIterator<K, V>(NULL); }
    MapIterator<K, V> rend() { return MapIterator<K, V>(NULL); }
 
 };
 
+/************************************************************************
+* INSERTION OPERATOR: Displays the data of a node
+************************************************************************/
 template <class K, class V>
 ostream& operator<< (ostream& out, BinaryNode<Pair<K, V> > d)
 {
+   // Assures binary node exists
    if (&d != NULL)
    {
       out << d.data.second;
@@ -74,10 +80,13 @@ ostream& operator<< (ostream& out, BinaryNode<Pair<K, V> > d)
    return out;
 }
 
-// Copy operator
+/************************************************************************
+* Assignment Operator: Used for assigning a map to another map
+************************************************************************/
 template <class K, class V>
 Map<K, V> & Map<K, V> ::operator = (Map<K, V> & rhs) throw (const char *)
 {
+   // clear, then iterate through
    clear();
    if (rhs.bst.begin() != NULL)
    {
@@ -87,6 +96,9 @@ Map<K, V> & Map<K, V> ::operator = (Map<K, V> & rhs) throw (const char *)
    return *this;
 }
 
+/************************************************************************
+* MAPITERATOR: Class used as an iterator for the Map
+************************************************************************/
 template <class K, class V>
 class MapIterator
 {
@@ -108,38 +120,53 @@ public:
       return rhs.it.operator*() == it.operator*();
    }
 
+   // Not Equal
    bool operator != (const MapIterator<K, V>& rhs) const 
    {
       return this->it.operator!=(rhs.it);
    }
 
+   // Increment
    const MapIterator<K, V>& operator ++()
    {
       ++(this->it);
       return *this;
    }
 
+   // Decrement
    const MapIterator<K, V>& operator --()
    {
       --(this->it);
       return *this;
    }
 
+   // Deference
    const V &operator * ()
    {
+      // Dereferences, then calls getSecond function to return V value
       return this->it.operator*().getSecond();
    }
 };
 
+/************************************************************************
+* MAPITERATOR - BEGIN: This function is used to find the beginning of 
+* an iteration
+************************************************************************/
 template<class K, class V>
 MapIterator<K, V> Map<K, V> ::begin()
 {
+   // Returns BST beginning iteration
    return MapIterator<K, V>(BSTIterator<Pair <K, V> >(bst.begin()));
 }
 
+/************************************************************************
+* MAPITERATOR - RBEGIN: This function is used for a reverse beginning of
+* an iterator
+************************************************************************/
 template <class K, class V>
 MapIterator<K, V> Map<K, V> ::rbegin()
 {
+   // Returns reverse beginning of BST iterator
    return MapIterator<K, V>(BSTIterator<Pair<K, V> >(bst.rbegin()));
 }
 #endif /* map_h */
