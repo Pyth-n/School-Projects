@@ -9,13 +9,15 @@
 #
 # Time:
 #    Pair programming - 1 hour
-#	  Jeffry Simpson   - hour
-#     David Perez     - hour
+#	  Jeffry Simpson   - 3 hours
+#     David Perez     - 4 hours
 #
 ## Difficulties:
-#    David -
+#    David - Getting the iterator to work and also finding a
+#            way to dereference with the [] operator
 #
-#    Jeffry -
+#    Jeffry -  Getting the Balance function to work and setting the
+#              red and black nodes in the right place
 #
 ##############################################################
 # The main rule
@@ -30,7 +32,7 @@ a.out: week10.o wordCount.o
 #      wordCount.o    : the wordCount() function
 ##############################################################
 week10.o: bnode.h bst.h pair.h map.h week10.cpp
-	g++ -c week10.cpp
+	g++ -std=c++11 -c week10.cpp
 
 wordCount.o: map.h wordCount.h wordCount.cpp bnode.h bst.h
-	g++ -c wordCount.cpp 
+	g++ -std=c++11 -c wordCount.cpp 
