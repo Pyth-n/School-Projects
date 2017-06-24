@@ -4,8 +4,8 @@
 * Summary:
 *    This will contain just the prototype for the wordCount()
 *    function
-* Author
-*    <your names here>
+ # Authors:
+ #     Jeffry Simpson, David Perez
 ************************************************************************/
 
 #ifndef WORD_COUNT_H

@@ -2,8 +2,8 @@
  * Module:
  *    Week 10, WORD COUNT
  *    Brother Helfrich, CS 235
- * Author:
- *    <your name here>
+ # Authors:
+ #     Jeffry Simpson, David Perez
  * Summary:
  *    This program will implement the wordCount() function
  ************************************************************************/
