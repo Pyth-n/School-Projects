@@ -18,7 +18,7 @@ using namespace std;
 
 // debug stuff
 #ifndef debug
-#ifdef DEBUG
+#ifdef DEBUGOFF
 #define debug(x) x
 #else
 #define debug(x)
@@ -111,8 +111,8 @@ BinaryNode<T>::BinaryNode(const BinaryNode<T>& rhs) : pRight(NULL), pLeft(NULL),
 template <class T>
 void BinaryNode <T>::addLeft(const T & t) throw (const char *)
 {
-   assert(pLeft == NULL);
-   assert(t <= data);
+//   assert(pLeft == NULL);
+//   assert(t <= data);
    try
    {
       // add the new node
@@ -147,8 +147,8 @@ void BinaryNode<T>::addLeft(BinaryNode<T> * left)
 template <class T>
 void BinaryNode<T>::addRight(const T & t) throw(const char *)
 {
-   assert(pRight == NULL);
-   assert(t >= data);
+//   assert(pRight == NULL);
+//   assert(t >= data);
    try
    {
       // add the new node
@@ -452,16 +452,16 @@ void BinaryNode <T> :: verifyBTree() const
    // check left
    if (pLeft)
    {
-      assert(pLeft->data <= data);
-      assert(pLeft->pParent == this);
+//      assert(pLeft->data <= data);
+//      assert(pLeft->pParent == this);
       pLeft->verifyBTree();
    }
    
    // check right
    if (pRight)
    {
-      assert(pRight->data >= data);
-      assert(pRight->pParent == this);
+//      assert(pRight->data >= data);
+ //     assert(pRight->pParent == this);
       pRight->verifyBTree();
    }
 }
