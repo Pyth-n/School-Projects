@@ -8,7 +8,7 @@
 #     Week 11 Sorting
 # Time:
 #    Pair programming -  hour
-#	  Jeffry Simpson   -  1 hours
+#	  Jeffry Simpson   -  2 hours
 #     David Perez     -  hours
 #
 ## Difficulties:
