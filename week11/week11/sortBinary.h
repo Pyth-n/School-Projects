@@ -21,6 +21,18 @@
 template <class T>
 void sortBinary(T array[], int num)
 {
+   
+   /*   Pseudo Code
+    
+    FOR i 0 ... n – 1
+      bst.insert(array[i])
+    
+    i 0
+    FOR it bst.begin() ... bst.end()
+      array[i++] *it
+    
+    */
+   
 }
 
 
