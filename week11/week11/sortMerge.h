@@ -13,7 +13,10 @@
 
 
 template <class T>
-void merge(T destination[], int iBegin1, int iBegin2, int iEnd2, T source[]);
+void merge(T arr[], int l, int m, int r);
+
+template <class T>
+void mergeSort(T array[], int ibegin, int iEnd);
 
 /*****************************************************
  * SORT MERGE
@@ -22,54 +25,69 @@ void merge(T destination[], int iBegin1, int iBegin2, int iEnd2, T source[]);
 template <class T>
 void sortMerge(T array[], int num)
 {
-   /*   Pseudo Code
-    source array
-    
-    DO
-      numIterations 0
-      WHILE iBegin1 < n
-         numIterations++
-         FOR iEnd1 iBegin1 + 1 ... n or !(source[iEnd1 – 1] > source[iEnd1]) 
-            iBegin2 iEnd1 + 1
-    
-         FOR iEnd2 iBegin2 + 1 ... n or !(source[iEnd2 – 1] > source[iEnd2])
-            IF iBegin2 < n
-               merge(destination, iBegin1, iBegin2, iEnd2, source)
-            iBegin1 iEnd2
-    
-         SWAP source, destination
-    
-    WHILE numMerges > 1
-    
-    IF array ≠ source 
-      FOR i 0 ... n-1
-         array[i] source[i]
-    
-    
-    */
-   
+   mergeSort(array,0,num-1);
    
 }
 
 template <class T>
-void merge(T destination[], int iBegin1, int iBegin2, int iEnd2, T source[])
+void mergeSort(T array[], int iBegin, int iEnd)
 {
-   
-   /*   Pseudo Code
-       
-   iEnd1 = iBegin2 – 1
-   i1 = iBegin1
-   i2 = iBegin2
-   
-   FOR iDestination 0 ... iEnd2 – iBegin1 + 1
-      IF i1 ≤ iEnd1 and (i2 = iEnd2 or source[i2] > source[i1])
-         destination[iDestination] source[i1++]
-      ELSE
-         destination[iDestination] source[i2++]
-       
-   */
+   if (iBegin < iEnd)
+   {
+      // get mid point
+      int iMid = iBegin+(iEnd-iBegin)/2;
       
+      // Sort first and second halves
+      mergeSort(array, iBegin, iMid);
+      mergeSort(array, iMid+1, iEnd);
+      
+      //Run the merge
+      merge(array, iBegin, iMid, iEnd);
+   }
 }
+
+
+template <class T>
+void merge(T array[], int iBegin, int iMid, int iEnd)
+{
+   int i, j, k;  //loop counters
+   int iSub1 = iMid - iBegin + 1;
+   int iSub2 =  iEnd - iMid;
+   
+   /* create temp arrays */
+   T leftSub[iSub1], rightSub[iSub2];
+   
+   /* Copy data to temp arrays L[] and R[] */
+   for (i = 0; i < iSub1; i++)
+      leftSub[i] = array[iBegin + i];
+   for (j = 0; j < iSub2; j++)
+      rightSub[j] = array[iMid + 1+ j];
+   
+   /* Merge the temp arrays back into arr[l..r]*/
+   i = 0; // Initial index of first subarray
+   j = 0; // Initial index of second subarray
+   k = iBegin; // Initial index of merged subarray
+   while (i < iSub1 && j < iSub2)
+   {
+      if (rightSub[j] > leftSub[i])
+         array[k++] = leftSub[i++];
+      else
+         array[k++] = rightSub[j++];
+   }
+   
+   /* Copy the remaining elements of L[], if there
+    are any */
+   while (i < iSub1)
+      array[k++] = leftSub[i++];
+   
+   /* Copy the remaining elements of R[], if there
+    are any */
+   while (j < iSub2)
+      array[k++] = rightSub[j++];
+
+}
+
+//Merge and MergeSort used from http://www.geeksforgeeks.org/merge-sort/
 
 
 #endif // SORT_MERGE_H
