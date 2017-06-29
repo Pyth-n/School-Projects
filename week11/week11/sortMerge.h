@@ -25,7 +25,7 @@ void mergeSort(T array[], int ibegin, int iEnd);
 template <class T>
 void sortMerge(T array[], int num)
 {
-   mergeSort(array,0,num-1);
+   mergeSort(array,0,num-1);  //call to funcction with begin and end for recursive
    
 }
 
