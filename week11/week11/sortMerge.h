@@ -50,23 +50,26 @@ void mergeSort(T array[], int iBegin, int iEnd)
 template <class T>
 void merge(T array[], int iBegin, int iMid, int iEnd)
 {
-   int i, j, k;  //loop counters
+    //counters
+   int i, j, k;
    int iSub1 = iMid - iBegin + 1;
    int iSub2 =  iEnd - iMid;
    
-   /* create temp arrays */
+   // create temp arrays
    T leftSub[iSub1], rightSub[iSub2];
    
-   /* Copy data to temp arrays L[] and R[] */
+   // Copy data to temp arrays
    for (i = 0; i < iSub1; i++)
       leftSub[i] = array[iBegin + i];
    for (j = 0; j < iSub2; j++)
       rightSub[j] = array[iMid + 1+ j];
    
-   /* Merge the temp arrays back into arr[l..r]*/
-   i = 0; // Initial index of first subarray
-   j = 0; // Initial index of second subarray
-   k = iBegin; // Initial index of merged subarray
+   //Merge the temp arrays back into array[]
+   
+   i = 0;                                 // Initial index of first subarray
+   j = 0;                                 // Initial index of second subarray
+   k = iBegin;                            // Initial index of merged subarray
+   
    while (i < iSub1 && j < iSub2)
    {
       if (rightSub[j] > leftSub[i])
@@ -75,19 +78,17 @@ void merge(T array[], int iBegin, int iMid, int iEnd)
          array[k++] = rightSub[j++];
    }
    
-   /* Copy the remaining elements of L[], if there
-    are any */
+   // Copy the remaining elements of Subarray1[], if there are any
    while (i < iSub1)
       array[k++] = leftSub[i++];
    
-   /* Copy the remaining elements of R[], if there
-    are any */
+   // Copy the remaining elements of Subarray2[], if there are any
    while (j < iSub2)
       array[k++] = rightSub[j++];
 
 }
 
-//Merge and MergeSort used from http://www.geeksforgeeks.org/merge-sort/
+//Merge and MergeSort influenced heavily from http://www.geeksforgeeks.org/merge-sort/
 
 
 #endif // SORT_MERGE_H
