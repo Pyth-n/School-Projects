@@ -27,7 +27,8 @@ void sortQuick(T array[], int num)
    int iDown = iEnd;
 
    T pivotValue = array[iEnd / 2];
-
+   
+   // Quickly sorts
    while (iUp <= iDown)
    {
       while (iUp <= iEnd && pivotValue > array[iUp])
