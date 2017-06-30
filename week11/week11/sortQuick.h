@@ -19,32 +19,34 @@ template <class T>
 void sortQuick(T array[], int num)
 {
    
-   /*   Pseudo Code
-    
-    IFn≤1
-      RETURN 
-   
-    iDown iEnd n – 1
-    iUp 0 
-    pivotValue array[iEnd/2]
-    
-    WHILE iUp ≤ iDown
-    {
-      WHILE iUp ≤ iEnd and pivotValue > array[iUp]
-         iUp++
-      WHILE iDown ≥ 0 and array[iDown] > pivotValue
-         iDown—
-    
-      IF iUP ≤ iDown
-         SWAP array[iUp] array[iDown]
-    }
-    
-    sortQuick(array, iUp) 
-    sortQuick(array + iUp, iEnd – iUp + 1
-    
-    
-    */
-   
+   if (num <= 1)
+      return;
+
+   int iUp = 0;
+   int iEnd = num - 1;
+   int iDown = iEnd;
+
+   T pivotValue = array[iEnd / 2];
+
+   while (iUp <= iDown)
+   {
+      while (iUp <= iEnd && pivotValue > array[iUp])
+         iUp++;
+
+      while (iDown >= 0 && array[iDown] > pivotValue)
+         iDown--;
+
+      if (iUp <= iDown)
+      {
+         T tmp;
+         tmp = array[iUp];
+         array[iUp++] = array[iDown];
+         array[iDown--] = tmp;
+      }
+
+      sortQuick(array, iUp);
+      sortQuick(array + iUp, iEnd - iUp + 1);
+   }
    
 }
 
