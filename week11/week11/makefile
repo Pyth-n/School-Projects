@@ -8,14 +8,14 @@
 #     Week 11 Sorting
 # Time:
 #    Pair programming -  hour
-#	  Jeffry Simpson   -  2 hours
+#	  Jeffry Simpson   -  3.5 hours
 #     David Perez     -  hours
 #
 ## Difficulties:
 #    David -
 #
-#
-#    Jeffry -
+#    Jeffry - Getting the MergeSort to work correctly with the source
+#             and the destination arrays.
 #
 #
 ##############################################################
