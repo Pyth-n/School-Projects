@@ -23,21 +23,18 @@ int binarySearch(T array[], T searchItem, int iBegin, int iEnd);
 template <class T>
 void sortInsertion(T array[], int num)
 {
-   /*   Pseudo Code
+   int iInsert, iShift;
 
-    FOR iPivot n-2 ... 0
-    {
-      valuePivot array[iPivot];
-      iInsert binarySearch(array, valuePivot, iPivot + 1, n – 1) 
-      iInsert--
-      for iShift iPivot ... iInsert
-         array[iShift] array[iShift + 1] 
+   for(int iPivot = num-2; iPivot >= 0; iPivot--)
+   {
+      T valuePivot =  array[iPivot];
+      iInsert = binarySearch(array, valuePivot, iPivot + 1, num - 1);
+      iInsert--;
+      for(iShift=iPivot;iShift < iInsert; iShift++)
+         array[iShift]= array[iShift + 1];
     
-      array[iShift] valuePivotpivot;
+      array[iShift]= valuePivot;
     }
-    
-    
-    */
    
    
 }
@@ -48,19 +45,21 @@ void sortInsertion(T array[], int num)
 template <class T>
 int binarySearch(T array[], T searchItem, int iBegin, int iEnd)
 {
-   /*   Pseudo Code
+   int iMiddle = (iBegin+iEnd)/2;
    
-    iMiddle (iBegin + iEnd)/2
-    IF iBegin > iEnd
-      RETURN iBegin
-    IF array[iMiddle] = searchItem
-      RETURN iMiddle
-    IF search > array[iMiddle]
-      RETURN binarySearch(array, search, iMiddle + 1, iEnd)
-    ELSE
-      RETURN binarySearch(array, search, iBegin, iMiddle – 1)
+
+    if(iBegin > iEnd)
+       return iBegin;
+   
+    if(array[iMiddle] == searchItem)
+       return iMiddle;
+   
+    if(searchItem > array[iMiddle])
+       return binarySearch(array, searchItem, iMiddle + 1, iEnd);
+    else
+       return binarySearch(array, searchItem, iBegin, iMiddle - 1);
     
-    */
+
 }
 
 #endif // SORT_INSERTION_H
