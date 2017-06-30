@@ -9,10 +9,11 @@
 # Time:
 #    Pair programming -  hour
 #	  Jeffry Simpson   -  3.5 hours
-#     David Perez     -  hours
+#     David Perez     -  4 hours
 #
 ## Difficulties:
-#    David -
+#    David - Trying to figure out a way to make the Heap sort work. 
+#            Also understanding percolateDown() and heapify()
 #
 #    Jeffry - Getting the MergeSort to work correctly with the source
 #             and the destination arrays.
