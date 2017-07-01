@@ -25,12 +25,14 @@ void sortInsertion(T array[], int num)
 {
    int iInsert, iShift;
 
+   //outer loop   Set Pivot to top of array and move down
    for(int iPivot = num-2; iPivot >= 0; iPivot--)
    {
-      T valuePivot =  array[iPivot];
+      T valuePivot =  array[iPivot];  //temp holder
       iInsert = binarySearch(array, valuePivot, iPivot + 1, num - 1);
       iInsert--;
-      for(iShift=iPivot;iShift < iInsert; iShift++)
+      
+      for(iShift=iPivot;iShift < iInsert; iShift++)  //Ajust aray items
          array[iShift]= array[iShift + 1];
     
       array[iShift]= valuePivot;
@@ -41,6 +43,7 @@ void sortInsertion(T array[], int num)
 
 /*****************************************************
  * Binary Search
+ * Recursive call on array to get to smallest set
  ****************************************************/
 template <class T>
 int binarySearch(T array[], T searchItem, int iBegin, int iEnd)

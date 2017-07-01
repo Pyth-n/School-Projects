@@ -7,9 +7,9 @@
 # Summary:
 #     Week 11 Sorting
 # Time:
-#    Pair programming -  hour
+#    Pair programming -  .75 hour
 #	  Jeffry Simpson   -  3.5 hours
-#     David Perez     -  4 hours
+#     David Perez     -  4   hours
 #
 ## Difficulties:
 #    David - Trying to figure out a way to make the Heap sort work. 

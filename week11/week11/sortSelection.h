@@ -19,28 +19,22 @@
 template <class T>
 void sortSelection(T array[], int num)
 {
-   
+      //Outer loop  Set Pivot to end and move down
    for(int iPivot = num-1; iPivot > 0; iPivot--)
    {
       int iLargest = 0;
+      //Inner Loop  Set check at beginning and move toward pivot
       for(int iCheck = 0; iCheck < iPivot; iCheck++)
       {
-         if(array[iCheck] > array[iLargest])
+         if(array[iCheck] > array[iLargest])   //If lower item is larger than later item adjust
             iLargest = iCheck;
       }
     
-      if(array[iLargest] > array[iPivot])
+      if(array[iLargest] > array[iPivot])  //swap items
          swap(array,iLargest, iPivot);
     }
 
-
-    
-   
    
 }
-
-
-
-
 
 #endif // SORT_SELECTION_H

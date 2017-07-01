@@ -24,15 +24,16 @@ void sortBinary(T array[], int num)
    BST <T> bst;
    BSTIterator <T> it;
    int i;
-    
+   
+   //Create the BST from the array
    for(i=0;i < num; i++)
       bst.insert(array[i]);
-    
+   
+   //Use the iterator put back the BST from begining to end order in the array
    i = 0;
    for(it = bst.begin(); it != bst.end(); ++it)
        array[i++] = *it;
     
-
    
 }
 

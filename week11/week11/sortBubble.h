@@ -25,16 +25,17 @@ void sortBubble(T array[], int num)
    
    for(int iPivot = num; iPivot > 1; iPivot--)
    {
-      bool swapped = false;
-      for(int iCheck = 0 ; iCheck < iPivot-1; iCheck++)
+      bool swapped = false;                              //set flag
+      for(int iCheck = 0 ; iCheck < iPivot-1; iCheck++)  // inner loop
       {
-         if(array[iCheck] > array[iCheck+1])
+         if(array[iCheck] > array[iCheck+1])             //if next is bigger than prev swap
          {
             swap(array,iCheck, iCheck+1);
-            swapped = true;
+            swapped = true;                  //did at least one swap
          }
       }
       
+      //inside the outer For loop if we didn't swap anything we are done
       if(!swapped)
          return;
    }
@@ -42,6 +43,10 @@ void sortBubble(T array[], int num)
 
 }
 
+/*****************************************************
+ * Swap
+ * Swap to values within an array
+ ****************************************************/
 template <class T>
 void swap(T *array, int first, int second)
 {
