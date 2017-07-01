@@ -39,16 +39,15 @@ void sortQuick(T array[], int num)
 
       if (iUp <= iDown)
       {
-         T tmp;
-         tmp = array[iUp];
+         T tmp = array[iUp];
          array[iUp++] = array[iDown];
          array[iDown--] = tmp;
       }
 
-      sortQuick(array, iUp);
-      sortQuick(array + iUp, iEnd - iUp + 1);
+      
    }
-   
+   sortQuick(array, iUp);
+   sortQuick(array + iUp, iEnd - iUp + 1);
 }
 
 
