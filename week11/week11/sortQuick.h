@@ -18,7 +18,7 @@
 template <class T>
 void sortQuick(T array[], int num)
 {
-   
+   // Do nothing
    if (num <= 1)
       return;
 
@@ -26,26 +26,30 @@ void sortQuick(T array[], int num)
    int iEnd = num - 1;
    int iDown = iEnd;
 
+   // Find pivot
    T pivotValue = array[iEnd / 2];
    
    // Quickly sorts
    while (iUp <= iDown)
    {
+      // Advance up
       while (iUp <= iEnd && pivotValue > array[iUp])
          iUp++;
 
+      // Advance down
       while (iDown >= 0 && array[iDown] > pivotValue)
          iDown--;
 
+      // Swap
       if (iUp <= iDown)
       {
          T tmp = array[iUp];
          array[iUp++] = array[iDown];
          array[iDown--] = tmp;
       }
-
-      
    }
+
+   // Calls recursively
    sortQuick(array, iUp);
    sortQuick(array + iUp, iEnd - iUp + 1);
 }
