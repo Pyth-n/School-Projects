@@ -26,18 +26,7 @@ public:
    Heap() : num(0), array(NULL) {}
 
    // Non-default constructor
-   Heap(T data[], int num)
-   {
-      this->num = num;
-      array = new T[num + 1];
-
-      // Copy contents
-      for (int i = 0; i <= num; i++)
-      {
-         array[i] = data[i];
-      }
-      heapify(array, num);
-   }
+   Heap(T data[], int num);
 
    // Delete operator
    ~Heap() { delete[] array; }
@@ -89,6 +78,7 @@ void Heap<T>::sort(T * a, int n)
    int i;
    T tmp;
 
+   // Swaps then percolates
    for (i = n; i >= 2; i--) {
       tmp = a[i];
       a[i] = a[1];
@@ -98,12 +88,32 @@ void Heap<T>::sort(T * a, int n)
 }
 
 /*****************************************************
+* HEAP(T, INT)
+* Non-default constructor
+****************************************************/
+template<class T>
+Heap<T>::Heap(T data[], int num)
+{
+   // Sets data
+   this->num = num;
+   array = new T[num + 1];
+
+   // Copy contents then heapify
+   for (int i = 0; i <= num; i++)
+   {
+      array[i] = data[i];
+   }
+   heapify(array, num);
+}
+
+/*****************************************************
 * HEAPIFY
 * Creates heap
 ****************************************************/
 template <class T>
 void Heap<T> ::heapify(T* data, int n)
 {
+   // Percolates all non-leaf nodes
    int i = n / 2;
    for (i; i >= 1; i--)
       percolateDown(data, i, n);
@@ -119,8 +129,10 @@ void Heap<T> ::percolateDown(T* array, int index, int n)
    T tmp = array[index];
    int j = 2 * index;
 
+   // Percolates and fixes heap order
    while (j <= n)
    {
+      // Compare left and rights, then head that direction
       if (j < n && array[j + 1] > array[j])
          j = j + 1;
 
@@ -145,12 +157,15 @@ void sortHeap(T array[], int num)
    // Fix index and add an extra space
    T sortArray[num + 1];
 
+   // Copy contents
    for (int i = 0; i < num; i++)
       sortArray[i + 1] = array[i];
 
+   // Setup new heap, sort
    Heap<T>* heap = new Heap<T>(sortArray, num);
    heap->sort(heap->getData(), heap->getNum());
 
+   // Fix again
    for (int i = 1; i <= num; i++) {
       array[i - 1] = heap->getData()[i];
    }
