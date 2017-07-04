@@ -11,7 +11,7 @@
 #ifndef HASH_H
 #define HASH_H
 
-Class Hash
+class Hash
 {
    
    /*
