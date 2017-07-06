@@ -13,6 +13,7 @@
 #include <iostream>      // for CIN and COUT
 #include <string>        // for STRING
 #include <stdlib.h>      // for ABS
+#include <cassert>
 #include "hash.h"        // for Hash class which should be in hash.h
 #include "spellCheck.h"  // for the spellCheck prototype
 using namespace std;

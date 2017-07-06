@@ -7,47 +7,131 @@
  * Summary:
  *    This program will implement the Hash Class
  ************************************************************************/
-
 #ifndef HASH_H
 #define HASH_H
 
+#include <cassert>
+#include "list.h"
+
+template <class T>
 class Hash
 {
-   
-   /*
-    
-    Constructor: Non-default constructor and the copy constructor. The non-default constructor takes the number of
-                 buckets as a parameter. If there is insufficient memory to allocate a new buffer, then the following
-                 exception is thrown:
-         ERROR: Unable to allocate memory for the hash.
-    
-    Destructor: Delete all the elements in the Hash.
-    
-    operator=: Assignment operator. Copy one Hash into another. If there is insufficient memory to allocate a new 
-               buffer, then the following exception is thrown:
-               ERROR: Unable to allocate memory for the hash.
+public:
+   // Non-default constructor
+   Hash(int numBucket) throw (const char *) 
+   { 
+      try
+      {
+         this->numBucket = numBucket;
+         m_Size = 0;
+         table = new List<T>[numBucket];
+      }
+      catch (std::bad_alloc)
+      {
+         throw "ERROR: unable to allocate memory for the hash";
+      }
+   }
+   // Copy constructor
+   Hash(const Hash<T>& rhs) throw (const char *) 
+   {
+      try
+      {
+         this->numBucket = rhs.numBucket;
+         this->m_Size = rhs.m_Size;
+         this->table = new List<T>[numBucket];
 
-    empty(): Determines whether the current Hash is empty.
-  
-    size(): Returns the number of elements in the Hash.
- 
-    capacity(): Returns the number of buckets in the Hash.
- 
-    clear(): Clear the contents. This method takes no parameters and returns nothing.
-  
-    find(): The parameter is the value to be found. Returns true if the value is found, false otherwise.
+         // Copy contents of table
+         for (int i = 0; i < numBucket; i++)
+         {
+            // Is table allocated?
+            if (&rhs.table != NULL)
+               table[i] = rhs.table[i];
+         }
+      }
+      catch (std::bad_alloc)
+      {
+         throw "ERROR: unable to allocate memory for the hash";
+      }
+   }
+   // Delete constructor
+   ~Hash() 
+   {
+      // clear each element
+      for (int i = 0; i < numBucket; i++)
+         table[i].clear();
+
+      // delete table
+      delete[] table;
+   }
+
+   // Hash functions //
+   bool empty() { return m_Size == 0; }  // True if no data is stored
+   int size() { return m_Size; }         // Returns number of items
+   int capacity() const { return numBucket; }// Returns number of buckets (capacity)
+   void clear() 
+   {
+      if (!empty())
+      {
+         // Loop through table and clear
+         for (int i = 0; i < numBucket; i++)
+            table[i].clear();
+
+         m_Size = 0;
+      }
+   } // clears the array
+
+   bool find(T e)
+   {
+      int hashed = hash(e);
+
+      if (hashed >= 0 && hashed < numBucket)
+      {
+         ListIterator<T> it;
+         for (it = table[hashed].begin(); it != table[hashed].end(); ++it)
+         {
+            if (*it == e)
+               return true;
+         }
+      }
+      else
+         return false;
+   }
+
+   void insert(T e)
+   {
+      int hashed = hash(e);
+
+      if (hashed >= 0 && hashed < numBucket)
+      {
+         table[hashed].push_back(e);
+         m_Size++;
+      }
+   }
+
+   // Virtual hash function
+   virtual int hash(const T & value) const = 0;
    
-    insert(): Places a new instance of a value in the Hash. The parameter is the item to be inserted; there is no return value.
-  
-    hash(): This is a pure virtual function taking an element as a parameter and returning an index into the underlying array.
- 
-    Your Hash class will need to be able to handle hash table collisions. You can do this any way you choose, 
-     but perhaps the easiest is to perform chaining using a List or a BST in the hash table
-    
-    
-    */
-   
+
+   // Assignment operator
+   Hash<T>& operator=(const Hash<T> &rhs)
+   {
+      clear();
+      this->numBucket = rhs.numBucket;
+      this->m_Size = rhs.m_Size;
+      this->table = new List<T>[numBucket];
+
+      for (int i = 0; i < numBucket; i++)
+         this->table[i] = rhs.table[i];
+
+      return *this;
+   }
+
+
+private:
+   int numBucket;
+   int m_Size;
+   List<T>* table;
 };
 
 
-#endif /* hash_h */
+#endif 
