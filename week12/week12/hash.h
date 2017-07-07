@@ -64,10 +64,9 @@ private:
    List<T>* table;
 };
 
-
-#endif 
-
-// Non-default constructor
+/***********************************************************************
+* Hash(int): Non-Default constructor
+************************************************************************/
 template<class T>
 Hash<T>::Hash(int numBucket) throw(const char *)
 {
@@ -83,7 +82,10 @@ Hash<T>::Hash(int numBucket) throw(const char *)
    }
 }
 
-// Copy constructor
+/***********************************************************************
+* Hash(const Hash<T>& rhs): Copy constructor
+*
+************************************************************************/
 template<class T>
 Hash<T>::Hash(const Hash<T>& rhs) throw(const char *)
 {
@@ -107,7 +109,9 @@ Hash<T>::Hash(const Hash<T>& rhs) throw(const char *)
    }
 }
 
-// Returns number of buckets (capacity)
+/***********************************************************************
+* clear(): sets size to 0
+************************************************************************/
 template<class T>
 void Hash<T>::clear()
 {
@@ -117,22 +121,24 @@ void Hash<T>::clear()
       for (int i = 0; i < numBucket; i++)
          table[i].clear();
 
+      // This clears size
       m_Size = 0;
    }
 }
 
+/***********************************************************************
+* find(T): Iterates through array of list to find element
+************************************************************************/
 template<class T>
 bool Hash<T>::find(T e)
 {
-   // Get hashed
-   int hashed = hash(e);
-   assert(hashed >= 0 && hashed < numBucket);
+   assert(hash(e) >= 0 && hash(e) < numBucket);
 
    // Makes sure it's 0 or greater and less than the number of buckets
-   if (hashed >= 0 && hashed < numBucket)
+   if (hash(e) >= 0 && hash(e) < numBucket)
    {
       ListIterator<T> it;
-      for (it = table[hashed].begin(); it != table[hashed].end(); ++it)
+      for (it = table[hash(e)].begin(); it != table[hash(e)].end(); ++it)
       {
          if (*it == e)
             return true;
@@ -142,14 +148,18 @@ bool Hash<T>::find(T e)
       return false;
 }
 
+/***********************************************************************
+* insert(T e): Inserts element into a hashed bucket with array of List
+************************************************************************/
 template<class T>
 void Hash<T>::insert(T e)
 {
-   int hashed = hash(e);
-   assert(hashed >= 0 && hashed < numBucket);
-   if (hashed >= 0 && hashed < numBucket)
+   assert(hash(e) >= 0 && hash(e) < numBucket);
+   if (hash(e) >= 0 && hash(e) < numBucket)
    {
-      table[hashed].push_back(e);
+      table[hash(e)].push_back(e);
       m_Size++;
    }
 }
+
+#endif 
