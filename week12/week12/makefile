@@ -7,12 +7,13 @@
 # Summary:
 #     <put a description here>
 # Time:
-#    Pair programming -
+#    Pair programming - 1
 #	  Jeffry Simpson   -
-#     David Perez     -
+#     David Perez     - 4
 #
 ## Difficulties:
-#    David -
+#    David - Understanding the pure virtual hash function and also 
+#            how to write the insert()
 #
 #
 #    Jeffry -

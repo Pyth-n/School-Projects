@@ -57,7 +57,6 @@ public:
       return *this;
    }
 
-
 private:
    int numBucket;
    int m_Size;
