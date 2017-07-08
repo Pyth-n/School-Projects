@@ -27,7 +27,6 @@ void spellCheck()
    SHash sHashTable(1);
    vector <string> sMisspelled;
    
-   HashCheck();
    
    //buildHash(sHashTable,"dictionary.txt");                   //local on the mac
    buildHash(sHashTable,"/home/cs235/week12/dictionary.txt");  //for linux lab

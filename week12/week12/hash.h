@@ -41,7 +41,7 @@ public:
    void insert(T e);
 
    // Virtual hash function
-   virtual int hash(const T & value) const = 0;
+   virtual int hash(const T & t) const {return 0;}
    
    // Assignment operator
    Hash<T>& operator=(const Hash<T> &rhs)
@@ -56,6 +56,7 @@ public:
 
       return *this;
    }
+   
 
 private:
    int numBucket;
@@ -143,8 +144,8 @@ bool Hash<T>::find(T e)
             return true;
       }
    }
-   else
-      return false;
+
+   return false;
 }
 
 /***********************************************************************

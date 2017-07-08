@@ -28,7 +28,14 @@ public:
    SHash(int numBuckets)    throw (const char *) : Hash <string> (numBuckets) {}
    SHash(const SHash & rhs) throw (const char *) : Hash <string> (rhs)        {}
    
-   // hash function
+   /*****************************************
+    * Hash :: String hash function
+    * Simple hash function that uses the sum of the letters of the string for the hash.
+    * creates 567 unique hashs,  
+    *     191 have no duplicates, 
+    *     317 have duplicates of less than 10 items, 
+    *      and 59 have duplicats between 11 and 19 (1 each of 19, and 16).
+    ****************************************/
    int hash(const string strInput) const
    {
       int index = 0;
@@ -46,14 +53,6 @@ public:
    }
    
 };
-
-
-/*****************************************
- * Hash :: String hash function
- * Simple hash function that uses the sum of the letters of the stirng.
- 
- ****************************************/
-
 
 
 
