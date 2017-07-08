@@ -5,10 +5,10 @@
 # Author:
 #     Jeffry Simpson, David Perez
 # Summary:
-#     <put a description here>
+#     Hash table assignment for week 12
 # Time:
 #    Pair programming - 1
-#	  Jeffry Simpson   -
+#	  Jeffry Simpson   - 4
 #     David Perez     - 4
 #
 ## Difficulties:
@@ -16,7 +16,10 @@
 #            how to write the insert()
 #
 #
-#    Jeffry -
+#    Jeffry - Getting the virtual Hash to work with my derived class for
+#             string hash.   Tried creating with varous hash functions and
+#             finally went back to the first one I tried which was just summing
+#             up the values of the ascii characters in the string.
 #
 ###############################################################
 

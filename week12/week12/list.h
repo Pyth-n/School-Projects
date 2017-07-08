@@ -1,6 +1,6 @@
 /***********************************************************************
  * Header:
- *    set.h
+ *    list.h
  * Summary:
  *    This will contain the code for our week07 List assignment
  * Author
