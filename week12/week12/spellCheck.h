@@ -29,7 +29,21 @@ public:
    SHash(const SHash & rhs) throw (const char *) : Hash <string> (rhs)        {}
    
    // hash function
-   int hash(const string strInput) const;
+   int hash(const string strInput) const
+   {
+      int index = 0;
+      int sum = 0;
+      int strLen = (int)strInput.length();
+      
+      while (index < strLen)
+      {
+         char character = strInput[index];
+         int number = character;
+         sum = number + sum;
+         index ++;
+      }
+      return sum;
+   }
    
 };
 
@@ -39,21 +53,7 @@ public:
  * Simple hash function that uses the sum of the letters of the stirng.
  
  ****************************************/
-int SHash :: hash(const string strInput) const
-{
-   int index = 0;
-   int sum = 0;
-   int strLen = (int)strInput.length();
-   
-   while (index < strLen)
-   {
-      char character = strInput[index];
-      int number = character;
-      sum = number + sum;
-      index ++;
-   }
-   return sum;
-}
+
 
 
 
