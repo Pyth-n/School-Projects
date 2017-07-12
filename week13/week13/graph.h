@@ -22,6 +22,51 @@
 class Graph
 {
    
+private:
+   bool **matrix;
+   int items;
+   
+public:
+   Graph(int grid) : items(grid)
+   {
+
+      matrix = new bool*[grid];
+      
+      for(int i = 0; i < grid; i++)
+         matrix[i] = new bool[grid];
+   }
+   
+   int size() const  { return items; }
+   
+   void add(Vertex v1, Vertex v2)
+   {
+      
+   }
+   
+   void add(Vertex v1, Set <Vertex> s)
+   {
+      
+   }
+
+   void clear(){}
+
+   
+   bool isEdge(Vertex v1, Vertex v2) const
+   {
+      return false;
+   }
+   
+   Set <Vertex> findEdges(Vertex v)
+   {
+      Set <Vertex> s;
+      
+      return s;
+      
+   }
+   
+
 };
+
+
 
 #endif //GRAPH_H

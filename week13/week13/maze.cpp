@@ -40,6 +40,7 @@ void solveMaze()
  ***********************************************/
 void drawMaze(const Graph & g, const Vector <Vertex> & path)
 {
+   /*
    CVertex v;
 
    // copy everything into a set
@@ -67,6 +68,8 @@ void drawMaze(const Graph & g, const Vector <Vertex> & path)
    for (int c = 0; c < v.getMaxCol() - 1; c++)
       cout << "+--";
    cout << "+  +\n";
+    
+    */
 }
 
 /*********************************************
