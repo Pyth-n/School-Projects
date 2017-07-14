@@ -40,13 +40,13 @@ void solveMaze()
  ***********************************************/
 void drawMaze(const Graph & g, const Vector <Vertex> & path)
 {
-   /*
+   
    CVertex v;
 
    // copy everything into a set
    Set <CVertex> s;
    for (int i = 0; i < path.size(); i++)
-      s.insert((CVertex)path(i));
+      s.insert((CVertex)path[i]);
 
    // draw the top border
    cout << "+  ";
@@ -69,7 +69,7 @@ void drawMaze(const Graph & g, const Vector <Vertex> & path)
       cout << "+--";
    cout << "+  +\n";
     
-    */
+    
 }
 
 /*********************************************
