@@ -8,12 +8,15 @@
 #     Final week assignment Graph and maze
 #
 # Time:
-#    Pair programming -
+#    Pair programming - 1
 #	  Jeffry Simpson   -
-#     David Perez     - 
+#     David Perez     - 6
 #
 ## Difficulties:
-#    David -
+#    David - Tried to use the adjency-list at first, had many 
+#     problems. Then tried the adjency-matrix, had problems 
+#     allocating a 2d array. Also, got stuck with isEdge() and
+#     index()
 #
 #    Jeffry -
 ###############################################################
