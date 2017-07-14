@@ -16,11 +16,11 @@ void Graph::clear()
    }
 }
 
-bool Graph::isEdge(Vertex v1, Vertex v2) const
+bool Graph::isEdge(const Vertex v1, const Vertex v2) const
 {
    //return table[v1].find(v2) != NULL;
 
-   return table[v1.index() * v2.index()];
+   return table[index(v1, v2)];
 }
 
 Set<Vertex> Graph::findEdges(const Vertex & vFrom) const
@@ -136,7 +136,7 @@ void Graph::add(const Vertex & vFrom, const Set<Vertex> & sTo)
    }
 }
 
-const int Graph::index(Vertex v1, Vertex v2)
+int Graph::index(Vertex v1, Vertex v2) const
 {
-   return v1.index() * v2.index();
+   return v1.index() * items + v2.index();
 }

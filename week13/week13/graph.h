@@ -40,7 +40,7 @@ public:
    void add(const Vertex & vFrom, const Vertex & vTo);
    void add(const Vertex & vFrom, const Set<Vertex> & sTo);
 
-   const int index(Vertex v1, Vertex v2);
+   int index(Vertex v1, Vertex v2) const;
    int size() const { return items; }
    /*
    Graph(int grid) : items(grid)
