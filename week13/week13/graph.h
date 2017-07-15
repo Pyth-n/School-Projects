@@ -16,8 +16,10 @@
 #include "list.h"
 #include "queue.h"
 #include "set.h"
-#include "vector.h"
+//#include "vector.h"
 #include "vertex.h"
+
+using namespace std;
 
 class Graph
 {
@@ -31,7 +33,7 @@ public:
    Graph(int num);
    void clear();
    Set<Vertex> findEdges(const Vertex & vFrom) const;
-   Vector<Vertex> findPath(const Vertex & vFrom, const Vertex & vTo);
+   vector<Vertex> findPath(const Vertex & vFrom, const Vertex & vTo);
    bool isEdge(Vertex v1, Vertex v2) const;
 
    Graph & operator = (const Graph &rhs) throw (const char *);

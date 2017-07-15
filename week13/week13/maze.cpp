@@ -17,6 +17,7 @@
 #include "vertex.h"
 #include "set.h"
 #include "graph.h"
+
 using namespace std;
 
 void drawMazeRow(const Graph & g, int row, Set <CVertex> & s);
@@ -32,7 +33,7 @@ void solveMaze()
    CVertex cvFrom(0);
    vector <Vertex> path;
    
-   Graph g(readMaze("maze25x25.txt"));
+   Graph g(readMaze("maze10x10.txt"));
    
    CVertex cvTo(cvFrom.getMax()-1);
    drawMaze(g,path);
