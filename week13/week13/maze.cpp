@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include <cassert>
+#include <vector>
 #include "maze.h"
 #include "vertex.h"
 #include "set.h"
@@ -28,7 +29,17 @@ void drawMazeColumn(const Graph & g, int row, const Set <CVertex> & s);
  *****************************************/
 void solveMaze()
 {
-   // your code here
+   CVertex cvFrom(0);
+   vector <Vertex> path;
+   
+   Graph g(readMaze("maze25x25.txt"));
+   
+   CVertex cvTo(cvFrom.getMax()-1);
+   drawMaze(g,path);
+   
+   path = g.findPath(cvFrom, cvTo);
+   
+   drawMaze(g,path);
 }
 
 /************************************************
@@ -38,7 +49,7 @@ void solveMaze()
  *    g     - the graph containing the maze
  *    path  - the path from the upper left corner to the lower right
  ***********************************************/
-void drawMaze(const Graph & g, const Vector <Vertex> & path)
+void drawMaze(const Graph & g, const vector <Vertex> & path)
 {
    
    CVertex v;
