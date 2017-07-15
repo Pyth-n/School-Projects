@@ -1,13 +1,26 @@
+/**********************************************
+ * Graph.cpp
+ * Authors: Jeffry Simpson, David Perez
+ * Info: Source code for graph.h
+ *       Implements matrix adjency graph
+ **********************************************/
+
 #include <iostream>
 #include "graph.h"
 #include "queue.h"
 
+/**********************************************
+ * Non-Default Constructor
+ **********************************************/
 Graph::Graph(int num)
 {
    this->table = new bool[num * num];
    this->items = num;
 }
 
+/**********************************************
+ * clear() : Sets slots to false
+ **********************************************/
 void Graph::clear()
 {
    for (int i = 0; i < items * items; i++)
@@ -16,13 +29,17 @@ void Graph::clear()
    }
 }
 
+/**********************************************
+ * isEdge() : returns matrix boolean slot
+ **********************************************/
 bool Graph::isEdge(const Vertex v1, const Vertex v2) const
 {
-   //return table[v1].find(v2) != NULL;
-
    return table[index(v1, v2)];
 }
 
+/**********************************************
+ * findEdges() : returns sets of edges
+ **********************************************/
 Set<Vertex> Graph::findEdges(const Vertex & vFrom) const
 {
    Vertex vTo;
@@ -38,6 +55,9 @@ Set<Vertex> Graph::findEdges(const Vertex & vFrom) const
    return s;
 }
 
+/**********************************************
+ * findPath() : finds shortest path
+ **********************************************/
 Vector<Vertex> Graph::findPath(const Vertex & vFrom, const Vertex & vTo)
 {
    int distance = 0;
@@ -93,6 +113,9 @@ Vector<Vertex> Graph::findPath(const Vertex & vFrom, const Vertex & vTo)
    return path;
 }
 
+/**********************************************
+ * Assignment Operator : used to copy the graph
+ **********************************************/
 Graph & Graph::operator=(const Graph &rhs) throw(const char *)
 {
    if (rhs.items == 0)
@@ -123,6 +146,9 @@ Graph & Graph::operator=(const Graph &rhs) throw(const char *)
    return *this;
 }
 
+/**********************************************
+ * add() : used to set matrix slot as true
+ **********************************************/
 void Graph::add(const Vertex & vFrom, const Vertex & vTo)
 {
    table[index(vFrom, vTo)] = true;
@@ -136,6 +162,9 @@ void Graph::add(const Vertex & vFrom, const Set<Vertex> & sTo)
    }
 }
 
+/**********************************************
+ * Used to index array slots in the matrix table
+ **********************************************/
 int Graph::index(Vertex v1, Vertex v2) const
 {
    return v1.index() * items + v2.index();
