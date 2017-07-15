@@ -9,7 +9,7 @@
 #
 # Time:
 #    Pair programming - 1
-#	  Jeffry Simpson   -
+#	  Jeffry Simpson   - 4
 #     David Perez     - 6
 #
 ## Difficulties:
@@ -18,7 +18,11 @@
 #     allocating a 2d array. Also, got stuck with isEdge() and
 #     index()
 #
-#    Jeffry -
+#    Jeffry - Getting the maze to work and bring back the path,
+#            Could not get findpath to work corretly, tried Set and
+#            matrix array both.   Finally used sample code to debug
+#            found an issue with the sample code too, finally got
+#            that version to work.
 ###############################################################
 
 ##############################################################

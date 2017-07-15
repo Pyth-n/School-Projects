@@ -2,26 +2,14 @@
  * Component:
  *    Week 13, Maze
  *    Brother Helfrich, CS 235
- * Author:
- *    Br. Helfrich
+ * Authors:
+ *    mostly Br. Helfrich with a little from Jeffry Simpson, David Perez
  * Summary:
  *    Draw and solve a maze
  ************************************************************************/
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cassert>
-#include <vector>
 #include "maze.h"
-#include "vertex.h"
-#include "set.h"
-#include "graph.h"
 
-using namespace std;
-
-void drawMazeRow(const Graph & g, int row, Set <CVertex> & s);
-void drawMazeColumn(const Graph & g, int row, const Set <CVertex> & s);
 
 /******************************************
  * SOLVE MAZE
@@ -30,17 +18,23 @@ void drawMazeColumn(const Graph & g, int row, const Set <CVertex> & s);
  *****************************************/
 void solveMaze()
 {
-   CVertex cvFrom(0);
-   vector <Vertex> path;
+   CVertex cvFrom(0);            //Create a Vertex object for the static variable
+   vector <Vertex> path;         // create our path object
+   string filename;              //string name for incoming file
    
-   Graph g(readMaze("maze10x10.txt"));
+   cout << "What is the filename? ";
+   cin >> filename;
    
-   CVertex cvTo(cvFrom.getMax()-1);
-   drawMaze(g,path);
+   Graph g(readMaze(filename.c_str()));         //Get the maze information.
+   CVertex cvTo(cvFrom.getMax()-1);             //Set our min and max
+   drawMaze(g,path);                            //Draw the empty maze
    
-   path = g.findPath(cvFrom, cvTo);
+   cout << "Press any key to solve the maze.\n";
+   cin.ignore();
+   cin.get();
    
-   drawMaze(g,path);
+   path = g.findPath(cvFrom, cvTo);             //Now get the path
+   drawMaze(g,path);                            //draw the maze with the path
 }
 
 /************************************************
