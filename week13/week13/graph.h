@@ -29,7 +29,6 @@ private:
 public:
 
    Graph(int num);
-   
    void clear();
    Set<Vertex> findEdges(const Vertex & vFrom) const;
    Vector<Vertex> findPath(const Vertex & vFrom, const Vertex & vTo);

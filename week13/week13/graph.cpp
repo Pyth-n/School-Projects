@@ -94,7 +94,7 @@ Vector<Vertex> Graph::findPath(const Vertex & vFrom, const Vertex & vTo)
    }
 
    Vector<Vertex> path(distance + 1);
-   if (distances[vTo.index()] == -1);
+   if (distances[vTo.index()] == -1)
    {
       std::cout << "No path found\n";
       return path;
