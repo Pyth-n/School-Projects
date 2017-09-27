@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- This is to support characters with various machines -->
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>JavaScript Fundamentals</title>
+</head>
+<body>
+	<h1>Variables</h1>
+	<p>Variables are containers for values</p>
+	<pre>
+var x = 1000;
+document.write(x);
+<script>var x = 1000; document.write("Output: " + x);</script>
+	</pre>
+	<h1>Loops</h1>
+	<p>The following numbers are looped 0-5</p>
+	<script>
+		var i = 0;
+		for (i; i < 6; i++) {
+			document.write(i);
+		}
+
+	</script>
+
+	<h1>Conditional Statement</h1>
+	<pre>
+var x = 20;
+if (x > 18) {
+   document.write("Over age 18");
+}		
+	</pre>
+	<span>Output:</span>
+	<script>
+		var x = 20;
+		if (x > 18) {
+			document.write("Over age 18");
+		}
+	</script>
+
+	<h1>Functions</h1>
+	<p>This button has a function that shows an alert</p>
+	<button onclick="alertFunc()">Lol</button>
+	<script>
+		var alertFunc = function(){
+			alert("This was called by function");
+		}
+	</script>
+
+	<h1>Parameters</h1>
+	<input type="text" size="11" value="Enter Parameter" id="paramIn"/>
+	<input type="button" value="Test Parameter" onclick="paramFunc(paramIn.value)" />
+	<script>
+		var paramFunc = function(p){
+			alert("\"" + p + "\"" + " is your parameter!");
+		}
+	</script>
+
+	<h1>Arrays</h1>
+	<p>We'll have this array code. Specify a number to obtain the index value</p>
+	<pre>
+var car = new Array("Honda", "Toyota", "BMW");
+	</pre>
+	<input type="text" size="11" id="cars" placeholder="Enter Index 0-2"/>
+	<input type="button" value="Test" onclick="arrayFunc(cars.value)"/>
+	<div id="array">
+
+	</div>
+
+
+	<script>
+		var car = new Array("Honda", "Toyota", "BMW");
+		var arrayFunc = function(index){
+			document.getElementById("array").innerHTML = car[index];
+		}
+
+		var states = [];
+		states[0] = "Washington";
+		states[1] = "Oregon";
+		states[2] = "California";
+
+		
+		
+	</script>
+
+		<h1>Associative Arrays</h1>
+	<p>Technically, there are no associative arrays in javascript. An object would be better. But if we want the keys of an associative array be like a regular array, we use numbers as keys like the following</p>
+	<pre>
+var states = [];
+states[0] = "Washington";
+states[1] = "Oregon";
+states[2] = "California";
+	</pre>
+	
+</body>
+</html>
