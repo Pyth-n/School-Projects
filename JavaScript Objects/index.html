@@ -1,14 +1,109 @@
 <!DOCTYPE html>
-<!-- This is to support characters with various machines -->
-<meta charset="UTF-8">
 <html>
+<!-- This is to support characters with various machines -->
 <head>
+	<meta charset="UTF-8">
 	<title>JavsScript Objects - Object Creation Functions, Inheritance, Properties, Methods, Instantiation</title>
 </head>
 <body>
+	<h1>Object Creations</h1>
+	<h3>With the new keyword</h3>
+	<pre>
+		var x = new Object();
+		x.num = 20;
+		x.age = 22;
+	</pre>
 	<script>
-	
+	var x = new Object();
+		x.num = 20;
+		x.age = 22;
 
+	
+	</script>
+
+	<h3>With the object literal</h3>
+	<p>This is the preferred way</p>
+	<pre>
+		var x = {num:20, age:22};
+	</pre>
+
+	<h1>Properties</h1>
+	<p>Properties are the values that an object holds.</p>
+	<p>An example is the code in <strong>bold</strong></p>
+	<pre>
+		// With an object literal
+		var cellphone = {<strong>model:"note", generation:8</strong>};
+
+		// With a new object
+		var cellphone = new Object();
+		<strong>cellphone.model = "note";
+		cellphone.generation = 8;</strong>
+	</pre>
+
+	<h1>Methods</h1>
+	<p>A method is the behavior of an object</p>
+	<pre>
+		var dog = new Object();
+		// This is considered a method for the dog object
+		<strong>dog.bark = function(){
+		console.log("woof");
+		}</strong>
+	</pre>
+
+	<h1>Instantiation</h1>
+	<p>Instantiation is the initialization of an object</p>
+	<p>If we have class, we can instantiate it later on and use its properties/methods</p>
+	<pre>
+		function Person(){
+			age = 21;
+			eyeColor = "Brown";
+		}
+
+		// This instantiates a Person object
+		var x = new Person(){
+			console.log("Brown");
+		}
+	</pre>
+
+	<h1>Inheritance</h1>
+	<p>This is when an object shares its properties with another object</p>
+	<p>Here, we see that the base Animal class gives its properties to the Dog class</p>
+	<pre>
+		function Animal() = {}; // Base class Type
+		// This gives its __proto__ object parent the function. Memory efficient
+		Animal.prototype.eats = function(){
+			console.log("All animals eat");
+		}
+
+		
+		function Dog() {}; // Sub class Type
+		// This inherits the Animal's properties to the Dog class
+		Dog.prototype = new Animal();
+		Dog.prototype.bark = function(){
+			return "WOOF";
+		}
+
+		var doggo = new Dog();
+		document.getElementById("dog").innerHTML = doggo.bark();
+	</pre>
+	<p>If we instantiate and call the methods, we'll see that Dog inherited Animal's properties</p>
+	<div id="dog">
+
+	</div>
+	<script>
+		function Animal(){};
+		Animal.prototype.eats = function(){
+			console.log("All animals eat");
+		}
+
+		function Dog(){};
+		Dog.prototype = new Animal(); // inherits
+		Dog.prototype.bark = function(){
+			return "WOOF";
+		}
+
+		var doggo = new Dog();
+		document.getElementById("dog").innerHTML = doggo.bark();
 	</script>
 </body>
 </html>
