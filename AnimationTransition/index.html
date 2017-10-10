@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="David's CIT 261 Portfolio">
+
+    <!-- <link href="style.css" rel="stylesheet" /> -->
+    <style>
+        div {
+            text-align: center;
+            color: white;
+        }
+
+        div#transitionStatus {
+            color: black;
+            text-align: left;
+        }
+
+        div#box1 {
+            background: red;
+            width: 160px;
+            height: 160px;
+        }
+
+        div#myContainer {
+            background: yellow;
+            width: 400px;
+            height: 400px;
+            position: relative;
+        }
+
+        @keyframes moVE {
+            from {
+                margin-top: 0px;
+            }
+            to {
+                margin-top: 350px;
+                margin-left: 350px;
+            }
+            50% {
+                background: pink;
+            }
+        }
+
+        div#myAnimation {
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+
+    <script>
+        function changeColor(id, color) {
+            // console.log("changing color of " + id + " to " + color);
+            elem = document.getElementById(id);
+            elem.style.background = color;
+            elem.innerHTML = "<h3>box</h3><p>" + color + "</p>";
+        }
+
+        function changeTransition(id, isOn) {
+            if (isOn) {
+                document.getElementById('transitionStatus').innerHTML = "transition is on";
+                document.getElementById(id).style.transition = "background 5s";
+            } else {
+                document.getElementById('transitionStatus').innerHTML = "transition is off";
+                document.getElementById(id).style.transition = "";
+            }
+        }
+
+        function animateDiv(id, isOn) {
+            if (isOn) {
+                document.getElementById(id).style.animation = "moVE 5s infinite ease-in-out";
+                document.getElementById(id).innerHTML = "ON";
+            } else {
+                document.getElementById(id).style.animation = "";
+                document.getElementById(id).innerHTML = "OFF";
+            }
+        }
+    </script>
+    <title>CSS3 Transitions and Animations</title>
+</head>
+
+<body>
+    <h1>Transitions with JavaScript</h1>
+    <h3>Turn transition on or off to see the difference</h3>
+    <p>A transition is used more than an animation. It is mainly used when the user interacts with something.</p>
+    <input type="button" value="Add Transition Effect" onclick="changeTransition('box1', true)" />
+    <input type="button" value="Remove Transition Effect" onclick="changeTransition('box1', false)" />
+    <br />
+    <div id="transitionStatus">
+
+    </div>
+    <p>Hover the box to turn background to black with the :hover CSS3 event</p>
+    <div id="box1" onmouseover="changeColor(this.id, 'black')" onmouseout="changeColor(this.id, 'red')">
+        <h3>box</h3>
+    </div>
+
+    <input type="button" value="Green" onclick="changeColor('box1', 'green')" />
+    <input type="button" value="Blue" onclick="changeColor('box1', 'blue')" />
+    <input type="button" value="Purple" onclick="changeColor('box1', 'purple')" />
+
+    <br />
+    <br />
+
+    <h1>Animations with JavaScript</h1>
+    <p>This is a CSS3 animation. The keyframes tell the instructions to animate the div. Triggered with Javascript to turn it on or off</p>
+    <p>Will reach bottom corner, turn pink at 50% of the animation</p>
+    <div id="myContainer">
+        <div id="myAnimation">
+        </div>
+    </div>
+
+    <input type="button" value="Animate" onclick="animateDiv('myAnimation', true)" />
+    <input type="button" value="UnAnimate" onclick="animateDiv('myAnimation', false)" />
+</body>
+
+</html>
