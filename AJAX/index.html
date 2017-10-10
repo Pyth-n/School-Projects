@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JSON with Ajax</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="David's CIT 261 Portfolio">
+</head>
+
+<body>
+    <h1>Requesting JSON files with AJAX</h1>
+    <div>
+        <h3>Select a profile</h3>
+        <input type="radio" value="david.json" name="character" id="dave" checked>david</input>
+        <input type="radio" value="foe.json" name="character" id="foe">opponent</input>
+    </div>
+    <div>
+        <p>Name: <span id="name"></span></p>
+        <p>Health: <span id="health"></span></p>
+        <p>Gold: <span id="gold"></span></p>
+        <p>Mana: <span id="mana"></span></p>
+    </div>
+    <input type="button" value="Load Profile" onclick="loadDoc()" />
+
+    <script>
+        function loadDoc() {
+            var character = "";
+            if (document.getElementById("dave").checked) {
+                character = document.getElementById("dave").value;
+                console.log(document.getElementById("dave").value);
+            } else if (document.getElementById("foe").checked) {
+                character = document.getElementById("foe").value;
+                console.log(character);
+            }
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var jsonObj = JSON.parse(this.responseText);
+                    document.getElementById("name").innerHTML =
+                        jsonObj.name;
+                    document.getElementById("health").innerHTML =
+                        jsonObj.health;
+                    document.getElementById("gold").innerHTML =
+                        jsonObj.gold;
+                    document.getElementById("mana").innerHTML =
+                        jsonObj.mana;
+                }
+            };
+            xhttp.open("GET", character, true);
+            xhttp.send();
+        }
+    </script>
+
+
+</body>
+
+</html>
