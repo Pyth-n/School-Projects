@@ -4,42 +4,92 @@
 <html>
 <head>
 	<title>JavaScript Fundamentals</title>
+	<script>
+		function variable(value) {
+			document.getElementById("variable").innerHTML = value;
+			document.getElementById("variable2").innerHTML = value;
+		}
+		
+		function whileLoop(value) {
+			document.getElementsByClassName("loopClass")[0].innerHTML = value;
+			document.getElementsByClassName("loopClass")[1].innerHTML = value;
+			document.getElementsByClassName("loopClass")[2].innerHTML = value;
+			document.getElementById("loopOut").innerHTML = "";
+			for(var i = 0; i < value; i++) {
+				document.getElementById("loopOut").innerHTML += i + "<br />";
+			}
+		}
+        function conditional(value) {
+            document.getElementById("conditionVal").innerHTML = value;
+            
+            if (value >= 18) {
+            document.getElementById("outCon").innerHTML = "Over age 18";            
+            } else {
+                document.getElementById("outCon").innerHTML = "NOT over 18";
+            }
+        }
+	</script>
 </head>
 <body>
+	
+	<!-- Variables -->
 	<h1>Variables</h1>
 	<p>Variables are containers for values</p>
+	<p>Example:</p>
+	<input type="input" placeholder="Enter variable value" size="14" id="varVal"/>
+	<input type="button" value="Test Value" onclick="variable(varVal.value)"/>
 	<pre>
-var x = 1000;
+// Variable X will hold an input value and print it out
+var x = <span id="variable" style="color:red"></span>;
 document.write(x);
-<script>var x = 1000; document.write("Output: " + x);</script>
+Output: <span id="variable2" style="color:red"></span>
 	</pre>
+	
+	<!-- Loops -->
 	<h1>Loops</h1>
-	<p>The following numbers are looped 0-5</p>
-	<script>
-		var i = 0;
-		for (i; i < 6; i++) {
-			document.write(i);
-		}
-
-	</script>
-
-	<h1>Conditional Statement</h1>
+	<p>There are 3 types of Loops. A while loop, for loop, and a do while.</p>
+	<p>Enter a number:</p>
+	<input type="input" size="3" placeholder="#" id="loopValue"/>
+	<input type="button" value="Loop" onclick="whileLoop(loopValue.value)"/>
 	<pre>
-var x = 20;
-if (x > 18) {
-   document.write("Over age 18");
-}		
-	</pre>
-	<span>Output:</span>
-	<script>
-		var x = 20;
-		if (x > 18) {
-			document.write("Over age 18");
-		}
-	</script>
+var i = 0;
+while(i < <span class="loopClass" style="color:red"></span>) {
+	document.write(i++);
+}
 
+for(var i = 0; i < <span class="loopClass" style="color:red"></span>; i++) {
+	document.write(i);
+}
+
+var i = 0;
+do {
+	document.write(i++);
+} while (i < <span class="loopClass" style="color:red"></span>);
+
+Output: <br /><span id="loopOut" style="color:red"></span>
+	</pre>
+	
+	
+	<!-- Conditional Statements -->
+	<h1>Conditional Statement</h1>
+	<p>Enter a value to see results of the following code:</p>
+	<input type="input" placeholder="Value" size="6" id="inputC"/>
+	<input type="button" value="If Condition" onclick="conditional(inputC.value)"/>
+	<pre>
+var x = <span id="conditionVal" style="color:red"></span>;
+if (x > 18) {
+    document.write("Over age 18");
+} else {
+    document.write("NOT over 18");
+}
+	</pre>
+	Output: <span id="outCon" style="color:red"></span>
+
+	<!-- Functions -->
 	<h1>Functions</h1>
-	<p>This button has a function that shows an alert</p>
+	<p>Functions allow a useful way to write instructions to use over and over</p>
+    <p>So far, all buttons has had instructions to execute when pressed</p>
+    <p>The following function will display an alert</p>
 	<button onclick="alertFunc()">Lol</button>
 	<script>
 		var alertFunc = function(){
@@ -47,15 +97,24 @@ if (x > 18) {
 		}
 	</script>
 
+	<!-- Parameters -->
 	<h1>Parameters</h1>
+    <p>Parameters are values that are passed inside a function. This values
+    then can be used for its own purpose.</p>
 	<input type="text" size="11" value="Enter Parameter" id="paramIn"/>
 	<input type="button" value="Test Parameter" onclick="paramFunc(paramIn.value)" />
-	<script>
+	<pre>
+function testingParameter(<span id="aParam" style="color:red"></span>) {
+    
+}
+    </pre>
+    <script>
 		var paramFunc = function(p){
-			alert("\"" + p + "\"" + " is your parameter!");
+			document.getElementById("aParam").innerHTML = p;
 		}
 	</script>
 
+	<!-- Arrays -->
 	<h1>Arrays</h1>
 	<p>We'll have this array code. Specify a number to obtain the index value</p>
 	<pre>
@@ -67,7 +126,6 @@ var car = new Array("Honda", "Toyota", "BMW");
 
 	</div>
 
-
 	<script>
 		var car = new Array("Honda", "Toyota", "BMW");
 		var arrayFunc = function(index){
@@ -78,12 +136,10 @@ var car = new Array("Honda", "Toyota", "BMW");
 		states[0] = "Washington";
 		states[1] = "Oregon";
 		states[2] = "California";
+    </script>
 
-		
-		
-	</script>
-
-		<h1>Associative Arrays</h1>
+	<!-- Assocative Arrays -->
+	<h1>Associative Arrays</h1>
 	<p>Technically, there are no associative arrays in javascript. An object would be better. But if we want the keys of an associative array be like a regular array, we use numbers as keys like the following</p>
 	<pre>
 var states = [];
