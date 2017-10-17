@@ -1,0 +1,15 @@
+.key {
+	color:purple;
+}
+
+.value {
+	color:green;
+}
+
+.keyItem {
+	color:red;
+}
+
+table, table th {
+	border: 1px solid black;
+}
