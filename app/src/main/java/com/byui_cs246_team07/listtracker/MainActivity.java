@@ -6,7 +6,8 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity {
 
 	/*
-	* David Perez Push 3
+	* OnCreate
+	* David Perez Push 2
 	*/
   @Override
   protected void onCreate(Bundle savedInstanceState) {
