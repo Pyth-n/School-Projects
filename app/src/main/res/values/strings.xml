@@ -10,4 +10,13 @@
     <string name="delete_item">Delete Item</string>
     <string name="list_name">List Name</string>
     <string name="list">List:</string>
+    <string name="label_item_name">Item Name:</string>
+    <string name="label_item_tags">Tags:</string>
+    <string name="label_item_notes">Notes:</string>
+    <string name="item_within">Item within</string>
+    <string name="due_date">Due Date:</string>
+    <string name="last_modified">Last Modified:</string>
+    <string name="created">Created:</string>
+    <string name="date_filler">[Date]</string>
+    <string name="images">Images:</string>
 </resources>
