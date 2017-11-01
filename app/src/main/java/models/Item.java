@@ -14,7 +14,7 @@ public class Item {
     private String name;
     private String notes;
     private Date createdDate;
-
+    private Integer listId;
     private Date dueDate;
     private Integer priority;
     private List<String> tags;
@@ -96,6 +96,15 @@ public class Item {
     public void setCompleted(Boolean completed) {
         isCompleted = completed;
     }
+
+    public Integer getListId() {
+        return listId;
+    }
+
+    public void setListId(Integer listId) {
+        this.listId = listId;
+    }
+
 
     public Boolean save() {
         return null;
