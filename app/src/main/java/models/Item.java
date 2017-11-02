@@ -14,7 +14,7 @@ public class Item {
     private String name;
     private String notes;
     private Date createdDate;
-    private Integer listId;
+    private long listId;
     private Date dueDate;
     private Integer priority;
     private List<String> tags;
@@ -97,11 +97,11 @@ public class Item {
         isCompleted = completed;
     }
 
-    public Integer getListId() {
+    public long getListId() {
         return listId;
     }
 
-    public void setListId(Integer listId) {
+    public void setListId(long listId) {
         this.listId = listId;
     }
 

@@ -23,7 +23,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + LIST_TABLE_NAME + '(' +
                     BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     LIST_COLUMN_NAME + " TEXT NOT NULL, " +
-                    LIST_COLUMN_CATEGORY + " TEXT, " +
+                    LIST_COLUMN_CATEGORY + " TEXT " +
                     ")";
 
     // ITEM TABLE
@@ -46,8 +46,8 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
                     ITEM_COLUMN_DUE_DATE + " TEXT, " +
                     ITEM_COLUMN_PRIORITY +" INTEGER, " +
                     ITEM_COLUMN_TAGS + " TEXT, " +
-                    ITEM_COLUMN_COMPLETED + " INTEGER NOT NULL CHECK (" + ITEM_COLUMN_COMPLETED + " IN (0,1))" +
-                    ITEM_COLUMN_IMAGE_URLS + " TEXT" +
+                    ITEM_COLUMN_COMPLETED + " INTEGER NOT NULL CHECK (" + ITEM_COLUMN_COMPLETED + " IN (0,1)), " +
+                    ITEM_COLUMN_IMAGE_URLS + " TEXT, " +
                     ITEM_COLUMN_FOREIGN_KEY_LIST + " INTEGER, " +
                     "FOREIGN KEY(" + ITEM_COLUMN_FOREIGN_KEY_LIST + ") REFERENCES "+ LIST_TABLE_NAME +"(_ID)" +
                     ")";
