@@ -7,8 +7,6 @@ public class MainActivity extends AppCompatActivity {
 
 	/*
 	* OnCreate
-	* David Perez Push 2
-	* Timothy Bohman
 	*/
   @Override
   protected void onCreate(Bundle savedInstanceState) {

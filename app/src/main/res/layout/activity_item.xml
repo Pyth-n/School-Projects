@@ -9,43 +9,51 @@
 
     <EditText
         android:id="@+id/editItemName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/labelItemName"/>
 
     <EditText
         android:id="@+id/editNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/labelImages"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelNotes"
         app:layout_constraintTop_toBottomOf="@+id/labelNotes"/>
 
     <EditText
         android:id="@+id/editTags"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/labelTags"/>
 
     <TextView
         android:id="@+id/labelItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/label_item_name"
         android:textColor="@android:color/holo_purple"
@@ -57,25 +65,22 @@
         android:id="@+id/labelTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/label_item_tags"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/editItemName"/>
 
     <TextView
         android:id="@+id/labelNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTags"/>
+        app:layout_constraintStart_toEndOf="@+id/labelItemName"
+        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
 
     <TextView
         android:id="@+id/itemWithin"
@@ -106,80 +111,73 @@
         android:id="@+id/labelDueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/due_date"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNotes"/>
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
+        app:layout_constraintTop_toBottomOf="@+id/editTags"/>
 
     <EditText
         android:id="@+id/dueDate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="date"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/labelDueDate"/>
 
     <TextView
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/created"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
 
     <TextView
         android:id="@+id/dateCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:text="@string/date_filler"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelCreated"
         app:layout_constraintTop_toBottomOf="@+id/labelCreated"/>
 
     <TextView
         android:id="@+id/labelModified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/last_modified"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelCreated"
         app:layout_constraintTop_toBottomOf="@+id/dateCreated"/>
 
     <TextView
         android:id="@+id/dateModified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:text="@string/date_filler"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/labelModified"
         app:layout_constraintTop_toBottomOf="@+id/labelModified"/>
 
     <TextView
         android:id="@+id/labelImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/images"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateModified"/>
+
 </android.support.constraint.ConstraintLayout>
