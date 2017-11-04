@@ -5,63 +5,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.byui_cs246_team07.listtracker.MainActivity">
+    tools:context="com.byui_cs246_team07.listtracker.CategoriesActivity">
 
     <Button
-        android:id="@+id/btnLoadList"
+        android:id="@+id/btnLoadCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/load_list"
+        android:text="@string/load_category"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnCreateList"/>
+        app:layout_constraintRight_toLeftOf="@+id/btnCreateCategory"/>
 
     <Button
-        android:id="@+id/btnCreateList"
+        android:id="@+id/btnCreateCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_list"
-        app:layout_constraintLeft_toRightOf="@+id/btnLoadList"
-        app:layout_constraintRight_toLeftOf="@+id/btnDeleteList"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadList"/>
+        android:text="@string/create_category"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/btnLoadCategory"
+        app:layout_constraintRight_toLeftOf="@+id/btnDeleteCategory"
+        app:layout_constraintTop_toTopOf="@+id/btnLoadCategory"/>
 
     <Button
-        android:id="@+id/btnDeleteList"
+        android:id="@+id/btnDeleteCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_list"
-        app:layout_constraintLeft_toRightOf="@+id/btnCreateList"
+        android:text="@string/delete_category"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/btnCreateCategory"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadList"/>
+        app:layout_constraintTop_toTopOf="@+id/btnLoadCategory"/>
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/allCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/category"
+        android:layout_marginTop="16dp"
+        android:text="@string/all_categories"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/categoryName"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
-    <TextView
-        android:id="@+id/categoryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/category_name"
-        android:textColor="@android:color/holo_purple"
-        android:textSize="24sp"
-        android:typeface="serif"
-        app:layout_constraintLeft_toRightOf="@+id/category"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ListView
-        android:id="@+id/listOfLists"
+        android:id="@+id/listOfCategories"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
@@ -70,10 +60,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoadList"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoadCategory"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintTop_toBottomOf="@+id/allCategories"
         app:layout_constraintVertical_bias="1.0"/>
 </android.support.constraint.ConstraintLayout>

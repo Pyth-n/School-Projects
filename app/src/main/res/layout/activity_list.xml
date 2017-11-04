@@ -5,63 +5,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.byui_cs246_team07.listtracker.MainActivity">
+    tools:context="com.byui_cs246_team07.listtracker.ListActivity">
 
     <Button
-        android:id="@+id/btnLoadList"
+        android:id="@+id/btnLoadItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/load_list"
+        android:text="@string/load_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnCreateList"/>
+        app:layout_constraintRight_toLeftOf="@+id/btnCreateItem"/>
 
     <Button
-        android:id="@+id/btnCreateList"
+        android:id="@+id/btnCreateItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_list"
-        app:layout_constraintLeft_toRightOf="@+id/btnLoadList"
-        app:layout_constraintRight_toLeftOf="@+id/btnDeleteList"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadList"/>
+        android:text="@string/create_item"
+        app:layout_constraintLeft_toRightOf="@+id/btnLoadItem"
+        app:layout_constraintRight_toLeftOf="@+id/btnDeleteItem"
+        app:layout_constraintTop_toTopOf="@+id/btnLoadItem"/>
 
     <Button
-        android:id="@+id/btnDeleteList"
+        android:id="@+id/btnDeleteItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete_list"
-        app:layout_constraintLeft_toRightOf="@+id/btnCreateList"
+        android:text="@string/delete_item"
+        app:layout_constraintLeft_toRightOf="@+id/btnCreateItem"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadList"/>
+        app:layout_constraintTop_toTopOf="@+id/btnLoadItem"/>
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/category"
+        android:text="@string/list"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/categoryName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/listNameInListScreen"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <TextView
-        android:id="@+id/categoryName"
+        android:id="@+id/listNameInListScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:text="@string/category_name"
+        android:text="@string/list_name"
         android:textColor="@android:color/holo_purple"
         android:textSize="24sp"
         android:typeface="serif"
-        app:layout_constraintLeft_toRightOf="@+id/category"
+        app:layout_constraintLeft_toRightOf="@+id/list"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ListView
-        android:id="@+id/listOfLists"
+        android:id="@+id/listOfItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
@@ -70,10 +70,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoadList"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoadItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintTop_toBottomOf="@+id/list"
         app:layout_constraintVertical_bias="1.0"/>
 </android.support.constraint.ConstraintLayout>
