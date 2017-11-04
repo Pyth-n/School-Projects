@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Functions -->
+    <script type="text/javascript">
+        function buttonEvent() {
+            if (document.body.style.backgroundColor == "black") {
+                document.body.style.backgroundColor = "white";
+                document.body.style.color = "black";
+            } else {
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "white";
+            }
+        }
+
+        function mouseOverEvent() {
+            console.log("Moues is over");
+            document.getElementById("box1").innerHTML = "MOUSE OVER";
+        }
+
+        function mouseOutEvent() {
+            console.log("Mouse is out");
+            document.getElementById("box1").innerHTML = "MOUSE OUT";
+        }
+    </script>
+
+    <title>JS Standard Events</title>
+</head>
+<body>
+   <h1>JavaScript Standard Events</h1>
+   <p>Events that are performed by browser or user action on HTML elements.</p>
+
+   <h3>Example: onclick</h3>
+   <p>Event is triggered when an element is clicked</p>
+   <input type="button" value="click me" onclick="buttonEvent()" />
+
+   <h3>Example: onmouseover and onmouseout</h3>
+   <p>Event triggered when mouse is over an element</p>
+   <div style="width:100px; height:100px; background-color:green; color:white"
+   onmouseover="mouseOverEvent()" onmouseout="mouseOutEvent()" id="box1"></div>
+
+   <h2>Mobile Events</h2>
+   <p>For mobile devices, touch events exist to use in a mobile browser</p>
+   <p>Please click link to start a canvas and show touch events</p>
+   <a href="canvas.html">Go to canvas</a>
+   
+</body>
+</html>
