@@ -27,13 +27,13 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/labelImages"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/labelNotes"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelNotes"/>
 
     <EditText
@@ -45,7 +45,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/labelTags"/>
 
@@ -76,12 +76,13 @@
         android:id="@+id/labelNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="128dp"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/labelItemName"
-        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
 
     <TextView
         android:id="@+id/itemWithin"
@@ -122,12 +123,12 @@
         android:id="@+id/dueDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintEnd_toStartOf="@+id/labelCreated"
         app:layout_constraintStart_toStartOf="@+id/labelItemName"
         app:layout_constraintTop_toBottomOf="@+id/labelDueDate"/>
 
@@ -135,11 +136,12 @@
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/created"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
+        app:layout_constraintEnd_toStartOf="@+id/labelModified"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/labelDueDate"
+        app:layout_constraintTop_toTopOf="@+id/labelDueDate"/>
 
     <TextView
         android:id="@+id/dateCreated"
@@ -154,11 +156,14 @@
         android:id="@+id/labelModified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/last_modified"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelCreated"
-        app:layout_constraintTop_toBottomOf="@+id/dateCreated"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/labelCreated"
+        app:layout_constraintTop_toTopOf="@+id/labelCreated"/>
 
     <TextView
         android:id="@+id/dateModified"
@@ -173,13 +178,13 @@
         android:id="@+id/labelImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/images"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateModified"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/button2"
