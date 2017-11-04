@@ -19,4 +19,8 @@
     <string name="created">Created:</string>
     <string name="date_filler">[Date]</string>
     <string name="images">Images:</string>
+    <string name="create_category">Create Category</string>
+    <string name="load_category">Load Category</string>
+    <string name="delete_category">Delete Category</string>
+    <string name="all_categories">All Categories</string>
 </resources>
