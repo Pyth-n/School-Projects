@@ -26,8 +26,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:textSize="14sp"
@@ -77,12 +77,12 @@
         android:id="@+id/labelNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginLeft="125dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/labelItemName"
-        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
+        app:layout_constraintTop_toTopOf="@+id/labelDueDate"/>
 
     <TextView
         android:id="@+id/itemWithin"
@@ -155,11 +155,13 @@
         android:id="@+id/labelModified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/last_modified"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelCreated"
-        app:layout_constraintTop_toBottomOf="@+id/dateCreated"/>
+        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
 
     <TextView
         android:id="@+id/dateModified"
@@ -174,12 +176,12 @@
         android:id="@+id/labelImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginRight="140dp"
         android:text="@string/images"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/labelNotes"
-        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/labelDueDate"/>
 
     <Button
         android:id="@+id/button"
@@ -190,5 +192,79 @@
         android:text="@string/save_item"
         app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/labelPriorityNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/priority_number"
+        app:layout_constraintStart_toStartOf="@+id/labelNotes"
+        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
+
+    <EditText
+        android:id="@+id/priorityNumber"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/labelPriorityNumber"
+        app:layout_constraintTop_toBottomOf="@+id/labelPriorityNumber"/>
+
+
+    <CheckBox
+        android:id="@+id/completed"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/completed"
+        app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/labelPriorityLevelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/priority_label"
+        app:layout_constraintBottom_toTopOf="@+id/priorityLevelName"
+        app:layout_constraintStart_toEndOf="@+id/priorityNumber"
+        app:layout_constraintTop_toTopOf="@+id/labelPriorityNumber"/>
+
+    <EditText
+        android:id="@+id/priorityLevelName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
+        app:layout_constraintEnd_toStartOf="@+id/completed"
+        app:layout_constraintStart_toStartOf="@+id/labelPriorityLevelName"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/labelImages"
+        app:layout_constraintTop_toBottomOf="@+id/labelImages"
+        app:srcCompat="@mipmap/ic_launcher"/>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:srcCompat="@mipmap/ic_launcher"/>
 
 </android.support.constraint.ConstraintLayout>
