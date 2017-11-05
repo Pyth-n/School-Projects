@@ -27,4 +27,6 @@
     <string name="priority_number">Priority #</string>
     <string name="completed">Completed</string>
     <string name="priority_label">Label for Priority Level</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
