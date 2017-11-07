@@ -1,0 +1,15 @@
+input[type=number] {
+	width: 80px;
+}
+
+#wrap {
+	//background-color: red;
+	
+}
+
+.content {
+	padding-left: 30px;
+	//background-color: green;
+	display: inline-block;
+	vertical-align: top;
+}

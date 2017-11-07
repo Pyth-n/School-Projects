@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="David's CIT 261 Portfolio">
+
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+    <title>Designing, Defining, and Triggering CSS3 Transitions</title>
+</head>
+<body>
+   <h1>Designing, Defining, and Triggering CSS3 Transitions</h1>
+   <h3>Defining</h3>
+   <p>With CSS3 Transitions, a CSS3 property change change values smoothly</p>
+   
+
+   <h3>Designing</h3>
+   <p>The following uses the CSS3 standard library</p>
+   <div id="wrap">
+   		<div class="content">
+   			<p>Pick a shape:</p>
+   			<div id="radios">
+	   			<input type="radio" name="shape" value="100px" checked>Square<br />
+	   			<input type="radio" name="shape" value="400px">Rectangle<br />
+   			</div>
+   		</div>
+   		<div class="content">
+   			<p>Text inside box</p>
+   			<input type="text" placeholder="Text inside box" size="9" value="text" id="inputText">
+   		</div>
+   		<div class="content">
+   			<p>Duration (in seconds)</p>
+   			<input type="number" placeholder="#" size="2" value="3" id="inputDuration">
+   		</div>
+   		<div class="content">
+   			<p>Way to trigger</p>
+   			<input type="radio" name="trigger" value="hover" checked>:hover<br />
+   			<input type="radio" name="trigger" value="onmouseclick">onmouseclick()<br />
+   			<input type="radio" name="trigger" value="onmouseout">onmouseout()<br />
+   		</div>
+   		<input type="button" value="Create Transition" style="vertical-align:bottom;" onclick="createTransition()">
+   </div>
+
+   <h3>Triggering</h3>
+   <p>The elements show here after creation are triggered the way they were assigned with the above preferences</p>
+   <div id="masterBox">
+
+   </div>
+</body>
+</html>
