@@ -34,16 +34,16 @@
    			<input type="number" placeholder="#" size="2" value="3" id="inputDuration">
    		</div>
    		<div class="content">
-   			<p>Way to trigger</p>
-   			<input type="radio" name="trigger" value="hover" checked>:hover<br />
-   			<input type="radio" name="trigger" value="onmouseclick">onmouseclick()<br />
-   			<input type="radio" name="trigger" value="onmouseout">onmouseout()<br />
+   			<p>Property</p>
+   			<input type="radio" name="cssProperty" value="both" checked>width & height<br />
+   			<input type="radio" name="cssProperty" value="width">width<br />
+   			<input type="radio" name="cssProperty" value="height">height<br />
    		</div>
-   		<input type="button" value="Create Transition" style="vertical-align:bottom;" onclick="createTransition()">
+   		
    </div>
-
+<input type="button" value="Create Transition" style="vertical-align:bottom;" onclick="createTransition()">
    <h3>Triggering</h3>
-   <p>The elements show here after creation are triggered the way they were assigned with the above preferences</p>
+   <p>The elements shown here are triggered by onmouseover JavaScript event</p>
    <div id="masterBox">
 
    </div>
