@@ -1,6 +1,7 @@
 package controllers;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -13,6 +14,9 @@ import models.ItemList;
  */
 
 public class ItemController {
+    private String sortValue;
+    private String category;
+    private String listName;
 
     public Long saveItem(Context context, Item item) {
         ListTrackerDataSource lt = new ListTrackerDataSource(context);
@@ -32,5 +36,32 @@ public class ItemController {
     public List<ItemList> getList(Context context) {
         ListTrackerDataSource lt = new ListTrackerDataSource(context);
         return lt.getLists();
+    }
+
+    public String getSortBy() {
+        return sortValue;
+    }
+
+    public String getCategoryName() {
+        return category;
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setSortBy(String value) {
+        Log.d("SETSORTBY: ", value);
+        this.sortValue = value;
+    }
+
+    public void setCategoryName(String value) {
+        Log.d("SETCATEGORYNAME: ", value);
+        this.category = value;
+    }
+
+    public void setListName(String value) {
+        Log.d("SETLISTNAME: ", value);
+        this.listName = value;
     }
 }
