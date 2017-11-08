@@ -1,4 +1,4 @@
-package com.byui_cs246_team07.listtracker;
+package multithread;
 
 import android.os.AsyncTask;
 
@@ -9,12 +9,13 @@ import java.util.List;
  * Created by David on 10/26/2017.
  */
 
-public class ListSaver extends AsyncTask<Void, Integer, Void> {
-    private List<List> listToSave = new ArrayList<>();
+public class ListLoader extends AsyncTask<Void, Integer, Void> {
+    // Member Variables
+    private List<List> list = new ArrayList<>();
     private String TAG;
 
-    public ListSaver(List<List> list, String tag) {
-        this.listToSave = list;
+    public ListLoader(List<List> list, String tag) {
+        this.list = list;
         this.TAG = tag;
     }
 
