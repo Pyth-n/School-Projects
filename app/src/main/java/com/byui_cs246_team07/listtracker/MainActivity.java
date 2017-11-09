@@ -5,8 +5,13 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.List;
 
 import controllers.ItemController;
+import models.Item;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
+
+  ListView listOfLists;
 
 	/*
 	* OnCreate
@@ -26,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Example Creating items and gettings
 
-    /*Item task = new Item("update tests");
+    Item task = new Item("update tests");
     task.setPriority(1);
     task.setNotes("Some note");
 
@@ -40,9 +47,14 @@ public class MainActivity extends AppCompatActivity {
     for (Item item : items) {
       Log.d("MAIN", item.getName());
       Log.d("MAIN", item.getCreatedDate().toString());
-    }*/
+    }
 
-      ItemController controller = new ItemController();
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+    adapter.add("items");
+    listOfLists = (ListView) findViewById(R.id.listOfLists);
+    listOfLists.setAdapter(adapter);
+
+      //ItemController controller = new ItemController();
       SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
       controller.setCategoryName(settings.getString(CATEGORY, ""));
       controller.setListName(settings.getString(LASTLISTVIEWED, ""));
