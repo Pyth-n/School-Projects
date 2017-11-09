@@ -95,17 +95,19 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
+    <EditText
         android:id="@+id/listNameInItemScreen"
-        android:layout_width="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="@string/list_name"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
         android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/itemWithin"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -253,6 +255,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/dummy_image"
         app:layout_constraintStart_toStartOf="@+id/labelImages"
         app:layout_constraintTop_toBottomOf="@+id/labelImages"
         app:srcCompat="@mipmap/ic_launcher"/>
@@ -263,6 +266,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:contentDescription="@string/dummy_image"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:srcCompat="@mipmap/ic_launcher"/>
