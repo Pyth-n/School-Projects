@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="David's CIT 261 Portfolio">
+
+    <link href="style.css" rel="stylesheet">
+    <script type="text/javascript" src="script.js"></script>
+    <title>Designing, Defining, and Triggering CSS3 Animations</title>
+</head>
+<body>
+   <h1>Designing, Defining, and Triggering CSS3 Animations</h1>
+   <h2>Defining</h2>
+   <p>CSS3 Animations allow HTML elements to animate without JavaScript or flash.</p>
+   <p>Changes from one style to another</p>
+   <p>Runs with keyframes</p>
+
+   <h2>Designing</h2>
+   <p><strong>Animation Type: </strong>Selects which @keyframes (animation) to assign the DIV to</p>
+   <p><strong>Duration: </strong>Determines the duration in seconds of the transition</p>
+   <p><strong>Timing Function: </strong>Specifies the speed curve of the animation</p>
+   <p><strong>Delay: </strong>Determines delay before animation starts in seconds</p>
+   <p><strong>Iteration Count: </strong>Amount of times animation will play. Enter 10 for 'infinite'</p>
+   <p><strong>Direction: </strong></p>
+   <div id="wrap">
+   		<div class="content">
+   			Animation Type:<br />
+   			<input type="radio" name="animationType" value="optionOne" checked>from -> to<br />
+   			<input type="radio" name="animationType" value="optionTwo">0%-50%-100%<br />
+   			<input type="radio" name="animationType" value="optionThree">0%-25%-50%-75%-100%<br/>
+   		</div>
+   		<div class="content">
+   			Duration: <br />
+   			<input type="number" name="durationTime" value="2">
+   		</div>
+   		<div class="content">
+   			Delay: <br />
+   			<input type="number" name="delayTime" value="1">
+   		</div>
+   		<div class="content">
+   			Iteration count: <br />
+   			<input type="number" name="iterationCount" value="10">
+   		</div>
+   		<div class="content">
+   			Direction: <br/>
+   			<input type="radio" name="directionType" value="reverse">Reverse<br />
+   			<input type="radio" name="directionType" value="alternate">Alternate
+   		</div>
+   		<div class="content">
+   			Speed Curve: <br />
+   			<input type="radio" name="speed" value="ease" checked>ease<br />
+   			<input type="radio" name="speed" value="linear">linear<br />
+   			<input type="radio" name="speed" value="ease-in-out">ease-in-out
+   		</div>
+   		<span style="display:block;">
+	   		<input type="button" value="Animate" style="display: inline;" onclick="animateDiv()">
+	   		<input type="button" value="Clear" style="display: inline;" onclick="clearDiv()">
+   		</span>
+   </div>
+   
+   <h2>Triggering</h2>
+   <div id="boxWrap">
+   	
+   </div>
+</body>
+</html>

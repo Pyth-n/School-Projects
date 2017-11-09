@@ -1,0 +1,42 @@
+input[type=number] {
+	width: 40px;
+}
+
+input[type=button] {
+	margin-left: 8px;
+	margin-top: 8px;
+}
+
+@keyframes optionOne {
+	from {background-color: black;}
+	to {background-color: yellow;}
+}
+
+@keyframes optionTwo {
+	0% {background-color: black;}
+	50% {background-color: yellow;}
+	100% {background-color: red;}
+}
+
+@keyframes optionThree {
+	0% {background-color: black;}
+	25% {background-color: green;}
+	50% {background-color: purple;}
+	75% {background-color: pink;}
+	100% {background-color: orange;}
+}
+
+#wrap {
+	display: inline-block;
+	background-color: #aaaaff;
+}
+
+.content {
+	display: inline-block;
+	//background-color: green;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-top: 8px;
+	vertical-align: top;
+}
+
