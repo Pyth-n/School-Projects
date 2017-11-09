@@ -9,27 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-                  android:parentActivityName=".CategoriesActivity">
+        <activity
+            android:name=".MainActivity">
+            <!-- android:parentActivityName=".CategoriesActivity"> -->
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
+            <!-- <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoriesActivity"/>
+                android:value=".CategoriesActivity"/> -->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ListActivity"
+        <activity
+            android:name=".ListActivity"
             android:parentActivityName=".MainActivity">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".ItemActivity"
+        <activity
+            android:name=".ItemActivity"
             android:parentActivityName=".ListActivity">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -37,6 +44,7 @@
         </activity>
         <activity android:name=".CategoriesActivity">
         </activity>
+
         <receiver android:name=".HomeScreenWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -46,6 +54,24 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/home_screen_widget_info"/>
         </receiver>
+
+        <activity android:name=".ListCreationActivity"
+            android:parentActivityName=".ListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListActivity"/>
+        </activity>
+
+        <activity android:name=".CategoryCreationActivity"
+            android:parentActivityName=".CategoriesActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoriesActivity"/>
+        </activity>
     </application>
 
 </manifest>
