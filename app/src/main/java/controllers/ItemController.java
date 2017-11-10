@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import database.ItemCRUD;
 import database.ListTrackerDataSource;
 import models.Item;
 import models.ItemList;
@@ -17,26 +18,18 @@ public class ItemController {
     private String sortValue;
     private String category;
     private String listName;
-    private ListTrackerDataSource listTrackerDataSource;
+    private ItemCRUD itemCRUD;
 
     public ItemController(Context context) {
-        listTrackerDataSource = new ListTrackerDataSource(context);
+        itemCRUD = new ItemCRUD(context);
     }
 
     public Long saveItem(Item item) {
-        return listTrackerDataSource.saveItem(item);
-    }
-
-    public Long saveList(ItemList itemList) {
-        return listTrackerDataSource.saveItemList(itemList);
+        return itemCRUD.saveItem(item);
     }
 
     public List<Item> getItems() {
-        return listTrackerDataSource.getItems();
-    }
-
-    public List<ItemList> getList() {
-        return listTrackerDataSource.getLists();
+        return itemCRUD.getItems();
     }
 
     public String getSortBy() {

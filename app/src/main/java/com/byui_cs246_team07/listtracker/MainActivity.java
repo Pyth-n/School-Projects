@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         //Remove this line after run once
-        this.deleteDatabase("listTracker.db");
+        //this.deleteDatabase("listTracker.db");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listNames = itemListController.getListNames(getApplicationContext());
+        listNames = itemListController.getListNames();
         setListView();
 
         // TODO move this for a class

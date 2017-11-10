@@ -5,7 +5,9 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.ListTrackerDataSource;
+import database.ItemCRUD;
+import database.ItemListCRUD;
+import models.Item;
 import models.ItemList;
 
 /**
@@ -14,17 +16,17 @@ import models.ItemList;
 
 public class ItemListController {
 
-    private ListTrackerDataSource listTrackerDataSource;
+    private ItemListCRUD itemListCRUD;
+    private ItemCRUD itemCRUD;
 
     public ItemListController(Context context) {
-        listTrackerDataSource = new ListTrackerDataSource(context);
+        itemListCRUD = new ItemListCRUD(context);
     }
 
 
-    public List<String> getListNames(Context context) {
+    public List<String> getListNames() {
         List<String> listNames = new ArrayList<>();
-        ListTrackerDataSource lt = new ListTrackerDataSource(context);
-        List<ItemList> lists =  lt.getLists();
+        List<ItemList> lists =  itemListCRUD.getLists();
         for (ItemList itemList : lists) {
             listNames.add(itemList.getName());
         }
@@ -32,6 +34,19 @@ public class ItemListController {
     }
 
     public long saveItemList(ItemList itemList) {
-        return listTrackerDataSource.saveItemList(itemList);
+        return itemListCRUD.saveItemList(itemList);
+    }
+
+    public List<Item> getRelatedItems(long itemId) {
+        return itemCRUD.getItemsFromList(itemId);
+    }
+
+    public List<String> getRelatedItemsNames(long itemId) {
+        List<String> listNames = new ArrayList<>();
+        List<Item> lists =  getRelatedItems(itemId);
+        for (Item item : lists) {
+            listNames.add(item.getName());
+        }
+        return listNames;
     }
 }

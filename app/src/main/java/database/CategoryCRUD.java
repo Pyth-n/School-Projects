@@ -16,7 +16,7 @@ import models.Category;
  * Created by CarlosIribar on 11/9/17.
  */
 
-public class CategoryCRUD extends ListTrackerDataSource {
+public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
 
     public CategoryCRUD(Context contex) {
         super(contex);
@@ -46,7 +46,7 @@ public class CategoryCRUD extends ListTrackerDataSource {
         return id;
     }
 
-    public void deleteItemList(long categoryId) {
+    public void delete(long categoryId) {
         SQLiteDatabase database = open();
         database.beginTransaction();
 
