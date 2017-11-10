@@ -14,7 +14,7 @@ import database.ListTrackerSQLiteHelper;
 public class ItemList {
 
     private String name;
-    private String category;
+    private long categoryId;
     private long id;
     private List<Item> items;
 
@@ -38,12 +38,12 @@ public class ItemList {
         this.name = name;
     }
 
-    public String getCategory() {
-        return category;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(long category) {
+        this.categoryId = category;
     }
 
     public long getId() {

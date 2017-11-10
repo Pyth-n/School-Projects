@@ -21,10 +21,11 @@
         android:id="@+id/btnCreateList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="createList"
         android:text="@string/create_list"
         app:layout_constraintLeft_toRightOf="@+id/btnLoadList"
         app:layout_constraintRight_toLeftOf="@+id/btnDeleteList"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadList"/>
+        app:layout_constraintTop_toTopOf="@+id/btnLoadList" />
 
     <Button
         android:id="@+id/btnDeleteList"

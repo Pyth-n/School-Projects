@@ -2,6 +2,12 @@ package com.byui_cs246_team07.listtracker;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+
+import controllers.ItemListController;
+import models.ItemList;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -10,4 +16,6 @@ public class ListActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_list);
   }
+
+
 }
