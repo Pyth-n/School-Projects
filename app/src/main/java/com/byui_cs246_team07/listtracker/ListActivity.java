@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -17,57 +18,61 @@ import controllers.ItemController;
 import models.Item;
 
 public class ListActivity extends AppCompatActivity {
-    public static final String listNameID = "com.byui.cs246.team07.listtracker.LISTID";
-    public static final String itemNameID = "com.byui.cs246.team07.listtracker.ITEMID";
+    // These are keys used for the intents
+    public static final String LIST_NAME_ID = "com.byui.cs246.team07.listtracker.LISTID";
+    public static final String ITEM_NAME_ID = "com.byui.cs246.team07.listtracker.ITEMID";
+    public static final String BUTTON_PRESSED = "com.byui.cs246.team07.listtracker.BUTTONID";
+    // TAG is used for logs
     private final String TAG = this.getClass().getName();
 
-    private int mItemSelectedIndex;
-    ListView listViewOfItems;
+    // Widget IDs
+    ListView mListViewOfItems;
+    TextView mListName;
 
     ItemController controller;
-    TextView textView;
     List<Item> items;
+    private int mItemSelectedIndex;
 
-    // TODO get the name of the list, then modify this value. Used for current activity and intent
+    // TODO get the name of the list, then modify this value. Currently mocks list name
     private String nameOfList = "Sample List Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        mItemSelectedIndex = -1;
 
-        // Sets the name of the list in the current activity
-        textView = findViewById(R.id.listNameInListScreen);
-        textView.setText(nameOfList);
+        // Sets resource IDs
+        mListName = findViewById(R.id.listNameInListScreen);
+        mListViewOfItems = findViewById(R.id.listOfItems);
+
+        // Set the name of the list
+        mListName.setText(nameOfList);
 
         // Attempt to get data base stuff
         controller = new ItemController();
         items = controller.getItems(this);
 
-        listViewOfItems = findViewById(R.id.listOfItems);
-
+        // Adapter used add items and display in the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         for (Item item : items) {
             adapter.add(item.getName());
         }
-
-        listViewOfItems.setAdapter(adapter);
-        listViewOfItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListViewOfItems.setAdapter(adapter);
+        mListViewOfItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         // Adds a listener so that an item can be selected and be highlighted
-        listViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                for (int i = 0; i < listViewOfItems.getChildCount(); i++) {
+                for (int i = 0; i < mListViewOfItems.getChildCount(); i++) {
                     if (pos == i) {
-                        listViewOfItems.getChildAt(pos).setBackgroundColor(Color.GRAY);
+                        mListViewOfItems.getChildAt(pos).setBackgroundColor(Color.GRAY);
                         mItemSelectedIndex = pos;
-
                     } else {
-                        listViewOfItems.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
-
                 Log.d("POSITION: ", Integer.toString(pos));
             }
         });
@@ -76,20 +81,29 @@ public class ListActivity extends AppCompatActivity {
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
     * */
     public void createItem(View v) {
-        Item item = items.get(mItemSelectedIndex);
-        String itemName = item.getName();
-
         // Will send intent to the ItemActivity
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra(listNameID, nameOfList);
+        intent.putExtra(LIST_NAME_ID, nameOfList);
+        intent.putExtra(BUTTON_PRESSED, "createItem");
 
-        // TODO move this to the load item section
-        intent.putExtra(itemNameID, itemName);
-
-
-        Log.d(TAG, "Sending " + intent.getStringExtra(listNameID));
+        Log.d(TAG, "Sending " + intent.getStringExtra(LIST_NAME_ID));
         startActivity(intent);
     }
 
-
+    /*loadItem(): This function loads a selected item and sends an intent to
+    * ItemActivity
+    * */
+    public void loadItem(View view) {
+        // Makes sure an item is selected before creating and sending an intent
+        if (mItemSelectedIndex != -1) {
+            Item item = items.get(mItemSelectedIndex);
+            Intent intent = new Intent(this, ItemActivity.class);
+            intent.putExtra(ITEM_NAME_ID, item.getName());
+            intent.putExtra(LIST_NAME_ID, nameOfList);
+            intent.putExtra(BUTTON_PRESSED, "loadItem");
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Select an Item first", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
