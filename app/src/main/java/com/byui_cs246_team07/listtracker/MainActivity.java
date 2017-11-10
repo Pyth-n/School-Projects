@@ -89,9 +89,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void loadList(View view) {
+
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void viewCategories(View view) {
+
+        Intent intent = new Intent(this, CategoriesActivity.class);
+        startActivity(intent);
+
+    }
+
     private void setListView() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+            android.R.layout.simple_list_item_1, listNames);
         listOfLists = (ListView) findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
