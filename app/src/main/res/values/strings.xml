@@ -4,7 +4,8 @@
     <string name="create_list">Create List</string>
     <string name="delete_list">Delete List</string>
     <string name="category">Category:</string>
-    <string name="category_name">Default</string>
+    <string name="category_name"></string>
+    <string name="add_category">Add category name</string>
     <string name="create_item">Create Item</string>
     <string name="load_item">Load Item</string>
     <string name="delete_item">Delete Item</string>

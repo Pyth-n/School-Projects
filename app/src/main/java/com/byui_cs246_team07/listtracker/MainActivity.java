@@ -4,86 +4,108 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.textservice.TextInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
 import models.Item;
+import controllers.ItemListController;
+import models.ItemList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String TAG = "MainActivity";
     private final String SORTBY = "sortBy";
     private final String CATEGORY = "categoryID";
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
+    private ItemListController itemListController;
+    private ListView listOfLists;
+    private List<String> categoriesNames;
 
-  ListView listOfLists;
-
-	/*
-	* OnCreate
-	*/
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    //Example Creating items and gettings
-
-    Item task = new Item("update tests");
-    task.setPriority(1);
-    task.setNotes("Some note");
-
-    Item someOther = new Item("refactor tests");
-
-    ItemController controller = new ItemController();
-    controller.saveItem(this, task);
-    controller.saveItem(this, someOther);
-
-    List<Item> items = controller.getItems(this);
-    for (Item item : items) {
-      Log.d("MAIN", item.getName());
-      Log.d("MAIN", item.getCreatedDate().toString());
+    MainActivity() {
+        itemListController = new ItemListController(this);
     }
 
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-    adapter.add("items");
-    listOfLists = (ListView) findViewById(R.id.listOfLists);
-    listOfLists.setAdapter(adapter);
+    /*
+    * OnCreate
+    */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
-      //ItemController controller = new ItemController();
-      SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-      controller.setCategoryName(settings.getString(CATEGORY, ""));
-      controller.setListName(settings.getString(LASTLISTVIEWED, ""));
-      controller.setSortBy(settings.getString(SORTBY, ""));
-      Log.d("SHAREDPREFERENCES: ", settings.getString(CATEGORY, "Category Test"));
-      Log.d("SHAREDPREFERENCES: ", settings.getString(LASTLISTVIEWED, "Last View Test"));
-      Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));
-  }
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-  @Override
-  protected void onStop() {
-      super.onStop();
-      SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-      SharedPreferences.Editor editor = settings.edit();
+        categoriesNames = itemListController.getListNames(getApplicationContext());
+        setListView();
 
-      ItemController controller = new ItemController();
-      // Sort
-      editor.putString(SORTBY, controller.getSortBy());
+        // TODO move this for a class
+        /*ItemController controller = new ItemController(this);
+        SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        controller.setCategoryName(settings.getString(CATEGORY, ""));
+        controller.setListName(settings.getString(LASTLISTVIEWED, ""));
+        controller.setSortBy(settings.getString(SORTBY, ""));
+        Log.d("SHAREDPREFERENCES: ", settings.getString(CATEGORY, "Category Test"));
+        Log.d("SHAREDPREFERENCES: ", settings.getString(LASTLISTVIEWED, "Last View Test"));
+        Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));*/
+    }
 
-      // Category
-      editor.putString(CATEGORY, controller.getCategoryName());
+    @Override
+    protected void onStop() {
+        super.onStop();
 
-      // Last screen viewed
-      editor.putString(LASTSCREENVIEWED, this.getClass().getSimpleName());
+        // TODO move this for a sharedPreferenceManage controller
+        SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
 
-      // List name for widget
-      editor.putString(LASTLISTVIEWED, controller.getListName());
+        ItemController controller = new ItemController(this);
+        // Sort
+        //editor.putString(SORTBY, controller.getSortBy());
 
-      editor.apply();
-  }
+        // Category
+        //editor.putString(CATEGORY, controller.getCategoryName());
+
+        // Last screen viewed
+        editor.putString(LASTSCREENVIEWED, this.getClass().getSimpleName());
+
+        // List name for widget
+        //editor.putString(LASTLISTVIEWED, controller.getListName());
+
+        editor.apply();
+    }
+
+    public void addCategory(View view) {
+
+        Log.d(TAG, "addCategory");
+        EditText editText = (EditText) findViewById(R.id.categoryName);
+        String categoryName = editText.getText().toString();
+        if (categoryName != null && categoryName != "") {
+            ItemList itemList = new ItemList(categoryName);
+            // TODO move the following line to a runnable class
+            itemListController.saveItemList(itemList);
+            categoriesNames.add(categoryName);
+            editText.setText("");
+            Log.d(TAG, "Save");
+            setListView();
+        }
+    }
+
+    private void setListView() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoriesNames);
+        listOfLists = (ListView) findViewById(R.id.listOfLists);
+        listOfLists.setAdapter(adapter);
+        Log.d(TAG, "Set View");
+    }
 
 }

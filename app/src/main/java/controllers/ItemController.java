@@ -17,25 +17,26 @@ public class ItemController {
     private String sortValue;
     private String category;
     private String listName;
+    private ListTrackerDataSource listTrackerDataSource;
 
-    public Long saveItem(Context context, Item item) {
-        ListTrackerDataSource lt = new ListTrackerDataSource(context);
-        return lt.saveItem(item);
+    public ItemController(Context context) {
+        listTrackerDataSource = new ListTrackerDataSource(context);
     }
 
-    public Long saveList(Context context, ItemList itemList) {
-        ListTrackerDataSource lt = new ListTrackerDataSource(context);
-        return lt.saveItemList(itemList);
+    public Long saveItem(Item item) {
+        return listTrackerDataSource.saveItem(item);
     }
 
-    public List<Item> getItems(Context context) {
-        ListTrackerDataSource lt = new ListTrackerDataSource(context);
-        return lt.getItems();
+    public Long saveList(ItemList itemList) {
+        return listTrackerDataSource.saveItemList(itemList);
     }
 
-    public List<ItemList> getList(Context context) {
-        ListTrackerDataSource lt = new ListTrackerDataSource(context);
-        return lt.getLists();
+    public List<Item> getItems() {
+        return listTrackerDataSource.getItems();
+    }
+
+    public List<ItemList> getList() {
+        return listTrackerDataSource.getLists();
     }
 
     public String getSortBy() {
