@@ -49,13 +49,16 @@ public class ListActivity extends AppCompatActivity {
         mListName.setText(nameOfList);
 
         // Attempt to get data base stuff
-        controller = new ItemController();
-        items = controller.getItems(this);
+        controller = new ItemController(this);
+        items = controller.getItems();
 
         // Adapter used add items and display in the ListView
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         for (Item item : items) {
             adapter.add(item.getName());
+        }
+        for (int i = 0; i < 10; i++) {
+            adapter.add("Mocked item " + Integer.toString(i + 1));
         }
         mListViewOfItems.setAdapter(adapter);
         mListViewOfItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
