@@ -29,11 +29,11 @@ public class ListTrackerDataSource {
         _sqLiteHelper = new ListTrackerSQLiteHelper(context);
     }
 
-    private SQLiteDatabase open() {
+    protected SQLiteDatabase open() {
         return _sqLiteHelper.getWritableDatabase();
     }
 
-    private void close(SQLiteDatabase database) {
+    protected void close(SQLiteDatabase database) {
         database.close();
     }
 
@@ -44,7 +44,7 @@ public class ListTrackerDataSource {
 
         ContentValues listValues = new ContentValues();
         listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_NAME  , itemList.getName());
-        listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY, itemList.getCategory());
+        listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID, itemList.getCategoryId());
 
         if (itemList.getId() !=  0) {
             listValues.put(BaseColumns._ID, itemList.getId());
@@ -134,7 +134,7 @@ public class ListTrackerDataSource {
         List<ItemList> lists = new ArrayList<>();
         String [] columns =  new String [] {
                 BaseColumns._ID,
-                ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY,
+                ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID,
                 ListTrackerSQLiteHelper.LIST_COLUMN_NAME
         };
 
@@ -153,7 +153,7 @@ public class ListTrackerDataSource {
             do {
                 ItemList itemList = new ItemList(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_NAME));
                 itemList.setId(getLongFromColumnName(cursor, BaseColumns._ID));
-                itemList.setCategory(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY));
+                itemList.setCategoryId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID));
                 lists.add(itemList);
             } while (cursor.moveToNext());
         }
@@ -206,27 +206,27 @@ public class ListTrackerDataSource {
         return items;
     }
 
-    private int getIntFromColumnName(Cursor cursor, String columnName) {
+    protected int getIntFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getInt(columnIndex);
     }
 
-    private long getLongFromColumnName(Cursor cursor, String columnName) {
+    protected long getLongFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getLong(columnIndex);
     }
 
-    private String getStringFromColumnName(Cursor cursor, String columnName) {
+    protected String getStringFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getString(columnIndex);
     }
 
-    private Boolean getBooleanFromColumnName(Cursor cursor, String columnName) {
+    protected Boolean getBooleanFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
         return cursor.getInt(columnIndex) != 0;
     }
 
-    private Date getDateFromColumnName(Cursor cursor, String columnName) {
+    protected Date getDateFromColumnName(Cursor cursor, String columnName) {
         Date convertedDate = new Date();
         int columnIndex = cursor.getColumnIndex(columnName);
         String dateString = cursor.getString(columnIndex);

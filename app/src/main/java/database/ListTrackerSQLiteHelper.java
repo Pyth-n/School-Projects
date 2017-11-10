@@ -14,16 +14,27 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "listTracker.db";
 
+    //CATEGORY
+    public static final String CATEGORY_TABLE_NAME = "Category";
+    public static final String CATEGORY_COLUMN_NAME = "name";
+
+    private static final String CREATE_CATEGORY_TABLE =
+            "CREATE TABLE " + CATEGORY_TABLE_NAME + '(' +
+                    BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    CATEGORY_COLUMN_NAME + " TEXT NOT NULL " +
+                    ")";
+
     // LIST
     public static final String LIST_TABLE_NAME = "list";
     public static final String LIST_COLUMN_NAME = "name";
-    public static final String LIST_COLUMN_CATEGORY = "category";
+    public static final String LIST_COLUMN_CATEGORY_ID = "categoryID";
 
     private static final String CREATE_LIST_TABLE =
             "CREATE TABLE " + LIST_TABLE_NAME + '(' +
                     BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     LIST_COLUMN_NAME + " TEXT NOT NULL, " +
-                    LIST_COLUMN_CATEGORY + " TEXT " +
+                    LIST_COLUMN_CATEGORY_ID + " INTEGER, " +
+                    "FOREIGN KEY(" + LIST_COLUMN_CATEGORY_ID + ") REFERENCES "+ CATEGORY_TABLE_NAME +"(_ID)" +
                     ")";
 
     // ITEM TABLE
@@ -59,6 +70,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_CATEGORY_TABLE);
         db.execSQL(CREATE_LIST_TABLE);
         db.execSQL(CREATE_ITEM_TABLE);
     }

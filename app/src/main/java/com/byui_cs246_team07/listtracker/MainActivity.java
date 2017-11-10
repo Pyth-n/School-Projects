@@ -4,21 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.textservice.TextInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import controllers.CategoryController;
 import controllers.ItemController;
-import models.Item;
-import controllers.ItemListController;
-import models.ItemList;
+import models.Category;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
-    private ItemListController itemListController;
+    private CategoryController categoryController;
     private ListView listOfLists;
     private List<String> categoriesNames;
 
     MainActivity() {
-        itemListController = new ItemListController(this);
+        categoryController = new CategoryController(this);
     }
 
     /*
@@ -43,10 +39,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Remove this line after run once
+        this.deleteDatabase("listTracker.db");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        categoriesNames = itemListController.getListNames(getApplicationContext());
+        categoriesNames = categoryController.getCategoryNames(getApplicationContext());
         setListView();
 
         // TODO move this for a class
@@ -90,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.categoryName);
         String categoryName = editText.getText().toString();
         if (categoryName != null && categoryName != "") {
-            ItemList itemList = new ItemList(categoryName);
+            Category itemList = new Category(categoryName);
             // TODO move the following line to a runnable class
-            itemListController.saveItemList(itemList);
+            categoryController.saveCategory(itemList);
             categoriesNames.add(categoryName);
             editText.setText("");
             Log.d(TAG, "Save");
