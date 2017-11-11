@@ -10,32 +10,42 @@
         android:id="@+id/btnLoadItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:onClick="loadItem"
         android:text="@string/load_item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnCreateItem" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateItem"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnCreateItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:onClick="createItem"
         android:text="@string/create_item"
-        app:layout_constraintLeft_toRightOf="@+id/btnLoadItem"
-        app:layout_constraintRight_toLeftOf="@+id/btnDeleteItem"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadItem" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCopyItem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnDeleteItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:onClick="deleteItem"
         android:text="@string/delete_item"
-        app:layout_constraintLeft_toRightOf="@+id/btnCreateItem"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadItem" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnCopyItem"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateItem" />
 
     <TextView
         android:id="@+id/list"
@@ -53,8 +63,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:inputType="textPersonName"
@@ -68,14 +78,14 @@
 
     <ListView
         android:id="@+id/listOfItems"
-        android:choiceMode="singleChoice"
-        android:listSelector="@android:color/darker_gray"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/darker_gray"
         app:layout_constraintBottom_toTopOf="@+id/btnLoadItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -99,8 +109,8 @@
         android:id="@+id/btnSortList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:onClick="sortList"
         android:text="@string/sort_list"
@@ -108,4 +118,28 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listNameInListScreen" />
+
+    <Button
+        android:id="@+id/btnCopyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="copyItem"
+        android:text="@string/copy_item"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteItem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateItem"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateItem" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="viewImageGallery"
+        android:text="@string/view_image_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnLoadItem"
+        app:layout_constraintTop_toTopOf="@+id/btnLoadItem" />
 </android.support.constraint.ConstraintLayout>

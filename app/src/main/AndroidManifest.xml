@@ -80,7 +80,8 @@
                 android:value=".CategoriesActivity" />
         </activity>
         <activity android:name=".SortListOptionsActivity" />
-        <activity android:name=".ReminderActivity"
+        <activity
+            android:name=".ReminderActivity"
             android:parentActivityName=".ItemActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -88,6 +89,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemActivity" />
         </activity>
+        <activity android:name=".ListCopierActivity" />
+        <activity android:name=".ItemCopierActivity" />
+        <activity android:name=".ListImageGalleryActivity"></activity>
     </application>
 
 </manifest>

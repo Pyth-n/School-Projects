@@ -49,4 +49,13 @@
     <string name="set_reminder">Set Reminder</string>
     <string name="choose_reminder_date">Choose Reminder Date:</string>
     <string name="save_reminder_date">Save Reminder Date</string>
+    <string name="copy_item">Copy Item</string>
+    <string name="copy_list">Copy List</string>
+    <string name="copy_list_to_what_category">Copy List to What Category?</string>
+    <string name="copy_item_to_what_list">Copy Item to What List?</string>
+    <string name="save_copy_to_new_location">Save Copy to New Location</string>
+    <string name="example_category_name">Example Category Name</string>
+    <string name="example_list_name">Example List Name</string>
+    <string name="image_gallery_for_list">Images from List:</string>
+    <string name="view_image_gallery">View Image Gallery</string>
 </resources>

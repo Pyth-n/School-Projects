@@ -136,6 +136,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void copyList(View view) {
+
+        Intent intent = new Intent(this, ListCopierActivity.class);
+        startActivity(intent);
+
+    }
+
     private void setListView() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();
