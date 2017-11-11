@@ -61,20 +61,12 @@ public class ListActivity extends AppCompatActivity {
             adapter.add("Mocked item " + Integer.toString(i + 1));
         }
         mListViewOfItems.setAdapter(adapter);
-        mListViewOfItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         // Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                for (int i = 0; i < mListViewOfItems.getChildCount(); i++) {
-                    if (pos == i) {
-                        mListViewOfItems.getChildAt(pos).setBackgroundColor(Color.GRAY);
-                        mItemSelectedIndex = pos;
-                    } else {
-                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
+                mItemSelectedIndex = pos;
                 Log.d("POSITION: ", Integer.toString(pos));
             }
         });
