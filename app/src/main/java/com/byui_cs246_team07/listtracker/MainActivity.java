@@ -3,10 +3,12 @@ package com.byui_cs246_team07.listtracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
     private ListView listOfLists;
     private List<String> listNames;
 
+    private int mItemSelectedIndex;
+
     MainActivity() {
         itemListController = new ItemListController(this);
+        mItemSelectedIndex = -1;
     }
 
     /*
@@ -56,6 +61,22 @@ public class MainActivity extends AppCompatActivity {
         Log.d("SHAREDPREFERENCES: ", settings.getString(CATEGORY, "Category Test"));
         Log.d("SHAREDPREFERENCES: ", settings.getString(LASTLISTVIEWED, "Last View Test"));
         Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));*/
+
+        // Adds a listener so that an item can be selected and be highlighted
+        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                for (int i = 0; i < listOfLists.getChildCount(); i++) {
+                    if (pos == i) {
+                        listOfLists.getChildAt(pos).setBackgroundColor(Color.GRAY);
+                        mItemSelectedIndex = pos;
+                    } else {
+                        listOfLists.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+                Log.d("POSITION: ", Integer.toString(pos));
+            }
+        });
     }
 
     @Override

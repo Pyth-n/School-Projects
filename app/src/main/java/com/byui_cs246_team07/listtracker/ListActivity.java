@@ -98,12 +98,18 @@ public class ListActivity extends AppCompatActivity {
     public void loadItem(View view) {
         // Makes sure an item is selected before creating and sending an intent
         if (mItemSelectedIndex != -1) {
-            Item item = items.get(mItemSelectedIndex);
-            Intent intent = new Intent(this, ItemActivity.class);
-            intent.putExtra(ITEM_NAME_ID, item.getName());
-            intent.putExtra(LIST_NAME_ID, nameOfList);
-            intent.putExtra(BUTTON_PRESSED, "loadItem");
-            startActivity(intent);
+            if (!items.isEmpty()){
+                Item item = items.get(mItemSelectedIndex);
+                Intent intent = new Intent(this, ItemActivity.class);
+                intent.putExtra(ITEM_NAME_ID, item.getName());
+                intent.putExtra(LIST_NAME_ID, nameOfList);
+                intent.putExtra(BUTTON_PRESSED, "loadItem");
+                startActivity(intent);
+            } else {
+                // TODO if its empty, start a create item, else it crashes
+                Toast.makeText(this, "It's empty", Toast.LENGTH_SHORT).show();
+            }
+
         } else {
             Toast.makeText(this, "Select an Item first", Toast.LENGTH_SHORT).show();
         }
