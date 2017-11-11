@@ -118,9 +118,23 @@ public class ListActivity extends AppCompatActivity {
         setListView();
     }
 
+    public void copyItem(View view) {
+
+        Intent intent = new Intent(this, ItemCopierActivity.class);
+        startActivity(intent);
+
+    }
+
     public void sortList(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void viewImageGallery(View view) {
+
+        Intent intent = new Intent(this, ListImageGalleryActivity.class);
         startActivity(intent);
 
     }

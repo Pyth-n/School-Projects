@@ -29,7 +29,7 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityLevel;
     private EditText mNotes;
 
-    ItemActivity() {
+    public ItemActivity() {
         controller = new ItemController(this);
     }
 
@@ -112,5 +112,10 @@ public class ItemActivity extends AppCompatActivity {
         if (item.getCompleted() != null) {
             mCompleted.setChecked(item.getCompleted());
         }
+    }
+
+    public void setReminderDate(View view) {
+        Intent intent = new Intent(this, ReminderActivity.class);
+        startActivity(intent);
     }
 }
