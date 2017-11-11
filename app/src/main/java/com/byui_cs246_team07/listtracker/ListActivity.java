@@ -22,7 +22,7 @@ import models.ItemList;
 public class ListActivity extends AppCompatActivity {
     // These are keys used for the intents
     public static final String LIST_ID = "com.byui.cs246.team07.listtracker.LISTID";
-    public static final String ITEM_NAME_ID = "com.byui.cs246.team07.listtracker.ITEMID";
+    public static final String ITEM = "com.byui.cs246.team07.listtracker.ITEMID";
     public static final String BUTTON_PRESSED = "com.byui.cs246.team07.listtracker.BUTTONID";
     public static final String PARENT_LIST = "PARENT_LIST";
     // TAG is used for logs
@@ -92,6 +92,7 @@ public class ListActivity extends AppCompatActivity {
                 Item item = items.get(mItemSelectedIndex);
                 Intent intent = new Intent(this, ItemActivity.class);
                 intent.putExtra(PARENT_LIST, list);
+                intent.putExtra(ITEM, item);
                 intent.putExtra(BUTTON_PRESSED, "loadItem");
                 startActivity(intent);
             } else {

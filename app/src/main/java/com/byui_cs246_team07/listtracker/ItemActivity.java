@@ -1,8 +1,8 @@
 package com.byui_cs246_team07.listtracker;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -24,7 +24,7 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mDueDate;
     private TextView mDateCreated;
     private TextView mDateModified;
-    private CheckBox mCheckBox;
+    private CheckBox mCompleted;
     private EditText mPriorityNumber;
     private EditText mPriorityLevel;
     private EditText mNotes;
@@ -39,9 +39,9 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item);
 
         // find resource IDs
-        mItemName = findViewById(R.id.editItemName);
-        mListName = (TextView) findViewById(R.id.listNameInItemScreen);
 
+
+        getItemValues();
         // Set name of the list
         parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
         mListName.setText(parentList.getName());
@@ -55,16 +55,62 @@ public class ItemActivity extends AppCompatActivity {
         // TODO loading magic occurs here. Not sure how to utilize database to populate from list
         // TODO selected yet
         else if (buttonName.equals("loadItem")) {
-            String itemName = getIntent().getStringExtra(ListActivity.ITEM_NAME_ID);
-            mItemName.setText(itemName);
+            Item item = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
+            setItemValues(item);
             Toast.makeText(this, "LOADING...", Toast.LENGTH_SHORT).show();
         }
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+    }
+
     public void saveItem(View view) {
-        mListName = (TextView) findViewById(R.id.editItemName);
+
+        if (mListName.getText() != null) {
+            Item item = createItem();
+            controller.saveItem(item);
+        } else {
+            Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private Item createItem() {
+
         Item item = new Item(mListName.getText().toString());
         item.setListId(parentList.getId());
-        controller.saveItem(item);
+        item.setCompleted(mCompleted.isChecked());
+        Log.d("NOtes", mNotes.getText().toString());
+        item.setNotes(mNotes.getText().toString());
+
+        item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
+        return item;
+    }
+
+    private void getItemValues() {
+
+        mItemName = findViewById(R.id.editItemName);
+        mListName = (TextView) findViewById(R.id.listNameInItemScreen);
+        mNotes = (EditText) findViewById(R.id.editNotes);
+        mPriorityNumber = (EditText) findViewById(R.id.priorityNumber);
+        mCompleted = (CheckBox) findViewById(R.id.completed);
+    }
+
+    private void setItemValues(Item item) {
+
+        mItemName.setText(item.getName());
+        if (item.getNotes() != null) {
+            mNotes.setText(item.getNotes());
+        }
+        if (item.getPriority() != null) {
+            mPriorityNumber.setText((String.valueOf(item.getPriority())));
+        }
+        if (item.getCompleted() != null) {
+            mCompleted.setChecked(item.getCompleted());
+        }
     }
 }

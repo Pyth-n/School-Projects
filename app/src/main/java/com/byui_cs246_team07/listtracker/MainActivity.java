@@ -13,34 +13,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
 import controllers.ItemListController;
-import models.Item;
 import models.ItemList;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static final String ITEM_SELECTED = "itemSelected";
     public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
+
     private final String TAG = "MainActivity";
     private final String SORTBY = "sortBy";
     private final String CATEGORY = "categoryID";
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
-    public final static String ITEM_SELECTED = "itemSelected";
+
     private ItemListController itemListController;
     private ListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
-    private int mItemSelectedIndex;
     private ItemList itemListSelected;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
-        mItemSelectedIndex = -1;
     }
 
     /*
@@ -48,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Remove this line after run once
-        //this.deleteDatabase("listTracker.db");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -79,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
 
-        ItemController controller = new ItemController(this);
         // Sort
         //editor.putString(SORTBY, controller.getSortBy());
 
@@ -139,19 +133,17 @@ public class MainActivity extends AppCompatActivity {
     private void setListView() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
             android.R.layout.simple_list_item_1, listNames);
-        listOfLists = (ListView) findViewById(R.id.listOfLists);
+        listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
         listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-            mItemSelectedIndex = pos;
             for (int i = 0; i < listOfLists.getChildCount(); i++) {
               if (pos == i) {
                 listOfLists.getChildAt(pos).setBackgroundColor(Color.GRAY);
-                mItemSelectedIndex = pos;
                 itemListSelected = lists.get(pos);
               } else {
                 listOfLists.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
