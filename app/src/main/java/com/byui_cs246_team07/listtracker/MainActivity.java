@@ -3,6 +3,7 @@ package com.byui_cs246_team07.listtracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,11 +11,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
 import controllers.ItemListController;
+import models.Item;
+import models.ItemList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
+    public final static String ITEM_SELECTED = "itemSelected";
     private ItemListController itemListController;
     private ListView listOfLists;
     private List<String> listNames;
-
+    private List<ItemList> lists;
     private int mItemSelectedIndex;
+    private ItemList itemListSelected;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
@@ -48,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listNames = itemListController.getListNames();
         setListView();
 
         // TODO move this for a class
@@ -62,13 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));*/
 
         // Adds a listener so that an item can be selected and be highlighted
-        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                mItemSelectedIndex = pos;
-                Log.d("POSITION: ", Integer.toString(pos));
-            }
-        });
+
     }
 
     @Override
@@ -104,17 +104,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadList(View view) {
 
-        Intent intent = new Intent(this, ListActivity.class);
-        intent.putExtra(LISTNAMEID, listNames.get(mItemSelectedIndex));
-        startActivity(intent);
-
-        Log.d("TEST: ", listNames.get(mItemSelectedIndex));
+        if (itemListSelected != null) {
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra(ITEM_SELECTED, itemListSelected);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Select List first", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void viewCategories(View view) {
 
         Intent intent = new Intent(this, CategoriesActivity.class);
         startActivity(intent);
+
+    }
+
+    public void deleteList(View view) {
+      if (itemListSelected != null) {
+        itemListController.delete(itemListSelected.getId());
+        itemListSelected = null;
+        setListView();
+      }
 
     }
 
@@ -126,11 +137,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListView() {
+        listNames = itemListController.getListNames();
+        lists = itemListController.getLists();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_list_item_1, listNames);
         listOfLists = (ListView) findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
+        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+            mItemSelectedIndex = pos;
+            for (int i = 0; i < listOfLists.getChildCount(); i++) {
+              if (pos == i) {
+                listOfLists.getChildAt(pos).setBackgroundColor(Color.GRAY);
+                mItemSelectedIndex = pos;
+                itemListSelected = lists.get(pos);
+              } else {
+                listOfLists.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+              }
+            }
+            Log.d("POSITION: ", Integer.toString(pos));
+          }
+        });
     }
 
 }

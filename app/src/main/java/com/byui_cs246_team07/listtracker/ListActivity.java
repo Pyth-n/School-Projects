@@ -11,29 +11,40 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
+import controllers.ItemListController;
 import models.Item;
+import models.ItemList;
 
 public class ListActivity extends AppCompatActivity {
     // These are keys used for the intents
-    public static final String LIST_NAME_ID = "com.byui.cs246.team07.listtracker.LISTID";
+    public static final String LIST_ID = "com.byui.cs246.team07.listtracker.LISTID";
     public static final String ITEM_NAME_ID = "com.byui.cs246.team07.listtracker.ITEMID";
     public static final String BUTTON_PRESSED = "com.byui.cs246.team07.listtracker.BUTTONID";
+    public static final String PARENT_LIST = "PARENT_LIST";
     // TAG is used for logs
     private final String TAG = this.getClass().getName();
 
     // Widget IDs
-    ListView mListViewOfItems;
-    TextView mListName;
+    private ListView mListViewOfItems;
+    private TextView mListName;
 
-    ItemController controller;
-    List<Item> items;
+    private ItemListController controller;
+    private ItemController itemController;
+    private List<Item> items;
     private int mItemSelectedIndex;
-
-    // TODO get the name of the list, then modify this value. Currently mocks list name
+    private Item itemSelected;
     private String nameOfList;
+    private ItemList list;
+
+
+    public ListActivity() {
+        controller = new ItemListController(this);
+        itemController = new ItemController(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,31 +57,17 @@ public class ListActivity extends AppCompatActivity {
         mListName = findViewById(R.id.listNameInListScreen);
         mListViewOfItems = findViewById(R.id.listOfItems);
 
+        Intent intent = getIntent();
+        list = (ItemList)intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
+
         // Set the name of the list
-        mListName.setText(nameOfList);
-
-        // Attempt to get data base stuff
-        controller = new ItemController(this);
-        items = controller.getItems();
-
-        // Adapter used add items and display in the ListView
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-        for (Item item : items) {
-            adapter.add(item.getName());
+        if (list != null) {
+            mListName.setText(list.getName());
+            // Set items
+            items = controller.getRelatedItems(list.getId());
         }
-        for (int i = 0; i < 10; i++) {
-            adapter.add("Mocked item " + Integer.toString(i + 1));
-        }
-        mListViewOfItems.setAdapter(adapter);
 
-        // Adds a listener so that an item can be selected and be highlighted
-        mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                mItemSelectedIndex = pos;
-                Log.d("POSITION: ", Integer.toString(pos));
-            }
-        });
+        setListView();
     }
 
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
@@ -78,10 +75,10 @@ public class ListActivity extends AppCompatActivity {
     public void createItem(View v) {
         // Will send intent to the ItemActivity
         Intent intent = new Intent(this, ItemActivity.class);
-        intent.putExtra(LIST_NAME_ID, nameOfList);
+        intent.putExtra(PARENT_LIST, list);
         intent.putExtra(BUTTON_PRESSED, "createItem");
 
-        Log.d(TAG, "Sending " + intent.getStringExtra(LIST_NAME_ID));
+        Log.d(TAG, "Sending " + intent.getStringExtra(LIST_ID));
         startActivity(intent);
     }
 
@@ -94,8 +91,7 @@ public class ListActivity extends AppCompatActivity {
             if (!items.isEmpty()){
                 Item item = items.get(mItemSelectedIndex);
                 Intent intent = new Intent(this, ItemActivity.class);
-                intent.putExtra(ITEM_NAME_ID, item.getName());
-                intent.putExtra(LIST_NAME_ID, nameOfList);
+                intent.putExtra(PARENT_LIST, list);
                 intent.putExtra(BUTTON_PRESSED, "loadItem");
                 startActivity(intent);
             } else {
@@ -108,10 +104,48 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    public void deleteItem(View view) {
+        itemController.delete(itemSelected.getId());
+        List<Item> newList = new ArrayList<>();
+        for (Item item : items) {
+            if (item.getId() != itemSelected.getId()) {
+                newList.add(item);
+            }
+        }
+        itemSelected = null;
+        items = newList;
+        setListView();
+    }
+
     public void sortList(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
         startActivity(intent);
 
+    }
+
+    public void setListView() {
+        // Adapter used add items and display in the ListView
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        if (items != null) {
+            for (Item item : items) {
+                adapter.add(item.getName());
+            }
+        }
+
+        /*for (int i = 0; i < 10; i++) {
+            adapter.add("Mocked item " + Integer.toString(i + 1));
+        }*/
+        mListViewOfItems.setAdapter(adapter);
+
+        // Adds a listener so that an item can be selected and be highlighted
+        mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                mItemSelectedIndex = pos;
+                itemSelected = items.get(pos);
+                Log.d("POSITION: ", Integer.toString(pos));
+            }
+        });
     }
 }

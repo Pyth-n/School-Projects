@@ -3,6 +3,7 @@ package controllers;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.List;
 
 import database.ItemCRUD;
@@ -57,5 +58,9 @@ public class ItemController {
     public void setListName(String value) {
         Log.d("SETLISTNAME: ", value);
         this.listName = value;
+    }
+
+    public void delete(long id) {
+        itemCRUD.delete(id);
     }
 }

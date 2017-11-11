@@ -18,19 +18,29 @@ public class ItemListController {
 
     private ItemListCRUD itemListCRUD;
     private ItemCRUD itemCRUD;
+    private List<ItemList> lists;
 
     public ItemListController(Context context) {
         itemListCRUD = new ItemListCRUD(context);
+        itemCRUD = new ItemCRUD(context);
     }
 
 
     public List<String> getListNames() {
         List<String> listNames = new ArrayList<>();
-        List<ItemList> lists =  itemListCRUD.getLists();
+        if (lists == null) {
+            getLists();
+        }
         for (ItemList itemList : lists) {
             listNames.add(itemList.getName());
         }
         return listNames;
+    }
+
+    public List<ItemList>  getLists() {
+        lists = itemListCRUD.getLists();
+        return lists;
+
     }
 
     public long saveItemList(ItemList itemList) {
@@ -49,4 +59,10 @@ public class ItemListController {
         }
         return listNames;
     }
+
+    public void delete(long id) {
+        itemListCRUD.delete(id);
+    }
+
+
 }
