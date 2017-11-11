@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
@@ -27,13 +28,14 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/labelImages"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelNotes"/>
+        app:layout_constraintStart_toEndOf="@+id/btnSetReminder"
+        app:layout_constraintTop_toBottomOf="@+id/priorityLevelName" />
 
     <EditText
         android:id="@+id/editTags"
@@ -52,14 +54,14 @@
         android:id="@+id/labelItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/label_item_name"
         android:textColor="@android:color/holo_purple"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen"/>
+        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen" />
 
     <TextView
         android:id="@+id/labelTags"
@@ -75,11 +77,12 @@
         android:id="@+id/labelNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName"
-        app:layout_constraintTop_toBottomOf="@+id/completed"/>
+        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
 
     <TextView
         android:id="@+id/itemWithin"
@@ -188,6 +191,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:onClick="saveItem"
         android:text="@string/save_item"
         android:textSize="12sp"
@@ -249,13 +253,11 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/dummy_image"
         app:layout_constraintStart_toStartOf="@+id/labelImages"
         app:layout_constraintTop_toBottomOf="@+id/labelImages"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -267,5 +269,37 @@
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:srcCompat="@mipmap/ic_launcher"/>
+
+    <Button
+        android:id="@+id/btnAddImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/add_image"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteImage"
+        app:layout_constraintTop_toTopOf="@+id/btnDeleteImage" />
+
+    <Button
+        android:id="@+id/btnDeleteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/delete_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNotes" />
+
+    <Button
+        android:id="@+id/btnSetReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/set_reminder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed" />
 
 </android.support.constraint.ConstraintLayout>

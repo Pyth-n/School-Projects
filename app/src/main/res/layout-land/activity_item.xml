@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +18,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btnSaveItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelItemName"/>
+        app:layout_constraintTop_toBottomOf="@+id/labelItemName" />
 
     <EditText
         android:id="@+id/editNotes"
@@ -35,7 +34,7 @@
         app:layout_constraintEnd_toStartOf="@+id/labelImages"
         app:layout_constraintStart_toStartOf="@+id/labelNotes"
         app:layout_constraintTop_toBottomOf="@+id/labelNotes"
-        app:layout_constraintVertical_bias="0.053"/>
+        app:layout_constraintVertical_bias="0.053" />
 
     <EditText
         android:id="@+id/editTags"
@@ -46,43 +45,46 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/editNotes"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName"
-        app:layout_constraintTop_toBottomOf="@+id/labelTags"/>
+        app:layout_constraintEnd_toStartOf="@+id/labelCreated"
+        app:layout_constraintStart_toStartOf="@+id/labelTags"
+        app:layout_constraintTop_toBottomOf="@+id/labelTags" />
 
     <TextView
         android:id="@+id/labelItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/label_item_name"
         android:textColor="@android:color/holo_purple"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen"/>
+        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen" />
 
     <TextView
         android:id="@+id/labelTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/label_item_tags"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName"
-        app:layout_constraintTop_toBottomOf="@+id/editItemName"/>
+        app:layout_constraintStart_toEndOf="@+id/priorityLevelName"
+        app:layout_constraintTop_toBottomOf="@+id/editItemName" />
 
     <TextView
         android:id="@+id/labelNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginLeft="125dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/labelItemName"
-        app:layout_constraintTop_toTopOf="@+id/labelDueDate"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priorityNumber" />
 
     <TextView
         android:id="@+id/itemWithin"
@@ -93,23 +95,23 @@
         android:text="@string/item_within"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/listNameInItemScreen"
-        android:inputType="textPersonName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:inputType="textPersonName"
         android:text="@string/list_name"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="18sp"
         android:typeface="serif"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSetReminder"
         app:layout_constraintStart_toEndOf="@+id/itemWithin"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/labelDueDate"
@@ -118,8 +120,8 @@
         android:layout_marginTop="8dp"
         android:text="@string/due_date"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName"
-        app:layout_constraintTop_toBottomOf="@+id/editTags"/>
+        app:layout_constraintStart_toStartOf="@+id/btnSetReminder"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dueDate"
@@ -127,22 +129,25 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/editNotes"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/labelDueDate"
-        app:layout_constraintTop_toBottomOf="@+id/labelDueDate"/>
+        app:layout_constraintTop_toBottomOf="@+id/labelDueDate" />
 
     <TextView
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:text="@string/created"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/labelDueDate"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
+        app:layout_constraintEnd_toStartOf="@+id/labelModified"
+        app:layout_constraintStart_toStartOf="@+id/btnAddImage"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
 
     <TextView
         android:id="@+id/dateCreated"
@@ -151,7 +156,7 @@
         android:text="@string/date_filler"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/labelCreated"
-        app:layout_constraintTop_toBottomOf="@+id/labelCreated"/>
+        app:layout_constraintTop_toBottomOf="@+id/labelCreated" />
 
     <TextView
         android:id="@+id/labelModified"
@@ -159,11 +164,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/last_modified"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/editNotes"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
 
     <TextView
         android:id="@+id/dateModified"
@@ -172,18 +176,21 @@
         android:text="@string/date_filler"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/labelModified"
-        app:layout_constraintTop_toBottomOf="@+id/labelModified"/>
+        app:layout_constraintTop_toBottomOf="@+id/labelModified" />
 
     <TextView
         android:id="@+id/labelImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="140dp"
-        android:layout_marginRight="140dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/images"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/labelDueDate"/>
+        app:layout_constraintStart_toEndOf="@+id/labelNotes"
+        app:layout_constraintTop_toTopOf="@+id/labelNotes" />
 
     <Button
         android:id="@+id/btnSaveItem"
@@ -193,15 +200,15 @@
         android:layout_marginRight="8dp"
         android:text="@string/save_item"
         app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@+id/labelDueDate" />
 
     <TextView
         android:id="@+id/labelPriorityNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/priority_number"
-        app:layout_constraintStart_toStartOf="@+id/labelNotes"
-        app:layout_constraintTop_toTopOf="@+id/labelTags"/>
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
+        app:layout_constraintTop_toTopOf="@+id/labelTags" />
 
     <EditText
         android:id="@+id/priorityNumber"
@@ -211,64 +218,88 @@
         android:inputType="number"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/labelPriorityNumber"
-        app:layout_constraintTop_toBottomOf="@+id/labelPriorityNumber"/>
+        app:layout_constraintTop_toBottomOf="@+id/labelPriorityNumber" />
 
 
     <CheckBox
         android:id="@+id/completed"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/completed"
-        app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toStartOf="@+id/dueDate"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
     <TextView
         android:id="@+id/labelPriorityLevelName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/priority_label"
         app:layout_constraintBottom_toTopOf="@+id/priorityLevelName"
         app:layout_constraintStart_toEndOf="@+id/priorityNumber"
-        app:layout_constraintTop_toTopOf="@+id/labelPriorityNumber"/>
+        app:layout_constraintTop_toTopOf="@+id/labelPriorityNumber" />
 
     <EditText
         android:id="@+id/priorityLevelName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
-        app:layout_constraintEnd_toStartOf="@+id/completed"
-        app:layout_constraintStart_toStartOf="@+id/labelPriorityLevelName"/>
+        app:layout_constraintStart_toStartOf="@+id/labelPriorityLevelName" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/dummy_image"
         app:layout_constraintStart_toStartOf="@+id/labelImages"
         app:layout_constraintTop_toBottomOf="@+id/labelImages"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:contentDescription="@string/dummy_image"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <Button
+        android:id="@+id/btnAddImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/add_image"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteImage"
+        app:layout_constraintTop_toBottomOf="@+id/dateCreated" />
+
+    <Button
+        android:id="@+id/btnDeleteImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/delete_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
+
+    <Button
+        android:id="@+id/btnSetReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/set_reminder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed" />
 
 </android.support.constraint.ConstraintLayout>
