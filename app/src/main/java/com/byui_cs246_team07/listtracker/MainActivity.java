@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int mItemSelectedIndex;
 
-    MainActivity() {
+    public MainActivity() {
         itemListController = new ItemListController(this);
         mItemSelectedIndex = -1;
     }
@@ -120,6 +120,13 @@ public class MainActivity extends AppCompatActivity {
     public void viewCategories(View view) {
 
         Intent intent = new Intent(this, CategoriesActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void sortCategory(View view) {
+
+        Intent intent = new Intent(this, SortListOptionsActivity.class);
         startActivity(intent);
 
     }

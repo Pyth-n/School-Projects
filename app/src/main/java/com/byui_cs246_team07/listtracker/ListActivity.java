@@ -114,4 +114,11 @@ public class ListActivity extends AppCompatActivity {
             Toast.makeText(this, "Select an Item first", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void sortList(View view) {
+
+        Intent intent = new Intent(this, SortListOptionsActivity.class);
+        startActivity(intent);
+
+    }
 }
