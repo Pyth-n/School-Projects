@@ -3,9 +3,8 @@ package com.byui_cs246_team07.listtracker;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,7 @@ import controllers.ItemListController;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
     private final String TAG = "MainActivity";
     private final String SORTBY = "sortBy";
     private final String CATEGORY = "categoryID";
@@ -106,8 +105,10 @@ public class MainActivity extends AppCompatActivity {
     public void loadList(View view) {
 
         Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra(LISTNAMEID, listNames.get(mItemSelectedIndex));
         startActivity(intent);
 
+        Log.d("TEST: ", listNames.get(mItemSelectedIndex));
     }
 
     public void viewCategories(View view) {
