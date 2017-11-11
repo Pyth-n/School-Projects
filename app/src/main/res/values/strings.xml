@@ -35,6 +35,13 @@
     <string name="rename_category">Rename Category</string>
     <string name="save_new_list">Save New List</string>
     <string name="save_new_category">Save New Category</string>
-    <string name="view_categories">View List of Categories</string>
+    <string name="view_categories">View Categories</string>
     <string name="dummy_image">Android logo</string>
+    <string name="sort_category">Sort Category</string>
+    <string name="sort_list">Sort List</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_date">Sort by date</string>
+    <string name="sort_manual">Manual sort</string>
+    <string name="choose_sort_order">Choose Sort Order:</string>
+    <string name="save_sort">Save Sort Order</string>
 </resources>

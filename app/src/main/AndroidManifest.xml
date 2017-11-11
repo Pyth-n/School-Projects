@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.byui_cs246_team07.listtracker">
+    package="com.byui_cs246_team07.listtracker">
 
     <application
         android:allowBackup="true"
@@ -9,19 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
+
             <!-- android:parentActivityName=".CategoriesActivity"> -->
 
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <!-- <meta-data
+            <!--
+                 <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoriesActivity"/> -->
+                android:value=".CategoriesActivity"/>
+            -->
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -34,7 +37,7 @@
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ItemActivity"
@@ -43,38 +46,39 @@
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity"/>
+                android:value=".ListActivity" />
         </activity>
-        <activity android:name=".CategoriesActivity">
-        </activity>
+        <activity android:name=".CategoriesActivity"></activity>
 
         <receiver android:name=".HomeScreenWidget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/home_screen_widget_info"/>
+                android:resource="@xml/home_screen_widget_info" />
         </receiver>
 
-        <activity android:name=".ListCreationActivity"
+        <activity
+            android:name=".ListCreationActivity"
             android:parentActivityName=".ListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListActivity"/>
+                android:value=".ListActivity" />
         </activity>
-
-        <activity android:name=".CategoryCreationActivity"
+        <activity
+            android:name=".CategoryCreationActivity"
             android:parentActivityName=".CategoriesActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoriesActivity"/>
+                android:value=".CategoriesActivity" />
         </activity>
+        <activity android:name=".SortListOptionsActivity"></activity>
     </application>
 
 </manifest>
