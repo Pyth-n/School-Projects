@@ -29,7 +29,7 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityLevel;
     private EditText mNotes;
 
-    ItemActivity() {
+    public ItemActivity() {
         controller = new ItemController(this);
     }
 
@@ -66,5 +66,10 @@ public class ItemActivity extends AppCompatActivity {
         Item item = new Item(mListName.getText().toString());
         item.setListId(parentList.getId());
         controller.saveItem(item);
+    }
+
+    public void setReminderDate(View view) {
+        Intent intent = new Intent(this, ReminderActivity.class);
+        startActivity(intent);
     }
 }

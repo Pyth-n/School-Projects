@@ -11,8 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            >
+            android:windowSoftInputMode="adjustNothing">
 
             <!-- android:parentActivityName=".CategoriesActivity"> -->
 
@@ -32,10 +31,9 @@
         </activity>
         <activity
             android:name=".ListActivity"
-            android:parentActivityName=".MainActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustNothing"
-            >
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustNothing">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
@@ -51,7 +49,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListActivity" />
         </activity>
-        <activity android:name=".CategoriesActivity"></activity>
+        <activity android:name=".CategoriesActivity" />
 
         <receiver android:name=".HomeScreenWidget">
             <intent-filter>
@@ -81,7 +79,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CategoriesActivity" />
         </activity>
-        <activity android:name=".SortListOptionsActivity"></activity>
+        <activity android:name=".SortListOptionsActivity" />
+        <activity android:name=".ReminderActivity"
+            android:parentActivityName=".ItemActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ItemActivity" />
+        </activity>
     </application>
 
 </manifest>

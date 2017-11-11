@@ -14,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/btnSaveItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
         android:inputType="textPersonName"
         android:text="@string/list_name"
         android:textColor="@android:color/holo_blue_dark"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:typeface="serif"
         app:layout_constraintEnd_toStartOf="@+id/btnSetReminder"
         app:layout_constraintStart_toEndOf="@+id/itemWithin"
@@ -199,6 +199,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/save_item"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/editItemName"
         app:layout_constraintEnd_toStartOf="@+id/labelDueDate" />
 
@@ -278,6 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/add_image"
+        android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteImage"
         app:layout_constraintTop_toBottomOf="@+id/dateCreated" />
 
@@ -288,6 +290,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="@string/delete_image"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
 
@@ -298,7 +301,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:onClick="setReminderDate"
         android:text="@string/set_reminder"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed" />
 
