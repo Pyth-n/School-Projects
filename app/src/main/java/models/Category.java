@@ -1,12 +1,13 @@
 package models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by CarlosIribar on 10/31/17.
  */
 
-public class Category {
+public class Category implements Serializable {
 
     private String name;
     private long id;

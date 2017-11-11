@@ -2,6 +2,7 @@ package models;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.util.List;
 
 import database.ListTrackerDataSource;
@@ -11,7 +12,7 @@ import database.ListTrackerSQLiteHelper;
  * Created by CarlosIribar on 10/31/17.
  */
 
-public class ItemList {
+public class ItemList implements Serializable {
 
     private String name;
     private long categoryId;

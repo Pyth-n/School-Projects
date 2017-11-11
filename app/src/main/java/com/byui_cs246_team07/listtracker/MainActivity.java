@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import controllers.ItemController;
 import controllers.ItemListController;
+import models.Item;
+import models.ItemList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
+    public final static String ITEM_SELECTED = "itemSelected";
     private ItemListController itemListController;
     private ListView listOfLists;
     private List<String> listNames;
-
+    private List<ItemList> lists;
     private int mItemSelectedIndex;
+    private ItemList itemListSelected;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listNames = itemListController.getListNames();
+        lists = itemListController.getLists();
         setListView();
 
         // TODO move this for a class
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     if (pos == i) {
                         listOfLists.getChildAt(pos).setBackgroundColor(Color.GRAY);
                         mItemSelectedIndex = pos;
+                        itemListSelected = lists.get(pos);
                     } else {
                         listOfLists.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
                     }
@@ -111,10 +118,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadList(View view) {
-
-        Intent intent = new Intent(this, ListActivity.class);
-        startActivity(intent);
-
+        if (itemListSelected != null) {
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putExtra(ITEM_SELECTED, itemListSelected);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Select List first", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void viewCategories(View view) {

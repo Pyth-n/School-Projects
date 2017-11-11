@@ -3,6 +3,7 @@ package controllers;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.List;
 
 import database.ItemCRUD;

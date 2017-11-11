@@ -2,6 +2,7 @@ package controllers;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import models.ItemList;
  * Created by CarlosIribar on 11/9/17.
  */
 
-public class CategoryController {
+public class CategoryController implements Serializable {
 
     private CategoryCRUD controller;
 

@@ -1,6 +1,7 @@
 package models;
 
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by CarlosIribar on 10/31/17.
  */
 
-public class Item {
+public class Item implements Serializable {
 
     private long id;
     private String name;
@@ -105,8 +106,4 @@ public class Item {
         this.listId = listId;
     }
 
-
-    public Boolean save() {
-        return null;
-    }
 }
