@@ -148,14 +148,7 @@ public class MainActivity extends AppCompatActivity {
         listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-            for (int i = 0; i < listOfLists.getChildCount(); i++) {
-              if (pos == i) {
-                listOfLists.getChildAt(pos).setBackgroundColor(Color.GRAY);
-                itemListSelected = lists.get(pos);
-              } else {
-                listOfLists.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-              }
-            }
+              itemListSelected = lists.get(pos);
             Log.d("POSITION: ", Integer.toString(pos));
           }
         });

@@ -71,9 +71,10 @@ public class ItemActivity extends AppCompatActivity {
 
     public void saveItem(View view) {
 
-        if (mListName.getText() != null) {
+        if (mListName.getText() != null && mListName.getText() != "") {
             Item item = createItem();
             controller.saveItem(item);
+
         } else {
             Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
         }
@@ -88,7 +89,7 @@ public class ItemActivity extends AppCompatActivity {
         Log.d("NOtes", mNotes.getText().toString());
         item.setNotes(mNotes.getText().toString());
 
-        item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
+        //item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
         return item;
     }
 

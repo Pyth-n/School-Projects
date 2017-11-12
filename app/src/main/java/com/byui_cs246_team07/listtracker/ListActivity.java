@@ -51,6 +51,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         mItemSelectedIndex = -1;
+        itemSelected = null;
         nameOfList = getIntent().getStringExtra(MainActivity.LISTNAMEID);
 
         // Sets resource IDs
@@ -106,15 +107,25 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void deleteItem(View view) {
-        itemController.delete(itemSelected.getId());
-        List<Item> newList = new ArrayList<>();
-        for (Item item : items) {
-            if (item.getId() != itemSelected.getId()) {
-                newList.add(item);
+        // Null checks itemSelected so it doesn't cause a crash
+        if (itemSelected != null) {
+            String deleted = "Deleted " + itemSelected.getName();
+            itemController.delete(itemSelected.getId());
+
+            List<Item> newList = new ArrayList<>();
+            for (Item item : items) {
+                if (item.getId() != itemSelected.getId()) {
+                    newList.add(item);
+                }
             }
+            itemSelected = null;
+            items = newList;
+            mItemSelectedIndex = -1;
+            Toast.makeText(this, deleted, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Select Item to Delete", Toast.LENGTH_SHORT).show();
         }
-        itemSelected = null;
-        items = newList;
+
         setListView();
     }
 
@@ -158,7 +169,12 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 mItemSelectedIndex = pos;
-                itemSelected = items.get(pos);
+                // Makes sure something is always selected. If no items selected, it is assigned null
+                if (pos != -1) {
+                    itemSelected = items.get(pos);
+                } else {
+                    itemSelected = null;
+                }
                 Log.d("POSITION: ", Integer.toString(pos));
             }
         });
