@@ -124,6 +124,13 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    public void moveItem(View view) {
+
+        Intent intent = new Intent(this, ItemMoverActivity.class);
+        startActivity(intent);
+
+    }
+
     public void sortList(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
