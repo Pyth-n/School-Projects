@@ -61,4 +61,7 @@
     <string name="move_list">Move List</string>
     <string name="save_to_new_location">Save to New Location</string>
     <string name="move_list_to_what_category">Move List to What Category?</string>
+    <string name="move_to">Move to:</string>
+    <string name="move_item_to_what_list">Move Item to What List?</string>
+    <string name="move_item">Move Item</string>
 </resources>

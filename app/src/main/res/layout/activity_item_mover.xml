@@ -4,33 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.byui_cs246_team07.listtracker.ItemCopierActivity">
+    tools:context="com.byui_cs246_team07.listtracker.ItemMoverActivity">
 
     <TextView
-        android:id="@+id/labelCopyItemToWhatList"
+        android:id="@+id/labelMoveItemToWhatList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/copy_item_to_what_list"
+        android:text="@string/move_item_to_what_list"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnSaveCopyOfItemToNewLocation"
+        android:id="@+id/btnSaveItemToNewLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/save_copy_to_new_location"
+        android:text="@string/save_to_new_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerListNameCopierActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerListNameMoverActivity" />
 
     <Spinner
-        android:id="@+id/spinnerListNameCopierActivity"
+        android:id="@+id/spinnerListNameMoverActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -38,5 +38,5 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelCopyItemToWhatList" />
+        app:layout_constraintTop_toBottomOf="@+id/labelMoveItemToWhatList" />
 </android.support.constraint.ConstraintLayout>
