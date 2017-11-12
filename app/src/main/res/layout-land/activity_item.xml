@@ -60,7 +60,7 @@
         android:textColor="@android:color/holo_purple"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerListNameItemActivity" />
 
     <TextView
         android:id="@+id/labelTags"
@@ -90,27 +90,12 @@
         android:id="@+id/itemWithin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/item_within"
         android:textSize="14sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/listNameInItemScreen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:inputType="textPersonName"
-        android:text="@string/list_name"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="16sp"
-        android:typeface="serif"
-        app:layout_constraintEnd_toStartOf="@+id/btnSetReminder"
-        app:layout_constraintStart_toEndOf="@+id/itemWithin"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -306,5 +291,16 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed" />
+
+    <Spinner
+        android:id="@+id/spinnerListNameItemActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/labelDueDate"
+        app:layout_constraintStart_toEndOf="@+id/itemWithin"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
