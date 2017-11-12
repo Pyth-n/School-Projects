@@ -89,9 +89,38 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemActivity" />
         </activity>
-        <activity android:name=".ListCopierActivity" />
-        <activity android:name=".ItemCopierActivity" />
-        <activity android:name=".ListImageGalleryActivity"></activity>
+        <activity android:name=".ListCopierActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity android:name=".ItemCopierActivity"
+            android:parentActivityName=".ListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListActivity" />
+        </activity>
+        <activity android:name=".ListImageGalleryActivity"
+            android:parentActivityName=".ListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListActivity" />
+        </activity>
+        <activity android:name=".ListMoverActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
