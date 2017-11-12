@@ -137,6 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void moveList(View view) {
+
+        Intent intent = new Intent(this, ListMoverActivity.class);
+        startActivity(intent);
+
+    }
+
     private void setListView() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();

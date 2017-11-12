@@ -16,7 +16,7 @@
         android:onClick="loadList"
         android:text="@string/load_list"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateList"
-        app:layout_constraintEnd_toStartOf="@+id/btnViewCategories"
+        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:onClick="createList"
         android:text="@string/create_list"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
         android:text="@string/view_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnLoadList"
+        app:layout_constraintStart_toEndOf="@+id/btnMoveList"
         app:layout_constraintTop_toTopOf="@+id/btnLoadList" />
 
     <Button
@@ -142,4 +142,15 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnCreateList"
         app:layout_constraintTop_toTopOf="@+id/btnCreateList" />
+
+    <Button
+        android:id="@+id/btnMoveList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="moveList"
+        android:text="@string/move_list"
+        app:layout_constraintEnd_toStartOf="@+id/btnViewCategories"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnLoadList"
+        app:layout_constraintTop_toTopOf="@+id/btnLoadList" />
 </android.support.constraint.ConstraintLayout>

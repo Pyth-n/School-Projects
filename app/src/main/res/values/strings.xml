@@ -58,4 +58,7 @@
     <string name="example_list_name">Example List Name</string>
     <string name="image_gallery_for_list">Images from List:</string>
     <string name="view_image_gallery">View Image Gallery</string>
+    <string name="move_list">Move List</string>
+    <string name="save_to_new_location">Save to New Location</string>
+    <string name="move_list_to_what_category">Move List to What Category?</string>
 </resources>
