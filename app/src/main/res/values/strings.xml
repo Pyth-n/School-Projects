@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">List Tracker</string>
-    <string name="load_list">Load List</string>
+    <string name="open_list">Open List</string>
     <string name="create_list">Create List</string>
     <string name="delete_list">Delete List</string>
     <string name="category">Category:</string>
     <string name="category_name"></string>
     <string name="add_category">Add category name</string>
     <string name="add_list">Add list name</string>
-    <string name="create_item">Create Item</string>
-    <string name="load_item">Load Item</string>
+    <string name="add_item">Add Item</string>
+    <string name="view_item">View Item</string>
     <string name="delete_item">Delete Item</string>
     <string name="list_name">List Name</string>
     <string name="list">List:</string>
