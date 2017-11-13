@@ -96,14 +96,13 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <EditText
+    <TextView
         android:id="@+id/listNameInItemScreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:inputType="textPersonName"
         android:text="@string/list_name"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16sp"
