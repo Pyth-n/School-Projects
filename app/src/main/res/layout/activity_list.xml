@@ -7,28 +7,28 @@
     tools:context="com.byui_cs246_team07.listtracker.ListActivity">
 
     <Button
-        android:id="@+id/btnLoadItem"
+        android:id="@+id/btnViewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:onClick="loadItem"
-        android:text="@string/load_item"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateItem"
+        android:text="@string/view_item"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
         app:layout_constraintEnd_toStartOf="@+id/moveItem"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnCreateItem"
+        android:id="@+id/btnAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:onClick="createItem"
-        android:text="@string/create_item"
+        android:text="@string/add_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnCopyItem"
         app:layout_constraintHorizontal_bias="0.5"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnCopyItem"
-        app:layout_constraintTop_toTopOf="@+id/btnCreateItem" />
+        app:layout_constraintTop_toTopOf="@+id/btnAddItem" />
 
     <TextView
         android:id="@+id/list"
@@ -86,7 +86,7 @@
         android:layout_marginTop="8dp"
         android:choiceMode="singleChoice"
         android:listSelector="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoadItem"
+        app:layout_constraintBottom_toTopOf="@+id/btnViewItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -127,8 +127,8 @@
         android:text="@string/copy_item"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteItem"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnCreateItem"
-        app:layout_constraintTop_toTopOf="@+id/btnCreateItem" />
+        app:layout_constraintStart_toEndOf="@+id/btnAddItem"
+        app:layout_constraintTop_toTopOf="@+id/btnAddItem" />
 
     <Button
         android:id="@+id/viewImageGallery"
@@ -141,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/moveItem"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadItem" />
+        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 
     <Button
         android:id="@+id/moveItem"
@@ -151,6 +151,6 @@
         android:text="@string/move_item"
         app:layout_constraintEnd_toStartOf="@+id/viewImageGallery"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnLoadItem"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadItem" />
+        app:layout_constraintStart_toEndOf="@+id/btnViewItem"
+        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 </android.support.constraint.ConstraintLayout>
