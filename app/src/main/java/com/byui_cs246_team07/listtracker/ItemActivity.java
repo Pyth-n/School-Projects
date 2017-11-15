@@ -72,10 +72,11 @@ public class ItemActivity extends AppCompatActivity {
 
     public void saveItem(View view) {
 
-        if (mListName.getText() != null && mListName.getText() != "") {
+        if (!mItemName.getText().toString().equals("")) {
             Item item = createItem();
             controller.saveItem(item);
             Log.d(TAG, "Item saved");
+            Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
@@ -85,10 +86,10 @@ public class ItemActivity extends AppCompatActivity {
 
     private Item createItem() {
 
-        Item item = new Item(mListName.getText().toString());
+        Item item = new Item(mItemName.getText().toString());
         item.setListId(parentList.getId());
         item.setCompleted(mCompleted.isChecked());
-        Log.d("NOtes", mNotes.getText().toString());
+        Log.d("Notes", mNotes.getText().toString());
         item.setNotes(mNotes.getText().toString());
 
         //item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
@@ -97,7 +98,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private void getItemValues() {
 
-        mItemName = findViewById(R.id.editItemName);
+        mItemName = (EditText) findViewById(R.id.editItemName);
         mListName = (TextView) findViewById(R.id.listNameInItemScreen);
         mNotes = (EditText) findViewById(R.id.editNotes);
         mPriorityNumber = (EditText) findViewById(R.id.priorityNumber);
