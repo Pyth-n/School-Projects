@@ -18,6 +18,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private ItemList parentList;
     private ItemController controller;
+    private final String TAG = this.getClass().getName();
     // IDs of widgets
     private TextView mListName;
     private EditText mItemName;
@@ -74,6 +75,7 @@ public class ItemActivity extends AppCompatActivity {
         if (mListName.getText() != null && mListName.getText() != "") {
             Item item = createItem();
             controller.saveItem(item);
+            Log.d(TAG, "Item saved");
 
         } else {
             Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
@@ -116,10 +118,18 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    public void setReminderDate(View view) {
-
+    private void setReminderDate(View view) {
         Intent intent = new Intent(this, ReminderActivity.class);
         startActivity(intent);
+    }
 
+    private boolean addImage() {
+        Log.d(TAG, "Image added");
+        return false;
+    }
+
+    private boolean deleteImage() {
+        Log.d(TAG, "Image deleted");
+        return false;
     }
 }

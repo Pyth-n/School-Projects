@@ -69,6 +69,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         setListView();
+        Log.d(TAG, "List opened");
     }
 
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
@@ -155,6 +156,11 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ListImageGalleryActivity.class);
         startActivity(intent);
 
+    }
+
+    public void renameCategory(View view) {
+
+        Log.d(TAG, "List renamed");
     }
 
     public void setListView() {

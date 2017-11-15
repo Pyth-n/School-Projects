@@ -12,7 +12,7 @@ import models.ItemList;
 
 public class ListCreationActivity extends AppCompatActivity {
 
-  private String TAG = "ListActivity";
+  private String TAG = this.getClass().getName();
   private ItemListController controller;
 
   public ListCreationActivity() {

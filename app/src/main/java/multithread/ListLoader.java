@@ -12,7 +12,7 @@ import java.util.List;
 public class ListLoader extends AsyncTask<Void, Integer, Void> {
     // Member Variables
     private List<List> list = new ArrayList<>();
-    private String TAG;
+    private String TAG = this.getClass().getName();
 
     public ListLoader(List<List> list, String tag) {
         this.list = list;

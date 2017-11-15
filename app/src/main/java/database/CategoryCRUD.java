@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ import models.Category;
  */
 
 public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
+
+    private final String TAG = this.getClass().getName();
 
     public CategoryCRUD(Context contex) {
         super(contex);
@@ -43,6 +46,7 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
         database.setTransactionSuccessful();
         database.endTransaction();
         close(database);
+        Log.d(TAG, "Category saved");
         return id;
     }
 
@@ -58,6 +62,7 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
                 null);
         database.setTransactionSuccessful();
         database.endTransaction();
+        Log.d(TAG, "Category deleted");
     }
 
     public List<Category> getCategories() {
@@ -87,6 +92,7 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
         }
         cursor.close();
         close(database);
+        Log.d(TAG, "Database accessed: Category");
         return lists;
     }
 }

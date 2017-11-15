@@ -11,7 +11,7 @@ import android.os.AsyncTask;
 public class Sorter extends AsyncTask<Void, Integer, Void> {
     private String sortCriteria;
     private boolean isAsc;
-    private String TAG;
+    private String TAG = this.getClass().getName();
 
     public Sorter(String sortCriteria, boolean isAsc) {
         this.sortCriteria = sortCriteria;

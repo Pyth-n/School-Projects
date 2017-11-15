@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,8 @@ import models.ItemList;
  */
 
 public class ItemCRUD extends ListTrackerDataSource implements CRUD{
+
+    private final String TAG = this.getClass().getName();
 
     private String [] columns =  new String [] {
             ListTrackerSQLiteHelper.ITEM_COLUMN_COMPLETED,
@@ -79,6 +82,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         database.setTransactionSuccessful();
         database.endTransaction();
         close(database);
+        Log.d(TAG, "Item saved");
         return id;
     }
 
@@ -91,6 +95,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
                 null);
         database.setTransactionSuccessful();
         database.endTransaction();
+        Log.d(TAG, "Item deleted");
     }
 
 
@@ -116,6 +121,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         }
         cursor.close();
         close(database);
+        Log.d(TAG, "Database accessed: Item");
         return items;
     }
 

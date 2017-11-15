@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ListSaver extends AsyncTask<Void, Integer, Void> {
     private List<List> listToSave = new ArrayList<>();
-    private String TAG;
+    private String TAG = this.getClass().getName();
 
     public ListSaver(List<List> list, String tag) {
         this.listToSave = list;

@@ -23,8 +23,7 @@ import models.ItemList;
 public class MainActivity extends AppCompatActivity {
     public static final String ITEM_SELECTED = "itemSelected";
     public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
-
-    private final String TAG = "MainActivity";
+    private final String TAG = this.getClass().getName();
     private final String SORTBY = "sortBy";
     private final String CATEGORY = "categoryID";
     private final String LASTSCREENVIEWED = "lastScreenID";
@@ -144,10 +143,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void renameCategory(View view) {
+
+        Log.d(TAG, "Category renamed");
+    }
+
     private void setListView() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_list_item_1, listNames);
         listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ImageLoader extends AsyncTask<Void, Integer, Void> {
     private List<String> images = new ArrayList<>();
-    private String TAG;
+    private String TAG = this.getClass().getName();
 
     public ImageLoader(List<String> images, String tag) {
         this.images = images;
