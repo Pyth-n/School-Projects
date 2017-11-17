@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.List;
 
@@ -31,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private final String PREFERENCES = "listPrefs";
 
     private ItemListController itemListController;
-    private ListView listOfLists;
+    private DragSortListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
+    private ArrayAdapter<String> adapter;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
@@ -151,11 +156,34 @@ public class MainActivity extends AppCompatActivity {
     private void setListView() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-            android.R.layout.simple_list_item_1, listNames);
+        adapter = new ArrayAdapter<String>(this,
+                                                android.R.layout.simple_list_item_1, listNames){
+              @Override
+              public View getView(int position, View convertView, ViewGroup parent) {
+                  View view = super.getView(position, convertView, parent);
+                  TextView textView = (TextView) super.getView(position, convertView, parent);
+                  ItemList item = lists.get(position);
+                  textView.setText(item.getName());
+                  //Log.d(TAG, index);
+                  return view;
+              }
+        };
         listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
+
+        // This is the drag and drop feature. Gets list index, moves it, then notifies adapter
+        listOfLists.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                itemListSelected = lists.get(from);
+                lists.remove(from);
+                if (from > to) --from;
+                lists.add(to, itemListSelected);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        
         listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
