@@ -123,11 +123,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void deleteList(View view) {
         if (itemListSelected != null) {
+            String deleted = "Deleted " + itemListSelected.getName();
             adapter.remove(adapter.getItem(itemListSelectedIndex));
             itemListController.delete(itemListSelected.getId());
             itemListSelected = null;
             itemListSelectedIndex = -1;
             getControllerData();
+            Toast.makeText(this, deleted, Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
         }
 
