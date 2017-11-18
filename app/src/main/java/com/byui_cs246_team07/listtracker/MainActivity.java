@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -34,15 +35,17 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
 
+    ArrayAdapter<String> adapter;
     private ItemListController itemListController;
     private DragSortListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
-    private ArrayAdapter<String> adapter;
+    private int itemListSelectedIndex;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
+        itemListSelectedIndex = -1;
     }
 
     /*
@@ -119,11 +122,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteList(View view) {
-      if (itemListSelected != null) {
-        itemListController.delete(itemListSelected.getId());
-        itemListSelected = null;
-        setListView();
-      }
+        if (itemListSelected != null) {
+            adapter.remove(adapter.getItem(itemListSelectedIndex));
+            itemListController.delete(itemListSelected.getId());
+            itemListSelected = null;
+            itemListSelectedIndex = -1;
+            getControllerData();
+            adapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -154,22 +160,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListView() {
-        listNames = itemListController.getListNames();
-        lists = itemListController.getLists();
+        getControllerData();
         adapter = new ArrayAdapter<String>(this,
-                                                android.R.layout.simple_list_item_1, listNames){
-              @Override
-              public View getView(int position, View convertView, ViewGroup parent) {
-                  View view = super.getView(position, convertView, parent);
-                  TextView textView = (TextView) super.getView(position, convertView, parent);
-                  if (!lists.isEmpty()) {
-                      ItemList item = lists.get(position);
-                      textView.setText(item.getName());
-                  }
+                android.R.layout.simple_list_item_1, listNames) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                if (!lists.isEmpty()) {
+                    ItemList item = lists.get(position);
+                    textView.setText(item.getName());
+                }
 
-                  return view;
-              }
+                return view;
+            }
+
         };
+
         listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
@@ -179,20 +186,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void drop(int from, int to) {
                 itemListSelected = lists.get(from);
+                itemListSelectedIndex = from;
                 lists.remove(from);
                 if (from > to) --from;
                 lists.add(to, itemListSelected);
                 adapter.notifyDataSetChanged();
+                Log.d(TAG, "DROPPING");
             }
         });
-        
-        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-          @Override
-          public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-              itemListSelected = lists.get(pos);
-            Log.d("POSITION: ", Integer.toString(pos));
-          }
+
+        listOfLists.setDragListener(new DragSortListView.DragListener() {
+            @Override
+            public void drag(int i, int i1) {
+                Log.d(TAG, "DRAGGING");
+            }
         });
+    }
+
+    private void getControllerData() {
+        listNames = itemListController.getListNames();
+        lists = itemListController.getLists();
     }
 
 }
