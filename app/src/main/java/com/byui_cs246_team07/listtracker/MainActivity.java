@@ -30,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
 
+    ArrayAdapter<String> adapter;
     private ItemListController itemListController;
     private ListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
+    private int itemListSelectedIndex;
 
     public MainActivity() {
         itemListController = new ItemListController(this);
+        itemListSelectedIndex = -1;
     }
 
     /*
@@ -114,10 +117,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void deleteList(View view) {
-      if (itemListSelected != null) {
+      if (itemListSelected != null && itemListSelectedIndex != -1) {
+          adapter.remove(adapter.getItem(itemListSelectedIndex));
         itemListController.delete(itemListSelected.getId());
         itemListSelected = null;
-        setListView();
+        itemListSelectedIndex = -1;
+        getControllerData();
+        adapter.notifyDataSetChanged();
       }
 
     }
@@ -149,9 +155,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setListView() {
-        listNames = itemListController.getListNames();
-        lists = itemListController.getLists();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        getControllerData();
+        adapter = new ArrayAdapter<String>(this,
             android.R.layout.simple_list_item_1, listNames);
         listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
@@ -159,10 +164,18 @@ public class MainActivity extends AppCompatActivity {
         listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
           @Override
           public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-              itemListSelected = lists.get(pos);
-            Log.d("POSITION: ", Integer.toString(pos));
+              if (!lists.isEmpty()) {
+                  itemListSelected = lists.get(pos);
+                  itemListSelectedIndex = pos;
+                  Log.d("POSITION: ", Integer.toString(pos));
+              }
           }
         });
+    }
+
+    private void getControllerData() {
+        listNames = itemListController.getListNames();
+        lists = itemListController.getLists();
     }
 
 }
