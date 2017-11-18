@@ -162,9 +162,11 @@ public class MainActivity extends AppCompatActivity {
               public View getView(int position, View convertView, ViewGroup parent) {
                   View view = super.getView(position, convertView, parent);
                   TextView textView = (TextView) super.getView(position, convertView, parent);
-                  ItemList item = lists.get(position);
-                  textView.setText(item.getName());
-                  //Log.d(TAG, index);
+                  if (!lists.isEmpty()) {
+                      ItemList item = lists.get(position);
+                      textView.setText(item.getName());
+                  }
+
                   return view;
               }
         };
