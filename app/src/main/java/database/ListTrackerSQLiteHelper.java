@@ -44,6 +44,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
     public static final String ITEM_COLUMN_CREATED_DATE = "created_date";
     public static final String ITEM_COLUMN_DUE_DATE = "due_date";
     public static final String ITEM_COLUMN_PRIORITY = "priority";
+    public static final String ITEM_COLUMN_PRIORITY_NAME = "priorityName";
     public static final String ITEM_COLUMN_TAGS = "tags";
     public static final String ITEM_COLUMN_COMPLETED = "completed";
     public static final String ITEM_COLUMN_IMAGE_URLS = "image_urls";
@@ -55,6 +56,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
                     ITEM_COLUMN_NOTES + " TEXT, " +
                     ITEM_COLUMN_CREATED_DATE + " TEXT NOT NULL , " +
                     ITEM_COLUMN_DUE_DATE + " TEXT, " +
+                    ITEM_COLUMN_PRIORITY_NAME + " TEXT, " +
                     ITEM_COLUMN_PRIORITY +" INTEGER, " +
                     ITEM_COLUMN_TAGS + " TEXT, " +
                     ITEM_COLUMN_COMPLETED + " INTEGER NOT NULL CHECK (" + ITEM_COLUMN_COMPLETED + " IN (0,1)), " +

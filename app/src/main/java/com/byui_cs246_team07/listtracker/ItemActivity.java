@@ -28,7 +28,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView mDateModified;
     private CheckBox mCompleted;
     private EditText mPriorityNumber;
-    private EditText mPriorityLevel;
+    private EditText mPriorityName;
     private EditText mNotes;
 
     public ItemActivity() {
@@ -59,6 +59,7 @@ public class ItemActivity extends AppCompatActivity {
         else if (buttonName.equals("loadItem")) {
             Item item = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
             setItemValues(item);
+            Log.d("Set Item", item.getName());
             Toast.makeText(this, "LOADING...", Toast.LENGTH_SHORT).show();
         }
     }
@@ -91,6 +92,10 @@ public class ItemActivity extends AppCompatActivity {
         item.setCompleted(mCompleted.isChecked());
         Log.d("Notes", mNotes.getText().toString());
         item.setNotes(mNotes.getText().toString());
+        item.setTags(mTag.getText().toString());
+        item.setPriorityName(mPriorityName.getText().toString());
+        item.setPriority(Integer.valueOf(mPriorityNumber.getText().toString()));
+
 
         //item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
         return item;
@@ -103,6 +108,8 @@ public class ItemActivity extends AppCompatActivity {
         mNotes = (EditText) findViewById(R.id.editNotes);
         mPriorityNumber = (EditText) findViewById(R.id.priorityNumber);
         mCompleted = (CheckBox) findViewById(R.id.completed);
+        mPriorityName = (EditText) findViewById(R.id.priorityLevelName);
+        mTag = (EditText) findViewById(R.id.editTags);
     }
 
     private void setItemValues(Item item) {
@@ -112,10 +119,22 @@ public class ItemActivity extends AppCompatActivity {
             mNotes.setText(item.getNotes());
         }
         if (item.getPriority() != null) {
-            mPriorityNumber.setText((String.valueOf(item.getPriority())));
+            String priority = String.valueOf(4);
+            Log.d("Priori", priority);
+            mPriorityNumber.setText(priority);
         }
         if (item.getCompleted() != null) {
             mCompleted.setChecked(item.getCompleted());
+        }
+        if (item.getNotes() != null) {
+            mNotes.setText(item.getNotes());
+        }
+        if (item.getPriorityName() != null) {
+            mPriorityName.setText(item.getPriorityName());
+        }
+        if (item.getTags() != null) {
+            Log.d("Tags", item.getTags());
+            mTag.setText(item.getTags());
         }
     }
 

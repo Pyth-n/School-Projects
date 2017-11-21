@@ -243,13 +243,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/labelPriorityLevelName"/>
+        app:layout_constraintStart_toStartOf="@+id/labelPriorityLevelName" />
 
     <ImageView
         android:id="@+id/imageView"

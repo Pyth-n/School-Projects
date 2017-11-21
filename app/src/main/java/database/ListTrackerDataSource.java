@@ -50,7 +50,10 @@ public class ListTrackerDataSource {
 
     protected String getStringFromColumnName(Cursor cursor, String columnName) {
         int columnIndex = cursor.getColumnIndex(columnName);
-        return cursor.getString(columnIndex);
+        if (columnIndex > -1) {
+            return cursor.getString(columnIndex);
+        }
+        return null;
     }
 
     protected Boolean getBooleanFromColumnName(Cursor cursor, String columnName) {

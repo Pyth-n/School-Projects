@@ -64,7 +64,10 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
             itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_IMAGE_URLS, TextUtils.join("##", item.getImagesUrls()));
         }
         if (item.getTags() != null) {
-            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS, TextUtils.join("##", item.getTags()));
+            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS, item.getTags());
+        }
+        if (item.getPriorityName() != null) {
+          itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME, item.getPriorityName());
         }
         itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY, item.getPriority());
         itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST, item.getListId());
@@ -157,13 +160,14 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
 
       Item item = new Item(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NAME));
       item.setNotes(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NOTES));
+      item.setTags(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS));
       item.setPriority(getIntFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY));
       item.setCompleted(getBooleanFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_COMPLETED));
       item.setCreatedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE));
       item.setId(getLongFromColumnName(cursor, BaseColumns._ID));
       item.setDueDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_DUE_DATE));
       item.setListId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST));
-
+      item.setPriorityName(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME));
       return item;
     }
 }

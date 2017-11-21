@@ -18,7 +18,8 @@ public class Item implements Serializable {
     private long listId;
     private Date dueDate;
     private Integer priority;
-    private List<String> tags;
+    private String priorityName;
+    private String tags;
     private List<String> imagesUrls;
     private Boolean isCompleted;
 
@@ -74,12 +75,8 @@ public class Item implements Serializable {
         this.priority = priority;
     }
 
-    public List<String> getTags() {
+    public String getTags() {
         return tags;
-    }
-
-    public void setTags(List<String> tags) {
-        this.tags = tags;
     }
 
     public List<String> getImagesUrls() {
@@ -104,6 +101,18 @@ public class Item implements Serializable {
 
     public void setListId(long listId) {
         this.listId = listId;
+    }
+
+    public String getPriorityName() {
+        return priorityName;
+    }
+
+    public void setPriorityName(String priorityName) {
+        this.priorityName = priorityName;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
 }
