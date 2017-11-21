@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface CRUD {
 
+  /**
+   * Delete method
+   * @param id
+   */
   public void delete(long id);
 
 }

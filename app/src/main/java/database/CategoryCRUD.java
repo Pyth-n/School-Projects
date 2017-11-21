@@ -21,10 +21,19 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
 
     private final String TAG = this.getClass().getName();
 
+    /**
+     * CategoryCRUD constructor
+     * @param contex
+     */
     public CategoryCRUD(Context contex) {
         super(contex);
     }
 
+    /**
+     * Save Item List in database
+     * @param category
+     * @return
+     */
     public long saveItemList(Category category) {
         long id;
 
@@ -50,6 +59,10 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
         return id;
     }
 
+    /**
+     * Delete category from database
+     * @param categoryId
+     */
     public void delete(long categoryId) {
         SQLiteDatabase database = open();
         database.beginTransaction();
@@ -65,6 +78,10 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
         Log.d(TAG, "Category deleted");
     }
 
+    /**
+     * Get Categories from database
+     * @return
+     */
     public List<Category> getCategories() {
         List<Category> lists = new ArrayList<>();
         String [] columns =  new String [] {

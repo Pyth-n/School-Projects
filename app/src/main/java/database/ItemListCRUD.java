@@ -20,10 +20,19 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
 
   private final String TAG = this.getClass().getName();
 
+  /**
+   * Item List CRUD Constructor
+   * @param context
+   */
   public ItemListCRUD(Context context) {
     super(context);
   }
 
+  /**
+   * Set ItemList in database
+   * @param itemList
+   * @return
+   */
   public long saveItemList(ItemList itemList) {
     long id;
     SQLiteDatabase database = open();
@@ -50,6 +59,10 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
   }
 
 
+  /**
+   * Delete ItemList in database
+   * @param itemListId
+   */
   public void delete(long itemListId) {
     SQLiteDatabase database = open();
     database.beginTransaction();
@@ -65,6 +78,10 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     Log.d(TAG, "List deleted");
   }
 
+  /**
+   * Get Lists from database
+   * @return
+   */
   public List<ItemList> getLists() {
     List<ItemList> lists = new ArrayList<>();
     String [] columns =  new String [] {

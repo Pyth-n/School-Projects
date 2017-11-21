@@ -36,10 +36,19 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
             ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY,
     };
 
-    public ItemCRUD(Context contex) {
+  /**
+   * ItemCRUD constructor
+   * @param contex
+   */
+  public ItemCRUD(Context contex) {
         super(contex);
     }
 
+  /**
+   * Save Item in database
+   * @param item
+   * @return
+   */
     public long saveItem(Item item) {
 
         long id;
@@ -89,7 +98,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         return id;
     }
 
-    public void delete(long itemId) {
+  /**
+   * Delete item in database
+   * @param itemId
+   */
+  public void delete(long itemId) {
         SQLiteDatabase database = open();
         database.beginTransaction();
 
@@ -102,8 +115,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
     }
 
 
-
-    public List<Item> getItems() {
+  /**
+   * Get Items from database
+   * @return
+   */
+  public List<Item> getItems() {
         List<Item> items = new ArrayList<>();
 
         SQLiteDatabase database = open();
@@ -128,6 +144,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         return items;
     }
 
+  /**
+   * Get Items from List in database
+   * @param listId
+   * @return
+   */
     public List<Item> getItemsFromList(long listId) {
       List<Item> items = new ArrayList<>();
       String whereClause =  ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST + "= ?";
@@ -156,6 +177,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
       return items;
     }
 
+  /**
+   * Create new Item instance
+   * @param cursor
+   * @return
+   */
     private Item createItem(Cursor cursor) {
 
       Item item = new Item(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NAME));

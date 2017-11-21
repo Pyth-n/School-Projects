@@ -66,10 +66,18 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
                     ")";
 
 
+    /**
+     * ListTrackerSQLiteHelper Constructor
+     * @param context
+     */
     public ListTrackerSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Create SQL database
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_CATEGORY_TABLE);
@@ -77,6 +85,12 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_ITEM_TABLE);
     }
 
+    /**
+     * Update database
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
