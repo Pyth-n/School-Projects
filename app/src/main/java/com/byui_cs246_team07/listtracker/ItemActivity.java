@@ -78,7 +78,6 @@ public class ItemActivity extends AppCompatActivity {
             controller.saveItem(item);
             Log.d(TAG, "Item saved");
             Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
-
         } else {
             Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
         }

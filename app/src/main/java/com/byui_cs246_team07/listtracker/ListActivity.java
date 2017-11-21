@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +32,10 @@ public class ListActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
 
     // Widget IDs
-    private ListView mListViewOfItems;
+    private DragSortListView mListViewOfItems;
     private TextView mListName;
 
+    ArrayAdapter<String> adapter;
     private ItemListController controller;
     private ItemController itemController;
     private List<Item> items;
@@ -44,6 +48,7 @@ public class ListActivity extends AppCompatActivity {
     public ListActivity() {
         controller = new ItemListController(this);
         itemController = new ItemController(this);
+        adapter = null;
     }
 
     @Override
@@ -59,7 +64,7 @@ public class ListActivity extends AppCompatActivity {
         mListViewOfItems = findViewById(R.id.listOfItems);
 
         Intent intent = getIntent();
-        list = (ItemList)intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
+        list = (ItemList) intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
 
         // Set the name of the list
         if (list != null) {
@@ -70,6 +75,31 @@ public class ListActivity extends AppCompatActivity {
 
         setListView();
         Log.d(TAG, "List opened");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // TODO find a way to fix this brute force of updating ArrayAdapter
+        // When item is saved from ItemActivity and user presses back button, this code
+        // executes. It refreshes the adapter. It's a brute force solution.
+        if (adapter != null) {
+
+            // TODO for some reason, list goes back to null after loadItem (View Item button) is called
+            // TODO and then the back button is pressed then it crashes the app.
+            if (list == null) {
+
+            }
+            items = controller.getRelatedItems(list.getId());
+            adapter.clear();
+            if (items != null) {
+                for (Item item : items) {
+                    adapter.add(item.getName());
+                }
+            }
+            this.adapter.notifyDataSetChanged();
+        }
     }
 
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
@@ -90,7 +120,7 @@ public class ListActivity extends AppCompatActivity {
     public void loadItem(View view) {
         // Makes sure an item is selected before creating and sending an intent
         if (mItemSelectedIndex != -1) {
-            if (!items.isEmpty()){
+            if (!items.isEmpty()) {
                 Item item = items.get(mItemSelectedIndex);
                 Intent intent = new Intent(this, ItemActivity.class);
                 intent.putExtra(PARENT_LIST, list);
@@ -165,19 +195,39 @@ public class ListActivity extends AppCompatActivity {
 
     public void setListView() {
         // Adapter used add items and display in the ListView
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                if (!items.isEmpty()) {
+                    if (itemSelected != null) {
+                        textView.setText(items.get(position).getName());
+                    }
+                }
+                return textView;
+            }
+        };
         if (items != null) {
             for (Item item : items) {
                 adapter.add(item.getName());
             }
         }
 
-        /*for (int i = 0; i < 10; i++) {
-            adapter.add("Mocked item " + Integer.toString(i + 1));
-        }*/
         mListViewOfItems.setAdapter(adapter);
 
-        // Adds a listener so that an item can be selected and be highlighted
+        mListViewOfItems.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                itemSelected = items.get(from);
+                items.remove(from);
+                if (from > to) --from;
+                items.add(to, itemSelected);
+                adapter.notifyDataSetChanged();
+                Log.d(TAG, "DROPPING");
+            }
+        });
+
+        /*// Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -190,6 +240,7 @@ public class ListActivity extends AppCompatActivity {
                 }
                 Log.d("POSITION: ", Integer.toString(pos));
             }
-        });
+        });*/
     }
+
 }
