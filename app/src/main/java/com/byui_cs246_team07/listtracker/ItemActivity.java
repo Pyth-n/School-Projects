@@ -3,6 +3,7 @@ package com.byui_cs246_team07.listtracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -89,12 +90,19 @@ public class ItemActivity extends AppCompatActivity {
         Item item = new Item(mItemName.getText().toString());
         item.setListId(parentList.getId());
         item.setCompleted(mCompleted.isChecked());
-        Log.d("Notes", mNotes.getText().toString());
         item.setNotes(mNotes.getText().toString());
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
-        item.setPriority(Integer.valueOf(mPriorityNumber.getText().toString()));
+        Editable priorityNumberEditable = mPriorityNumber.getText();
 
+        try {
+            String priorityNum = mPriorityNumber.getText().toString();
+            if ( priorityNum != null && priorityNum != "") {
+                item.setPriority(Integer.valueOf(mPriorityNumber.getText().toString()));
+            }
+        } catch (NumberFormatException e){
+            Log.d(TAG, "not a number");
+        }
 
         //item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
         return item;
