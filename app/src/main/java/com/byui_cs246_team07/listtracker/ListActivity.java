@@ -32,7 +32,7 @@ public class ListActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
 
     // Widget IDs
-    private DragSortListView mListViewOfItems;
+    private ListView mListViewOfItems;
     private TextView mListName;
 
     ArrayAdapter<String> adapter;
@@ -49,13 +49,13 @@ public class ListActivity extends AppCompatActivity {
         controller = new ItemListController(this);
         itemController = new ItemController(this);
         adapter = null;
+        mItemSelectedIndex = -1;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        mItemSelectedIndex = -1;
         itemSelected = null;
         nameOfList = getIntent().getStringExtra(MainActivity.LISTNAMEID);
 
@@ -81,7 +81,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // TODO find a way to fix this brute force of updating ArrayAdapter
+        /*// TODO find a way to fix this brute force of updating ArrayAdapter
         // When item is saved from ItemActivity and user presses back button, this code
         // executes. It refreshes the adapter. It's a brute force solution.
         if (adapter != null) {
@@ -99,7 +99,7 @@ public class ListActivity extends AppCompatActivity {
                 }
             }
             this.adapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
@@ -215,19 +215,7 @@ public class ListActivity extends AppCompatActivity {
 
         mListViewOfItems.setAdapter(adapter);
 
-        mListViewOfItems.setDropListener(new DragSortListView.DropListener() {
-            @Override
-            public void drop(int from, int to) {
-                itemSelected = items.get(from);
-                items.remove(from);
-                if (from > to) --from;
-                items.add(to, itemSelected);
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "DROPPING");
-            }
-        });
-
-        /*// Adds a listener so that an item can be selected and be highlighted
+        // Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -240,7 +228,7 @@ public class ListActivity extends AppCompatActivity {
                 }
                 Log.d("POSITION: ", Integer.toString(pos));
             }
-        });*/
+        });
     }
 
 }
