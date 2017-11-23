@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     public void deleteList(View view) {
         if (itemListSelected != null) {
             String deleted = "Deleted " + itemListSelected.getName();
+            listOfLists.setSelector(android.R.color.transparent);
             adapter.remove(adapter.getItem(itemListSelectedIndex));
             itemListController.delete(itemListSelected.getId());
             itemListSelected = null;
@@ -132,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
             getControllerData();
             Toast.makeText(this, deleted, Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "Select a list to delete", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -187,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
         listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                listOfLists.setSelector(android.R.color.darker_gray);
                 itemListSelected = lists.get(pos);
                 itemListSelectedIndex = pos;
                 Log.d("POSITION: ", Integer.toString(pos));
