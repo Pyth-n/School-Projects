@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.List;
 

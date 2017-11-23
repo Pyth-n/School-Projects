@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,14 +65,6 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         list = (ItemList) intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
 
-        // Set the name of the list
-        if (list != null) {
-            mListName.setText(list.getName());
-            // Set items
-            items = controller.getRelatedItems(list.getId());
-        }
-
-        setListView();
         Log.d(TAG, "List opened");
     }
 
@@ -81,25 +72,16 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        /*// TODO find a way to fix this brute force of updating ArrayAdapter
-        // When item is saved from ItemActivity and user presses back button, this code
-        // executes. It refreshes the adapter. It's a brute force solution.
-        if (adapter != null) {
+        setListView();
 
-            // TODO for some reason, list goes back to null after loadItem (View Item button) is called
-            // TODO and then the back button is pressed then it crashes the app.
-            if (list == null) {
+        Log.d(TAG, "RESUMING");
+    }
 
-            }
-            items = controller.getRelatedItems(list.getId());
-            adapter.clear();
-            if (items != null) {
-                for (Item item : items) {
-                    adapter.add(item.getName());
-                }
-            }
-            this.adapter.notifyDataSetChanged();
-        }*/
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d(TAG, "PAUSING");
     }
 
     /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
@@ -129,7 +111,7 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 // TODO if its empty, start a create item, else it crashes
-                Toast.makeText(this, "It's empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Create an item first", Toast.LENGTH_SHORT).show();
             }
 
         } else {
@@ -194,6 +176,13 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void setListView() {
+        // Set the name of the list
+        if (list != null) {
+            mListName.setText(list.getName());
+            // Set items
+            items = controller.getRelatedItems(list.getId());
+        }
+
         // Adapter used add items and display in the ListView
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1) {
             @Override

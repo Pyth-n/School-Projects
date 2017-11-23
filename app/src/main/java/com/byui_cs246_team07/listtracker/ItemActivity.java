@@ -42,9 +42,8 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item);
 
         // find resource IDs
-
-
         getItemValues();
+
         // Set name of the list
         parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
         mListName.setText(parentList.getName());
@@ -53,15 +52,13 @@ public class ItemActivity extends AppCompatActivity {
         String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
         if (buttonName.equals("createItem")) {
             //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
-
         }
-        // TODO loading magic occurs here. Not sure how to utilize database to populate from list
-        // TODO selected yet
+
         else if (buttonName.equals("loadItem")) {
             Item item = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
             setItemValues(item);
             Log.d("Set Item", item.getName());
-            Toast.makeText(this, "LOADING...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading " + item.getName(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -97,10 +94,10 @@ public class ItemActivity extends AppCompatActivity {
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
-            if ( priorityNum != null && priorityNum != "") {
+            if (priorityNum != null && priorityNum != "") {
                 item.setPriority(Integer.valueOf(mPriorityNumber.getText().toString()));
             }
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             Log.d(TAG, "not a number");
         }
 
