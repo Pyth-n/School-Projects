@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
     private ItemListController itemListController;
-    private DragSortListView listOfLists;
+    private ListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
@@ -181,28 +181,16 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        listOfLists = findViewById(R.id.listOfLists);
+        listOfLists = (ListView) findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
 
-        // This is the drag and drop feature. Gets list index, moves it, then notifies adapter
-        listOfLists.setDropListener(new DragSortListView.DropListener() {
+        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void drop(int from, int to) {
-                itemListSelected = lists.get(from);
-                itemListSelectedIndex = from;
-                lists.remove(from);
-                if (from > to) --from;
-                lists.add(to, itemListSelected);
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "DROPPING");
-            }
-        });
-
-        listOfLists.setDragListener(new DragSortListView.DragListener() {
-            @Override
-            public void drag(int i, int i1) {
-                Log.d(TAG, "DRAGGING");
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                itemListSelected = lists.get(pos);
+                itemListSelectedIndex = pos;
+                Log.d("POSITION: ", Integer.toString(pos));
             }
         });
     }
