@@ -2,6 +2,7 @@ package models;
 
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -205,6 +206,18 @@ public class Item implements Serializable {
      */
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    /***
+     * Get Created Date in a String format
+     * @return
+     */
+    public String getCreatedDateString() {
+        if(createdDate == null) {
+            return null;
+        }
+        SimpleDateFormat spf= new SimpleDateFormat("yyyy MMM dd  hh:mm");
+        return spf.format(createdDate);
     }
 
 }

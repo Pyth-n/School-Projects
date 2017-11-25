@@ -34,6 +34,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
             ListTrackerSQLiteHelper.ITEM_COLUMN_NOTES,
             ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS,
             ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY,
+            ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME,
     };
 
   /**

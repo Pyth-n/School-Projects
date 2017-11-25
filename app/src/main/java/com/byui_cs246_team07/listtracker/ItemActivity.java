@@ -31,7 +31,7 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityNumber;
     private EditText mPriorityName;
     private EditText mNotes;
-
+    private Item  itemActive;
     public ItemActivity() {
         controller = new ItemController(this);
     }
@@ -55,10 +55,10 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         else if (buttonName.equals("loadItem")) {
-            Item item = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
-            setItemValues(item);
-            Log.d("Set Item", item.getName());
-            Toast.makeText(this, "Loading " + item.getName(), Toast.LENGTH_SHORT).show();
+            itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
+            setItemValues(itemActive);
+            Log.d("Set Item", itemActive.getName());
+            Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -85,6 +85,9 @@ public class ItemActivity extends AppCompatActivity {
     private Item createItem() {
 
         Item item = new Item(mItemName.getText().toString());
+        if (itemActive != null && itemActive.getId() != 0) {
+            item.setId(itemActive.getId());
+        }
         item.setListId(parentList.getId());
         item.setCompleted(mCompleted.isChecked());
         item.setNotes(mNotes.getText().toString());
@@ -114,16 +117,18 @@ public class ItemActivity extends AppCompatActivity {
         mCompleted = (CheckBox) findViewById(R.id.completed);
         mPriorityName = (EditText) findViewById(R.id.priorityLevelName);
         mTag = (EditText) findViewById(R.id.editTags);
+        mDateCreated = (TextView) findViewById(R.id.dateCreated);
     }
 
     private void setItemValues(Item item) {
 
         mItemName.setText(item.getName());
+        mDateCreated.setText(item.getCreatedDateString());
         if (item.getNotes() != null) {
             mNotes.setText(item.getNotes());
         }
         if (item.getPriority() != null) {
-            String priority = String.valueOf(4);
+            String priority = String.valueOf(item.getPriority());
             Log.d("Priori", priority);
             mPriorityNumber.setText(priority);
         }
