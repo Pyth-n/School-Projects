@@ -21,6 +21,11 @@ import controllers.ItemListController;
 import models.Item;
 import models.ItemList;
 
+/**
+ * Shows list and items
+ * @author David Perez, Timothy Bohman, Carlos Iribar
+ * @version 1
+ */
 public class ListActivity extends AppCompatActivity {
     // These are keys used for the intents
     public static final String LIST_ID = "com.byui.cs246.team07.listtracker.LISTID";
@@ -44,6 +49,9 @@ public class ListActivity extends AppCompatActivity {
     private ItemList list;
 
 
+    /**
+     * Constructor
+     */
     public ListActivity() {
         controller = new ItemListController(this);
         itemController = new ItemController(this);
@@ -84,8 +92,10 @@ public class ListActivity extends AppCompatActivity {
         Log.d(TAG, "PAUSING");
     }
 
-    /*createItem(): This function is called by the "Create Item" button. It opens up the ItemActivity
-    * */
+    /**
+     * Starts Item Activity for create new items
+     * @param v
+     */
     public void createItem(View v) {
         // Will send intent to the ItemActivity
         Intent intent = new Intent(this, ItemActivity.class);
@@ -96,9 +106,10 @@ public class ListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*loadItem(): This function loads a selected item and sends an intent to
-    * ItemActivity
-    * */
+    /**
+     * Starts Item Activity and load an item
+     * @param view
+     */
     public void loadItem(View view) {
         // Makes sure an item is selected before creating and sending an intent
         if (mItemSelectedIndex != -1) {
@@ -119,6 +130,10 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Delete item in the list
+     * @param view
+     */
     public void deleteItem(View view) {
         // Null checks itemSelected so it doesn't cause a crash
         if (itemSelected != null) {
@@ -142,6 +157,10 @@ public class ListActivity extends AppCompatActivity {
         setListView();
     }
 
+    /**
+     * Starts ItemCopierActivity
+     * @param view
+     */
     public void copyItem(View view) {
 
         Intent intent = new Intent(this, ItemCopierActivity.class);
@@ -149,6 +168,10 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts ItemMoverActivity
+     * @param view
+     */
     public void moveItem(View view) {
 
         Intent intent = new Intent(this, ItemMoverActivity.class);
@@ -156,6 +179,11 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Starts SortListOptions Activity
+     * @param view
+     */
     public void sortList(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
@@ -163,6 +191,10 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts ListImageGallery Activity
+     * @param view
+     */
     public void viewImageGallery(View view) {
 
         Intent intent = new Intent(this, ListImageGalleryActivity.class);
@@ -170,11 +202,18 @@ public class ListActivity extends AppCompatActivity {
 
     }
 
-    public void renameCategory(View view) {
+    /**
+     * Renames selected list
+     * @param view
+     */
+    public void renameList(View view) {
 
         Log.d(TAG, "List renamed");
     }
 
+    /**
+     * Sets adapters and list view listeners
+     */
     public void setListView() {
         // Set the name of the list
         if (list != null) {

@@ -23,7 +23,11 @@ import controllers.ItemController;
 import controllers.ItemListController;
 import models.ItemList;
 
-
+/**
+ * Main Activity - Shows list items in category
+ * @author David Perez, Timothy Bohman, Carlos Iribar
+ * @version 1
+ */
 public class MainActivity extends AppCompatActivity {
     public static final String ITEM_SELECTED = "itemSelected";
     public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
@@ -42,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private ItemList itemListSelected;
     private int itemListSelectedIndex;
 
+    /**
+     * Constructor
+     */
     public MainActivity() {
         itemListController = new ItemListController(this);
         itemListSelectedIndex = -1;
@@ -97,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    /**
+     * Starts List Creationg Activity
+     * @param view
+     */
     public void createList(View view) {
 
         Intent intent = new Intent(this, ListCreationActivity.class);
@@ -104,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts List Activity
+     * @param view
+     */
     public void loadList(View view) {
 
         if (itemListSelected != null) {
@@ -115,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts Category Activity
+     * @param view
+     */
     public void viewCategories(View view) {
 
         Intent intent = new Intent(this, CategoriesActivity.class);
@@ -122,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Delete list from category
+     * @param view
+     */
     public void deleteList(View view) {
         if (itemListSelected != null) {
             String deleted = "Deleted " + itemListSelected.getName();
@@ -139,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts ShortListOptions Activity
+     * @param view
+     */
     public void sortCategory(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
@@ -146,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts ListCopier Activity
+     * @param view
+     */
     public void copyList(View view) {
 
         Intent intent = new Intent(this, ListCopierActivity.class);
@@ -153,6 +184,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts ListMover Activity
+     * @param view
+     */
     public void moveList(View view) {
 
         Intent intent = new Intent(this, ListMoverActivity.class);
@@ -160,11 +195,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Renames category
+     * @param view
+     */
     public void renameCategory(View view) {
 
         Log.d(TAG, "Category renamed");
     }
 
+    /**
+     * Set adapters and list views listeners
+     */
     private void setListView() {
         getControllerData();
         adapter = new ArrayAdapter<String>(this,
@@ -198,6 +240,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Populates list and list names
+     */
     private void getControllerData() {
         listNames = itemListController.getListNames();
         lists = itemListController.getLists();
