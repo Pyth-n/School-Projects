@@ -162,10 +162,15 @@ public class ListActivity extends AppCompatActivity {
      * @param view
      */
     public void copyItem(View view) {
-
-        Intent intent = new Intent(this, ItemCopierActivity.class);
-        startActivity(intent);
-
+        if (itemSelected != null) {
+            Log.d(TAG, "Copying " + itemSelected.getName());
+            if (!items.isEmpty()) {
+                Item item = items.get(mItemSelectedIndex);
+                Intent intent = new Intent(this, ItemCopierActivity.class);
+                intent.putExtra(ITEM, item);
+                startActivity(intent);
+            }
+        }
     }
 
     /**
@@ -173,10 +178,15 @@ public class ListActivity extends AppCompatActivity {
      * @param view
      */
     public void moveItem(View view) {
-
-        Intent intent = new Intent(this, ItemMoverActivity.class);
-        startActivity(intent);
-
+        if (itemSelected != null) {
+            Log.d(TAG, "Moving " + itemSelected.getName());
+            if (!items.isEmpty()) {
+                Item item = items.get(mItemSelectedIndex);
+                Intent intent = new Intent(this, ItemMoverActivity.class);
+                intent.putExtra(ITEM, item);
+                startActivity(intent);
+            }
+        }
     }
 
 
