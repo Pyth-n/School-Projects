@@ -1,6 +1,10 @@
 package com.byui_cs246_team07.listtracker;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,8 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
 
 import controllers.ItemController;
 import models.Item;
@@ -17,6 +25,8 @@ import models.ItemList;
 
 public class ItemActivity extends AppCompatActivity {
 
+    private final int PICK_IMAGE_REQUEST = 1;
+    final int THUMBNAIL_SIZE = 128;
     private ItemList parentList;
     private ItemController controller;
     private final String TAG = this.getClass().getName();
@@ -32,6 +42,8 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityName;
     private EditText mNotes;
     private Item  itemActive;
+    private List<String> mNewImageUrls;
+
     public ItemActivity() {
         controller = new ItemController(this);
     }
@@ -69,6 +81,30 @@ public class ItemActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Log.d(TAG, "Image selected");
+            Uri uri = data.getData();
+            Log.d(TAG, "Image URI: " + uri);
+            //mNewImageUrls.add(uri.toString());
+
+            try {
+                Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                imageView.setImageBitmap(imgThumbnailBitmap);
+                Log.d(TAG, "Image display succeeded");
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.d(TAG, "Image display failed");
+            }
+        }
+    }
+
     public void saveItem(View view) {
 
         if (!mItemName.getText().toString().equals("")) {
@@ -94,6 +130,7 @@ public class ItemActivity extends AppCompatActivity {
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
         Editable priorityNumberEditable = mPriorityNumber.getText();
+        //item.setImagesUrls(mNewImageUrls);
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
@@ -153,7 +190,11 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void addImage(View view) {
-        Log.d(TAG, "Image added");
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        Log.d(TAG, "Selecting image");
     }
 
     public void deleteImage(View view) {
