@@ -147,18 +147,16 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    private void setReminderDate(View view) {
+    public void setReminderDate(View view) {
         Intent intent = new Intent(this, ReminderActivity.class);
         startActivity(intent);
     }
 
-    private boolean addImage() {
+    public void addImage(View view) {
         Log.d(TAG, "Image added");
-        return false;
     }
 
-    private boolean deleteImage() {
+    public void deleteImage(View view) {
         Log.d(TAG, "Image deleted");
-        return false;
     }
 }
