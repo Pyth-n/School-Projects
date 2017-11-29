@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
@@ -46,6 +47,7 @@ public class ItemActivity extends AppCompatActivity {
 
     public ItemActivity() {
         controller = new ItemController(this);
+        mNewImageUrls = new ArrayList<String>();
     }
 
     @Override
@@ -90,7 +92,7 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, "Image selected");
             Uri uri = data.getData();
             Log.d(TAG, "Image URI: " + uri);
-            //mNewImageUrls.add(uri.toString());
+            mNewImageUrls.add(uri.toString());
 
             try {
                 Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -134,7 +136,7 @@ public class ItemActivity extends AppCompatActivity {
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
         Editable priorityNumberEditable = mPriorityNumber.getText();
-        //item.setImagesUrls(mNewImageUrls);
+        item.setImagesUrls(mNewImageUrls);
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
