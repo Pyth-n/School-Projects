@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.byui_cs246_team07.listtracker.ListActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <Button
         android:id="@+id/btnViewItem"
         android:layout_width="wrap_content"
@@ -64,9 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:inputType="textPersonName"
         android:text="@string/list_name"
         android:textColor="@android:color/holo_purple"
@@ -74,7 +80,7 @@
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/list"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
     <ListView
         android:id="@+id/listOfItems"

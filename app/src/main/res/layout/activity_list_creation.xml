@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.byui_cs246_team07.listtracker.ListCreationActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <TextView
         android:id="@+id/newList"
         android:layout_width="wrap_content"
@@ -21,9 +29,9 @@
         android:id="@+id/newListName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/add_list"
         android:inputType="textPersonName"
         android:textColor="@android:color/holo_purple"
@@ -31,16 +39,18 @@
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/newList"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
     <Button
         android:id="@+id/btnSaveNewList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="addList"
         android:text="@string/save_new_list"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newListName" />
 </android.support.constraint.ConstraintLayout>

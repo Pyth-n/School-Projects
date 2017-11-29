@@ -1,69 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.byui_cs246_team07.listtracker.CategoriesActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/categories_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:layout_constraintBottom_toTopOf="@+id/listOfCategories"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <Button
         android:id="@+id/btnLoadCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/load_category"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnCreateCategory"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnCreateCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/create_category"
         android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@+id/btnLoadCategory"
-        app:layout_constraintRight_toLeftOf="@+id/btnDeleteCategory"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadCategory"/>
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnLoadCategory"
+        app:layout_constraintStart_toEndOf="@+id/btnLoadCategory" />
 
     <Button
         android:id="@+id/btnDeleteCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/delete_category"
         android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@+id/btnCreateCategory"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnLoadCategory"/>
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnLoadCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateCategory" />
 
     <TextView
         android:id="@+id/allCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/all_categories"
         android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@+id/categories_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/categories_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/listOfCategories"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="529dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLoadCategory"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateCategory"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allCategories"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/categories_toolbar" />
 </android.support.constraint.ConstraintLayout>

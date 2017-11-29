@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public MainActivity() {
         itemListController = new ItemListController(this);
         itemListSelectedIndex = -1;
+
     }
 
     /*
@@ -123,7 +124,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (searchView != null) {
+                    searchView.setIconified(true);
+                    searchView.setIconified(true);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return true;
+            }
+        });
+
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 
     @Override

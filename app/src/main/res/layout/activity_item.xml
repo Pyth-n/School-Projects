@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context="com.byui_cs246_team07.listtracker.ItemActivity">
 
+
+
     <EditText
         android:id="@+id/editItemName"
         android:layout_width="0dp"
