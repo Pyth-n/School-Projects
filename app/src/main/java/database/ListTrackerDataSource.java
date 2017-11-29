@@ -117,4 +117,15 @@ public class ListTrackerDataSource {
         }
         return convertedDate;
     }
+
+    protected List<String> getListFromColumnName(Cursor cursor, String columnName) {
+        List<String> columnList = new ArrayList<String>();
+        String listString = getStringFromColumnName(cursor, columnName);
+        if (listString != null) {
+            for (String str: listString.split("##")) {
+                columnList.add(str);
+            }
+        }
+        return columnList;
+    }
 }

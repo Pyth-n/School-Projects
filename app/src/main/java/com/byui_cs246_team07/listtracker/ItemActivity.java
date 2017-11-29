@@ -147,7 +147,6 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, "not a number");
         }
 
-        //item.setPriority(Integer.parseInt(mPriorityNumber.getText().toString()));
         return item;
     }
 

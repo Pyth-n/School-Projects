@@ -195,6 +195,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
       item.setDueDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_DUE_DATE));
       item.setListId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST));
       item.setPriorityName(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME));
+      item.setImagesUrls(getListFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_IMAGE_URLS));
       return item;
     }
 }
