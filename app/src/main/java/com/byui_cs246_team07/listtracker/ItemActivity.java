@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -111,6 +112,10 @@ public class ItemActivity extends AppCompatActivity {
             controller.saveItem(item);
             Log.d(TAG, "Item saved");
             Toast.makeText(this, "Item saved", Toast.LENGTH_SHORT).show();
+
+            // Simulates a back key press when button is clicked
+            this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+            this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
         } else {
             Toast.makeText(this, "Add at least a name", Toast.LENGTH_SHORT).show();
         }
