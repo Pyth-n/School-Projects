@@ -65,4 +65,5 @@
     <string name="move_to">Move to:</string>
     <string name="move_item_to_what_list">Move Item to What List?</string>
     <string name="move_item">Move Item</string>
+    <string name="search_hint">Search Lists or Items</string>
 </resources>

@@ -1,20 +1,34 @@
 package com.byui_cs246_team07.listtracker;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+
+//import android.support.v7.widget.SearchView;
+import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
+
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 
 import java.util.List;
@@ -46,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private ItemList itemListSelected;
     private int itemListSelectedIndex;
 
+    SearchView searchView;
     /**
      * Constructor
      */
@@ -77,8 +92,38 @@ public class MainActivity extends AppCompatActivity {
         Log.d("SHAREDPREFERENCES: ", settings.getString(LASTLISTVIEWED, "Last View Test"));
         Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));*/
 
-        // Adds a listener so that an item can be selected and be highlighted
+        // Setup toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(myToolbar);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(Html.fromHtml(
+                "<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"
+        ));
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_buttons, menu);
+
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    searchView.setIconified(true);
+                    //searchView.clearFocus();
+                }
+            }
+        });
+        return true;
     }
 
     @Override

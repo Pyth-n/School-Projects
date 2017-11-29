@@ -8,7 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity android:name=".SearchResultsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing">
@@ -28,6 +39,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data android:name="android.app.default_searchable"
+                android:value=".SearchResultsActivity"/>
+
         </activity>
         <activity
             android:name=".ListActivity"
@@ -79,7 +94,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CategoriesActivity" />
         </activity>
-        <activity android:name=".SortListOptionsActivity"
+        <activity
+            android:name=".SortListOptionsActivity"
             android:parentActivityName=".ListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -87,7 +103,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListActivity" />
         </activity>
-        <activity android:name=".SortCategoryOptionsActivity"
+        <activity
+            android:name=".SortCategoryOptionsActivity"
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -140,7 +157,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".ItemMoverActivity"
+        <activity
+            android:name=".ItemMoverActivity"
             android:parentActivityName=".ListActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
