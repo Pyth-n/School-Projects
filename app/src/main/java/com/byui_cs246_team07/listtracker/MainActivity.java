@@ -31,6 +31,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     public MainActivity() {
         itemListController = new ItemListController(this);
         itemListSelectedIndex = -1;
-
     }
 
     /*
@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 if (searchView != null) {
                     searchView.setIconified(true);
                     searchView.setIconified(true);
+                    Log.d(TAG, "You queried: " + s);
                 }
                 return false;
             }
@@ -142,6 +143,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        // If new intent is from the search bar
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            intent.putStringArrayListExtra("KEY1", (ArrayList<String>) listNames);
+        }
+
+        super.startActivity(intent);
     }
 
     @Override
