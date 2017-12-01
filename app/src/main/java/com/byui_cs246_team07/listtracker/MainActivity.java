@@ -32,6 +32,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private int itemListSelectedIndex;
 
     private List<Item> items;
-    private List<String> itemNames;
+
 
     SearchView searchView;
     /**
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         itemListController = new ItemListController(this);
         itemController = new ItemController(this);
         itemListSelectedIndex = -1;
-        itemNames = new ArrayList<>();
     }
 
     /*
@@ -160,8 +160,9 @@ public class MainActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         // If new intent is from the search bar
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            intent.putStringArrayListExtra("KEY1", (ArrayList<String>) listNames);
-            intent.putStringArrayListExtra("KEY2", (ArrayList<String>) itemNames);
+            intent.putExtra("KEY1", (Serializable)lists);
+            intent.putExtra("KEY2", (Serializable)items);
+            //intent.putStringArrayListExtra("KEY2", (ArrayList<String>) itemNames);
         }
 
         itemListSelectedIndex = -1;
@@ -175,11 +176,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         items = itemController.getItems();
 
-        if (!items.isEmpty()) {
-            for (Item item : items) {
-                itemNames.add(item.getName());
-            }
-        }
     }
 
     @Override
@@ -330,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         };
+
 
         listOfLists = (ListView) findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
