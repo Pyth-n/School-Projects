@@ -40,9 +40,10 @@ public class SearchResultsActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapterItem;
     private List<ItemList> lists;
     private List<Item> items;
+    private List<ItemList> itemParent;
 
     public SearchResultsActivity() {
-
+        itemParent = new ArrayList<ItemList>();
     }
 
     @Override
@@ -106,17 +107,6 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void searchedListAndItems() {
-        // Remove from list whatever is not the query
-        for (Iterator<ItemList> iterator = lists.iterator(); iterator.hasNext();) {
-            if (!iterator.next().getName().equalsIgnoreCase(query)) {
-                iterator.remove();
-            }
-        }
-        // After, populate the adapter with the searched query
-        for (int i = 0; i < lists.size(); i++) {
-            adapterList.add(lists.get(i).getName());
-        }
-
         // Remove items from the list that is not in the query
         for (Iterator<Item> iterator = items.iterator(); iterator.hasNext();) {
             if (!iterator.next().getName().equalsIgnoreCase(query)) {
@@ -124,9 +114,32 @@ public class SearchResultsActivity extends AppCompatActivity {
             }
         }
 
-        // Populate adapter with query
-        for (int i = 0; i < items.size(); i++) {
-            adapterItem.add(items.get(i).getName());
+        // Look for the parent of a list and populate
+        if (!items.isEmpty()) {
+            for (int i = 0; i < items.size(); i++) {
+                for (int j = 0; j < lists.size(); j++) {
+                    if (items.get(i).getListId() == lists.get(j).getId()) {
+                        itemParent.add(lists.get(j));
+                        Log.d(TAG, items.get(i).getName() + " inside of " + lists.get(j).getName());
+                    }
+                }
+            }
+
+            for (int i = 0; i < items.size(); i++) {
+                adapterItem.add(items.get(i).getName() + "\t(" + itemParent.get(i).getName() + ")");
+            }
+        }
+
+        // Remove from list whatever is not the query
+        for (Iterator<ItemList> iterator = lists.iterator(); iterator.hasNext();) {
+            if (!iterator.next().getName().equalsIgnoreCase(query)) {
+                iterator.remove();
+            }
+        }
+
+        // After, populate the adapter with the searched query
+        for (int i = 0; i < lists.size(); i++) {
+            adapterList.add(lists.get(i).getName());
         }
     }
 
