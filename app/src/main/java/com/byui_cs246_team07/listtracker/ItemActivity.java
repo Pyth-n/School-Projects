@@ -66,7 +66,7 @@ public class ItemActivity extends AppCompatActivity {
         String fromClass = intent.getStringExtra("Class");
 
         if (fromClass.equals("SearchActivity.java")){
-            itemActive = (Item) intent.getSerializableExtra("KEY123");
+            itemActive = (Item) intent.getSerializableExtra(SearchResultsActivity.ITEM_INTENT);
             parentList = getItemList();
         }
 

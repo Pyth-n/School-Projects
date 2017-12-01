@@ -29,6 +29,8 @@ import models.ItemList;
 public class SearchResultsActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getName();
+    public static final String LIST_INTENT = "listItemList";
+    public static final String ITEM_INTENT = "listItem";
 
     private ListView searchList;
     private ListView searchItem;
@@ -85,8 +87,8 @@ public class SearchResultsActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
 
-            lists = (List<ItemList>) intent.getSerializableExtra("KEY1");
-            items = (List<Item>) intent.getSerializableExtra("KEY2");
+            lists = (List<ItemList>) intent.getSerializableExtra(MainActivity.LISTS_ID);
+            items = (List<Item>) intent.getSerializableExtra(MainActivity.ITEMS_ID);
         }
     }
 
@@ -137,7 +139,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                intent.putExtra("KEY321", (Serializable) lists.get(pos));
+                intent.putExtra(LIST_INTENT, (Serializable) lists.get(pos));
                 intent.putExtra("Class", "SearchActivity.java");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -150,7 +152,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getBaseContext(), ItemActivity.class);
                 intent.putExtra("Class", "SearchActivity.java");
-                intent.putExtra("KEY123",(Serializable) items.get(i));
+                intent.putExtra(ITEM_INTENT,(Serializable) items.get(i));
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Log.d(TAG, "Sending: " + items.get(i).getName());
                 startActivity(intent);

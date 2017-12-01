@@ -50,6 +50,8 @@ import models.ItemList;
 public class MainActivity extends AppCompatActivity {
     public static final String ITEM_SELECTED = "itemSelected";
     public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
+    public static final String LISTS_ID = "listItemList";
+    public static final String ITEMS_ID = "listItem";
     private final String TAG = this.getClass().getName();
     private final String SORTBY = "sortBy";
     private final String CATEGORY = "categoryID";
@@ -160,9 +162,8 @@ public class MainActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         // If new intent is from the search bar
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            intent.putExtra("KEY1", (Serializable)lists);
-            intent.putExtra("KEY2", (Serializable)items);
-            //intent.putStringArrayListExtra("KEY2", (ArrayList<String>) itemNames);
+            intent.putExtra(LISTS_ID, (Serializable)lists);
+            intent.putExtra(ITEMS_ID, (Serializable)items);
         }
 
         itemListSelectedIndex = -1;

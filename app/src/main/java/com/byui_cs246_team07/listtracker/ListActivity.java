@@ -78,7 +78,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         if (fromClass.equals("SearchActivity.java")) {
-            list = (ItemList) intent.getSerializableExtra("KEY321");
+            list = (ItemList) intent.getSerializableExtra(SearchResultsActivity.LIST_INTENT);
             nameOfList = list.getName();
         }
 
