@@ -33,6 +33,7 @@ import android.support.v7.widget.Toolbar;
 
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import controllers.ItemController;

@@ -6,27 +6,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import controllers.ItemController;
-import controllers.ItemListController;
-import models.Item;
 
 public class SearchResultsActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getName();
 
-    private ListView listView;
+    private ListView searchList;
+    private ListView searchItem;
 
     private String query;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterList;
+    private ArrayAdapter<String> adapterItem;
     private List<String> lists;
     private List<String> items;
 
@@ -51,9 +49,20 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                searchList.setSelector(android.R.color.darker_gray);
+
+            }
+        });
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
-
     }
 
     private void handleToolbar() {
@@ -62,7 +71,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void handleResourceIds() {
-        listView = findViewById(R.id.search_lists);
+        searchList = findViewById(R.id.search_lists);
     }
 
     private void handleIntent(Intent intent) {
@@ -85,11 +94,12 @@ public class SearchResultsActivity extends AppCompatActivity {
     private void handleAdapter() {
         List<String> results = searchedListAndItems();
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        adapterList = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+
         for (String str : results) {
-            adapter.add(str);
+            adapterList.add(str);
         }
-        listView.setAdapter(adapter);
+        searchList.setAdapter(adapterList);
     }
 
     private List<String> searchedListAndItems() {
