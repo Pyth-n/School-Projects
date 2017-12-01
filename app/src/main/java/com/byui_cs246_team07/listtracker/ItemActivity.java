@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,7 +37,6 @@ public class ItemActivity extends AppCompatActivity {
     private ItemListController listController;
     private final String TAG = this.getClass().getName();
     // IDs of widgets
-    private TextView mListName;
     private EditText mItemName;
     private EditText mTag;
     private EditText mDueDate;
@@ -73,7 +75,6 @@ public class ItemActivity extends AppCompatActivity {
         if (fromClass.equals("ListActivity.java")) {
             // Set name of the list
             parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
-            mListName.setText(parentList.getName());
 
             // Differentiate between the buttons that sent the intent
             String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
@@ -90,6 +91,8 @@ public class ItemActivity extends AppCompatActivity {
         }
         if (itemActive != null)
             setItemValues(itemActive);
+
+        handleActionBar();
     }
 
     private ItemList getItemList() {
@@ -103,6 +106,16 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         return null;
+    }
+
+    private void handleActionBar() {
+        Toolbar myToolbar = findViewById(R.id.item_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(Html.fromHtml(
+                "<font color=\"#ffffff\">" + "Item within " + parentList.getName() + "</font>"
+        ));
     }
 
     @Override
@@ -187,7 +200,6 @@ public class ItemActivity extends AppCompatActivity {
     private void getItemValues() {
 
         mItemName = (EditText) findViewById(R.id.editItemName);
-        mListName = (TextView) findViewById(R.id.listNameInItemScreen);
         mNotes = (EditText) findViewById(R.id.editNotes);
         mPriorityNumber = (EditText) findViewById(R.id.priorityNumber);
         mCompleted = (CheckBox) findViewById(R.id.completed);
@@ -199,7 +211,6 @@ public class ItemActivity extends AppCompatActivity {
     private void setItemValues(Item item) {
 
         mItemName.setText(item.getName());
-        mListName.setText(parentList.getName());
         mDateCreated.setText(item.getCreatedDateString());
         if (item.getNotes() != null) {
             mNotes.setText(item.getNotes());

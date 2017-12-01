@@ -50,8 +50,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        handleToolbar();
-
         handleResourceIds();
 
         handleIntent(getIntent());
@@ -73,11 +71,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         handleIntent(intent);
     }
 
-    private void handleToolbar() {
-        Toolbar myToolbar = findViewById(R.id.search_toolbar);
-        setSupportActionBar(myToolbar);
-    }
-
     private void handleResourceIds() {
         searchList = findViewById(R.id.search_lists);
         searchItem = findViewById(R.id.search_items);
@@ -93,6 +86,9 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void handleActionBar() {
+        Toolbar myToolbar = findViewById(R.id.search_toolbar);
+        setSupportActionBar(myToolbar);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(Html.fromHtml(
                 "<font color=\"#ffffff\">" + "Search Results: " + query + "</font>"

@@ -4,26 +4,19 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 //import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -33,8 +26,6 @@ import android.support.v7.widget.Toolbar;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import controllers.ItemController;
@@ -229,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemListSelected != null && itemListSelectedIndex != -1) {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putExtra(ITEM_SELECTED, itemListSelected);
+            intent.putExtra(LISTNAMEID, itemListSelected.getName());
             intent.putExtra("Class", "MainActivity.java");
             startActivity(intent);
         } else {

@@ -7,7 +7,7 @@
     tools:context="com.byui_cs246_team07.listtracker.ListActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
+        android:id="@+id/list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:background="@color/colorPrimary"
@@ -80,7 +80,7 @@
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/list"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/list_toolbar" />
 
     <ListView
         android:id="@+id/listOfItems"
