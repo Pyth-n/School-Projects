@@ -56,12 +56,13 @@ public class SearchResultsActivity extends AppCompatActivity {
         handleActionBar();
 
         handleAdapter();
+
+        handleEventListeners();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        handleEventListeners();
     }
 
     @Override
@@ -103,8 +104,6 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         searchList.setAdapter(adapterList);
         searchItem.setAdapter(adapterItem);
-
-
     }
 
     private void searchedListAndItems() {

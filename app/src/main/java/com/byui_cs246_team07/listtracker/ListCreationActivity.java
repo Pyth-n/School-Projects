@@ -42,6 +42,8 @@ public class ListCreationActivity extends AppCompatActivity {
 
   public void returnToMain() {
     Intent intent = new Intent(this, MainActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     startActivity(intent);
+    finish();
   }
 }
