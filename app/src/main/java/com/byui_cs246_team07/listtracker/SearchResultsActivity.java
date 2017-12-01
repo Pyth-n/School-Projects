@@ -1,17 +1,20 @@
 package com.byui_cs246_team07.listtracker;
 
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -145,10 +148,13 @@ public class SearchResultsActivity extends AppCompatActivity {
         searchItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /*Intent intent = new Intent(getApplicationContext(), ItemActivity.class);
+                Intent intent = new Intent(getBaseContext(), ItemActivity.class);
+                intent.putExtra("Class", "SearchActivity.java");
+                intent.putExtra("KEY123",(Serializable) items.get(i));
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Log.d(TAG, "Sending: " + items.get(i).getName());
                 startActivity(intent);
-                finish();*/
+                finish();
             }
         });
     }

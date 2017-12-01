@@ -119,6 +119,7 @@ public class ListActivity extends AppCompatActivity {
                 intent.putExtra(PARENT_LIST, list);
                 intent.putExtra(ITEM, item);
                 intent.putExtra(BUTTON_PRESSED, "loadItem");
+                intent.putExtra("Class", "ListActivity.java");
                 startActivity(intent);
             } else {
                 // TODO if its empty, start a create item, else it crashes

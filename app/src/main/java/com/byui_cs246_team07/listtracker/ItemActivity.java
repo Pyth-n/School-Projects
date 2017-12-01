@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
+import controllers.ItemListController;
 import models.Item;
 import models.ItemList;
 
@@ -30,6 +31,7 @@ public class ItemActivity extends AppCompatActivity {
     final int THUMBNAIL_SIZE = 128;
     private ItemList parentList;
     private ItemController controller;
+    private ItemListController listController;
     private final String TAG = this.getClass().getName();
     // IDs of widgets
     private TextView mListName;
@@ -47,6 +49,7 @@ public class ItemActivity extends AppCompatActivity {
 
     public ItemActivity() {
         controller = new ItemController(this);
+        listController = new ItemListController(this);
         mNewImageUrls = new ArrayList<String>();
     }
 
@@ -58,22 +61,46 @@ public class ItemActivity extends AppCompatActivity {
         // find resource IDs
         getItemValues();
 
-        // Set name of the list
-        parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
-        mListName.setText(parentList.getName());
+        Intent intent = getIntent();
 
-        // Differentiate between the buttons that sent the intent
-        String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
-        if (buttonName.equals("createItem")) {
-            //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
+        String fromClass = intent.getStringExtra("Class");
+
+        if (fromClass.equals("SearchActivity.java")){
+            itemActive = (Item) intent.getSerializableExtra("KEY123");
+            parentList = getItemList();
         }
 
-        else if (buttonName.equals("loadItem")) {
-            itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
-            setItemValues(itemActive);
-            Log.d("Set Item", itemActive.getName());
-            Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
+        if (fromClass.equals("ListActivity.java")) {
+            // Set name of the list
+            parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
+            mListName.setText(parentList.getName());
+
+            // Differentiate between the buttons that sent the intent
+            String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
+            if (buttonName.equals("createItem")) {
+                //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
+            }
+
+            else if (buttonName.equals("loadItem")) {
+                itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
+                Log.d("Set Item", itemActive.getName());
+                Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
+            }
         }
+        setItemValues(itemActive);
+    }
+
+    private ItemList getItemList() {
+        List<ItemList> temp = listController.getLists();
+
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getId() == itemActive.getListId()) {
+                Log.d(TAG, "Parent list is: " + temp.get(i).getName());
+                return temp.get(i);
+            }
+        }
+
+        return null;
     }
 
     @Override
