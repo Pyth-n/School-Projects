@@ -64,14 +64,23 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         itemSelected = null;
-        nameOfList = getIntent().getStringExtra(MainActivity.LISTNAMEID);
 
         // Sets resource IDs
         mListName = findViewById(R.id.listNameInListScreen);
         mListViewOfItems = findViewById(R.id.listOfItems);
 
         Intent intent = getIntent();
-        list = (ItemList) intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
+        String fromClass = intent.getStringExtra("Class");
+
+        if (fromClass.equals("MainActivity.java")) {
+            list = (ItemList) intent.getSerializableExtra(MainActivity.ITEM_SELECTED);
+            nameOfList = getIntent().getStringExtra(MainActivity.LISTNAMEID);
+        }
+
+        if (fromClass.equals("SearchActivity.java")) {
+            list = (ItemList) intent.getSerializableExtra("KEY321");
+            nameOfList = list.getName();
+        }
 
         Log.d(TAG, "List opened");
     }
@@ -101,6 +110,7 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ItemActivity.class);
         intent.putExtra(PARENT_LIST, list);
         intent.putExtra(BUTTON_PRESSED, "createItem");
+        intent.putExtra("Class", "ListActivity.java");
 
         Log.d(TAG, "Sending " + intent.getStringExtra(LIST_ID));
         startActivity(intent);

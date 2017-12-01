@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemListSelected != null && itemListSelectedIndex != -1) {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putExtra(ITEM_SELECTED, itemListSelected);
+            intent.putExtra("Class", "MainActivity.java");
             startActivity(intent);
         } else {
             Toast.makeText(this, "Select List first", Toast.LENGTH_SHORT).show();

@@ -78,6 +78,7 @@ public class ItemActivity extends AppCompatActivity {
             // Differentiate between the buttons that sent the intent
             String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
             if (buttonName.equals("createItem")) {
+                itemActive = null;
                 //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
             }
 
@@ -87,7 +88,8 @@ public class ItemActivity extends AppCompatActivity {
                 Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
             }
         }
-        setItemValues(itemActive);
+        if (itemActive != null)
+            setItemValues(itemActive);
     }
 
     private ItemList getItemList() {
@@ -197,6 +199,7 @@ public class ItemActivity extends AppCompatActivity {
     private void setItemValues(Item item) {
 
         mItemName.setText(item.getName());
+        mListName.setText(parentList.getName());
         mDateCreated.setText(item.getCreatedDateString());
         if (item.getNotes() != null) {
             mNotes.setText(item.getNotes());

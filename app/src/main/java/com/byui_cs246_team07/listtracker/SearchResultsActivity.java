@@ -39,10 +39,8 @@ public class SearchResultsActivity extends AppCompatActivity {
     private List<ItemList> lists;
     private List<Item> items;
 
-    private boolean isListSelected;
-
     public SearchResultsActivity() {
-        isListSelected = false;
+
     }
 
     @Override
@@ -139,6 +137,8 @@ public class SearchResultsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                intent.putExtra("KEY321", (Serializable) lists.get(pos));
+                intent.putExtra("Class", "SearchActivity.java");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
