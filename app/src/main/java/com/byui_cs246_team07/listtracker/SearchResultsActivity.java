@@ -28,7 +28,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private String query;
     private ArrayAdapter<String> adapter;
     private List<String> lists;
-    private List<Item> items;
+    private List<String> items;
 
     public SearchResultsActivity() {
 
@@ -71,6 +71,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
             // gets the list names
             lists = intent.getStringArrayListExtra("KEY1");
+            items = intent.getStringArrayListExtra("KEY2");
         }
     }
 
@@ -97,11 +98,16 @@ public class SearchResultsActivity extends AppCompatActivity {
         if(!lists.isEmpty()) {
            for (int i = 0; i < lists.size(); i++) {
                if (lists.get(i).equalsIgnoreCase(query))
-                   results.add(lists.get(i));
+                   results.add(lists.get(i) + " (List)");
            }
-
-           return results;
         }
-        return null;
+
+        if(!items.isEmpty()) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).equalsIgnoreCase(query))
+                    results.add(items.get(i) + " (Item)");
+            }
+        }
+        return results;
     }
 }

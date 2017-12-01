@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +37,7 @@ import java.util.List;
 
 import controllers.ItemController;
 import controllers.ItemListController;
+import models.Item;
 import models.ItemList;
 
 /**
@@ -55,11 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
     private ItemListController itemListController;
+    private ItemController itemController;
     private ListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
     private int itemListSelectedIndex;
+
+    private List<Item> items;
+    private List<String> itemNames;
 
     SearchView searchView;
     /**
@@ -67,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public MainActivity() {
         itemListController = new ItemListController(this);
+        itemController = new ItemController(this);
         itemListSelectedIndex = -1;
+        itemNames = new ArrayList<>();
     }
 
     /*
@@ -82,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setListView();
+
+
 
         // TODO move this for a class
         /*ItemController controller = new ItemController(this);
@@ -150,7 +160,11 @@ public class MainActivity extends AppCompatActivity {
         // If new intent is from the search bar
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             intent.putStringArrayListExtra("KEY1", (ArrayList<String>) listNames);
+            intent.putStringArrayListExtra("KEY2", (ArrayList<String>) itemNames);
         }
+
+        itemListSelectedIndex = -1;
+        listOfLists.setSelector(android.R.color.transparent);
 
         super.startActivity(intent);
     }
@@ -158,12 +172,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        items = itemController.getItems();
 
+        if (!items.isEmpty()) {
+            for (Item item : items) {
+                itemNames.add(item.getName());
+            }
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
 
     }
 
@@ -207,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void loadList(View view) {
 
-        if (itemListSelected != null) {
+        if (itemListSelected != null && itemListSelectedIndex != -1) {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putExtra(ITEM_SELECTED, itemListSelected);
             startActivity(intent);
@@ -232,20 +253,18 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void deleteList(View view) {
-        if (itemListSelected != null) {
+        if (itemListSelected != null && itemListSelectedIndex != -1) {
             String deleted = "Deleted " + itemListSelected.getName();
             listOfLists.setSelector(android.R.color.transparent);
             adapter.remove(adapter.getItem(itemListSelectedIndex));
             itemListController.delete(itemListSelected.getId());
             itemListSelected = null;
-            itemListSelectedIndex = -1;
             getControllerData();
             Toast.makeText(this, deleted, Toast.LENGTH_SHORT).show();
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(this, "Select a list to delete", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     /**
@@ -323,6 +342,7 @@ public class MainActivity extends AppCompatActivity {
                 itemListSelectedIndex = pos;
                 Log.d("POSITION: ", Integer.toString(pos));
             }
+
         });
     }
 
