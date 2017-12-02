@@ -1,10 +1,13 @@
 package com.byui_cs246_team07.listtracker;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
@@ -39,6 +42,7 @@ import models.ItemList;
  * @version 1
  */
 public class MainActivity extends AppCompatActivity {
+
     public static final String ITEM_SELECTED = "itemSelected";
     public static final String LISTNAMEID = "com.byui_cs246_team07.listtracker.LISTNAMEID";
     public static final String LISTS_ID = "listItemList";
@@ -83,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
         setListView();
 
 
@@ -105,8 +112,27 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle(Html.fromHtml(
                 "<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"
         ));
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+                    Toast.makeText(this, "permissions accepted", Toast.LENGTH_SHORT).show(); //a sample method called
 
+                } else {
+
+                    // permission denied
+                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            // add other cases for more permissions
+        }
     }
 
     @Override

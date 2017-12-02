@@ -235,6 +235,8 @@ public class ListActivity extends AppCompatActivity {
     public void viewImageGallery(View view) {
 
         Intent intent = new Intent(this, ListImageGalleryActivity.class);
+        intent.putExtra("Class", "ListActivity.java");
+
         startActivity(intent);
 
     }

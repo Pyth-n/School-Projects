@@ -1,5 +1,6 @@
 package com.byui_cs246_team07.listtracker;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,6 +31,12 @@ import models.ItemList;
 
 public class ItemActivity extends AppCompatActivity {
 
+    private static final int REQUEST_STORAGE_PERMISSIONS = 1;
+    private static final String[] STORAGE_PERMISSIONS = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.MANAGE_DOCUMENTS
+    };
+
     private final int PICK_IMAGE_REQUEST = 1;
     final int THUMBNAIL_SIZE = 128;
     private ItemList parentList;
@@ -46,6 +53,9 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityNumber;
     private EditText mPriorityName;
     private EditText mNotes;
+    private ImageView mimage_1;
+    private ImageView mimage_2;
+
     private Item itemActive;
     private List<String> mNewImageUrls;
 
@@ -144,8 +154,7 @@ public class ItemActivity extends AppCompatActivity {
             try {
                 Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-                ImageView imageView = (ImageView) findViewById(R.id.image_1);
-                imageView.setImageBitmap(imgThumbnailBitmap);
+                mimage_1.setImageBitmap(imgThumbnailBitmap);
                 Log.d(TAG, "Image display succeeded");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -206,6 +215,9 @@ public class ItemActivity extends AppCompatActivity {
         mPriorityName = (EditText) findViewById(R.id.priorityLevelName);
         mTag = (EditText) findViewById(R.id.editTags);
         mDateCreated = (TextView) findViewById(R.id.dateCreated);
+        mimage_1 = findViewById(R.id.image_1);
+        mimage_2 = findViewById(R.id.image_2);
+
     }
 
     private void setItemValues(Item item) {
@@ -233,6 +245,33 @@ public class ItemActivity extends AppCompatActivity {
             Log.d("Tags", item.getTags());
             mTag.setText(item.getTags());
         }
+
+        if (item.getImagesUrls().size() > 0) {
+
+            try {
+                Bitmap img = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(item.getImagesUrls().get(0)));
+                img = Bitmap.createScaledBitmap(img, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+                mimage_1 = findViewById(R.id.image_1);
+                mimage_1.setImageBitmap(img);
+
+                if (item.getImagesUrls().size() > 1) {
+                    Bitmap img2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(item.getImagesUrls().get(1)));
+                    img2 = Bitmap.createScaledBitmap(img2, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+                    mimage_2 = findViewById(R.id.image_2);
+                    mimage_2.setImageBitmap(img2);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            for (int i = 0; i < item.getImagesUrls().size(); i++) {
+                Log.d(TAG, item.getImagesUrls().get(i));
+            }
+            Log.d(TAG, "It's not empty!");
+        }
+
     }
 
     public void setReminderDate(View view) {
@@ -241,10 +280,11 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void addImage(View view) {
-        Intent intent = new Intent();
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        //intent.setAction(Intent.ACTION_GET_CONTENT);
+        //startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
         Log.d(TAG, "Selecting image");
     }
 
