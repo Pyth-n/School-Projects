@@ -46,7 +46,7 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityNumber;
     private EditText mPriorityName;
     private EditText mNotes;
-    private Item  itemActive;
+    private Item itemActive;
     private List<String> mNewImageUrls;
 
     public ItemActivity() {
@@ -62,33 +62,8 @@ public class ItemActivity extends AppCompatActivity {
 
         // find resource IDs
         getItemValues();
+        handleIntent(getIntent());
 
-        Intent intent = getIntent();
-
-        String fromClass = intent.getStringExtra("Class");
-
-        if (fromClass.equals("SearchActivity.java")){
-            itemActive = (Item) intent.getSerializableExtra(SearchResultsActivity.ITEM_INTENT);
-            parentList = getItemList();
-        }
-
-        if (fromClass.equals("ListActivity.java")) {
-            // Set name of the list
-            parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
-
-            // Differentiate between the buttons that sent the intent
-            String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
-            if (buttonName.equals("createItem")) {
-                itemActive = null;
-                //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
-            }
-
-            else if (buttonName.equals("loadItem")) {
-                itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
-                Log.d("Set Item", itemActive.getName());
-                Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
-            }
-        }
         if (itemActive != null)
             setItemValues(itemActive);
 
@@ -106,6 +81,31 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         return null;
+    }
+
+    private void handleIntent(Intent intent) {
+        String fromClass = intent.getStringExtra("Class");
+
+        if (fromClass.equals("SearchActivity.java")) {
+            itemActive = (Item) intent.getSerializableExtra(SearchResultsActivity.ITEM_INTENT);
+            parentList = getItemList();
+        }
+
+        if (fromClass.equals("ListActivity.java")) {
+            // Set name of the list
+            parentList = (ItemList) getIntent().getSerializableExtra(ListActivity.PARENT_LIST);
+
+            // Differentiate between the buttons that sent the intent
+            String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
+            if (buttonName.equals("createItem")) {
+                itemActive = null;
+                //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
+            } else if (buttonName.equals("loadItem")) {
+                itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
+                Log.d("Set Item", itemActive.getName());
+                Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void handleActionBar() {
@@ -144,7 +144,7 @@ public class ItemActivity extends AppCompatActivity {
             try {
                 Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
+                ImageView imageView = (ImageView) findViewById(R.id.image_1);
                 imageView.setImageBitmap(imgThumbnailBitmap);
                 Log.d(TAG, "Image display succeeded");
             } catch (IOException e) {

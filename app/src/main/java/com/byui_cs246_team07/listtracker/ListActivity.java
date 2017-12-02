@@ -72,7 +72,12 @@ public class ListActivity extends AppCompatActivity {
         mListName = findViewById(R.id.listNameInListScreen);
         mListViewOfItems = findViewById(R.id.listOfItems);
 
-        Intent intent = getIntent();
+        handleIntent(getIntent());
+
+        handleActionBar();
+    }
+
+    private void handleIntent(Intent intent) {
         String fromClass = intent.getStringExtra("Class");
 
         if (fromClass.equals("MainActivity.java")) {
@@ -84,8 +89,6 @@ public class ListActivity extends AppCompatActivity {
             list = (ItemList) intent.getSerializableExtra(SearchResultsActivity.LIST_INTENT);
             nameOfList = list.getName();
         }
-
-        handleActionBar();
     }
 
     @Override
