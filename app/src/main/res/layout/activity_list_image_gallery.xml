@@ -7,7 +7,7 @@
     tools:context="com.byui_cs246_team07.listtracker.ListImageGalleryActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/list_toolbar"
+        android:id="@+id/gallery_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -25,27 +25,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listImageGalleryName" />
+        app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
 
-    <TextView
-        android:id="@+id/labelImagesFromList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/image_gallery_for_list"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/listImageGalleryName"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/listImageGalleryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/list_name"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/labelImagesFromList"
-        app:layout_constraintTop_toBottomOf="@+id/list_toolbar" />
 </android.support.constraint.ConstraintLayout>

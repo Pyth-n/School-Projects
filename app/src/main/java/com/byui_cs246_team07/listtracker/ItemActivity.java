@@ -254,6 +254,8 @@ public class ItemActivity extends AppCompatActivity {
                 mimage_1 = findViewById(R.id.image_1);
                 mimage_1.setImageBitmap(img);
 
+                //mimage_1.setImageURI(Uri.parse(item.getImagesUrls().get(0)));
+
                 if (item.getImagesUrls().size() > 1) {
                     Bitmap img2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(item.getImagesUrls().get(1)));
                     img2 = Bitmap.createScaledBitmap(img2, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);

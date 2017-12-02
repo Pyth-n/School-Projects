@@ -108,7 +108,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void handleActionBar() {
-        Toolbar myToolbar = findViewById(R.id.list_toolbar);
+        Toolbar myToolbar = findViewById(R.id.gallery_toolbar);
         setSupportActionBar(myToolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -236,7 +236,7 @@ public class ListActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ListImageGalleryActivity.class);
         intent.putExtra("Class", "ListActivity.java");
-
+        intent.putExtra(LIST_ID, list);
         startActivity(intent);
 
     }

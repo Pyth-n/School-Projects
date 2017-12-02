@@ -7,7 +7,7 @@
     tools:context="com.byui_cs246_team07.listtracker.SortListOptionsActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/list_toolbar"
+        android:id="@+id/gallery_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -49,7 +49,7 @@
         android:text="@string/choose_list_sort_order"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
 
     <Button
         android:id="@+id/btnSaveListSortOrder"
