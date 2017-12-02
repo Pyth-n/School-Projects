@@ -47,13 +47,13 @@ public class ItemListController {
         return itemListCRUD.saveItemList(itemList);
     }
 
-    public List<Item> getRelatedItems(long itemId) {
-        return itemCRUD.getItemsFromList(itemId);
+    public List<Item> getRelatedItems(long itemId, String orderBy) {
+        return itemCRUD.getItemsFromList(itemId, orderBy);
     }
 
-    public List<String> getRelatedItemsNames(long itemId) {
+    public List<String> getRelatedItemsNames(long itemId, String orderBy) {
         List<String> listNames = new ArrayList<>();
-        List<Item> lists =  getRelatedItems(itemId);
+        List<Item> lists =  getRelatedItems(itemId, orderBy);
         for (Item item : lists) {
             listNames.add(item.getName());
         }

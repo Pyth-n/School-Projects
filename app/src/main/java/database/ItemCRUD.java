@@ -120,9 +120,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
    * Get Items from database
    * @return
    */
-  public List<Item> getItems() {
+  public List<Item> getItems(String orderBy) {
+
         List<Item> items = new ArrayList<>();
 
+        String orderByColumn = getOrderColumn(orderBy);
         SQLiteDatabase database = open();
         Cursor cursor = database.query(
                 ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
@@ -131,8 +133,10 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
                 null, //selection args
                 null, //group by
                 null, //having
-                ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE + " DESC"
+                orderByColumn
         );
+
+
 
         if (cursor.moveToFirst()) {
             do {
@@ -150,12 +154,14 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
    * @param listId
    * @return
    */
-    public List<Item> getItemsFromList(long listId) {
+    public List<Item> getItemsFromList(long listId, String orderBy) {
       List<Item> items = new ArrayList<>();
       String whereClause =  ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST + "= ?";
       String[] whereArgs = new String[]{
               String.valueOf(listId)
       };
+
+      String orderByColumn = getOrderColumn(orderBy);
 
       SQLiteDatabase database = open();
       Cursor cursor = database.query(
@@ -165,7 +171,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
               whereArgs, //selection args
               null, //group by
               null, //having
-              ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE + " DESC"
+              orderByColumn
       );
 
       if (cursor.moveToFirst()) {
@@ -197,5 +203,16 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
       item.setPriorityName(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME));
       item.setImagesUrls(getListFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_IMAGE_URLS));
       return item;
+    }
+
+    private String getOrderColumn(String orderBy) {
+        String orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE + " DESC";
+        if (orderBy == "manual") {
+            orderByColumn = null;
+        }
+        if(orderBy == "name") {
+            orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_NAME + " DESC";
+        }
+        return orderByColumn;
     }
 }
