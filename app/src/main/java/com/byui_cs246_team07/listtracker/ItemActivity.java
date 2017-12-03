@@ -282,11 +282,11 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void addImage(View view) {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         //intent.setAction(Intent.ACTION_GET_CONTENT);
-        //startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        //startActivityForResult(intent, PICK_IMAGE_REQUEST);
         Log.d(TAG, "Selecting image");
     }
 

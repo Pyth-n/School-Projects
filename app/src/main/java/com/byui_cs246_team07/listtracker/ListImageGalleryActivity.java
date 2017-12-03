@@ -29,9 +29,10 @@ public class ListImageGalleryActivity extends AppCompatActivity {
     private void handleIntent(Intent intent) {
         String fromClass = intent.getStringExtra("Class");
 
-        list = (ItemList) intent.getSerializableExtra(ListActivity.LIST_ID);
+
         if (fromClass.equals("ListActivity.java")) {
-            Log.d(TAG, list.getName());
+            list = (ItemList) intent.getSerializableExtra(ListActivity.LIST_ID);
+            Log.d(TAG, "Image gallery: " + list.getName());
         }
     }
 
