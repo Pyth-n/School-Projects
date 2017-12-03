@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -45,12 +46,13 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityName;
     private EditText mNotes;
     private Item  itemActive;
-    private List<String> mNewImageUrls;
+    private List<String> mImagesUrls;
+    private int mNumImages;
 
     public ItemActivity() {
         controller = new ItemController(this);
         listController = new ItemListController(this);
-        mNewImageUrls = new ArrayList<String>();
+        mImagesUrls = new ArrayList<String>();
     }
 
     @Override
@@ -90,6 +92,24 @@ public class ItemActivity extends AppCompatActivity {
         }
         if (itemActive != null)
             setItemValues(itemActive);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                int imageUrlsListIndex = 0;
+                viewImageFullScreen(imageUrlsListIndex);
+                return true;
+            }
+
+            /*@Override
+            public boolean performClick() {
+                int imageUrlsListIndex = 0;
+                viewImageFullScreen(imageUrlsListIndex);
+                return true;
+            }*/
+        });
     }
 
     private ItemList getItemList() {
@@ -126,18 +146,11 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, "Image selected");
             Uri uri = data.getData();
             Log.d(TAG, "Image URI: " + uri);
-            mNewImageUrls.add(uri.toString());
-
-            try {
-                Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-                ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                imageView.setImageBitmap(imgThumbnailBitmap);
-                Log.d(TAG, "Image display succeeded");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, "Image display failed");
-            }
+            String imagePath = uri.toString();
+            imagePath = imagePath.replaceAll("%3A", ":");
+            Log.d(TAG, "Image path: " + imagePath);
+            mImagesUrls.add(imagePath);
+            displayImageThumbnail(mNumImages++, uri);
         }
     }
 
@@ -170,7 +183,7 @@ public class ItemActivity extends AppCompatActivity {
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
         Editable priorityNumberEditable = mPriorityNumber.getText();
-        item.setImagesUrls(mNewImageUrls);
+        item.setImagesUrls(mImagesUrls);
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
@@ -219,8 +232,18 @@ public class ItemActivity extends AppCompatActivity {
             mPriorityName.setText(item.getPriorityName());
         }
         if (item.getTags() != null) {
-            Log.d("Tags", item.getTags());
+            Log.d(TAG, "Tags: " + item.getTags());
             mTag.setText(item.getTags());
+        }
+        if (!itemActive.getImagesUrls().isEmpty()) {
+            mImagesUrls = item.getImagesUrls();
+            for (mNumImages = 0; mNumImages < 1; mNumImages++) {
+                String imagePath = mImagesUrls.get(mNumImages);
+                Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
+                Uri imageUri = Uri.parse(imagePath);
+                Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
+                displayImageThumbnail(mNumImages, imageUri);
+            }
         }
     }
 
@@ -239,5 +262,27 @@ public class ItemActivity extends AppCompatActivity {
 
     public void deleteImage(View view) {
         Log.d(TAG, "Image deleted");
+    }
+
+    public void viewImageFullScreen(int imageUrlsListIndex) {
+        if (!mImagesUrls.isEmpty()) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.parse(mImagesUrls.get(imageUrlsListIndex)), "image/*");
+            startActivity(intent);
+        }
+    }
+
+    private void displayImageThumbnail(int thumbnailIndex, Uri uri) {
+        try {
+            Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+            imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            imageView.setImageBitmap(imgThumbnailBitmap);
+            Log.d(TAG, "Image display succeeded");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Image display failed");
+        }
     }
 }
