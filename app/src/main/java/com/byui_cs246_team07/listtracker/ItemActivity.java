@@ -44,11 +44,12 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mPriorityName;
     private EditText mNotes;
     private Item  itemActive;
-    private List<String> mNewImagesUrls;
+    private List<String> mImagesUrls;
+    private int mNumImages;
 
     public ItemActivity() {
         controller = new ItemController(this);
-        mNewImagesUrls = new ArrayList<String>();
+        mImagesUrls = new ArrayList<String>();
     }
 
     @Override
@@ -112,11 +113,10 @@ public class ItemActivity extends AppCompatActivity {
             Uri uri = data.getData();
             Log.d(TAG, "Image URI: " + uri);
             String imagePath = uri.toString();
-            //File file = new File(uri.getPath());
-            //String imagePath = file.getAbsolutePath();
+            imagePath = imagePath.replaceAll("%3A", ":");
             Log.d(TAG, "Image path: " + imagePath);
-            mNewImagesUrls.add(imagePath);
-            displayImageThumbnail(uri);
+            mImagesUrls.add(imagePath);
+            displayImageThumbnail(mNumImages++, uri);
         }
     }
 
@@ -149,7 +149,7 @@ public class ItemActivity extends AppCompatActivity {
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
         Editable priorityNumberEditable = mPriorityNumber.getText();
-        item.setImagesUrls(mNewImagesUrls);
+        item.setImagesUrls(mImagesUrls);
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
@@ -197,28 +197,19 @@ public class ItemActivity extends AppCompatActivity {
             mPriorityName.setText(item.getPriorityName());
         }
         if (item.getTags() != null) {
-            Log.d("Tags", item.getTags());
+            Log.d(TAG, "Tags: " + item.getTags());
             mTag.setText(item.getTags());
         }
-        /*if (!itemActive.getImagesUrls().isEmpty()) {
-            List<String> imageUrls = itemActive.getImagesUrls();
-            for (int i = 0; i < 1; i++) {
-                String imagePath = imageUrls.get(i);
-                Log.d(TAG, i + " image path retrieved: " + imagePath);
-
-                File file = new File(imagePath);
-                Uri imageUri;
-                if(file.exists()) {
-                    imageUri = Uri.fromFile(file);
-                }
-                else {
-                    imageUri = Uri.parse(imagePath);
-                }
-                //Uri imageUri = Uri.parse(imagePath);
+        if (!itemActive.getImagesUrls().isEmpty()) {
+            mImagesUrls = item.getImagesUrls();
+            for (mNumImages = 0; mNumImages < 1; mNumImages++) {
+                String imagePath = mImagesUrls.get(mNumImages);
+                Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
+                Uri imageUri = Uri.parse(imagePath);
                 Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-                displayImageThumbnail(imageUri);
+                displayImageThumbnail(mNumImages, imageUri);
             }
-        }*/
+        }
     }
 
     public void setReminderDate(View view) {
@@ -239,18 +230,15 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void viewImageFullScreen(int imageUrlsListIndex) {
-        //List<String> imagesUrls = itemActive.getImagesUrls();
-        if (!mNewImagesUrls.isEmpty()) {
+        if (!mImagesUrls.isEmpty()) {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
-            //File file = new File(imagesUrls.get(imageUrlsListIndex));
-            //intent.setDataAndType(Uri.fromFile(file), "image/*");
-            intent.setDataAndType(Uri.parse(mNewImagesUrls.get(imageUrlsListIndex)), "image/*");
+            intent.setDataAndType(Uri.parse(mImagesUrls.get(imageUrlsListIndex)), "image/*");
             startActivity(intent);
         }
     }
 
-    private void displayImageThumbnail(Uri uri) {
+    private void displayImageThumbnail(int thumbnailIndex, Uri uri) {
         try {
             Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
             imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
