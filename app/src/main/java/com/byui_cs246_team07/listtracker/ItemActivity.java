@@ -31,12 +31,6 @@ import models.ItemList;
 
 public class ItemActivity extends AppCompatActivity {
 
-    private static final int REQUEST_STORAGE_PERMISSIONS = 1;
-    private static final String[] STORAGE_PERMISSIONS = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.MANAGE_DOCUMENTS
-    };
-
     private final int PICK_IMAGE_REQUEST = 1;
     final int THUMBNAIL_SIZE = 128;
     private ItemList parentList;
@@ -254,8 +248,6 @@ public class ItemActivity extends AppCompatActivity {
                 mimage_1 = findViewById(R.id.image_1);
                 mimage_1.setImageBitmap(img);
 
-                //mimage_1.setImageURI(Uri.parse(item.getImagesUrls().get(0)));
-
                 if (item.getImagesUrls().size() > 1) {
                     Bitmap img2 = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(item.getImagesUrls().get(1)));
                     img2 = Bitmap.createScaledBitmap(img2, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
@@ -284,9 +276,7 @@ public class ItemActivity extends AppCompatActivity {
     public void addImage(View view) {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
-        //intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        //startActivityForResult(intent, PICK_IMAGE_REQUEST);
         Log.d(TAG, "Selecting image");
     }
 

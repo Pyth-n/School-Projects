@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controllers.ItemController;
+import gallery.ImageData;
+import gallery.ImgAdapter;
 import models.Item;
 import models.ItemList;
 
@@ -30,11 +34,9 @@ public class ListImageGalleryActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getName();
     private ItemList list;
     private List<Item> items;
-    private List<List<String>> uris;
 
     public ListImageGalleryActivity() {
         items = new ArrayList<>();
-        uris = new ArrayList<List<String>>();
     }
 
     @Override
@@ -45,19 +47,7 @@ public class ListImageGalleryActivity extends AppCompatActivity {
         handleIntent(getIntent());
         handleActionBar();
 
-        Uri tmp = Uri.parse(uris.get(0).get(0));
-        LinearLayout linearLayout = findViewById(R.id.img_linear);
-
-        ImageView imageView = new ImageView(this);
-        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        linearLayout.addView(imageView);
-
-        Picasso.with(this)
-                .load(tmp)
-                .into(imageView);
-
+        handleImageViews();
     }
 
     private void handleIntent(Intent intent) {
@@ -66,12 +56,6 @@ public class ListImageGalleryActivity extends AppCompatActivity {
         if (fromClass.equals("ListActivity.java")) {
             list = (ItemList) intent.getSerializableExtra(ListActivity.LIST_ID);
             items = (List<Item>) intent.getSerializableExtra(ListActivity.ITEM);
-
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getImagesUrls().size() > 0) {
-                    uris.add(items.get(i).getImagesUrls());
-                }
-            }
 
             Log.d(TAG, "Image gallery: " + list.getName());
         }
@@ -85,5 +69,35 @@ public class ListImageGalleryActivity extends AppCompatActivity {
         actionBar.setTitle(Html.fromHtml(
                 "<font color=\"#ffffff\">" + list.getName() + " images" + "</font>"
         ));
+    }
+
+    private void handleImageViews() {
+        RecyclerView recyclerView = findViewById(R.id.img_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        ArrayList<ImageData> createLists = getImageData();
+        RecyclerView.LayoutManager layoutManager =
+                new GridLayoutManager(getApplicationContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ArrayList<ImageData> imgData = getImageData();
+        ImgAdapter adapter = new ImgAdapter(getApplicationContext(), imgData);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private ArrayList<ImageData> getImageData() {
+        List<ImageData> tmp = new ArrayList<>();
+
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getImagesUrls().size() > 0) {
+                for (int j = 0; j < items.get(i).getImagesUrls().size(); j++) {
+                    ImageData imageData = new ImageData();
+                    imageData.setItemName(items.get(i).getName());
+                    imageData.setUri(items.get(i).getImagesUrls().get(j));
+                    tmp.add(imageData);
+                }
+            }
+        }
+
+        return (ArrayList<ImageData>) tmp;
     }
 }
