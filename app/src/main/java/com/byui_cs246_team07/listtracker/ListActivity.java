@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -216,7 +217,6 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Starts SortListOptions Activity
      * @param view
@@ -233,12 +233,11 @@ public class ListActivity extends AppCompatActivity {
      * @param view
      */
     public void viewImageGallery(View view) {
-
         Intent intent = new Intent(this, ListImageGalleryActivity.class);
         intent.putExtra("Class", "ListActivity.java");
         intent.putExtra(LIST_ID, list);
+        intent.putExtra(ITEM, (Serializable) items);
         startActivity(intent);
-
     }
 
     /**
