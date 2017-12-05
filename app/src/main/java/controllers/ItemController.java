@@ -30,7 +30,7 @@ public class ItemController {
     }
 
     public List<Item> getItems() {
-        return itemCRUD.getItems();
+        return itemCRUD.getItems(sortValue);
     }
 
     public String getSortBy() {

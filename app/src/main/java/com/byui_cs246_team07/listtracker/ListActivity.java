@@ -257,7 +257,7 @@ public class ListActivity extends AppCompatActivity {
         if (list != null) {
             mListName.setText(list.getName());
             // Set items
-            items = controller.getRelatedItems(list.getId());
+            items = controller.getRelatedItems(list.getId(), null);
         }
 
         // Adapter used add items and display in the ListView
