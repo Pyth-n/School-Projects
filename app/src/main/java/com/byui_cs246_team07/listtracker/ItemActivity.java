@@ -298,7 +298,7 @@ public class ItemActivity extends AppCompatActivity {
         try {
             Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
             imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-            ImageView imageView = (ImageView) findViewById(R.id.image_2);
+            ImageView imageView = (ImageView) findViewById(R.id.image_1);
             imageView.setImageBitmap(imgThumbnailBitmap);
             Log.d(TAG, "Image display succeeded");
         } catch (IOException e) {
