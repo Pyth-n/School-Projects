@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts List Creationg Activity
+     * Starts List Creation Activity
      * @param view
      */
     public void createList(View view) {

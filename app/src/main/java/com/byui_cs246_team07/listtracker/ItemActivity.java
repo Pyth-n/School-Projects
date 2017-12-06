@@ -170,7 +170,7 @@ public class ItemActivity extends AppCompatActivity {
             String imagePath = uri.toString();
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
-            displayImageThumbnail(mNumImages++, uri);
+            displayImageThumbnail(mNumImages, uri);
         }
     }
 
@@ -300,6 +300,7 @@ public class ItemActivity extends AppCompatActivity {
             imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
             ImageView imageView = (ImageView) findViewById(R.id.image_1);
             imageView.setImageBitmap(imgThumbnailBitmap);
+            mNumImages++;
             Log.d(TAG, "Image display succeeded");
         } catch (IOException e) {
             e.printStackTrace();
