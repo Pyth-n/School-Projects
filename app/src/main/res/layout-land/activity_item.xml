@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.byui_cs246_team07.listtracker.ItemActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/land_item_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <EditText
         android:id="@+id/editItemName"
         android:layout_width="0dp"
@@ -54,13 +62,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/label_item_name"
         android:textColor="@android:color/holo_purple"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listNameInItemScreen" />
+        app:layout_constraintTop_toBottomOf="@+id/land_item_toolbar" />
 
     <TextView
         android:id="@+id/labelTags"
@@ -79,7 +86,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/label_item_notes"
         android:textSize="14sp"
@@ -90,9 +96,7 @@
         android:id="@+id/itemWithin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/item_within"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
@@ -102,6 +106,7 @@
         android:id="@+id/listNameInItemScreen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -109,9 +114,10 @@
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="16sp"
         android:typeface="serif"
+        app:layout_constraintBottom_toBottomOf="@+id/land_item_toolbar"
         app:layout_constraintEnd_toStartOf="@+id/btnSetReminder"
         app:layout_constraintStart_toEndOf="@+id/itemWithin"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/land_item_toolbar" />
 
     <TextView
         android:id="@+id/labelDueDate"
@@ -121,7 +127,7 @@
         android:text="@string/due_date"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/btnSetReminder"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/land_item_toolbar" />
 
     <EditText
         android:id="@+id/dueDate"
