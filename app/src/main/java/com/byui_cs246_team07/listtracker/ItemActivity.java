@@ -1,6 +1,5 @@
 package com.byui_cs246_team07.listtracker;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -145,7 +144,7 @@ public class ItemActivity extends AppCompatActivity {
         if (getScreenOrientation() == 1) {
             ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(Html.fromHtml(
-                "<font color=\"#ffffff\">" + "Item within "+ parentList.getName() + "</font>"));
+                "<font color=\"#ffffff\">" + "Item within &quot;" + parentList.getName() + "&quot;</font>"));
         } else {
             TextView textView = findViewById(R.id.listNameInItemScreen);
             textView.setText(parentList.getName());
@@ -195,7 +194,8 @@ public class ItemActivity extends AppCompatActivity {
             String imagePath = uri.toString();
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
-            displayImageThumbnail(mNumImages, uri);
+            boolean makeInvisible = false;
+            displayImageThumbnail(mNumImages, uri, makeInvisible);
         }
     }
 
@@ -284,13 +284,7 @@ public class ItemActivity extends AppCompatActivity {
 
         if (!itemActive.getImagesUrls().isEmpty()) {
             mImagesUrls = item.getImagesUrls();
-            for (mNumImages = 0; mNumImages < 1; mNumImages++) {
-                String imagePath = mImagesUrls.get(mNumImages);
-                Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
-                Uri imageUri = Uri.parse(imagePath);
-                Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-                displayImageThumbnail(mNumImages, imageUri);
-            }
+            updateImageThumbnails();
         }
     }
 
@@ -307,7 +301,17 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     public void deleteImage(View view) {
-        Log.d(TAG, "Image deleted");
+        if (!mImagesUrls.isEmpty()) {
+            int imageUrlsListIndex = 0;
+            int imageNum = imageUrlsListIndex + 1;
+            mImagesUrls.remove(imageUrlsListIndex);
+            Log.d(TAG, "Image index " + imageUrlsListIndex + " deleted");
+            Toast.makeText(this, "Image #" + imageNum + " deleted", Toast.LENGTH_SHORT).show();
+            updateImageThumbnails();
+        }
+        else {
+            Toast.makeText(this, "No image to delete", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void viewImageFullScreen(int imageUrlsListIndex) {
@@ -315,21 +319,54 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(mImagesUrls.get(imageUrlsListIndex)), "image/*");
+            Log.d(TAG, "Viewing image " + imageUrlsListIndex);
             startActivity(intent);
         }
     }
 
-    private void displayImageThumbnail(int thumbnailIndex, Uri uri) {
+    private void displayImageThumbnail(int thumbnailIndex, Uri uri, boolean makeInvisible) {
         try {
-            Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-            ImageView imageView = (ImageView) findViewById(R.id.image_1);
-            imageView.setImageBitmap(imgThumbnailBitmap);
-            mNumImages++;
-            Log.d(TAG, "Image display succeeded");
+            Bitmap imgThumbnailBitmap = null;
+            if (!makeInvisible) {
+                imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+            }
+            ImageView imageViewThumb;
+            if (thumbnailIndex == 0) {
+                imageViewThumb = (ImageView) findViewById(R.id.image_1);
+            }
+            else {
+                imageViewThumb = (ImageView) findViewById(R.id.image_2);
+            }
+            Log.d(TAG, "URI: " + uri.toString());
+            if (!makeInvisible) {
+                imageViewThumb.setVisibility(View.VISIBLE);
+                imageViewThumb.setImageBitmap(imgThumbnailBitmap);
+                Log.d(TAG, "Image display succeeded");
+            }
+            else {
+                imageViewThumb.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "Image thumbnail hidden");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "Image display failed");
+        }
+    }
+
+    private void updateImageThumbnails() {
+        boolean makeInvisible = false;
+        for (mNumImages = 0; ((mNumImages < mImagesUrls.size()) && (mNumImages < 2)); mNumImages++) {
+            String imagePath = mImagesUrls.get(mNumImages);
+            Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
+            Uri imageUri = Uri.parse(imagePath);
+            Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
+            makeInvisible = false;
+            displayImageThumbnail(mNumImages, imageUri, makeInvisible);
+        }
+        if ((mNumImages >= mImagesUrls.size()) && (mNumImages < 2)) {
+            makeInvisible = true;
+            displayImageThumbnail(mNumImages, Uri.parse("INVISIBLE"), makeInvisible);
         }
     }
 }
