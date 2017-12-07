@@ -361,7 +361,6 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-            makeInvisible = false;
             displayImageThumbnail(mNumImages, imageUri, makeInvisible);
         }
         if ((mNumImages >= mImagesUrls.size()) && (mNumImages < 2)) {
