@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -65,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Item> items;
 
-
     SearchView searchView;
     /**
      * Constructor
@@ -93,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.MANAGE_DOCUMENTS},2);
 
+        ActivityCompat.requestPermissions(MainActivity.this,
+                new String[] {Manifest.permission.INTERNET}, 3);
+
         setListView();
 
 
@@ -111,10 +115,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(Html.fromHtml(
+        if (getScreenOrientation() == 1) {
+           ActionBar actionBar = getSupportActionBar();
+           actionBar.setTitle(Html.fromHtml(
                 "<font color=\"#ffffff\">" + getString(R.string.app_name) + "</font>"
         ));
+        }
+
     }
 
     @Override
@@ -239,6 +246,22 @@ public class MainActivity extends AppCompatActivity {
         //editor.putString(LASTLISTVIEWED, controller.getListName());
 
         editor.apply();
+    }
+
+    private int getScreenOrientation()
+    {
+        Display getOrient = getWindowManager().getDefaultDisplay();
+        int orientation = Configuration.ORIENTATION_UNDEFINED;
+        if(getOrient.getWidth()==getOrient.getHeight()){
+            orientation = Configuration.ORIENTATION_SQUARE;
+        } else{
+            if(getOrient.getWidth() < getOrient.getHeight()){
+                orientation = Configuration.ORIENTATION_PORTRAIT;
+            }else {
+                orientation = Configuration.ORIENTATION_LANDSCAPE;
+            }
+        }
+        return orientation;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.byui_cs246_team07.listtracker;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -139,10 +141,33 @@ public class ItemActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.item_toolbar);
         setSupportActionBar(myToolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+        // if screen is in portrait
+        if (getScreenOrientation() == 1) {
+            ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(Html.fromHtml(
-                "<font color=\"#ffffff\">" + "Item within " + parentList.getName() + "</font>"
-        ));
+                "<font color=\"#ffffff\">" + "Item within "+ parentList.getName() + "</font>"));
+        } else {
+            TextView textView = findViewById(R.id.listNameInItemScreen);
+            textView.setText(parentList.getName());
+        }
+
+        Log.d(TAG, String.valueOf(getScreenOrientation()));
+    }
+
+    private int getScreenOrientation()
+    {
+        Display getOrient = getWindowManager().getDefaultDisplay();
+        int orientation = Configuration.ORIENTATION_UNDEFINED;
+        if(getOrient.getWidth()==getOrient.getHeight()){
+            orientation = Configuration.ORIENTATION_SQUARE;
+        } else{
+            if(getOrient.getWidth() < getOrient.getHeight()){
+                orientation = Configuration.ORIENTATION_PORTRAIT;
+            }else {
+                orientation = Configuration.ORIENTATION_LANDSCAPE;
+            }
+        }
+        return orientation;
     }
 
     @Override
@@ -298,7 +323,7 @@ public class ItemActivity extends AppCompatActivity {
         try {
             Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
             imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
-            ImageView imageView = (ImageView) findViewById(R.id.image_2);
+            ImageView imageView = (ImageView) findViewById(R.id.image_1);
             imageView.setImageBitmap(imgThumbnailBitmap);
             Log.d(TAG, "Image display succeeded");
         } catch (IOException e) {

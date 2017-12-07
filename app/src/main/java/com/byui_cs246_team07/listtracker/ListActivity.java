@@ -1,12 +1,14 @@
 package com.byui_cs246_team07.listtracker;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -108,14 +110,37 @@ public class ListActivity extends AppCompatActivity {
         Log.d(TAG, "PAUSING");
     }
 
+
+
     private void handleActionBar() {
         Toolbar myToolbar = findViewById(R.id.gallery_toolbar);
         setSupportActionBar(myToolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(Html.fromHtml(
-                "<font color=\"#ffffff\">" + "List: " + nameOfList + "</font>"
-        ));
+        if (getScreenOrientation() == 1) {
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setTitle(Html.fromHtml(
+                    "<font color=\"#ffffff\">" + "List: " + nameOfList + "</font>"
+            ));
+        } else {
+            // TODO: modify textview with name of list
+        }
+
+    }
+
+    private int getScreenOrientation()
+    {
+        Display getOrient = getWindowManager().getDefaultDisplay();
+        int orientation = Configuration.ORIENTATION_UNDEFINED;
+        if(getOrient.getWidth()==getOrient.getHeight()){
+            orientation = Configuration.ORIENTATION_SQUARE;
+        } else{
+            if(getOrient.getWidth() < getOrient.getHeight()){
+                orientation = Configuration.ORIENTATION_PORTRAIT;
+            }else {
+                orientation = Configuration.ORIENTATION_LANDSCAPE;
+            }
+        }
+        return orientation;
     }
 
     /**
