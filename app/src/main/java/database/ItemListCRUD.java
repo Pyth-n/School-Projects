@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import models.ItemList;
@@ -41,6 +42,7 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     ContentValues listValues = new ContentValues();
     listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_NAME  , itemList.getName());
     listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID, itemList.getCategoryId());
+    listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE, new Date().toString());
 
     if (itemList.getId() !=  0) {
       listValues.put(BaseColumns._ID, itemList.getId());
@@ -82,7 +84,7 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
    * Get Lists from database
    * @return
    */
-  public List<ItemList> getLists() {
+  public List<ItemList> getLists(String orderBy) {
     List<ItemList> lists = new ArrayList<>();
     String [] columns =  new String [] {
             BaseColumns._ID,
@@ -98,7 +100,7 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
             null, //selection args
             null, //group by
             null, //having
-            null
+            getOrderColumn(orderBy)
     );
 
     if (cursor.moveToFirst()) {
@@ -113,5 +115,16 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     close(database);
     Log.d(TAG, "Database accessed: List");
     return lists;
+  }
+
+  private String getOrderColumn(String orderBy) {
+    String orderByColumn = ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE + " ASC";
+    if (orderBy != null && orderBy.equals("manual")) {
+      orderByColumn = null;
+    }
+    if(orderBy != null && orderBy.equals("name")) {
+      orderByColumn = ListTrackerSQLiteHelper.LIST_COLUMN_NAME + " ASC";
+    }
+    return orderByColumn;
   }
 }

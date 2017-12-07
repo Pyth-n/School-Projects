@@ -1,6 +1,7 @@
 package controllers;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +27,17 @@ public class ItemListController {
     }
 
 
-    public List<String> getListNames() {
+    public List<String> getListNames(String orderBy) {
         List<String> listNames = new ArrayList<>();
-        if (lists == null) {
-            getLists();
-        }
+        getLists(orderBy);
         for (ItemList itemList : lists) {
             listNames.add(itemList.getName());
         }
         return listNames;
     }
 
-    public List<ItemList>  getLists() {
-        lists = itemListCRUD.getLists();
+    public List<ItemList>  getLists(String orderBy) {
+        lists = itemListCRUD.getLists(orderBy);
         return lists;
 
     }
@@ -48,6 +47,7 @@ public class ItemListController {
     }
 
     public List<Item> getRelatedItems(long itemId, String orderBy) {
+        Log.d("Get Related the are", orderBy);
         return itemCRUD.getItemsFromList(itemId, orderBy);
     }
 

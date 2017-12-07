@@ -77,7 +77,7 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private ItemList getItemList() {
-        List<ItemList> temp = listController.getLists();
+        List<ItemList> temp = listController.getLists(null);
 
         for (int i = 0; i < temp.size(); i++) {
             if (temp.get(i).getId() == itemActive.getListId()) {

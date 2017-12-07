@@ -28,11 +28,13 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
     public static final String LIST_TABLE_NAME = "list";
     public static final String LIST_COLUMN_NAME = "name";
     public static final String LIST_COLUMN_CATEGORY_ID = "categoryID";
+    public static final String LIST_COLUMN_CREATED_DATE = "createdDate";
 
     private static final String CREATE_LIST_TABLE =
             "CREATE TABLE " + LIST_TABLE_NAME + '(' +
                     BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     LIST_COLUMN_NAME + " TEXT NOT NULL, " +
+                    LIST_COLUMN_CREATED_DATE + " TEXT NOT NULL , " +
                     LIST_COLUMN_CATEGORY_ID + " INTEGER, " +
                     "FOREIGN KEY(" + LIST_COLUMN_CATEGORY_ID + ") REFERENCES "+ CATEGORY_TABLE_NAME +"(_ID)" +
                     ")";

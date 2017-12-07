@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private final String LASTSCREENVIEWED = "lastScreenID";
     private final String LASTLISTVIEWED = "lastListID";
     private final String PREFERENCES = "listPrefs";
+    private final Integer SORT_ACTIVITY = 1;
+    private final String ORDER_BY = "ORDER_BY";
+    private String orderBy;
 
     ArrayAdapter<String> adapter;
     private ItemListController itemListController;
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private List<ItemList> lists;
     private ItemList itemListSelected;
     private int itemListSelectedIndex;
-
+    private SharedPreferences settings;
     private List<Item> items;
 
 
@@ -96,16 +99,10 @@ public class MainActivity extends AppCompatActivity {
         setListView();
 
 
+        settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        orderBy = settings.getString(ORDER_BY, "date");
 
-        // TODO move this for a class
-        /*ItemController controller = new ItemController(this);
-        SharedPreferences settings = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
-        controller.setCategoryName(settings.getString(CATEGORY, ""));
-        controller.setListName(settings.getString(LASTLISTVIEWED, ""));
-        controller.setSortBy(settings.getString(SORTBY, ""));
-        Log.d("SHAREDPREFERENCES: ", settings.getString(CATEGORY, "Category Test"));
-        Log.d("SHAREDPREFERENCES: ", settings.getString(LASTLISTVIEWED, "Last View Test"));
-        Log.d("SHAREDPREFERENCES: ", settings.getString(SORTBY, "Sort By Test"));*/
+        Log.d("SHAREDPREFERENCES: ", settings.getString(ORDER_BY, "date"));
 
         // Setup toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -241,6 +238,22 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == SORT_ACTIVITY) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Log.d("Sorty by", data.getStringExtra(SortListOptionsActivity.SORT_BY));
+                orderBy = data.getStringExtra(SortListOptionsActivity.SORT_BY);
+                Log.d("Reodering", orderBy);
+                setListView();
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(ORDER_BY, orderBy);
+            }
+        }
+    }
+
     /**
      * Starts List Creation Activity
      * @param view
@@ -306,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
     public void sortCategory(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SORT_ACTIVITY);
 
     }
 
@@ -377,14 +390,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        adapter.notifyDataSetChanged();
     }
 
     /**
      * Populates list and list names
      */
     private void getControllerData() {
-        listNames = itemListController.getListNames();
-        lists = itemListController.getLists();
+        listNames = itemListController.getListNames(orderBy);
+        lists = itemListController.getLists(orderBy);
     }
 
 }
