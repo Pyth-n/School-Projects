@@ -38,6 +38,7 @@ public class ListActivity extends AppCompatActivity {
     public static final String PARENT_LIST = "PARENT_LIST";
     // TAG is used for logs
     private final String TAG = this.getClass().getName();
+    private final Integer SORT_ACTIVITY = 1;
 
     // Widget IDs
     private ListView mListViewOfItems;
@@ -51,6 +52,7 @@ public class ListActivity extends AppCompatActivity {
     private Item itemSelected;
     private String nameOfList;
     private ItemList list;
+    private String orderBy = "date";
 
 
     /**
@@ -217,6 +219,21 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == SORT_ACTIVITY) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Log.d("Sorty by", data.getStringExtra(SortListOptionsActivity.SORT_BY));
+                orderBy = data.getStringExtra(SortListOptionsActivity.SORT_BY);
+                Log.d("Reodering", orderBy);
+                setListView();
+
+            }
+        }
+    }
+
     /**
      * Starts SortListOptions Activity
      * @param view
@@ -224,7 +241,7 @@ public class ListActivity extends AppCompatActivity {
     public void sortList(View view) {
 
         Intent intent = new Intent(this, SortListOptionsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, SORT_ACTIVITY);
 
     }
 
@@ -254,10 +271,12 @@ public class ListActivity extends AppCompatActivity {
      */
     public void setListView() {
         // Set the name of the list
+        mListViewOfItems.setAdapter(null);
         if (list != null) {
             mListName.setText(list.getName());
             // Set items
-            items = controller.getRelatedItems(list.getId(), null);
+            Log.d("Now the are", orderBy);
+            items = controller.getRelatedItems(list.getId(), orderBy);
         }
 
         // Adapter used add items and display in the ListView
@@ -265,7 +284,9 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getView(position, convertView, parent);
+
                 if (!items.isEmpty()) {
+
                     if (itemSelected != null) {
                         textView.setText(items.get(position).getName());
                     }
@@ -280,7 +301,7 @@ public class ListActivity extends AppCompatActivity {
         }
 
         mListViewOfItems.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
         // Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

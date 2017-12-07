@@ -161,8 +161,9 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
               String.valueOf(listId)
       };
 
-      String orderByColumn = getOrderColumn(orderBy);
 
+      String orderByColumn = getOrderColumn(orderBy);
+      Log.d("OrderBYColumn", orderByColumn);
       SQLiteDatabase database = open();
       Cursor cursor = database.query(
               ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
@@ -206,12 +207,13 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
     }
 
     private String getOrderColumn(String orderBy) {
-        String orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE + " DESC";
-        if (orderBy == "manual") {
+        String orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE + " ASC";
+        if (orderBy != null && orderBy.equals("manual")) {
             orderByColumn = null;
         }
-        if(orderBy == "name") {
-            orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_NAME + " DESC";
+
+        if(orderBy != null && orderBy.equals("name")) {
+            orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_NAME + " ASC";
         }
         return orderByColumn;
     }

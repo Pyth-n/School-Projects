@@ -84,7 +84,7 @@ public class ItemMoverActivity extends AppCompatActivity {
     }
 
     private void getControllerData() {
-        listNames = itemListController.getListNames();
-        lists = itemListController.getLists();
+        listNames = itemListController.getListNames(null);
+        lists = itemListController.getLists(null);
     }
 }
