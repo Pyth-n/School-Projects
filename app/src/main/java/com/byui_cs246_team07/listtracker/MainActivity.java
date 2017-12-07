@@ -92,13 +92,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[]{Manifest.permission.MANAGE_DOCUMENTS},2);
-
-        ActivityCompat.requestPermissions(MainActivity.this,
-                new String[] {Manifest.permission.INTERNET}, 3);
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.MANAGE_DOCUMENTS,
+                Manifest.permission.INTERNET},1);
 
         setListView();
 
@@ -119,39 +115,6 @@ public class MainActivity extends AppCompatActivity {
         ));
         }
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission granted and now can proceed
-                    Toast.makeText(this, "external accepted", Toast.LENGTH_SHORT).show(); //a sample method called
-
-                } else {
-
-                    // permission denied
-                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-                }
-                //return;
-            }
-            case 2:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission granted and now can proceed
-                    Toast.makeText(this, "manage accepted", Toast.LENGTH_SHORT).show(); //a sample method called
-
-                } else {
-
-                    // permission denied
-                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-                }
-                return;
-            // add other cases for more permissions
-        }
     }
 
     @Override
