@@ -38,7 +38,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/labelImages"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSetReminder"
         app:layout_constraintTop_toBottomOf="@+id/priorityLevelName" />
