@@ -23,8 +23,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnSaveItem"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/labelDueDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelItemName" />
 
@@ -53,7 +52,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/labelCreated"
+        app:layout_constraintEnd_toStartOf="@+id/labelDueDate"
         app:layout_constraintStart_toStartOf="@+id/labelTags"
         app:layout_constraintTop_toBottomOf="@+id/labelTags" />
 
@@ -101,6 +100,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="@string/item_within"
+        android:textColor="@android:color/background_light"
         android:textSize="14sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInItemScreen"
         app:layout_constraintStart_toStartOf="parent" />
@@ -114,7 +114,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/list_name"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@android:color/holo_blue_bright"
         android:textSize="16sp"
         android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="@+id/land_item_toolbar"
@@ -150,12 +150,11 @@
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
         android:text="@string/created"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/labelModified"
-        app:layout_constraintStart_toStartOf="@+id/btnAddImage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
 
     <TextView
@@ -171,12 +170,11 @@
         android:id="@+id/labelModified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/last_modified"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
+        app:layout_constraintStart_toStartOf="@+id/labelCreated"
+        app:layout_constraintTop_toBottomOf="@+id/dateCreated" />
 
     <TextView
         android:id="@+id/dateModified"
@@ -191,8 +189,8 @@
         android:id="@+id/labelImages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
-        android:layout_marginRight="104dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="@string/images"
@@ -205,14 +203,14 @@
         android:id="@+id/btnSaveItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:onClick="saveItem"
         android:text="@string/save_item"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTags"
-        app:layout_constraintEnd_toStartOf="@+id/labelDueDate" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/labelPriorityNumber"
@@ -267,10 +265,10 @@
         android:id="@+id/image_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/dummy_image"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/labelImages"
-        app:layout_constraintTop_toBottomOf="@+id/labelImages"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
@@ -286,25 +284,24 @@
 
     <Button
         android:id="@+id/btnAddImage"
-        android:layout_width="wrap_content"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:onClick="addImage"
         android:text="@string/add_image"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnDeleteImage"
-        app:layout_constraintTop_toBottomOf="@+id/dateCreated" />
+        app:layout_constraintStart_toStartOf="@+id/labelImages"
+        app:layout_constraintTop_toBottomOf="@+id/labelImages" />
 
     <Button
         android:id="@+id/btnDeleteImage"
-        android:layout_width="wrap_content"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:onClick="deleteImage"
         android:text="@string/delete_image"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAddImage"
         app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
 
     <Button
