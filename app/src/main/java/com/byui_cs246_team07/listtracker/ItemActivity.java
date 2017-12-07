@@ -195,7 +195,8 @@ public class ItemActivity extends AppCompatActivity {
             String imagePath = uri.toString();
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
-            displayImageThumbnail(mNumImages, uri);
+            boolean makeInvisible = false;
+            displayImageThumbnail(mNumImages, uri, makeInvisible);
         }
     }
 
@@ -324,10 +325,13 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    private void displayImageThumbnail(int thumbnailIndex, Uri uri) {
+    private void displayImageThumbnail(int thumbnailIndex, Uri uri, boolean makeInvisible) {
         try {
-            Bitmap imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+            Bitmap imgThumbnailBitmap = null;
+            if (!makeInvisible) {
+                imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
+            }
             ImageView imageViewThumb;
             if (thumbnailIndex == 0) {
                 imageViewThumb = (ImageView) findViewById(R.id.image_1);
@@ -335,8 +339,16 @@ public class ItemActivity extends AppCompatActivity {
             else {
                 imageViewThumb = (ImageView) findViewById(R.id.image_2);
             }
-            imageViewThumb.setImageBitmap(imgThumbnailBitmap);
-            Log.d(TAG, "Image display succeeded");
+            Log.d(TAG, "URI: " + uri.toString());
+            if (!makeInvisible) {
+                imageViewThumb.setVisibility(View.VISIBLE);
+                imageViewThumb.setImageBitmap(imgThumbnailBitmap);
+                Log.d(TAG, "Image display succeeded");
+            }
+            else {
+                imageViewThumb.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "Image thumbnail hidden");
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "Image display failed");
@@ -344,15 +356,18 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void updateImageThumbnails() {
+        boolean makeInvisible = false;
         for (mNumImages = 0; ((mNumImages < mImagesUrls.size()) && (mNumImages < 2)); mNumImages++) {
             String imagePath = mImagesUrls.get(mNumImages);
             Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-            displayImageThumbnail(mNumImages, imageUri);
+            makeInvisible = false;
+            displayImageThumbnail(mNumImages, imageUri, makeInvisible);
         }
         if ((mNumImages >= mImagesUrls.size()) && (mNumImages < 2)) {
-            displayImageThumbnail(mNumImages, Uri.parse("@mipmap/ic_launcher"));
+            makeInvisible = true;
+            displayImageThumbnail(mNumImages, Uri.parse("INVISIBLE"), makeInvisible);
         }
     }
 }
