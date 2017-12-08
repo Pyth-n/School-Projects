@@ -68,5 +68,5 @@
     <string name="search_hint">Search Lists or Items</string>
     <string name="search_list_text">Lists</string>
     <string name="search_item_text">Items</string>
-    <string name="rotate_images_left">&lt;</string>
+    <string name="increment_thumbnails_button">&gt;</string>
 </resources>

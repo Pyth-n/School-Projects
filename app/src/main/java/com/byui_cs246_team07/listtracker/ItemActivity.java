@@ -402,7 +402,7 @@ public class ItemActivity extends AppCompatActivity {
         Toast.makeText(this, "Displaying image #" + imageDisplay1 + " and image #" + imageDisplay2, Toast.LENGTH_SHORT).show();
     }
 
-    public void rotateImagesLeft(View view) {
+    public void incrementDisplayedThumbnails(View view) {
         if (mImagesUrls.size() > 1) {
             //if (mThumb1ImageIndex != EMPTY_IMAGE_INDEX) {
                 if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
@@ -424,15 +424,19 @@ public class ItemActivity extends AppCompatActivity {
                     }
                 }
             //}
-            Log.d(TAG, "Image index rotation complete");
+            Toast.makeText(this, "Incremented displayed thumbnails", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Image index incrementing complete");
             updateImageThumbnails();
         } else {
-            Toast.makeText(this, "There are not enough images to rotate", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "There are not enough images to increment thumbnails", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void rotateToNewestImages () {
-        if (mImagesUrls.size() == 1) {
+        if (mImagesUrls.size() == 0) {
+            mThumb1ImageIndex = HIDDEN_THUMBNAIL_INDEX;
+            mThumb2ImageIndex = HIDDEN_THUMBNAIL_INDEX;
+        } else if (mImagesUrls.size() == 1) {
             mThumb1ImageIndex = 0;
             mThumb2ImageIndex = HIDDEN_THUMBNAIL_INDEX;
         } else if (mNumImages == MAX_NUM_THUMBNAILS){
