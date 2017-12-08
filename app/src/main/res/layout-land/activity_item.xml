@@ -318,14 +318,14 @@
         app:layout_constraintTop_toBottomOf="@+id/completed" />
 
     <Button
-        android:id="@+id/btnRotateImagesLeft"
+        android:id="@+id/btnIncrementThumbnails"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:onClick="rotateImagesLeft"
-        android:text="@string/rotate_images_left"
+        android:onClick="incrementDisplayedThumbnails"
+        android:text="@string/increment_thumbnails_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_2" />
 
