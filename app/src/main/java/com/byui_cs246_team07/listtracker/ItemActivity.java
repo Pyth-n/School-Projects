@@ -123,19 +123,37 @@ public class ItemActivity extends AppCompatActivity {
         if (mItemActive != null)
             setItemValues(mItemActive);
 
-        ImageView imageView = (ImageView) findViewById(R.id.image_1);
+        ImageView imageView1 = (ImageView) findViewById(R.id.image_1);
 
-        imageView.setOnTouchListener(new View.OnTouchListener() {
+        imageView1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                int imageUrlsListIndex = 0;
+                int imageUrlsListIndex = mThumb1ImageIndex;
                 viewImageFullScreen(imageUrlsListIndex);
                 return true;
             }
 
             /*@Override
             public boolean performClick() {
-                int imageUrlsListIndex = 0;
+                int imageUrlsListIndex = mThumb1ImageIndex;
+                viewImageFullScreen(imageUrlsListIndex);
+                return true;
+            }*/
+        });
+
+        ImageView imageView2 = (ImageView) findViewById(R.id.image_2);
+
+        imageView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                int imageUrlsListIndex = mThumb2ImageIndex;
+                viewImageFullScreen(imageUrlsListIndex);
+                return true;
+            }
+
+            /*@Override
+            public boolean performClick() {
+                int imageUrlsListIndex = mThumb2ImageIndex;
                 viewImageFullScreen(imageUrlsListIndex);
                 return true;
             }*/
@@ -339,6 +357,7 @@ public class ItemActivity extends AppCompatActivity {
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(mImagesUrls.get(imageUrlsListIndex)), "image/*");
             Log.d(TAG, "Viewing image " + imageUrlsListIndex);
+            Toast.makeText(this, "Viewing image #" + imageUrlsListIndex, Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
     }
