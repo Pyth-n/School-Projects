@@ -323,7 +323,8 @@ public class ItemActivity extends AppCompatActivity {
             mImagesUrls.remove(mThumb1ImageIndex);
             mNumImages--;
             Log.d(TAG, "Image index " + imageNum + " deleted");
-            Toast.makeText(this, "Image #" + imageNum + " deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Deleted image #" + imageNum, Toast.LENGTH_SHORT).show();
+            rotateToNewestImages();
             updateImageThumbnails();
         }
         else {
@@ -381,12 +382,7 @@ public class ItemActivity extends AppCompatActivity {
         int thumbIndex = 0;
         for (thumbIndex = 0; ((thumbIndex < mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)); thumbIndex++) {
             if (thumbIndex == 0) {
-                //if (mThumb1ImageIndex < mImagesUrls.size()) {
                     imageIndex = mThumb1ImageIndex;
-                //}
-                //else {//if (mImagesUrls.size() == 0)
-                //    mThumb1ImageIndex--;
-                //}
             }
             else {
                 imageIndex = mThumb2ImageIndex;
@@ -436,15 +432,15 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void rotateToNewestImages () {
-        if (mNumImages == 1) {
+        if (mImagesUrls.size() == 1) {
             mThumb1ImageIndex = 0;
             mThumb2ImageIndex = HIDDEN_THUMBNAIL_INDEX;
         } else if (mNumImages == MAX_NUM_THUMBNAILS){
             mThumb1ImageIndex = 0;
             mThumb2ImageIndex = 1;
         } else {
-            mThumb1ImageIndex = mNumImages - 2;
-            mThumb2ImageIndex = mNumImages - 1;
+            mThumb1ImageIndex = mImagesUrls.size() - 2;
+            mThumb2ImageIndex = mImagesUrls.size() - 1;
         }
     }
 }
