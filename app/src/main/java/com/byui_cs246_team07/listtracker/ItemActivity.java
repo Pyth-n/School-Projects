@@ -36,7 +36,7 @@ public class ItemActivity extends AppCompatActivity {
     private final int PICK_IMAGE_REQUEST = 1;
     final int THUMBNAIL_SIZE = 128;
     private final int EMPTY_IMAGE_INDEX = -1;
-    private final int MAXIMUM_NUM_THUMBNAILS = 2;
+    private final int MAX_NUM_THUMBNAILS = 2;
     private ItemList parentList;
     private ItemController controller;
     private ItemListController listController;
@@ -367,17 +367,24 @@ public class ItemActivity extends AppCompatActivity {
 
     private void updateImageThumbnails() {
         boolean makeInvisible = false;
-        int imageIndex = 0;
-        for (imageIndex = thumb1ImageIndex; ((imageIndex < mImagesUrls.size()) && (imageIndex < MAXIMUM_NUM_THUMBNAILS)); imageIndex++) {
+        int imageIndex = thumb1ImageIndex;
+        int thumbIndex = 0;
+        for (thumbIndex = 0; ((thumbIndex < mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)); thumbIndex++) {
+            if (thumbIndex == 0) {
+                imageIndex = thumb1ImageIndex;
+            }
+            else {
+                imageIndex = thumb2ImageIndex;
+            }
             String imagePath = mImagesUrls.get(imageIndex);
             Log.d(TAG, imageIndex + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-            displayImageThumbnail(imageIndex, imageUri, makeInvisible);
+            displayImageThumbnail(thumbIndex, imageUri, makeInvisible);
         }
-        if ((imageIndex >= mImagesUrls.size()) && (imageIndex < MAXIMUM_NUM_THUMBNAILS)) {
+        if ((thumbIndex >= mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)) {
             makeInvisible = true;
-            displayImageThumbnail(imageIndex, Uri.parse("INVISIBLE"), makeInvisible);
+            displayImageThumbnail(thumbIndex, Uri.parse("INVISIBLE"), makeInvisible);
         }
     }
 
