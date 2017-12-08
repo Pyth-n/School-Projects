@@ -53,10 +53,10 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mNotes;
     private ImageView mimage_1;
     private ImageView mimage_2;
-    private int thumb1ImageIndex = 0;
-    private int thumb2ImageIndex = 1;
+    private int mThumb1ImageIndex;
+    private int mThumb2ImageIndex;
 
-    private Item  itemActive;
+    private Item mItemActive;
     private List<String> mImagesUrls;
     private int mNumImages = 0;
 
@@ -75,8 +75,8 @@ public class ItemActivity extends AppCompatActivity {
         getItemValues();
         handleIntent(getIntent());
 
-        if (itemActive != null)
-            setItemValues(itemActive);
+        if (mItemActive != null)
+            setItemValues(mItemActive);
 
         handleActionBar();
     }
@@ -85,7 +85,7 @@ public class ItemActivity extends AppCompatActivity {
         List<ItemList> temp = listController.getLists(null);
 
         for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getId() == itemActive.getListId()) {
+            if (temp.get(i).getId() == mItemActive.getListId()) {
                 Log.d(TAG, "Parent list is: " + temp.get(i).getName());
                 return temp.get(i);
             }
@@ -98,7 +98,7 @@ public class ItemActivity extends AppCompatActivity {
         String fromClass = intent.getStringExtra("Class");
 
         if (fromClass.equals("SearchActivity.java")) {
-            itemActive = (Item) intent.getSerializableExtra(SearchResultsActivity.ITEM_INTENT);
+            mItemActive = (Item) intent.getSerializableExtra(SearchResultsActivity.ITEM_INTENT);
             parentList = getItemList();
         }
 
@@ -109,17 +109,17 @@ public class ItemActivity extends AppCompatActivity {
             // Differentiate between the buttons that sent the intent
             String buttonName = getIntent().getStringExtra(ListActivity.BUTTON_PRESSED);
             if (buttonName.equals("createItem")) {
-                itemActive = null;
+                mItemActive = null;
                 //Toast.makeText(this, "CREATING...", Toast.LENGTH_SHORT).show();
             } else if (buttonName.equals("loadItem")) {
-                itemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
-                Log.d("Set Item", itemActive.getName());
-                Toast.makeText(this, "Loading " + itemActive.getName(), Toast.LENGTH_SHORT).show();
+                mItemActive = (Item) getIntent().getSerializableExtra(ListActivity.ITEM);
+                Log.d("Set Item", mItemActive.getName());
+                Toast.makeText(this, "Loading " + mItemActive.getName(), Toast.LENGTH_SHORT).show();
             }
         }
 
-        if (itemActive != null)
-            setItemValues(itemActive);
+        if (mItemActive != null)
+            setItemValues(mItemActive);
 
         ImageView imageView = (ImageView) findViewById(R.id.image_1);
 
@@ -229,8 +229,8 @@ public class ItemActivity extends AppCompatActivity {
     private Item createItem() {
 
         Item item = new Item(mItemName.getText().toString());
-        if (itemActive != null && itemActive.getId() != 0) {
-            item.setId(itemActive.getId());
+        if (mItemActive != null && mItemActive.getId() != 0) {
+            item.setId(mItemActive.getId());
         }
         item.setListId(parentList.getId());
         item.setCompleted(mCompleted.isChecked());
@@ -292,9 +292,18 @@ public class ItemActivity extends AppCompatActivity {
             mTag.setText(item.getTags());
         }
 
-        if (!itemActive.getImagesUrls().isEmpty()) {
+        if (!mItemActive.getImagesUrls().isEmpty()) {
             mImagesUrls = item.getImagesUrls();
+            mThumb1ImageIndex = 0;
+            if (mImagesUrls.size() > 1) {
+                mThumb2ImageIndex = 1;
+            } else {
+                mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
+            }
             updateImageThumbnails();
+        } else {
+            mThumb1ImageIndex = EMPTY_IMAGE_INDEX;
+            mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
         }
     }
 
@@ -312,10 +321,9 @@ public class ItemActivity extends AppCompatActivity {
 
     public void deleteImage(View view) {
         if (!mImagesUrls.isEmpty()) {
-            int imageUrlsListIndex = 0;
-            int imageNum = imageUrlsListIndex + 1;
-            mImagesUrls.remove(imageUrlsListIndex);
-            Log.d(TAG, "Image index " + imageUrlsListIndex + " deleted");
+            int imageNum = mThumb1ImageIndex + 1;
+            mImagesUrls.remove(mThumb1ImageIndex);
+            Log.d(TAG, "Image index " + imageNum + " deleted");
             Toast.makeText(this, "Image #" + imageNum + " deleted", Toast.LENGTH_SHORT).show();
             updateImageThumbnails();
         }
@@ -368,14 +376,14 @@ public class ItemActivity extends AppCompatActivity {
 
     private void updateImageThumbnails() {
         boolean makeInvisible = false;
-        int imageIndex = thumb1ImageIndex;
+        int imageIndex = mThumb1ImageIndex;
         int thumbIndex = 0;
         for (thumbIndex = 0; ((thumbIndex < mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)); thumbIndex++) {
             if (thumbIndex == 0) {
-                imageIndex = thumb1ImageIndex;
+                imageIndex = mThumb1ImageIndex;
             }
             else {
-                imageIndex = thumb2ImageIndex;
+                imageIndex = mThumb2ImageIndex;
             }
             String imagePath = mImagesUrls.get(imageIndex);
             Log.d(TAG, imageIndex + " image path retrieved: " + imagePath);
@@ -389,22 +397,24 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    private void rotateImagesLeft() {
+    public void rotateImagesLeft(View view) {
         if (mImagesUrls.size() > 1) {
-            if (thumb1ImageIndex < mImagesUrls.size()) {
-                thumb1ImageIndex++;
+            if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
+                mThumb1ImageIndex++;
             } else {
-                thumb1ImageIndex = 0;
+                mThumb1ImageIndex = 0;
             }
-            if (thumb2ImageIndex < mImagesUrls.size() && (thumb2ImageIndex != EMPTY_IMAGE_INDEX)) {
-                thumb2ImageIndex++;
+            if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
+                mThumb2ImageIndex++;
             } else {
-                if ((thumb1ImageIndex == 0) || (thumb1ImageIndex == EMPTY_IMAGE_INDEX)) {
-                    thumb2ImageIndex = EMPTY_IMAGE_INDEX;
+                if ((mThumb1ImageIndex == 0) || (mThumb1ImageIndex == EMPTY_IMAGE_INDEX)) {
+                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
                 } else {
-                    thumb2ImageIndex = 0;
+                    mThumb2ImageIndex = 0;
                 }
             }
+            Log.d(TAG, "Image index rotation complete");
+            updateImageThumbnails();
         } else {
             Toast.makeText(this, "There are not enough images to rotate", Toast.LENGTH_SHORT).show();
         }
