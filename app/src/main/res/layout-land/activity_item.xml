@@ -324,6 +324,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:onClick="rotateImagesLeft"
         android:text="@string/rotate_images_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_2" />
