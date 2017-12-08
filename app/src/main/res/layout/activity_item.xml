@@ -206,8 +206,8 @@
         android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:text="@string/completed"
-        app:layout_constraintBaseline_toBaselineOf="@+id/priorityNumber"
-        app:layout_constraintStart_toStartOf="@+id/labelItemName" />
+        app:layout_constraintStart_toStartOf="@+id/labelItemName"
+        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
 
     <TextView
         android:id="@+id/labelPriorityLevelName"
@@ -300,6 +300,8 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/rotate_images_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
