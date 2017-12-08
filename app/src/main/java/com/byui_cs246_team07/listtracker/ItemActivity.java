@@ -355,8 +355,9 @@ public class ItemActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.parse(mImagesUrls.get(imageUrlsListIndex)), "image/*");
-            Log.d(TAG, "Viewing image " + imageUrlsListIndex);
-            Toast.makeText(this, "Viewing image #" + imageUrlsListIndex, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Viewing image index " + imageUrlsListIndex);
+            int imageNum = imageUrlsListIndex + 1;
+            Toast.makeText(this, "Viewing image #" + imageNum, Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
     }
