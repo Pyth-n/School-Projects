@@ -54,7 +54,7 @@ public class ItemActivity extends AppCompatActivity {
 
     private Item  itemActive;
     private List<String> mImagesUrls;
-    private int mNumImages;
+    private int mNumImages = 0;
 
     public ItemActivity() {
         controller = new ItemController(this);
@@ -196,7 +196,12 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
             boolean makeInvisible = false;
-            displayImageThumbnail(mNumImages, uri, makeInvisible);
+            int thumbnailIndex = 0;
+            if (mNumImages > 0) {
+                thumbnailIndex = 1;
+            }
+            displayImageThumbnail(thumbnailIndex, uri, makeInvisible);
+
         }
     }
 
@@ -343,10 +348,12 @@ public class ItemActivity extends AppCompatActivity {
             if (!makeInvisible) {
                 imageViewThumb.setVisibility(View.VISIBLE);
                 imageViewThumb.setImageBitmap(imgThumbnailBitmap);
+                mNumImages++;
                 Log.d(TAG, "Image display succeeded");
             }
             else {
                 imageViewThumb.setVisibility(View.INVISIBLE);
+                mNumImages--;
                 Log.d(TAG, "Image thumbnail hidden");
             }
         } catch (IOException e) {
@@ -357,16 +364,17 @@ public class ItemActivity extends AppCompatActivity {
 
     private void updateImageThumbnails() {
         boolean makeInvisible = false;
-        for (mNumImages = 0; ((mNumImages < mImagesUrls.size()) && (mNumImages < 2)); mNumImages++) {
-            String imagePath = mImagesUrls.get(mNumImages);
-            Log.d(TAG, mNumImages + " image path retrieved: " + imagePath);
+        int imageIndex = 0;
+        for (imageIndex = 0; ((imageIndex < mImagesUrls.size()) && (imageIndex < 2)); imageIndex++) {
+            String imagePath = mImagesUrls.get(imageIndex);
+            Log.d(TAG, imageIndex + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-            displayImageThumbnail(mNumImages, imageUri, makeInvisible);
+            displayImageThumbnail(imageIndex, imageUri, makeInvisible);
         }
-        if ((mNumImages >= mImagesUrls.size()) && (mNumImages < 2)) {
+        if ((imageIndex >= mImagesUrls.size()) && (imageIndex < 2)) {
             makeInvisible = true;
-            displayImageThumbnail(mNumImages, Uri.parse("INVISIBLE"), makeInvisible);
+            displayImageThumbnail(imageIndex, Uri.parse("INVISIBLE"), makeInvisible);
         }
     }
 }
