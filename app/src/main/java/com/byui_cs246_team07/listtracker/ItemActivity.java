@@ -16,6 +16,7 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +38,7 @@ public class ItemActivity extends AppCompatActivity {
     final int THUMBNAIL_SIZE = 128;
     private final int EMPTY_IMAGE_INDEX = -1;
     private final int MAX_NUM_THUMBNAILS = 2;
+    private final int HIDDEN_THUMBNAIL_INDEX = -1;
     private ItemList parentList;
     private ItemController controller;
     private ItemListController listController;
@@ -199,13 +201,10 @@ public class ItemActivity extends AppCompatActivity {
             String imagePath = uri.toString();
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
-            boolean makeInvisible = false;
-            int thumbnailIndex = 0;
-            if (mNumImages > 0) {
-                thumbnailIndex = 1;
-            }
-            displayImageThumbnail(thumbnailIndex, uri, makeInvisible);
-
+            mNumImages++;
+            Toast.makeText(this, "Image #" + mNumImages + " added", Toast.LENGTH_SHORT).show();
+            rotateToNewestImages();
+            updateImageThumbnails();
         }
     }
 
@@ -323,6 +322,7 @@ public class ItemActivity extends AppCompatActivity {
         if (!mImagesUrls.isEmpty()) {
             int imageNum = mThumb1ImageIndex + 1;
             mImagesUrls.remove(mThumb1ImageIndex);
+            mNumImages--;
             Log.d(TAG, "Image index " + imageNum + " deleted");
             Toast.makeText(this, "Image #" + imageNum + " deleted", Toast.LENGTH_SHORT).show();
             updateImageThumbnails();
@@ -342,31 +342,33 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
-    private void displayImageThumbnail(int thumbnailIndex, Uri uri, boolean makeInvisible) {
+    private void displayImageThumbnail(int thumbnailIndex, Uri uri, boolean removedImage) {
         try {
             Bitmap imgThumbnailBitmap = null;
-            if (!makeInvisible) {
+            if (!removedImage) {
                 imgThumbnailBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 imgThumbnailBitmap = Bitmap.createScaledBitmap(imgThumbnailBitmap, THUMBNAIL_SIZE, THUMBNAIL_SIZE, false);
             }
             ImageView imageViewThumb;
             if (thumbnailIndex == 0) {
                 imageViewThumb = (ImageView) findViewById(R.id.image_1);
-            }
-            else {
+            } else if (thumbnailIndex == 1) {
                 imageViewThumb = (ImageView) findViewById(R.id.image_2);
+            } else {
+                imageViewThumb = null;
             }
-            Log.d(TAG, "URI: " + uri.toString());
-            if (!makeInvisible) {
-                imageViewThumb.setVisibility(View.VISIBLE);
-                imageViewThumb.setImageBitmap(imgThumbnailBitmap);
-                mNumImages++;
-                Log.d(TAG, "Image display succeeded");
-            }
-            else {
-                imageViewThumb.setVisibility(View.INVISIBLE);
-                mNumImages--;
-                Log.d(TAG, "Image thumbnail hidden");
+            if (thumbnailIndex != HIDDEN_THUMBNAIL_INDEX){
+                Log.d(TAG, "URI: " + uri.toString());
+                if (!removedImage) {
+                    imageViewThumb.setVisibility(View.VISIBLE);
+                    imageViewThumb.setImageBitmap(imgThumbnailBitmap);
+                    Log.d(TAG, "Image display succeeded");
+                } else {
+                    imageViewThumb.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "Image thumbnail hidden");
+                }
+            } else {
+                Log.d(TAG, "New image thumbnail hidden");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -375,12 +377,17 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void updateImageThumbnails() {
-        boolean makeInvisible = false;
+        boolean removedImage = false;
         int imageIndex = mThumb1ImageIndex;
         int thumbIndex = 0;
         for (thumbIndex = 0; ((thumbIndex < mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)); thumbIndex++) {
             if (thumbIndex == 0) {
-                imageIndex = mThumb1ImageIndex;
+                //if (mThumb1ImageIndex < mImagesUrls.size()) {
+                    imageIndex = mThumb1ImageIndex;
+                //}
+                //else {//if (mImagesUrls.size() == 0)
+                //    mThumb1ImageIndex--;
+                //}
             }
             else {
                 imageIndex = mThumb2ImageIndex;
@@ -389,34 +396,56 @@ public class ItemActivity extends AppCompatActivity {
             Log.d(TAG, imageIndex + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
-            displayImageThumbnail(thumbIndex, imageUri, makeInvisible);
+            displayImageThumbnail(thumbIndex, imageUri, removedImage);
         }
         if ((thumbIndex >= mImagesUrls.size()) && (thumbIndex < MAX_NUM_THUMBNAILS)) {
-            makeInvisible = true;
-            displayImageThumbnail(thumbIndex, Uri.parse("INVISIBLE"), makeInvisible);
+            removedImage = true;
+            displayImageThumbnail(thumbIndex, Uri.parse("INVISIBLE"), removedImage);
         }
+        int imageDisplay1 = mThumb1ImageIndex + 1;
+        int imageDisplay2 = mThumb2ImageIndex + 1;
+        Toast.makeText(this, "Displaying image #" + imageDisplay1 + " and image #" + imageDisplay2, Toast.LENGTH_SHORT).show();
     }
 
     public void rotateImagesLeft(View view) {
         if (mImagesUrls.size() > 1) {
-            if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
-                mThumb1ImageIndex++;
-            } else {
-                mThumb1ImageIndex = 0;
-            }
-            if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
-                mThumb2ImageIndex++;
-            } else {
-                if ((mThumb1ImageIndex == 0) || (mThumb1ImageIndex == EMPTY_IMAGE_INDEX)) {
-                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
+            //if (mThumb1ImageIndex != EMPTY_IMAGE_INDEX) {
+                if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
+                    mThumb1ImageIndex++;
                 } else {
-                    mThumb2ImageIndex = 0;
+                        mThumb1ImageIndex = 0;
                 }
-            }
+            /*} else if (mThumb1ImageIndex == EMPTY_IMAGE_INDEX) {
+
+            }*/
+            //if (mThumb2ImageIndex != EMPTY_IMAGE_INDEX) {
+                if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
+                    mThumb2ImageIndex++;
+                } else {
+                    if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
+                        mThumb2ImageIndex = 0;
+                    } else {
+                        mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
+                    }
+                }
+            //}
             Log.d(TAG, "Image index rotation complete");
             updateImageThumbnails();
         } else {
             Toast.makeText(this, "There are not enough images to rotate", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void rotateToNewestImages () {
+        if (mNumImages == 1) {
+            mThumb1ImageIndex = 0;
+            mThumb2ImageIndex = HIDDEN_THUMBNAIL_INDEX;
+        } else if (mNumImages == MAX_NUM_THUMBNAILS){
+            mThumb1ImageIndex = 0;
+            mThumb2ImageIndex = 1;
+        } else {
+            mThumb1ImageIndex = mNumImages - 2;
+            mThumb2ImageIndex = mNumImages - 1;
         }
     }
 }
