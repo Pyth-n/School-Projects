@@ -119,14 +119,11 @@
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:layout_marginRight="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="@string/created"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/dateCreated"
-        app:layout_constraintEnd_toStartOf="@+id/labelModified"
         app:layout_constraintStart_toEndOf="@+id/btnAddImage" />
 
     <TextView
