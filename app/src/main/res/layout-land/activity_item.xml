@@ -23,7 +23,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/labelDueDate"
+        app:layout_constraintEnd_toStartOf="@+id/dueDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelItemName" />
 
@@ -52,7 +52,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/labelDueDate"
+        app:layout_constraintEnd_toStartOf="@+id/btnSetReminder"
         app:layout_constraintStart_toStartOf="@+id/labelTags"
         app:layout_constraintTop_toBottomOf="@+id/labelTags" />
 
@@ -129,33 +129,32 @@
         android:layout_marginTop="8dp"
         android:text="@string/due_date"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/btnSetReminder"
+        app:layout_constraintStart_toStartOf="@+id/dueDate"
         app:layout_constraintTop_toBottomOf="@+id/land_item_toolbar" />
 
     <EditText
         android:id="@+id/dueDate"
-        android:layout_width="0dp"
+        android:layout_width="104dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/labelDueDate"
+        app:layout_constraintEnd_toStartOf="@+id/completed"
         app:layout_constraintTop_toBottomOf="@+id/labelDueDate" />
 
     <TextView
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="8dp"
         android:text="@string/created"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSetReminder" />
+        app:layout_constraintTop_toBottomOf="@+id/editTags" />
 
     <TextView
         android:id="@+id/dateCreated"
@@ -235,10 +234,11 @@
         android:id="@+id/completed"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/completed"
-        app:layout_constraintStart_toStartOf="@+id/dueDate"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/dueDate"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/labelPriorityLevelName"
@@ -316,5 +316,16 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed" />
+
+    <Button
+        android:id="@+id/btnRotateImagesLeft"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/rotate_images_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_2" />
 
 </android.support.constraint.ConstraintLayout>

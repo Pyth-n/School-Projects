@@ -35,6 +35,8 @@ public class ItemActivity extends AppCompatActivity {
 
     private final int PICK_IMAGE_REQUEST = 1;
     final int THUMBNAIL_SIZE = 128;
+    private final int EMPTY_IMAGE_INDEX = -1;
+    private final int MAXIMUM_NUM_THUMBNAILS = 2;
     private ItemList parentList;
     private ItemController controller;
     private ItemListController listController;
@@ -51,6 +53,8 @@ public class ItemActivity extends AppCompatActivity {
     private EditText mNotes;
     private ImageView mimage_1;
     private ImageView mimage_2;
+    private int thumb1ImageIndex = 0;
+    private int thumb2ImageIndex = 1;
 
     private Item  itemActive;
     private List<String> mImagesUrls;
@@ -365,16 +369,37 @@ public class ItemActivity extends AppCompatActivity {
     private void updateImageThumbnails() {
         boolean makeInvisible = false;
         int imageIndex = 0;
-        for (imageIndex = 0; ((imageIndex < mImagesUrls.size()) && (imageIndex < 2)); imageIndex++) {
+        for (imageIndex = thumb1ImageIndex; ((imageIndex < mImagesUrls.size()) && (imageIndex < MAXIMUM_NUM_THUMBNAILS)); imageIndex++) {
             String imagePath = mImagesUrls.get(imageIndex);
             Log.d(TAG, imageIndex + " image path retrieved: " + imagePath);
             Uri imageUri = Uri.parse(imagePath);
             Log.d(TAG, "Uri conversion complete: " + imageUri.toString());
             displayImageThumbnail(imageIndex, imageUri, makeInvisible);
         }
-        if ((imageIndex >= mImagesUrls.size()) && (imageIndex < 2)) {
+        if ((imageIndex >= mImagesUrls.size()) && (imageIndex < MAXIMUM_NUM_THUMBNAILS)) {
             makeInvisible = true;
             displayImageThumbnail(imageIndex, Uri.parse("INVISIBLE"), makeInvisible);
+        }
+    }
+
+    private void rotateImagesLeft() {
+        if (mImagesUrls.size() > 1) {
+            if (thumb1ImageIndex < mImagesUrls.size()) {
+                thumb1ImageIndex++;
+            } else {
+                thumb1ImageIndex = 0;
+            }
+            if (thumb2ImageIndex < mImagesUrls.size() && (thumb2ImageIndex != EMPTY_IMAGE_INDEX)) {
+                thumb2ImageIndex++;
+            } else {
+                if ((thumb1ImageIndex == 0) || (thumb1ImageIndex == EMPTY_IMAGE_INDEX)) {
+                    thumb2ImageIndex = EMPTY_IMAGE_INDEX;
+                } else {
+                    thumb2ImageIndex = 0;
+                }
+            }
+        } else {
+            Toast.makeText(this, "There are not enough images to rotate", Toast.LENGTH_SHORT).show();
         }
     }
 }
