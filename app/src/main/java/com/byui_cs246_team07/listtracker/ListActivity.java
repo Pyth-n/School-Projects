@@ -2,6 +2,7 @@ package com.byui_cs246_team07.listtracker;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,7 +46,7 @@ public class ListActivity extends AppCompatActivity {
     private final Integer SORT_ACTIVITY = 1;
 
     // Widget IDs
-    private ListView mListViewOfItems;
+    private DragSortListView mListViewOfItems;
     private TextView mListName;
 
     ArrayAdapter<String> adapter;
@@ -319,6 +322,8 @@ public class ListActivity extends AppCompatActivity {
                 return textView;
             }
         };
+
+
         if (items != null) {
             for (Item item : items) {
                 adapter.add(item.getName());
@@ -327,7 +332,31 @@ public class ListActivity extends AppCompatActivity {
 
         mListViewOfItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        // Adds a listener so that an item can be selected and be highlighted
+
+        mListViewOfItems.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                mListViewOfItems.moveCheckState(from, to);
+                itemSelected = items.get(from);
+                mItemSelectedIndex = from;
+
+                items.remove(from);
+                if (from > to) --from;
+                items.add(to, itemSelected);
+                mListViewOfItems.getChildAt(to).setSelected(true);
+                for (int i = 0; i < mListViewOfItems.getChildCount(); i++) {
+                    if (i == to) {
+                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.GRAY);
+                    } else {
+                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.WHITE);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Log.d(TAG, "DROPPING");
+            }
+        });
+
+        /*// Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -340,7 +369,7 @@ public class ListActivity extends AppCompatActivity {
                 }
                 Log.d("POSITION: ", Integer.toString(pos));
             }
-        });
+        });*/
     }
 
 }

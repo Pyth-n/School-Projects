@@ -82,7 +82,7 @@
         app:layout_constraintLeft_toRightOf="@+id/list"
         app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
 
-    <ListView
+    <!--<ListView
         android:id="@+id/listOfItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -96,7 +96,30 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSortList" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSortList" />-->
+
+    <com.mobeta.android.dslv.DragSortListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:dslv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/listOfItems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/btnViewItem"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSortList"
+        dslv:drag_handle_id="@id/drag_handle"
+        dslv:float_background_color="@android:color/background_light"
+        dslv:drag_enabled="true"
+        dslv:drag_start_mode="onLongPress"
+        />
 
     <Button
         android:id="@+id/btnRenameList"

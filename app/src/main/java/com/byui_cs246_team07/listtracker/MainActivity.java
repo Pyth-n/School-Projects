@@ -7,7 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +25,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -29,6 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+
+import com.mobeta.android.dslv.DragSortListView;
 
 import java.io.Serializable;
 import java.util.List;
@@ -62,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private ItemListController itemListController;
     private ItemController itemController;
-    private ListView listOfLists;
+    private DragSortListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
@@ -166,7 +175,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         itemListSelectedIndex = -1;
-        listOfLists.setSelector(android.R.color.transparent);
+        for(int i = 0; i < listOfLists.getChildCount(); i++) {
+            listOfLists.getChildAt(i).setBackgroundColor(Color.WHITE);
+        }
 
         super.startActivity(intent);
     }
@@ -335,8 +346,8 @@ public class MainActivity extends AppCompatActivity {
      * Renames category
      * @param view
      */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void renameCategory(View view) {
-
         Log.d(TAG, "Category renamed");
     }
 
@@ -362,11 +373,35 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        listOfLists = (ListView) findViewById(R.id.listOfLists);
+
+        listOfLists = (DragSortListView) findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
 
-        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listOfLists.setDropListener(new DragSortListView.DropListener() {
+            @Override
+            public void drop(int from, int to) {
+                listOfLists.moveCheckState(from, to);
+                itemListSelected = lists.get(from);
+                itemListSelectedIndex = from;
+
+                lists.remove(from);
+                if (from > to) --from;
+                lists.add(to, itemListSelected);
+                listOfLists.getChildAt(to).setSelected(true);
+                for (int i = 0; i < listOfLists.getChildCount(); i++) {
+                    if (i == to) {
+                        listOfLists.getChildAt(i).setBackgroundColor(Color.GRAY);
+                    } else {
+                        listOfLists.getChildAt(i).setBackgroundColor(Color.WHITE);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                Log.d(TAG, "DROPPING");
+            }
+        });
+
+        /*listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 listOfLists.setSelector(android.R.color.darker_gray);
@@ -375,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("POSITION: ", Integer.toString(pos));
             }
 
-        });
+        });*/
         adapter.notifyDataSetChanged();
     }
 
