@@ -30,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import android.widget.TextView;
@@ -46,6 +47,7 @@ import controllers.ItemController;
 import controllers.ItemListController;
 import models.Item;
 import models.ItemList;
+import multithread.ListLoader;
 
 /**
  * Main Activity - Shows list items in category
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private int itemListSelectedIndex;
     private SharedPreferences settings;
     private List<Item> items;
+    private ProgressBar progressBar;
 
     SearchView searchView;
     /**
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.MANAGE_DOCUMENTS,
                 Manifest.permission.INTERNET},1);
 
+        progressBar = findViewById(R.id.progressBar3);
         setListView();
 
 
@@ -357,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
     private void setListView() {
         getControllerData();
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, listNames) {
+                android.R.layout.simple_list_item_1) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -369,9 +373,10 @@ public class MainActivity extends AppCompatActivity {
 
                 return view;
             }
-
         };
 
+        ListLoader r = new ListLoader(this, adapter, progressBar, listNames);
+        r.execute();
 
 
         listOfLists = (DragSortListView) findViewById(R.id.listOfLists);

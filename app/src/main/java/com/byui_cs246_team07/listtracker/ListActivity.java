@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import controllers.ItemController;
 import controllers.ItemListController;
 import models.Item;
 import models.ItemList;
+import multithread.ListItemLoader;
 
 /**
  * Shows list and items
@@ -58,6 +60,7 @@ public class ListActivity extends AppCompatActivity {
     private String nameOfList;
     private ItemList list;
     private String orderBy = "date";
+    private ProgressBar progressBar;
 
 
     /**
@@ -75,6 +78,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         itemSelected = null;
+        progressBar = findViewById(R.id.progressBar4);
 
         // Sets resource IDs
         mListName = findViewById(R.id.listNameInListScreen);
@@ -325,9 +329,8 @@ public class ListActivity extends AppCompatActivity {
 
 
         if (items != null) {
-            for (Item item : items) {
-                adapter.add(item.getName());
-            }
+            ListItemLoader r = new ListItemLoader(adapter, items, progressBar);
+            r.execute();
         }
 
         mListViewOfItems.setAdapter(adapter);
