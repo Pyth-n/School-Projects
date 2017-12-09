@@ -418,7 +418,15 @@ public class ItemActivity extends AppCompatActivity {
         }
         int imageDisplay1 = mThumb1ImageIndex + 1;
         int imageDisplay2 = mThumb2ImageIndex + 1;
-        Toast.makeText(this, "Displaying image #" + imageDisplay1 + " and image #" + imageDisplay2, Toast.LENGTH_SHORT).show();
+        if (mThumb1ImageIndex != EMPTY_IMAGE_INDEX) {
+            String thumb2NumString;
+            if (mThumb2ImageIndex == EMPTY_IMAGE_INDEX) {
+                thumb2NumString = "";
+            } else {
+                thumb2NumString = " and image #" + imageDisplay2;
+            }
+            Toast.makeText(this, "Displaying image #" + imageDisplay1 + thumb2NumString, Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void incrementDisplayedThumbnails(View view) {
