@@ -47,7 +47,6 @@ public class ItemListController {
     }
 
     public List<Item> getRelatedItems(long itemId, String orderBy) {
-        Log.d("Get Related the are", orderBy);
         return itemCRUD.getItemsFromList(itemId, orderBy);
     }
 

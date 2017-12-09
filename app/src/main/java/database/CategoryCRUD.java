@@ -25,8 +25,8 @@ public class CategoryCRUD extends ListTrackerDataSource implements CRUD {
      * CategoryCRUD constructor
      * @param contex
      */
-    public CategoryCRUD(Context contex) {
-        super(contex);
+    public CategoryCRUD(Context context) {
+        super(context);
     }
 
     /**
