@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">List Tracker</string>
-    <string name="open_list">Open List</string>
-    <string name="create_list">Create List</string>
-    <string name="delete_list">Delete List</string>
-    <string name="category">Category:</string>
+    <string name="open_list">Open</string>
+    <string name="create_list">Create</string>
+    <string name="delete_list">Delete</string>
+    <string name="category">Lists in Category:</string>
     <string name="category_name"></string>
     <string name="add_category">Add category name</string>
     <string name="add_list">Add list name</string>
@@ -37,7 +37,7 @@
     <string name="save_new_category">Save New Category</string>
     <string name="view_categories">View Categories</string>
     <string name="dummy_image">Android logo</string>
-    <string name="sort_category">Sort Category</string>
+    <string name="sort_category">Sort</string>
     <string name="sort_list">Sort List</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_date">Sort by date</string>
@@ -51,7 +51,7 @@
     <string name="choose_reminder_date">Choose Reminder Date</string>
     <string name="save_reminder_date">Save Reminder Date</string>
     <string name="copy_item">Copy</string>
-    <string name="copy_list">Copy List</string>
+    <string name="copy_list">Copy</string>
     <string name="copy_list_to_what_category">Copy List to What Category?</string>
     <string name="copy_item_to_what_list">Copy Item to What List?</string>
     <string name="save_copy_to_new_location">Save Copy to New Location</string>
@@ -59,7 +59,7 @@
     <string name="example_list_name">Example List Name</string>
     <string name="image_gallery_for_list">Images from List:</string>
     <string name="view_image_gallery">Image Gallery</string>
-    <string name="move_list">Move List</string>
+    <string name="move_list">Move</string>
     <string name="save_to_new_location">Save to New Location</string>
     <string name="move_list_to_what_category">Move List to What Category?</string>
     <string name="move_to">Move to:</string>

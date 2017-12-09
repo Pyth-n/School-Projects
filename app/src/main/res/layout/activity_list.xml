@@ -59,7 +59,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/list"
-        android:textColor="@android:color/background_light"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInListScreen"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -74,12 +73,12 @@
         android:layout_marginStart="16dp"
         android:inputType="textPersonName"
         android:text="@string/list_name"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="@android:color/holo_purple"
         android:textSize="24sp"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/list"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
 
     <!--<ListView
         android:id="@+id/listOfItems"
@@ -113,7 +112,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="sortList"
         android:text="@string/sort_list"
         app:layout_constraintEnd_toStartOf="@+id/btnRenameList"
@@ -123,7 +121,7 @@
 
     <Button
         android:id="@+id/btnCopyItem"
-        android:layout_width="60dp"
+        android:layout_width="66dp"
         android:layout_height="wrap_content"
         android:onClick="copyItem"
         android:text="@string/copy_item"
