@@ -3,6 +3,7 @@ package multithread;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.widget.AbsListView;
@@ -37,6 +38,7 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onPreExecute() {
+        mProgressBar.setVisibility(View.VISIBLE);
         mProgressBar.setProgress(status);
         Log.d(TAG, "Starting onPreExute()");
     }
@@ -58,7 +60,9 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onPostExecute(Void value) {
-        ((ViewManager) mProgressBar.getParent()).removeView(mProgressBar);
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.INVISIBLE);
+        }
         Toast.makeText(mContext, "Finished loading", Toast.LENGTH_SHORT).show();
     }
 }

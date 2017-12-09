@@ -3,6 +3,7 @@ package multithread;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -31,6 +32,7 @@ public class ListItemLoader extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onPreExecute() {
+        mProgressBar.setVisibility(View.VISIBLE);
         mProgressBar.setProgress(status);
     }
 
@@ -54,7 +56,9 @@ public class ListItemLoader extends AsyncTask<Void, Integer, Void> {
     }
 
     protected void onPostExecute(Void value) {
-        ((ViewManager) mProgressBar.getParent()).removeView(mProgressBar);
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.INVISIBLE);
+        }
         Log.d("ITEMLOAD", "Finished loading items");
     }
 }

@@ -168,7 +168,6 @@ public class ItemActivity extends AppCompatActivity {
         if (getScreenOrientation() == 1) {
             ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(Html.fromHtml(
-
             "<font color=\"#ffffff\">" + "Item within &quot;" + parentList.getName() + "&quot;</font>"));
         } else {
             TextView textView = findViewById(R.id.listNameInItemScreen);
