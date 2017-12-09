@@ -252,7 +252,9 @@ public class ItemActivity extends AppCompatActivity {
         item.setTags(mTag.getText().toString());
         item.setPriorityName(mPriorityName.getText().toString());
         Editable priorityNumberEditable = mPriorityNumber.getText();
-        item.setImagesUrls(mImagesUrls);
+        if (!mImagesUrls.isEmpty()) {
+            item.setImagesUrls(mImagesUrls);
+        }
 
         try {
             String priorityNum = mPriorityNumber.getText().toString();
@@ -308,7 +310,7 @@ public class ItemActivity extends AppCompatActivity {
             mTag.setText(item.getTags());
         }
 
-        if (!mItemActive.getImagesUrls().isEmpty()) {
+        if (!item.getImagesUrls().isEmpty()) {
             mImagesUrls = item.getImagesUrls();
             mThumb1ImageIndex = 0;
             if (mImagesUrls.size() > 1) {
