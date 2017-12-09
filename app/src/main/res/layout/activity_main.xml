@@ -30,6 +30,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/btnCreateList"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:onClick="createList"
+        android:text="@string/create_list"
+        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnOpenList"
+        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
+
+    <Button
         android:id="@+id/btnDeleteList"
         android:layout_width="74dp"
         android:layout_height="wrap_content"
@@ -179,16 +190,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/main_toolbar" />
-
-    <Button
-        android:id="@+id/btnCreateList"
-        android:layout_width="76dp"
-        android:layout_height="wrap_content"
-        android:onClick="createList"
-        android:text="@string/create_list"
-        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnOpenList"
-        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
 </android.support.constraint.ConstraintLayout>
