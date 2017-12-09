@@ -23,6 +23,7 @@ public class Item implements Serializable {
     private String tags;
     private List<String> imagesUrls;
     private Boolean isCompleted;
+    private Date modifiedDate;
 
     /**
      *  Item Constructor
@@ -46,6 +47,14 @@ public class Item implements Serializable {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     *  Set Id
+     * @param id
+     */
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     /**
@@ -219,5 +228,18 @@ public class Item implements Serializable {
         SimpleDateFormat spf= new SimpleDateFormat("yyyy MMM dd  hh:mm");
         return spf.format(createdDate);
     }
+
+    /***
+     * Get Created Date in a String format
+     * @return
+     */
+    public String getModifiedDateString() {
+        if(modifiedDate == null) {
+            return null;
+        }
+        SimpleDateFormat spf= new SimpleDateFormat("yyyy MMM dd  hh:mm");
+        return spf.format(modifiedDate);
+    }
+
 
 }

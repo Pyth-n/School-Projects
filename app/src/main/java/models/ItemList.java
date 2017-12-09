@@ -3,6 +3,7 @@ package models;
 import android.content.Context;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import database.ListTrackerDataSource;
@@ -17,6 +18,8 @@ public class ItemList implements Serializable {
     private String name;
     private long categoryId;
     private long id;
+    private Date createdDate;
+    private Date modifiedDate;
     private List<Item> items;
 
     /**
@@ -25,6 +28,22 @@ public class ItemList implements Serializable {
      */
     public ItemList(String name) {
         this.name = name;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     /**

@@ -40,6 +40,11 @@ public class SortListOptionsActivity extends AppCompatActivity {
         Log.d(TAG, "manual");
     }
 
+    public void orderByModified(View view) {
+        sortOptions = "modified";
+        Log.d(TAG, "modified");
+    }
+
     public void saveOrder(View view) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(SORT_BY, sortOptions);

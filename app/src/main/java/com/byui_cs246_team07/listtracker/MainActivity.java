@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setListView();
+
         items = itemController.getItems();
 
     }

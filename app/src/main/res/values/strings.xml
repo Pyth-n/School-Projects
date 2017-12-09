@@ -41,9 +41,10 @@
     <string name="sort_list">Sort List</string>
     <string name="sort_by_name">Sort by name</string>
     <string name="sort_by_date">Sort by date</string>
+    <string name="sort_by_modified">Sort by modified date</string>
     <string name="sort_manual">Manual sort</string>
-    <string name="choose_category_sort_order">Choose Category Sort Order:</string>
-    <string name="choose_list_sort_order">Choose List Sort Order:</string>
+    <string name="choose_category_sort_order">Choose Sort Order:</string>
+    <string name="choose_list_sort_order">Choose Sort Order:</string>
     <string name="save_sort">Save Sort Order</string>
     <string name="add_image">Add</string>
     <string name="delete_image">Delete</string>
