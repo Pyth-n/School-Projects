@@ -16,44 +16,41 @@
 
     <Button
         android:id="@+id/btnViewItem"
-        android:layout_width="wrap_content"
+        android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:onClick="loadItem"
         android:text="@string/view_item"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
-        app:layout_constraintEnd_toStartOf="@+id/moveItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddItem"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnAddItem"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:onClick="createItem"
         android:text="@string/add_item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCopyItem"
+        app:layout_constraintEnd_toStartOf="@+id/moveItem"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/btnViewItem"
+        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 
     <Button
         android:id="@+id/btnDeleteItem"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:onClick="deleteItem"
         android:text="@string/delete_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnCopyItem"
-        app:layout_constraintTop_toTopOf="@+id/btnAddItem" />
+        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 
     <TextView
         android:id="@+id/list"
@@ -62,6 +59,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:text="@string/list"
+        android:textColor="@android:color/background_light"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/listNameInListScreen"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -71,16 +69,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:inputType="textPersonName"
         android:text="@string/list_name"
-        android:textColor="@android:color/holo_purple"
+        android:textColor="@android:color/holo_blue_bright"
         android:textSize="24sp"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/list"
-        app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--<ListView
         android:id="@+id/listOfItems"
@@ -98,48 +97,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSortList" />-->
 
-    <com.mobeta.android.dslv.DragSortListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:dslv="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/listOfItems"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:choiceMode="singleChoice"
-        android:listSelector="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/btnViewItem"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSortList"
-        dslv:drag_handle_id="@id/drag_handle"
-        dslv:float_background_color="@android:color/background_light"
-        dslv:drag_enabled="true"
-        dslv:drag_start_mode="onLongPress"
-        />
-
     <Button
         android:id="@+id/btnRenameList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
         android:text="@string/rename_list"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewImageGallery"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnSortList"
-        app:layout_constraintTop_toBottomOf="@+id/listNameInListScreen" />
+        app:layout_constraintTop_toTopOf="@+id/btnSortList" />
 
     <Button
         android:id="@+id/btnSortList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:onClick="sortList"
         android:text="@string/sort_list"
@@ -150,14 +123,14 @@
 
     <Button
         android:id="@+id/btnCopyItem"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:onClick="copyItem"
         android:text="@string/copy_item"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteItem"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnAddItem"
-        app:layout_constraintTop_toTopOf="@+id/btnAddItem" />
+        app:layout_constraintStart_toEndOf="@+id/moveItem"
+        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 
     <Button
         android:id="@+id/viewImageGallery"
@@ -169,18 +142,18 @@
         android:text="@string/view_image_gallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/moveItem"
-        app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
+        app:layout_constraintStart_toEndOf="@+id/btnRenameList"
+        app:layout_constraintTop_toTopOf="@+id/btnSortList" />
 
     <Button
         android:id="@+id/moveItem"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:onClick="moveItem"
         android:text="@string/move_item"
-        app:layout_constraintEnd_toStartOf="@+id/viewImageGallery"
+        app:layout_constraintEnd_toStartOf="@+id/btnCopyItem"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnViewItem"
+        app:layout_constraintStart_toEndOf="@+id/btnAddItem"
         app:layout_constraintTop_toTopOf="@+id/btnViewItem" />
 
     <ProgressBar
@@ -196,4 +169,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/gallery_toolbar" />
+
+    <com.mobeta.android.dslv.DragSortListView
+        android:id="@+id/listOfItems"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:choiceMode="singleChoice"
+        android:listSelector="@android:color/darker_gray"
+        app:drag_enabled="true"
+        app:drag_handle_id="@id/drag_handle"
+        app:drag_start_mode="onLongPress"
+        app:float_background_color="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@+id/btnViewItem"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSortList" />
 </android.support.constraint.ConstraintLayout>
