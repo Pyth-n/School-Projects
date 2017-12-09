@@ -431,7 +431,6 @@ public class ItemActivity extends AppCompatActivity {
             } else if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
                 mThumb2ImageIndex = 0;
             }
-            Toast.makeText(this, "Incremented displayed thumbnails", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image index incrementing complete");
             updateImageThumbnails();
         } else {
@@ -451,7 +450,6 @@ public class ItemActivity extends AppCompatActivity {
             } else if (mThumb2ImageIndex == 0) {
                 mThumb2ImageIndex = mImagesUrls.size() - 1;
             }
-            Toast.makeText(this, "Decremented displayed thumbnails", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image index decrementing complete");
             updateImageThumbnails();
         } else {
