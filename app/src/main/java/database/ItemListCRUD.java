@@ -44,13 +44,18 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID, itemList.getCategoryId());
     listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE, new Date().toString());
 
+
     if (itemList.getId() !=  0) {
       listValues.put(BaseColumns._ID, itemList.getId());
+      listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_MODIFIED_DATE, new Date().toString());
+
       id = database.update(
-              ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
+              ListTrackerSQLiteHelper.LIST_TABLE_NAME,
               listValues,
               String.format("%s=%d", BaseColumns._ID, itemList.getId()), null);
     } else {
+      listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE, new Date().toString());
+      listValues.put(ListTrackerSQLiteHelper.LIST_COLUMN_MODIFIED_DATE, new Date().toString());
       id = database.insert(ListTrackerSQLiteHelper.LIST_TABLE_NAME, null, listValues);
     }
     database.setTransactionSuccessful();
@@ -89,7 +94,9 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     String [] columns =  new String [] {
             BaseColumns._ID,
             ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID,
-            ListTrackerSQLiteHelper.LIST_COLUMN_NAME
+            ListTrackerSQLiteHelper.LIST_COLUMN_NAME,
+            ListTrackerSQLiteHelper.LIST_COLUMN_MODIFIED_DATE,
+            ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE
     };
 
     SQLiteDatabase database = open();
@@ -108,6 +115,8 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
         ItemList itemList = new ItemList(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_NAME));
         itemList.setId(getLongFromColumnName(cursor, BaseColumns._ID));
         itemList.setCategoryId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_CATEGORY_ID));
+        itemList.setCreatedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_CREATED_DATE));
+        itemList.setCreatedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.LIST_COLUMN_MODIFIED_DATE));
         lists.add(itemList);
       } while (cursor.moveToNext());
     }
@@ -124,6 +133,9 @@ public class ItemListCRUD extends ListTrackerDataSource implements CRUD{
     }
     if(orderBy != null && orderBy.equals("name")) {
       orderByColumn = ListTrackerSQLiteHelper.LIST_COLUMN_NAME + " ASC";
+    }
+    if(orderBy != null && orderBy.equals("modified")) {
+      orderByColumn = ListTrackerSQLiteHelper.LIST_COLUMN_MODIFIED_DATE + " ASC";
     }
     return orderByColumn;
   }

@@ -29,12 +29,14 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
     public static final String LIST_COLUMN_NAME = "name";
     public static final String LIST_COLUMN_CATEGORY_ID = "categoryID";
     public static final String LIST_COLUMN_CREATED_DATE = "createdDate";
+    public static final String LIST_COLUMN_MODIFIED_DATE = "modifiedDate";
 
     private static final String CREATE_LIST_TABLE =
             "CREATE TABLE " + LIST_TABLE_NAME + '(' +
                     BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     LIST_COLUMN_NAME + " TEXT NOT NULL, " +
                     LIST_COLUMN_CREATED_DATE + " TEXT NOT NULL , " +
+                    LIST_COLUMN_MODIFIED_DATE + " TEXT NOT NULL , " +
                     LIST_COLUMN_CATEGORY_ID + " INTEGER, " +
                     "FOREIGN KEY(" + LIST_COLUMN_CATEGORY_ID + ") REFERENCES "+ CATEGORY_TABLE_NAME +"(_ID)" +
                     ")";
@@ -44,6 +46,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
     public static final String ITEM_COLUMN_NAME = "name";
     public static final String ITEM_COLUMN_NOTES = "notes";
     public static final String ITEM_COLUMN_CREATED_DATE = "created_date";
+    public static final String ITEM_COLUMN_MODIFIED_DATE = "modified_date";
     public static final String ITEM_COLUMN_DUE_DATE = "due_date";
     public static final String ITEM_COLUMN_PRIORITY = "priority";
     public static final String ITEM_COLUMN_PRIORITY_NAME = "priorityName";
@@ -57,6 +60,7 @@ public class ListTrackerSQLiteHelper extends SQLiteOpenHelper {
                     ITEM_COLUMN_NAME + " TEXT NOT NULL, " +
                     ITEM_COLUMN_NOTES + " TEXT, " +
                     ITEM_COLUMN_CREATED_DATE + " TEXT NOT NULL , " +
+                    ITEM_COLUMN_MODIFIED_DATE + " TEXT NOT NULL , " +
                     ITEM_COLUMN_DUE_DATE + " TEXT, " +
                     ITEM_COLUMN_PRIORITY_NAME + " TEXT, " +
                     ITEM_COLUMN_PRIORITY +" INTEGER, " +

@@ -277,6 +277,7 @@ public class ItemActivity extends AppCompatActivity {
         mDateCreated = (TextView) findViewById(R.id.dateCreated);
         mimage_1 = findViewById(R.id.image_1);
         mimage_2 = findViewById(R.id.image_2);
+        mDateModified = findViewById(R.id.dateModified);
 
     }
 
@@ -284,6 +285,7 @@ public class ItemActivity extends AppCompatActivity {
 
         mItemName.setText(item.getName());
         mDateCreated.setText(item.getCreatedDateString());
+        mDateModified.setText(item.getModifiedDateString());
         if (item.getNotes() != null) {
             mNotes.setText(item.getNotes());
         }

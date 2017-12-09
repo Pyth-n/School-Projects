@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,24 +36,26 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
             ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS,
             ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY,
             ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME,
+            ListTrackerSQLiteHelper.ITEM_COLUMN_MODIFIED_DATE
     };
 
-  /**
-   * ItemCRUD constructor
-   * @param contex
-   */
-  public ItemCRUD(Context contex) {
+    /**
+     * ItemCRUD constructor
+     * @param contex
+     */
+    public ItemCRUD(Context contex) {
         super(contex);
     }
 
-  /**
-   * Save Item in database
-   * @param item
-   * @return
-   */
+    /**
+     * Save Item in database
+     * @param item
+     * @return
+     */
     public long saveItem(Item item) {
 
         long id;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
         SQLiteDatabase database = open();
         database.beginTransaction();
 
@@ -66,7 +69,7 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         } else {
             itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_COMPLETED, 0);
         }
-        itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE, new Date().toString());
+
         if (item.getDueDate() != null) {
             itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_DUE_DATE, item.getDueDate().toString());
         }
@@ -77,18 +80,26 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
             itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS, item.getTags());
         }
         if (item.getPriorityName() != null) {
-          itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME, item.getPriorityName());
+            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME, item.getPriorityName());
         }
         itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY, item.getPriority());
         itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST, item.getListId());
 
+        Date date = new Date();
         if (item.getId() != 0) {
             itemValues.put(BaseColumns._ID, item.getId());
+            String dateTime = dateFormat.format(date);
+            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_MODIFIED_DATE, dateTime);
+
             id = database.update(
                     ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
                     itemValues,
                     String.format("%s=%d", BaseColumns._ID, item.getId()), null);
         } else {
+            String dateTime = dateFormat.format(date);
+            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE, dateTime);
+            itemValues.put(ListTrackerSQLiteHelper.ITEM_COLUMN_MODIFIED_DATE, dateTime);
+
             id = database.insert(ListTrackerSQLiteHelper.ITEM_TABLE_NAME, null, itemValues);
         }
 
@@ -99,11 +110,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         return id;
     }
 
-  /**
-   * Delete item in database
-   * @param itemId
-   */
-  public void delete(long itemId) {
+    /**
+     * Delete item in database
+     * @param itemId
+     */
+    public void delete(long itemId) {
         SQLiteDatabase database = open();
         database.beginTransaction();
 
@@ -116,11 +127,11 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
     }
 
 
-  /**
-   * Get Items from database
-   * @return
-   */
-  public List<Item> getItems(String orderBy) {
+    /**
+     * Get Items from database
+     * @return
+     */
+    public List<Item> getItems(String orderBy) {
 
         List<Item> items = new ArrayList<>();
 
@@ -149,61 +160,63 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
         return items;
     }
 
-  /**
-   * Get Items from List in database
-   * @param listId
-   * @return
-   */
+    /**
+     * Get Items from List in database
+     * @param listId
+     * @return
+     */
     public List<Item> getItemsFromList(long listId, String orderBy) {
-      List<Item> items = new ArrayList<>();
-      String whereClause =  ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST + "= ?";
-      String[] whereArgs = new String[]{
-              String.valueOf(listId)
-      };
+        List<Item> items = new ArrayList<>();
+        String whereClause =  ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST + "= ?";
+        String[] whereArgs = new String[]{
+                String.valueOf(listId)
+        };
 
 
-      String orderByColumn = getOrderColumn(orderBy);
-      Log.d("OrderBYColumn", orderByColumn);
-      SQLiteDatabase database = open();
-      Cursor cursor = database.query(
-              ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
-              columns,
-              whereClause, //selection
-              whereArgs, //selection args
-              null, //group by
-              null, //having
-              orderByColumn
-      );
+        String orderByColumn = getOrderColumn(orderBy);
+        Log.d("OrderBYColumn", orderByColumn);
+        SQLiteDatabase database = open();
+        Cursor cursor = database.query(
+                ListTrackerSQLiteHelper.ITEM_TABLE_NAME,
+                columns,
+                whereClause, //selection
+                whereArgs, //selection args
+                null, //group by
+                null, //having
+                orderByColumn
+        );
 
-      if (cursor.moveToFirst()) {
-        do {
-          items.add(createItem(cursor));
-        } while (cursor.moveToNext());
-      }
-      cursor.close();
-      close(database);
-      return items;
+        if (cursor.moveToFirst()) {
+            do {
+                items.add(createItem(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close(database);
+        return items;
     }
 
-  /**
-   * Create new Item instance
-   * @param cursor
-   * @return
-   */
+    /**
+     * Create new Item instance
+     * @param cursor
+     * @return
+     */
     private Item createItem(Cursor cursor) {
 
-      Item item = new Item(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NAME));
-      item.setNotes(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NOTES));
-      item.setTags(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS));
-      item.setPriority(getIntFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY));
-      item.setCompleted(getBooleanFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_COMPLETED));
-      item.setCreatedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE));
-      item.setId(getLongFromColumnName(cursor, BaseColumns._ID));
-      item.setDueDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_DUE_DATE));
-      item.setListId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST));
-      item.setPriorityName(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME));
-      item.setImagesUrls(getListFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_IMAGE_URLS));
-      return item;
+        Item item = new Item(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NAME));
+        item.setNotes(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_NOTES));
+        item.setTags(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_TAGS));
+        item.setPriority(getIntFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY));
+        item.setCompleted(getBooleanFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_COMPLETED));
+        item.setCreatedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_CREATED_DATE));
+        item.setModifiedDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_MODIFIED_DATE));
+
+        item.setId(getLongFromColumnName(cursor, BaseColumns._ID));
+        item.setDueDate(getDateFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_DUE_DATE));
+        item.setListId(getLongFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_FOREIGN_KEY_LIST));
+        item.setPriorityName(getStringFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_PRIORITY_NAME));
+        item.setImagesUrls(getListFromColumnName(cursor, ListTrackerSQLiteHelper.ITEM_COLUMN_IMAGE_URLS));
+        return item;
     }
 
     private String getOrderColumn(String orderBy) {
@@ -214,6 +227,10 @@ public class ItemCRUD extends ListTrackerDataSource implements CRUD{
 
         if(orderBy != null && orderBy.equals("name")) {
             orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_NAME + " ASC";
+        }
+
+        if(orderBy != null && orderBy.equals("modified")) {
+            orderByColumn = ListTrackerSQLiteHelper.ITEM_COLUMN_MODIFIED_DATE + " ASC";
         }
         return orderByColumn;
     }
