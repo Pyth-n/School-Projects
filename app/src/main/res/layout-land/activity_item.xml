@@ -299,7 +299,7 @@
         android:layout_marginLeft="4dp"
         android:onClick="deleteImage"
         android:text="@string/delete_image"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/btnAddImage"
         app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
 
