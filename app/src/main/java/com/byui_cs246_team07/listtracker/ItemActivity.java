@@ -60,7 +60,6 @@ public class ItemActivity extends AppCompatActivity {
 
     private Item mItemActive;
     private List<String> mImagesUrls;
-    private int mNumImages = 0;
 
     public ItemActivity() {
         controller = new ItemController(this);
@@ -218,8 +217,7 @@ public class ItemActivity extends AppCompatActivity {
             String imagePath = uri.toString();
             Log.d(TAG, "Image path: " + imagePath);
             mImagesUrls.add(imagePath);
-            mNumImages++;
-            Toast.makeText(this, "Image #" + mNumImages + " added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Image #" + mImagesUrls.size() + " added", Toast.LENGTH_SHORT).show();
             rotateToNewestImages();
             updateImageThumbnails();
         }
@@ -339,7 +337,6 @@ public class ItemActivity extends AppCompatActivity {
         if (!mImagesUrls.isEmpty()) {
             int imageNum = mThumb1ImageIndex + 1;
             mImagesUrls.remove(mThumb1ImageIndex);
-            mNumImages--;
             Log.d(TAG, "Image index " + imageNum + " deleted");
             Toast.makeText(this, "Deleted image #" + imageNum, Toast.LENGTH_SHORT).show();
             rotateToNewestImages();
@@ -424,26 +421,20 @@ public class ItemActivity extends AppCompatActivity {
 
     public void incrementDisplayedThumbnails(View view) {
         if (mImagesUrls.size() > 1) {
-            //if (mThumb1ImageIndex != EMPTY_IMAGE_INDEX) {
-                if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
-                    mThumb1ImageIndex++;
+            if (mThumb1ImageIndex < mImagesUrls.size() - 1) {
+                mThumb1ImageIndex++;
+            } else {
+                    mThumb1ImageIndex = 0;
+            }
+            if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
+                mThumb2ImageIndex++;
+            } else {
+                if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
+                    mThumb2ImageIndex = 0;
                 } else {
-                        mThumb1ImageIndex = 0;
+                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
                 }
-            /*} else if (mThumb1ImageIndex == EMPTY_IMAGE_INDEX) {
-
-            }*/
-            //if (mThumb2ImageIndex != EMPTY_IMAGE_INDEX) {
-                if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
-                    mThumb2ImageIndex++;
-                } else {
-                    if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
-                        mThumb2ImageIndex = 0;
-                    } else {
-                        mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
-                    }
-                }
-            //}
+            }
             Toast.makeText(this, "Incremented displayed thumbnails", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image index incrementing complete");
             updateImageThumbnails();
@@ -459,7 +450,7 @@ public class ItemActivity extends AppCompatActivity {
         } else if (mImagesUrls.size() == 1) {
             mThumb1ImageIndex = 0;
             mThumb2ImageIndex = HIDDEN_THUMBNAIL_INDEX;
-        } else if (mNumImages == MAX_NUM_THUMBNAILS){
+        } else if (mImagesUrls.size() == MAX_NUM_THUMBNAILS){
             mThumb1ImageIndex = 0;
             mThumb2ImageIndex = 1;
         } else {
