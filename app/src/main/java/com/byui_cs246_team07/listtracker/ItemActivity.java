@@ -428,12 +428,8 @@ public class ItemActivity extends AppCompatActivity {
             }
             if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
                 mThumb2ImageIndex++;
-            } else {
-                if ((mThumb1ImageIndex == mImagesUrls.size() - 1) && (mThumb1ImageIndex != 0)) {
-                    mThumb2ImageIndex = 0;
-                } else {
-                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
-                }
+            } else if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
+                mThumb2ImageIndex = 0;
             }
             Toast.makeText(this, "Incremented displayed thumbnails", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image index incrementing complete");
@@ -452,12 +448,8 @@ public class ItemActivity extends AppCompatActivity {
             }
             if ((mThumb2ImageIndex > 0)) {
                 mThumb2ImageIndex--;
-            } else {
-                if ((mThumb1ImageIndex == mImagesUrls.size() - 1) && (mThumb1ImageIndex != 0)) {
-                    mThumb2ImageIndex = 0;
-                } else {
-                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
-                }
+            } else if (mThumb2ImageIndex == 0) {
+                mThumb2ImageIndex = mImagesUrls.size() - 1;
             }
             Toast.makeText(this, "Decremented displayed thumbnails", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Image index decrementing complete");
