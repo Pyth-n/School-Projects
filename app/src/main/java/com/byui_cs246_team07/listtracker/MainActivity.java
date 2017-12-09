@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts ShortListOptions Activity
+     * Starts SortListOptions Activity
      * @param view
      */
     public void sortCategory(View view) {

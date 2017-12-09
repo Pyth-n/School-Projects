@@ -17,44 +17,30 @@
 
     <Button
         android:id="@+id/btnOpenList"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:onClick="loadList"
         android:text="@string/open_list"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateList"
-        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnCreateList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:onClick="createList"
-        android:text="@string/create_list"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCopyList"
+        app:layout_constraintEnd_toStartOf="@+id/btnCreateList"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnDeleteList"
-        android:layout_width="wrap_content"
+        android:layout_width="74dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:onClick="deleteList"
         android:text="@string/delete_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnCopyList"
-        app:layout_constraintTop_toTopOf="@+id/btnCreateList" />
+        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <TextView
         android:id="@+id/category"
@@ -72,8 +58,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:inputType="textPersonName"
         android:text="@string/category_name"
         android:textColor="@android:color/holo_purple"
@@ -87,35 +74,32 @@
         android:id="@+id/btnRenameCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         android:onClick="renameCategory"
         android:text="@string/rename_category"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnViewCategories"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnSortCategory"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+        app:layout_constraintTop_toTopOf="@+id/btnSortCategory" />
 
     <Button
         android:id="@+id/btnViewCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:onClick="viewCategories"
         android:text="@string/view_categories"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnMoveList"
-        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
+        app:layout_constraintStart_toEndOf="@+id/btnRenameCategory"
+        app:layout_constraintTop_toTopOf="@+id/btnSortCategory" />
 
     <Button
         android:id="@+id/btnSortCategory"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:onClick="sortCategory"
         android:text="@string/sort_category"
         app:layout_constraintEnd_toStartOf="@+id/btnRenameCategory"
@@ -162,24 +146,24 @@
 
     <Button
         android:id="@+id/btnCopyList"
-        android:layout_width="wrap_content"
+        android:layout_width="66dp"
         android:layout_height="wrap_content"
         android:onClick="copyList"
         android:text="@string/copy_list"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteList"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnCreateList"
-        app:layout_constraintTop_toTopOf="@+id/btnCreateList" />
+        app:layout_constraintStart_toEndOf="@+id/btnMoveList"
+        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <Button
         android:id="@+id/btnMoveList"
-        android:layout_width="wrap_content"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:onClick="moveList"
         android:text="@string/move_list"
-        app:layout_constraintEnd_toStartOf="@+id/btnViewCategories"
+        app:layout_constraintEnd_toStartOf="@+id/btnCopyList"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnOpenList"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateList"
         app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <ProgressBar
@@ -195,5 +179,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/main_toolbar" />
+
+    <Button
+        android:id="@+id/btnCreateList"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:onClick="createList"
+        android:text="@string/create_list"
+        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnOpenList"
+        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
 </android.support.constraint.ConstraintLayout>
