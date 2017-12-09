@@ -69,4 +69,5 @@
     <string name="search_list_text">Lists</string>
     <string name="search_item_text">Items</string>
     <string name="increment_thumbnails_button">&gt;</string>
+    <string name="decrement_thumbnails_button">&lt;</string>
 </resources>

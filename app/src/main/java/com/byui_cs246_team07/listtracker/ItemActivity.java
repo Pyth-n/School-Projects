@@ -429,7 +429,7 @@ public class ItemActivity extends AppCompatActivity {
             if ((mThumb2ImageIndex < mImagesUrls.size() - 1)) {
                 mThumb2ImageIndex++;
             } else {
-                if (mThumb1ImageIndex == mImagesUrls.size() - 1) {
+                if ((mThumb1ImageIndex == mImagesUrls.size() - 1) && (mThumb1ImageIndex != 0)) {
                     mThumb2ImageIndex = 0;
                 } else {
                     mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
@@ -440,6 +440,30 @@ public class ItemActivity extends AppCompatActivity {
             updateImageThumbnails();
         } else {
             Toast.makeText(this, "There are not enough images to increment thumbnails", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void decrementDisplayedThumbnails(View view) {
+        if (mImagesUrls.size() > 1) {
+            if (mThumb1ImageIndex > 0) {
+                mThumb1ImageIndex--;
+            } else {
+                mThumb1ImageIndex = mImagesUrls.size() - 1;
+            }
+            if ((mThumb2ImageIndex > 0)) {
+                mThumb2ImageIndex--;
+            } else {
+                if ((mThumb1ImageIndex == mImagesUrls.size() - 1) && (mThumb1ImageIndex != 0)) {
+                    mThumb2ImageIndex = 0;
+                } else {
+                    mThumb2ImageIndex = EMPTY_IMAGE_INDEX;
+                }
+            }
+            Toast.makeText(this, "Decremented displayed thumbnails", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Image index decrementing complete");
+            updateImageThumbnails();
+        } else {
+            Toast.makeText(this, "There are not enough images to decrement thumbnails", Toast.LENGTH_SHORT).show();
         }
     }
 

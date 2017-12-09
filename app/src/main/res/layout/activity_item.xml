@@ -294,15 +294,24 @@
         app:layout_constraintTop_toBottomOf="@+id/completed" />
 
     <Button
-        android:id="@+id/btnIncrementThumbnails"
-        android:layout_width="48dp"
+        android:id="@+id/btnDecrementThumbnails"
+        android:layout_width="36dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:onClick="incrementDisplayedThumbnails"
-        android:text="@string/increment_thumbnails_button"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:onClick="decrementDisplayedThumbnails"
+        android:text="@string/decrement_thumbnails_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnIncrementThumbnails"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:onClick="incrementDisplayedThumbnails"
+        android:text="@string/increment_thumbnails_button"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDecrementThumbnails"
+        app:layout_constraintStart_toEndOf="@+id/btnDecrementThumbnails" />
 
 </android.support.constraint.ConstraintLayout>
