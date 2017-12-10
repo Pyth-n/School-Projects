@@ -99,7 +99,7 @@
         android:text="@string/created"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/dateCreated"
-        app:layout_constraintStart_toEndOf="@+id/btnAddImage" />
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteImage" />
 
     <TextView
         android:id="@+id/dateCreated"
@@ -218,7 +218,7 @@
         android:layout_marginLeft="8dp"
         android:contentDescription="@string/dummy_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAddImage"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteImage"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
@@ -246,13 +246,13 @@
 
     <Button
         android:id="@+id/btnDeleteImage"
-        android:layout_width="72dp"
+        android:layout_width="78dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:onClick="deleteImage"
         android:text="@string/delete_image"
-        android:textSize="11sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/btnIncrementThumbnails"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -271,13 +271,13 @@
 
     <Button
         android:id="@+id/btnDeleteImage"
-        android:layout_width="72dp"
+        android:layout_width="78dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:onClick="deleteImage"
         android:text="@string/delete_image"
-        android:textSize="11sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/btnAddImage"
         app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
 
