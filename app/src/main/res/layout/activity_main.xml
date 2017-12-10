@@ -20,8 +20,8 @@
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:onClick="loadList"
         android:text="@string/open_list"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:onClick="createList"
         android:text="@string/create_list"
-        app:layout_constraintEnd_toStartOf="@+id/btnMoveList"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeleteList"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnOpenList"
         app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
@@ -50,7 +50,7 @@
         android:text="@string/delete_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnCopyList"
+        app:layout_constraintStart_toEndOf="@+id/btnCreateList"
         app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <TextView
@@ -92,28 +92,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSortCategory" />
-
-    <Button
-        android:id="@+id/btnCopyList"
-        android:layout_width="66dp"
-        android:layout_height="wrap_content"
-        android:onClick="copyList"
-        android:text="@string/copy_list"
-        app:layout_constraintEnd_toStartOf="@+id/btnDeleteList"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnMoveList"
-        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
-
-    <Button
-        android:id="@+id/btnMoveList"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:onClick="moveList"
-        android:text="@string/move_list"
-        app:layout_constraintEnd_toStartOf="@+id/btnCopyList"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnCreateList"
-        app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <ProgressBar
         android:id="@+id/progressBar3"
