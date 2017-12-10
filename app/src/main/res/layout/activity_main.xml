@@ -54,69 +54,29 @@
         app:layout_constraintTop_toTopOf="@+id/btnOpenList" />
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/allLists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/category"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/categoryName"
-        app:layout_constraintLeft_toLeftOf="parent" />
-
-    <EditText
-        android:id="@+id/categoryName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:inputType="textPersonName"
+        android:layout_marginTop="64dp"
         android:text="@string/category_name"
-        android:textColor="@android:color/holo_purple"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        android:typeface="serif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/category"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnRenameCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="renameCategory"
-        android:text="@string/rename_category"
-        app:layout_constraintEnd_toStartOf="@+id/btnViewCategories"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnSortCategory"
-        app:layout_constraintTop_toTopOf="@+id/btnSortCategory" />
-
-    <Button
-        android:id="@+id/btnViewCategories"
+        android:id="@+id/btnSortCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:onClick="viewCategories"
-        android:text="@string/view_categories"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnRenameCategory"
-        app:layout_constraintTop_toTopOf="@+id/btnSortCategory" />
-
-    <Button
-        android:id="@+id/btnSortCategory"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:onClick="sortCategory"
         android:text="@string/sort_category"
-        app:layout_constraintEnd_toStartOf="@+id/btnRenameCategory"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryName" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/allLists"
+        app:layout_constraintTop_toTopOf="@+id/allLists" />
 
     <ListView
         android:id="@+id/listOfLists"
