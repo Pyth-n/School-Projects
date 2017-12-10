@@ -122,6 +122,28 @@
         app:layout_constraintStart_toEndOf="@+id/itemWithin"
         app:layout_constraintTop_toTopOf="@+id/land_item_toolbar" />
 
+    <!--<TextView
+        android:id="@+id/labelDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/due_date"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/dueDate"
+        app:layout_constraintTop_toBottomOf="@+id/land_item_toolbar" />
+
+    <EditText
+        android:id="@+id/dueDate"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/completed"
+        app:layout_constraintTop_toBottomOf="@+id/labelDueDate" />-->
+
     <TextView
         android:id="@+id/labelCreated"
         android:layout_width="wrap_content"
