@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private ItemListController itemListController;
     private ItemController itemController;
-    private DragSortListView listOfLists;
+    private ListView listOfLists;
     private List<String> listNames;
     private List<ItemList> lists;
     private ItemList itemListSelected;
@@ -179,9 +179,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         itemListSelectedIndex = -1;
-        for(int i = 0; i < listOfLists.getChildCount(); i++) {
-            listOfLists.getChildAt(i).setBackgroundColor(Color.WHITE);
-        }
+        listOfLists.setSelector(android.R.color.transparent);
 
         super.startActivity(intent);
     }
@@ -381,34 +379,11 @@ public class MainActivity extends AppCompatActivity {
         r.execute();
 
 
-        listOfLists = (DragSortListView) findViewById(R.id.listOfLists);
+        listOfLists = findViewById(R.id.listOfLists);
         listOfLists.setAdapter(adapter);
         Log.d(TAG, "Set View");
 
-        listOfLists.setDropListener(new DragSortListView.DropListener() {
-            @Override
-            public void drop(int from, int to) {
-                listOfLists.moveCheckState(from, to);
-                itemListSelected = lists.get(from);
-                itemListSelectedIndex = from;
-
-                lists.remove(from);
-                if (from > to) --from;
-                lists.add(to, itemListSelected);
-                listOfLists.getChildAt(to).setSelected(true);
-                for (int i = 0; i < listOfLists.getChildCount(); i++) {
-                    if (i == to) {
-                        listOfLists.getChildAt(i).setBackgroundColor(Color.GRAY);
-                    } else {
-                        listOfLists.getChildAt(i).setBackgroundColor(Color.WHITE);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "DROPPING");
-            }
-        });
-
-        /*listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listOfLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 listOfLists.setSelector(android.R.color.darker_gray);
@@ -416,9 +391,7 @@ public class MainActivity extends AppCompatActivity {
                 itemListSelectedIndex = pos;
                 Log.d("POSITION: ", Integer.toString(pos));
             }
-
-        });*/
-        adapter.notifyDataSetChanged();
+        });
     }
 
     /**

@@ -8,6 +8,9 @@ import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
+import com.byui_cs246_team07.listtracker.ListActivity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import models.Item;
@@ -23,11 +26,13 @@ public class ListItemLoader extends AsyncTask<Void, Integer, Void> {
     private ArrayAdapter<String> mAdapter;
     private List<Item> itemNames;
     private int status;
+    private List<String> itemNameString;
 
     public ListItemLoader(ArrayAdapter<String> adapter, List<Item> itemNames, ProgressBar progressBar) {
         this.mAdapter = adapter;
         this.itemNames = itemNames;
         this.mProgressBar = progressBar;
+        itemNameString = new ArrayList<>();
         status = 0;
     }
 
@@ -40,11 +45,9 @@ public class ListItemLoader extends AsyncTask<Void, Integer, Void> {
         try {
             int i = 0;
             for (Item item : itemNames) {
-                mAdapter.add(item.getName());
+                itemNameString.add(item.getName());
                 publishProgress((i++ / itemNames.size() * 100));
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,10 +56,13 @@ public class ListItemLoader extends AsyncTask<Void, Integer, Void> {
 
     protected void onProgressUpdate(Integer... value) {
         mProgressBar.setProgress(value[0]);
+        mAdapter.notifyDataSetChanged();
     }
 
     protected void onPostExecute(Void value) {
         if (mProgressBar != null) {
+            mAdapter.addAll(itemNameString);
+            mAdapter.notifyDataSetChanged();
             mProgressBar.setVisibility(View.INVISIBLE);
         }
         Log.d("ITEMLOAD", "Finished loading items");

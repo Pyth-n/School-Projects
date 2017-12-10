@@ -26,6 +26,7 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
 
     private ArrayAdapter<String> mAdapter;
     private List<String> listNames;
+    private List<String> listNamesString;
     private int status;
 
 
@@ -34,6 +35,7 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
         this.mAdapter = adapter;
         this.mProgressBar = progressBar;
         this.listNames = listNames;
+        listNamesString = new ArrayList<>();
         status = 0;
     }
 
@@ -46,7 +48,7 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... params) {
         try {
             for (int i = 0; i < listNames.size(); i++) {
-                mAdapter.add(listNames.get(i));
+                listNamesString.add(listNames.get(i));
                 publishProgress((i / listNames.size() * 100));
             }
         } catch (Exception e) {
@@ -62,6 +64,8 @@ public class ListLoader extends AsyncTask<Void, Integer, Void> {
     protected void onPostExecute(Void value) {
         if (mProgressBar != null) {
             mProgressBar.setVisibility(View.INVISIBLE);
+            mAdapter.addAll(listNamesString);
+            mAdapter.notifyDataSetChanged();
         }
         Toast.makeText(mContext, "Finished loading", Toast.LENGTH_SHORT).show();
     }

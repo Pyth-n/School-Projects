@@ -49,7 +49,7 @@ public class ListActivity extends AppCompatActivity {
     private final Integer SORT_ACTIVITY = 1;
 
     // Widget IDs
-    private DragSortListView mListViewOfItems;
+    private ListView mListViewOfItems;
     private TextView mListName;
 
     ArrayAdapter<String> adapter;
@@ -119,8 +119,6 @@ public class ListActivity extends AppCompatActivity {
 
         Log.d(TAG, "PAUSING");
     }
-
-
 
     private void handleActionBar() {
         Toolbar myToolbar = findViewById(R.id.gallery_toolbar);
@@ -308,7 +306,10 @@ public class ListActivity extends AppCompatActivity {
      */
     public void setListView() {
         // Set the name of the list
-        mListViewOfItems.setAdapter(null);
+        if (adapter != null)
+        {
+            adapter.clear();
+        }
         if (list != null) {
             mListName.setText(list.getName());
             // Set items
@@ -317,54 +318,19 @@ public class ListActivity extends AppCompatActivity {
         }
 
         // Adapter used add items and display in the ListView
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                TextView textView = (TextView) super.getView(position, convertView, parent);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
-                if (!items.isEmpty()) {
-
-                    if (itemSelected != null) {
-                        textView.setText(items.get(position).getName());
-                    }
-                }
-                return textView;
-            }
-        };
-
-
+        // Starts thread to load items
         if (items != null) {
             ListItemLoader r = new ListItemLoader(adapter, items, progressBar);
             r.execute();
+            adapter.notifyDataSetChanged();
         }
 
         mListViewOfItems.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        mListViewOfItems.requestLayout();
 
-        mListViewOfItems.setDropListener(new DragSortListView.DropListener() {
-            @Override
-            public void drop(int from, int to) {
-                mListViewOfItems.moveCheckState(from, to);
-                itemSelected = items.get(from);
-                mItemSelectedIndex = from;
-
-                items.remove(from);
-                if (from > to) --from;
-                items.add(to, itemSelected);
-                mListViewOfItems.getChildAt(to).setSelected(true);
-                for (int i = 0; i < mListViewOfItems.getChildCount(); i++) {
-                    if (i == to) {
-                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.GRAY);
-                    } else {
-                        mListViewOfItems.getChildAt(i).setBackgroundColor(Color.WHITE);
-                    }
-                }
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "DROPPING");
-            }
-        });
-
-        /*// Adds a listener so that an item can be selected and be highlighted
+        // Adds a listener so that an item can be selected and be highlighted
         mListViewOfItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
@@ -377,7 +343,6 @@ public class ListActivity extends AppCompatActivity {
                 }
                 Log.d("POSITION: ", Integer.toString(pos));
             }
-        });*/
+        });
     }
-
 }
