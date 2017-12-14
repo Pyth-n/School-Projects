@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Music Search</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<h1 id="header">
+	<span>
+		<img id="logo" src="imgs/logo.png" style="width: 30px; vertical-align: -11%;" />
+	</span>
+3dgar's Music Search
+</h1>
+
+
+<div id="menu">
+	<span class="button" onclick="initSearch()">Search</span>
+	<span class="button" onclick="initFavorites()">Favorites</span>
+	<span class="button" onclick="initAbout()">About</span>
+</div>
+
+<div id="search-container">
+<section>
+	<form action="" method="get" id="search-music" class="search-area" label="Search for music.">
+		<!-- Search song -->
+		<div id="searchForm">
+		<span style="display:inline-block" class="search-item">
+			<label for="song-search" style="display:block">
+				Song:
+			</label>
+			<input type="text" id="song-search" name="song" placeholder="happy" value="happy"></span>
+		</span>
+
+		<span style="display:inline-block" class="search-item">
+			<label for="artist-search" style="display:block">
+				Artist:
+			</label>
+			<input type="text" id="artist-search" name="artist" placeholder="Pharrell Williams" value="Pharrell Williams"></span>
+		</span>
+
+		<span style="display:inline-block" class="search-item">
+			<input type="image" id="search-button" value="Search" src="imgs/search.png" alt="Submit">
+		</span>
+		</div>
+	</form>
+</section>
+
+<div id="brainz-search-results">
+		<div id="song-amount">
+			<span style="text-align:center; display: none; visibility: hidden;""></span>
+		</div>
+            <div id="results-container-info" style="visibility: hidden; display: none;">
+            	<div class="info-items" style="text-align:center; color:green;">Recording</div>
+            	<div class="info-items" style="text-align:center; color:green;">Artist</div>
+            	<div class="info-items" style="text-align:center; color:green;">Album</div>
+            	<div class="info-items" style="text-align:center; color:red;">❤</div>
+            </div> 
+</div>
+
+<div id="youtube-search-results" style="display:none; visibility: hidden;">
+	<div id="youtube-container-info">
+		<div class="info-youtube">Title</div>
+		<div class="info-youtube">Title</div>
+	</div>
+</div>
+
+<div class="load-container load1" id="loadingCSS" style="visibility: hidden; display: none;">
+            	<div class="loader"></div>
+            </div>
+<div id="arrow-container">
+            	<span id="more" style="display: none;">
+            		<input type="image" value="More" src="imgs/more.png" alt="..." onclick="moreVids()">
+            	</span>
+</div>
+
+</div>
+
+<!-- Section for Favorites -->
+<div id="favorite-container" style="display:none;">
+	<section>
+		<h3 style="text-align:center">Songs <span style="color:red;">❤</span>'ed</h3>
+		<div id="favorite-info">
+			<div class="favorite-item" style="text-align:center">Song</div>
+			<div class="favorite-item" style="text-align:center">Artist</div>
+			<div class="favorite-item" style="text-align:center">Album</div>
+			<div class="favorite-item" style="text-align:center"></div>
+		</div>
+	</section>
+</div>
+
+<!-- Section for About page -->
+<div id="about-container" style="display: none;">
+<section style="color: white">
+	<h3>About</h3>
+	<p>This website is powered by MusicBrainz and YouTube Videos APIs</p>
+	<p>Technologies used: </p>
+	<ul>
+		<li>HTML 5</li>
+		<li>JavaScript - LOTs of DOM manipulation</li>
+		<li>CSS3 - Used to enhance visuals and interactive design</li>
+		<li>AJAX</li>
+		<li>JQuery</li>
+	</ul>
+</section>
+</div>
+      <script type="text/javascript" src="jquery-2.2.4.js"></script>
+      <script type="text/javascript" src="search_engine.js"></script>
+</body>
+</html>
