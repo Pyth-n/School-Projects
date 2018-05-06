@@ -9,7 +9,7 @@
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" />
-    <script src="scripts/main.js"></script>
+    <script src="#"></script>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
                         <a class="nav-link dropdown-toggle" id="dropdown09" aria-expanded="false" aria-haspopup="true" href="https://example.com" data-toggle="dropdown">Assignments</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
                             <a class="dropdown-item disabled" href="#">Coming soon!</a>
-                            <a class="dropdown-item" href="/scripts/hello.php">Hello</a>
+                            <a class="dropdown-item" href="/assignments/hello.php">Hello</a>
                         </div>
                     </li>
                 </ul>
@@ -88,12 +88,24 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                     <img class="d-block w-100" src="imgs/mario.jpg" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Mario Odyssey</h5>
+                            <p>Classic.</p>
+                        </div>
                     </div>
                     <div class="carousel-item">
-                    <img class="d-block w-100" src="imgs/rocketleague.jpg" alt="Second slide">
+                        <img class="d-block w-100" src="imgs/rocketleague.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Rocket League</h5>
+                            <p>There is something intriguing about chasing a ball, especilly in a car.</p>
+                        </div>
                     </div>
                     <div class="carousel-item">
-                    <img class="d-block w-100" src="imgs/switch.jpg" alt="Third slide">
+                        <img class="d-block w-100" src="imgs/switch.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Nintendo Switch</h5>
+                            <p>This has been my main gaming console. I love its versatility.</p>
+                        </div>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
