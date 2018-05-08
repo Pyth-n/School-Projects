@@ -20,12 +20,34 @@
 
         <br>
         <pre>Choose a major:</pre>
-        <input type="radio" name="major" value="CS">Computer Science
-        <input type="radio" name="major" value="WD">Web Design and Development
-        <input type="radio" name="major" value="CIT">Computer Information Technology
-        <input type="radio" name="major" value="CE">Computer Engineering
-        <br>
 
+
+        <?php
+            $major = array(
+                array("CS", "Computer Science"),
+                array("WD", "Web Design and Development"),
+                array("CIT", "Computer Information Technology"),
+                array("CE", "Computer Engineering")
+            );
+
+            for($i = 0; $i < 4; $i++) {
+                for($x = 0; $x < 2; $x++) {
+                    switch($x) {
+                        case 0:
+                            $value = $major[$i][$x];
+                            echo "<input type=\"radio\" name=\"major\" value=\"$value\">";
+                            break;
+                        case 1:
+                            echo $major[$i][$x] . "<br>";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        ?>
+
+        
         <br>
         <pre>Comment:</pre>
         <textarea name="comment" form="w3form" placeholder="Enter text"></textarea>

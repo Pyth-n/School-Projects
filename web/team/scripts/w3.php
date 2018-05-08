@@ -11,10 +11,9 @@
         if(!empty($major)){echo "Major: " . $major . "<br>";}
         if(!empty($comment)){echo "Comment: " . $comment . "<br>";}
         
-        print_r($_POST['Continent']);
         $con = $_POST['Continent'];
 
-        echo "You've visited the following continents: ";
+        if(!empty($con)){echo "You've visited the following continents: ";}
 
         $N = count($con);
         for ($i = 0; $i < $N; $i++) {
