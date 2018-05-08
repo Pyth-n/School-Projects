@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Team 03</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="#" />
+    <script src="#"></script>
+</head>
+<body>
+
+    <form action="scripts/w3.php" method="POST" id="w3form">
+        <!-- Name and e-mail -->
+        Name <input type="text" name="nameInput"><br>
+        Email <input type="text" name="emailInput"><br>
+
+        <br>
+        <pre>Choose a major:</pre>
+        <input type="radio" name="major" value="CS">Computer Science
+        <input type="radio" name="major" value="WD">Web Design and Development
+        <input type="radio" name="major" value="CIT">Computer Information Technology
+        <input type="radio" name="major" value="CE">Computer Engineering
+        <br>
+
+        <br>
+        <pre>Comment:</pre>
+        <textarea name="comment" form="w3form" placeholder="Enter text"></textarea>
+        <br>
+
+        <pre>Continent you've visited:</pre>
+        <input type="checkbox" name="Continent[]" value="NA">North America
+        <input type="checkbox" name="Continent[]" value="SA">South America
+        <input type="checkbox" name="Continent[]" value="EU">Europe
+        <input type="checkbox" name="Continent[]" value="AS">Asia
+        <input type="checkbox" name="Continent[]" value="AU">Australia
+        <input type="checkbox" name="Continent[]" value="AF">Africa
+        <input type="checkbox" name="Continent[]" value="AN">Antarctica
+        <br>
+
+        <input type="submit" value="hit me">
+    </form>
+
+    
+
+</body>
+</html>
