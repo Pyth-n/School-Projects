@@ -60,3 +60,7 @@ div.btn-group {
     width: inherit;
     display: inline-block;
 }
+
+div.jumbotron {
+    margin-top: 15px;
+}

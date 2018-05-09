@@ -16,7 +16,6 @@
                 59.99, "BOTW"),
             array("https://media.nintendo.com/nintendo/bin/5ilkA0Fdb524PxC-MeU6u5xV1d_of7be/aRcKLbRChTkJ7FbNIBu3oLiGwJSeaUUT.png",
                 59.99, "MCD8")
-
         );
     } else {
         $items = array(
@@ -39,13 +38,16 @@
     $itemCount = count($items);
 
     echo '<div class="row" id="games">';
+
     for($i = 0; $i < $itemCount; $i++) {
         echo '<div class="col-sm-3 bord" align="center"> <img src="' . $items[$i][0] .
             '" class="img-fluid">' .
             '<br>$' . $items[$i][1] .
-            '<span class="buttonBox"><br><button type="button" class="btn btn-light">Add to cart</button> </span></div>';
+            '<span class="buttonBox"><br><button type="submit" form="form1" class="btn btn-light" name="purchase" value="' .
+            $items[$i][2] . '">Add to cart</button> </span></div>';
 
     }
+
     echo '</div>';
 ?>
 
