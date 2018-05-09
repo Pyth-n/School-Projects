@@ -5,6 +5,7 @@
     $SCRIPTLOC = "script.js";
     require '../scripts/include/meta-head.php';
 ?>
+
 <body>
 
     <div class="container">
@@ -59,9 +60,22 @@
             echo "<h1>Welcome!</h1>"
             ?>
 
+            <div class="btn-group" align="center" role="group" aria-label="Type of games">
+                <form action="prove3.php" method="POST">
+                    <button type="submit" class="btn btn-secondary" value="mainstream" name="selection">Mainstream</button>
+                    <button type="submit" class="btn btn-secondary" value="nindies" name="selection">Nindies</button>
+                </form>
+            </div>
 
+            <?php
+                if($_POST['selection'] == 'nindies') {
+                    $PAGESEL = "NIN";
+                } else {
+                    $PAGESEL = "MAINST";
+                }
+                require 'items.php';
+            ?>
 
-            <?php require 'items.php'; ?>
 
         </div>
 

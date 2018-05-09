@@ -54,3 +54,9 @@ ul.dropdown-cart li .item-right button{
 
 }
 
+div.btn-group {
+    margin: 0 auto;
+    text-align: center;
+    width: inherit;
+    display: inline-block;
+}
