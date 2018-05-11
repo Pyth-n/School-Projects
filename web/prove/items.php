@@ -45,7 +45,6 @@
             '<br>$' . $items[$i][1] .
             '<span class="buttonBox"><br><button type="submit" form="form1" class="btn btn-light" name="purchase" value="' .
             $items[$i][2] . '">Add to cart</button> </span></div>';
-
     }
 
     echo '</div>';
