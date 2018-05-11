@@ -30,10 +30,6 @@
         default:
             break;
     }
-    if($_GET['action'] == 1) {
-
-
-    }
 ?>
 
 <body>
@@ -72,7 +68,7 @@
                             ?>
 
                             <li class=""><hr></li>
-                            <li class="text-center"><a href="../index.php">View Cart</a></li>
+                            <li class="text-center"><a href="cart.php">View Cart</a></li>
                         </ul>
                     </li>
                 </ul>

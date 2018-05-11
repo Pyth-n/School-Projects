@@ -1,7 +1,11 @@
 <?php
-    echo $_POST['removeitem'] . " brought you here";
+    $removingFromCart = "";
 
-    $removingFromCart = $_POST['removeitem'];
+    if(isset($_POST['removeitem'])) {
+        $removingFromCart = $_POST['removeitem'];
+    } else if(isset($_POST['cancelCheckout'])) {
+        $removingFromCart = $_POST['cancelCheckout'];
+    }
 
     require 'itemsInStock.php';
 
@@ -16,8 +20,18 @@
         }
     }
 
+
+
     setcookie("cookieAmount", $cookie_count);
 
-    header("Location: prove3.php?action=1");
-    exit();
+    if($_POST['cancelCheckout'] == $removingFromCart) {
+        header("Location: cart.php?remove=1");
+        exit();
+    } else {
+        header("Location: prove3.php?action=1");
+        exit();
+    }
+
+
+
 ?>
