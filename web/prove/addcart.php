@@ -42,7 +42,7 @@
                         </span>
                     </span>
                     <span class="item-right">
-                        <button class="btn btn-xs btn-danger pull-right">x</button>
+                        <button type="submit" class="btn btn-xs btn-danger pull-right" name="removeitem" form="form2" value="' . $items[$i][2] . '"><img src="../trash.svg"> </button>
                     </span>
                 
                 </span>';

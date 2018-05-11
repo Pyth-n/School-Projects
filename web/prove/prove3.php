@@ -4,6 +4,36 @@
     $CSSLOC = "../styles/prove03.css";
     $SCRIPTLOC = "script.js";
     require '../scripts/include/meta-head.php';
+
+?>
+
+<?php
+    $action = $_GET['action'];
+
+    switch ($action) {
+        case 1:
+            echo '<div class="alert alert-danger" role="alert">
+                An item has been removed from the cart!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+            break;
+        case 2:
+            echo '<div class="alert alert-success" role="alert">
+                An item has been added to the cart!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>';
+            break;
+        default:
+            break;
+    }
+    if($_GET['action'] == 1) {
+
+
+    }
 ?>
 
 <body>
@@ -14,7 +44,7 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-light rounded">
 
             <!-- Brand -->
-            <a class="navbar-brand" href="#">Gamez</a>
+            <a class="navbar-brand" href="#"><img id="logo1" src="https://seeklogo.com/images/N/nintendo-switch-logo-38D4F5C7E7-seeklogo.com.png">Gamez</a>
 
             <!-- Hamburger toggle -->
             <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarsExample09" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarsExample09">
@@ -53,9 +83,6 @@
 
         <!-- Welcome -->
         <div class="container">
-            <?php
-            echo "<h1>Welcome!</h1>"
-            ?>
 
             <!-- Button group for changing pages -->
             <div class="btn-group" align="center" role="group" aria-label="Type of games">
@@ -64,10 +91,12 @@
                     <button type="submit" class="btn btn-secondary" value="nindies" name="selection">Nindies</button>
                 </form>
             </div>
-
         </div>
 
         <form id="form1" method="post" action="cookiez.php">
+        </form>
+
+        <form id="form2" method="post" action="removeitem.php">
         </form>
 
         <div class="jumbotron">

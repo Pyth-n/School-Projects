@@ -1,5 +1,7 @@
 <?php
-    $addingToCart = $_POST['purchase'];
+    echo $_POST['removeitem'] . " brought you here";
+
+    $removingFromCart = $_POST['removeitem'];
 
     $items = array(
         array("https://media.nintendo.com/nintendo/bin/wcfCyAd7t2N78FkGvEwCOGzVFBNQRbhy/AvG-_d4kEvEplp0mJoUew8IAg71YQveM.png",
@@ -33,19 +35,14 @@
     $cookie_count = $_COOKIE['cookieAmount'];
 
     for($i = 0; $i < $itemCount; $i++) {
-        if($items[$i][2] == $addingToCart) {
-            if(!isset($_COOKIE[$items[$i][2]])) {
-                $cookie_count++;
-            }
-            $cookie_name = $items[$i][2];
-            $cookie_value = $addingToCart;
-            setcookie($cookie_name, $cookie_value);
+        if($items[$i][2] == $removingFromCart) {
+            setcookie($removingFromCart, "", time() - 3600);
+            $cookie_count--;
         }
     }
 
     setcookie("cookieAmount", $cookie_count);
 
-    // redirect back to homepage
-    header("Location: prove3.php?action=2");
+    header("Location: prove3.php?action=1");
     exit();
 ?>
