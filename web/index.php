@@ -44,7 +44,7 @@
                         <!-- Drop down button items -->
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
                             <a class="dropdown-item" href="/assignments/hello.php">Ponder 1 - Hello</a>
-                            <a class="dropdown-item" href="prove/prove3.php">Ponder 3 - Shopping Website</a>
+                            <a class="dropdown-item" href="prove03/prove3.php">Ponder 3 - Shopping Website</a>
                             <a class="dropdown-item disabled" href="#">Ponder 4 - Query Data</a>
                         </div>
                     </li>
