@@ -31,19 +31,24 @@
             <a class="navbar-brand" href="#">CS 313</a>
             <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarsExample09" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarsExample09">
           <span class="navbar-toggler-icon"></span>
-        </button>
+            </button>
             <div class="collapse navbar-collapse" id="navbarsExample09">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
+
+                    <!-- Drop down buttons -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdown09" aria-expanded="false" aria-haspopup="true" href="https://example.com" data-toggle="dropdown">Assignments</a>
+                        <!-- Drop down button items -->
                         <div class="dropdown-menu" aria-labelledby="dropdown09">
-                            <a class="dropdown-item" href="prove/prove3.php">Ponder 3</a>
-                            <a class="dropdown-item" href="/assignments/hello.php">Hello</a>
+                            <a class="dropdown-item" href="/assignments/hello.php">Ponder 1 - Hello</a>
+                            <a class="dropdown-item" href="prove/prove3.php">Ponder 3 - Shopping Website</a>
+                            <a class="dropdown-item disabled" href="#">Ponder 4 - Query Data</a>
                         </div>
                     </li>
+
                 </ul>
 
             </div>
