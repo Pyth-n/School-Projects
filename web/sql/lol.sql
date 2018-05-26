@@ -61,10 +61,50 @@ VALUES (
 	'DAVE',
 	'PER',
 	0,
-	current_date
+	current_timestamp
 );
 
-INSERT INTO videos( TITLE
+INSERT INTO users (EMAIL, PASSWORD_S, FIRST_NAME, LAST_NAME, POPULARITY, DATE_JOINED)
+VALUES (
+	'bob@lol.com',
+	'bob123',
+	'bob',
+	'builder',
+	2,
+	current_timestamp
+);
+
+INSERT INTO users (EMAIL, PASSWORD_S, FIRST_NAME, LAST_NAME, POPULARITY, DATE_JOINED)
+VALUES (
+	'john@lol.com',
+	'john312',
+	'john',
+	'smith',
+	0,
+	current_timestamp
+);
+
+INSERT INTO users (EMAIL, PASSWORD_S, FIRST_NAME, LAST_NAME, POPULARITY, DATE_JOINED)
+VALUES (
+	'jose@lol.com',
+	'password1',
+	'jose',
+	'corre',
+	0,
+	current_timestamp
+);
+
+INSERT INTO users (EMAIL, PASSWORD_S, FIRST_NAME, LAST_NAME, POPULARITY, DATE_JOINED)
+VALUES (
+	'jane@lol.com',
+	'doejane',
+	'Jane',
+	'Doe',
+	0,
+	current_timestamp
+);
+
+/*INSERT INTO videos( TITLE
 	, DESCRIPTION
 	, VIDEO_VIEW_COUNT
 	, VIDEO_LIKES
@@ -78,4 +118,4 @@ VALUES (
 	4,
 	current_date,
 	1
-);
+);*/

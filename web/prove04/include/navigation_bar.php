@@ -19,18 +19,20 @@
         // Opening Navigation Bar
         echo '<div class="collapse navbar-collapse" id="pixelMenu" >';
 
-        // Home button
+        // Menu items
         echo  '<ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="prove4.php">Home <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listpeople.php">People</a>
+                    </li>
                </ul>';
-
-
-
 
         // Closing Navigation Bar
         echo '</div>';
+
+
         // Search form
         echo '<form class="form-inline center_form" action="#">
                 <input class="form-control mr-sm-1" type="text" placeholder="Name">
