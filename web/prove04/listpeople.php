@@ -31,16 +31,16 @@ require '../scripts/include/meta-head.php';
                 </thead>
 
                 <tbody>
-                    <?php
-                        define('query_people', true);
-                        include 'include/queryPeople.php';
-                    ?>
+                    <form method="POST" action="profile.php">
+                        <?php
+                            define('query_people', true);
+                            include 'include/queryPeople.php';
+                        ?>
+                    </form>
+
                 </tbody>
 
             </table>
-
-
-
         </div>
     </div>
 </div>
