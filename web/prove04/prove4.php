@@ -17,11 +17,11 @@
     ?>
 
     <!-- Main body content -->
-    <div class="container" id="body_content">
         <div class="jumbotron">
-            <h1>Hi</h1>
+            <h1>Welcome!</h1>
+            <p>Please use the search button to search for profiles. Use the 'People' link
+            above to see users in the database.</p>
         </div>
-    </div>
 </div>
 
 <?php

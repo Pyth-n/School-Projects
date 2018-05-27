@@ -104,6 +104,15 @@ VALUES (
 	current_timestamp
 );
 
+INSERT INTO users (EMAIL, PASSWORD_S, FIRST_NAME, LAST_NAME, POPULARITY, DATE_JOINED)
+VALUES (
+	'bobsmith@lol.com',
+	'smithybobby',
+	'Bob',
+	'Smith',
+	0,
+	current_timestamp
+);
 /*INSERT INTO videos( TITLE
 	, DESCRIPTION
 	, VIDEO_VIEW_COUNT
