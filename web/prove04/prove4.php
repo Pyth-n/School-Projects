@@ -1,4 +1,11 @@
 <?php
+// Make sure people are logged in before accessing website
+session_start();
+if ($_SESSION['authenticated'] != true) {
+    header('Location: login.php');
+}
+?>
+<?php
     $TITLE = "Prove 04 - Querying Data";
     $BOOTSTRAP = true;
 
@@ -18,7 +25,7 @@
 
     <!-- Main body content -->
         <div class="jumbotron">
-            <h1>Welcome!</h1>
+            <h1>Welcome <?php echo $_SESSION['username']; ?></h1>
             <p>Please use the search button to search for profiles. Use the 'People' link
             above to see users in the database.</p>
         </div>

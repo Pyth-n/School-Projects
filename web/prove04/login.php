@@ -23,12 +23,12 @@ require '../scripts/include/meta-head.php';
         <!-- Login form -->
         <form action="authenticate.php" method="post">
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="email">Email address</label>
+                <input type="email" required="true" class="form-control" name="email" placeholder="Enter email">
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" placeholder="Password">
+                <label for="password">Password</label>
+                <input type="password" required="true" class="form-control" name="password" placeholder="Password">
             </div>
 
             <button type="submit" class="btn btn-primary">Sign in</button>

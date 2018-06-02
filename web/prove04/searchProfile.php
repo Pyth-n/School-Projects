@@ -1,4 +1,11 @@
 <?php
+// Make sure people are logged in before accessing website
+session_start();
+if ($_SESSION['authenticated'] != true) {
+    header('Location: login.php');
+}
+?>
+<?php
 $TITLE = "Prove 04 - Search";
 $BOOTSTRAP = true;
 
