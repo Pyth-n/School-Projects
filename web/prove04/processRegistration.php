@@ -7,8 +7,6 @@
     $first_name = (string)$_POST['firstName'];
     $last_name = (string)$_POST['lastName'];
 
-    echo $password;
-
     // connect to database
     define('USE_DB', true);
     require 'include/connectDB.php';

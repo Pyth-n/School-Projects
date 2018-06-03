@@ -62,6 +62,16 @@ require '../scripts/include/meta-head.php';
                 <?php echo $ROWS[0]['popularity']; ?>
             <h2>Date joined</h2>
                 <?php echo $ROWS[0]['date_joined']; ?>
+
+            <form action="editProfile.php" method="post">
+                <input type="hidden" name="ID" value="<?php echo $ROWS[0]['id']; ?>">
+                <input type="hidden" value="<?php $ROWS[0]['first_name']; ?>" name="firstName">
+                <input type="hidden" value="<?php $ROWS[0]['last_name']; ?>" name="lastName">
+                <input type="hidden" value="<?php $ROWS[0]['popularity']; ?>" name="popularity">
+
+                <button class="btn btn-primary" type="submit">Edit</button>
+            </form>
+
         </div>
     </div>
 </div>
