@@ -25,5 +25,7 @@ if ($_SESSION['authenticated'] != true) {
     $statement->bindValue(':id', $ID, PDO::PARAM_INT);
     $statement->execute();
 
-    echo "<br>complete i guess";
+    $_SESSION['id'] = $_POST['ID'];
+
+    header('Location: profile.php');
 ?>

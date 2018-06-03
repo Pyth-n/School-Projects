@@ -35,6 +35,9 @@ require '../scripts/include/meta-head.php';
                 // ID selected
                 if(isset($_POST['viewProfile'])) {
                     $userID = $_POST['viewProfile'];
+                } else if(isset($_SESSION['id'])){
+                    $userID = $_SESSION['id'];
+                    $_SESSION['id'] = null;
                 } else {
                     $userID = -1;
                 }
