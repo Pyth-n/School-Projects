@@ -27,5 +27,5 @@ VALUES (
     $statement->bindParam(4, $last_name, PDO::PARAM_STR);
     $statement->execute();
 
-
+    header('Location: login.php?signup=true');
 ?>
