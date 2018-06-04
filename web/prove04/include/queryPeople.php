@@ -7,7 +7,7 @@
      // Query a list of all the user's full name. Inserted in a table.
 
     // If "people" link is clicked
-    foreach($db->query('SELECT id, first_name, last_name FROM users') as $row) {
+    foreach($db->query('SELECT id, first_name, last_name FROM users ORDER BY id') as $row) {
         echo '<tr>';
 
         echo '<td>';
