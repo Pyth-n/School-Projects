@@ -1,11 +1,19 @@
 <?php
-    // Hash password
-    $password = (string)password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = null;
 
     // Store local variables
     $email = (string)$_POST['email'];
     $first_name = (string)$_POST['firstName'];
     $last_name = (string)$_POST['lastName'];
+
+    // Verify password inputs are the same
+    if($_POST['password'] === $_POST['passwordVerify']) {
+        // Hash password
+        $password = (string)password_hash($_POST['password'], PASSWORD_DEFAULT);
+    } else {
+        header('Location: register.php?error=password&fn=' . $first_name . '&ln=' . $last_name . '&email=' . $email);
+        die();
+    }
 
     // connect to database
     define('USE_DB', true);
