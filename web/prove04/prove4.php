@@ -9,11 +9,17 @@
     }
     define('USE_DB', true);
     require 'include/connectDB.php';
-    $statement = $db->prepare('SELECT first_name, last_name, popularity FROM users WHERE id=:id');
+    $statement = $db->prepare('SELECT first_name, last_name, popularity, profile_picture_path FROM users WHERE id=:id');
     $statement->bindValue(':id', (int) $_SESSION['id'], PDO::PARAM_INT);
     $statement->execute();
 
     $ROWS = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+/*    $statement = $db->prepare('SELECT image_path FROM images WHERE user_uploaded_id=:id');
+    $statement->bindValue(':id', (int) $_SESSION['id'], PDO::PARAM_INT);
+    $statement->execute();
+
+    $ROWS2 = $statement->fetchAll(PDO::FETCH_ASSOC);*/
 ?>
 <?php
     $TITLE = "Home - Pixel";
@@ -42,8 +48,12 @@
                     <h1><?php
                         echo $ROWS[0]['first_name'] . ' ' . $ROWS[0]['last_name'];
                         ?></h1>
-                    <img src="../imgs/image.jpg" class="img-fluid" />
+                    <img src="<?php echo $ROWS[0]['profile_picture_path']; ?>" class="img-fluid" />
                     <br />
+                    <form action="uploadImage.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="image">
+                        <button type="submit">Upload</button>
+                    </form>
                     <small class="text-muted">Popularity: <?php echo $ROWS[0]['popularity']; ?> </small>
                 </div>
 
