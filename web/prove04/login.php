@@ -50,7 +50,7 @@ require '../scripts/include/meta-head.php';
 
             <button type="submit" class="btn btn-primary">Sign in</button>
             <br><br>
-            <small class="form-text text-muted">Not registered? Click <a href="register.php">here</a> to sign up.</small>
+            <small class="form-text text-muted">Not registered? <a href="register.php">Click here to sign up</a>.</small>
 
         </form>
 
