@@ -25,7 +25,5 @@ if ($_SESSION['authenticated'] != true) {
     $statement->bindValue(':id', $ID, PDO::PARAM_INT);
     $statement->execute();
 
-    $_SESSION['id'] = $_POST['ID'];
-
-    header('Location: profile.php');
+    header('Location: listpeople.php');
 ?>
