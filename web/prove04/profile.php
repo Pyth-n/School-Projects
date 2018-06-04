@@ -35,9 +35,6 @@ require '../scripts/include/meta-head.php';
                 // ID selected
                 if(isset($_POST['viewProfile'])) {
                     $userID = $_POST['viewProfile'];
-                } else if(isset($_SESSION['id'])){
-                    $userID = $_SESSION['id'];
-                    $_SESSION['id'] = null;
                 } else {
                     $userID = -1;
                 }
@@ -54,7 +51,6 @@ require '../scripts/include/meta-head.php';
                     header("Location:prove4.php");
                     exit();
                 }
-
             ?>
 
             <h2>First Name</h2>

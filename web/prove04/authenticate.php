@@ -23,7 +23,7 @@
 
             // Store associations
             $ROWS = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
+
             // Match password
             if(password_verify($password, $ROWS[0]['password_s'])) {
                 session_start();
