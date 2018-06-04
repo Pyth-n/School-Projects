@@ -20,12 +20,18 @@ VALUES (
 	current_timestamp
 )";
 
-    $statement = $db->prepare($sql);
-    $statement->bindParam(1, $email, PDO::PARAM_STR);
-    $statement->bindParam(2, $password, PDO::PARAM_STR);
-    $statement->bindParam(3, $first_name, PDO::PARAM_STR);
-    $statement->bindParam(4, $last_name, PDO::PARAM_STR);
-    $statement->execute();
+    try {
+        $statement = $db->prepare($sql);
+        $statement->bindParam(1, $email, PDO::PARAM_STR);
+        $statement->bindParam(2, $password, PDO::PARAM_STR);
+        $statement->bindParam(3, $first_name, PDO::PARAM_STR);
+        $statement->bindParam(4, $last_name, PDO::PARAM_STR);
+        $statement->execute();
+    }
+    catch (PDOException $e) {
+        header('Location: register.php?error=1');
+        exit();
+    }
 
     header('Location: login.php?signup=true');
 ?>
