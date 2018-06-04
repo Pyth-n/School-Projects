@@ -23,23 +23,23 @@
 
             // Store associations
             $ROWS = $statement->fetchAll(PDO::FETCH_ASSOC);
-
+            
             // Match password
-            if($ROWS[0]['password_s'] == $password) {
+            if(password_verify($password, $ROWS[0]['password_s'])) {
                 session_start();
                 $_SESSION["authenticated"] = true;
                 $_SESSION["username"] = $email;
                 $_SESSION["id"] = $ROWS[0]['id'];
                 header('Location: prove4.php');
-            } else {
+            } else { // Password didn't match
                 header('Location: login.php?error=password');
             }
 
-        } else {
+        } else { // Email or password input is empty
             header('Location: login.php?error=input');
         }
 
-    } else {
+    } else { // Document requested without a post
         header('Location: login.php?error=access');
     }
 ?>

@@ -46,6 +46,11 @@ require '../scripts/include/meta-head.php';
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" required="true" class="form-control" name="password" placeholder="Password">
+                <?php
+                    if($_GET['error'] == "password") {
+                        echo '<small class="form-text text-danger">Wrong password</small>';
+                    }
+                ?>
             </div>
 
             <button type="submit" class="btn btn-primary">Sign in</button>
