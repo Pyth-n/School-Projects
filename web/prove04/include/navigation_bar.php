@@ -5,7 +5,7 @@
     // If bootstrap is set to true
     if($BOOTSTRAP) {
         // Opening navigation
-        echo '<nav class="navbar navbar-expand-sm navbar-light bg-light rounded">';
+        echo '<nav class="navbar navbar-expand-sm navbar-light bg-light">';
 
         // Navigation brand
         echo '<a class="navbar-brand" href="prove4.php"><img src="logo.png" style="width:100px; height:100px;"></a>';
@@ -42,7 +42,7 @@
 
         // Search form
         echo '<form class="form-inline center_form" action="searchProfile.php" method="get">
-                <input class="form-control mr-sm-1" type="text" placeholder="Last Name" name="searchQuery">
+                <input class="form-control mr-sm-0" type="text" placeholder="Last Name" name="searchQuery">
                 <button class="btn btn-success" type="submit">Search</button>
               </form>';
 

@@ -1,7 +1,7 @@
 <?php
 // Make sure people are logged in before accessing website
 session_start();
-if ($_SESSION['authenticated'] != true) {
+if ($_SESSION['authenticated'] != true || !isset($_SESSION['id'])) {
     header('Location: login.php');
 }
 ?>

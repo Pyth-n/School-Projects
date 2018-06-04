@@ -1,7 +1,7 @@
 <?php
 // Make sure people are logged in before accessing website
     session_start();
-    if ($_SESSION['authenticated'] != true) {
+    if ($_SESSION['authenticated'] != true || !isset($_SESSION['id'])) {
         session_unset();
         session_destroy();
         header('Location: login.php');
@@ -38,11 +38,11 @@
             <div class="row">
 
                 <!-- Profile info column -->
-                <div class="col-sm-4">
+                <div class="col-sm-4" align="center">
                     <h1><?php
                         echo $ROWS[0]['first_name'] . ' ' . $ROWS[0]['last_name'];
                         ?></h1>
-                    <img src="../imgs/image.jpg" />
+                    <img src="../imgs/image.jpg" class="img-fluid" />
                     <br />
                     <small class="text-muted">Popularity: <?php echo $ROWS[0]['popularity']; ?> </small>
                 </div>
@@ -50,7 +50,7 @@
 
                 <!-- Profile content -->
                 <div class="col-sm-8">
-                    <h1>Pixels</h1>
+                    <h2>Pixels</h2>
                     <img src="../imgs/mario.jpg" class="img-fluid">
                 </div>
             </div>
