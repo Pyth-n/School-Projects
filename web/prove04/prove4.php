@@ -33,7 +33,6 @@
 
 <body>
 <div class="container">
-
     <?php
         define('IN_MY_PROJECT', true);
         include 'include/navigation_bar.php';
@@ -88,19 +87,19 @@
                             <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="uploadPixelLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Pic
                             </a>
-                            <form class="dropdown-menu dropdown-menu-right p-4" action="uploadPixel.php" method="post" enctype="multipart/form-data">
+                            <form class="dropdown-menu dropdown-menu-right p-4" action="database/uploadPixel.php" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group" align="right">
-                                    <input type="file" name="file" id="file" class="inputfile" accept=".jpg,.jpeg,.gif">
+                                    <input type="file" name="file" id="pictureFile" class="inputfile" accept=".jpg,.jpeg,.gif">
                                     <label for="file" class="btn btn-info">+</label>
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" placeholder="Title *" required="true">
+                                    <input type="text" placeholder="Title *" required="true" name="title">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" placeholder="Description">
+                                    <input type="text" placeholder="Description" name="description">
                                 </div>
 
                                 <div align="center"><button type="submit" class="btn btn-success" name="submitPicture">Upload</button></div>
@@ -113,7 +112,7 @@
                                 Vid
                             </a>
 
-                            <form class="dropdown-menu dropdown-menu-right p-4" action="uploadPixel.php" method="post" enctype="multipart/form-data">
+                            <form class="dropdown-menu dropdown-menu-right p-4" action="database/uploadPixel.php" method="post" enctype="multipart/form-data">
 
                                 <div class="form-group" align="right">
                                     <input type="file" name="file" id="" class="inputfile">
@@ -121,11 +120,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" placeholder="Title *" required="true">
+                                    <input type="text" placeholder="Title *" required="true" name="title">
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" placeholder="Description">
+                                    <input type="text" placeholder="Description" name="description">
                                 </div>
 
                                 <div align="center"><button type="submit" class="btn btn-success" name="submitVideo">Upload</button></div>
