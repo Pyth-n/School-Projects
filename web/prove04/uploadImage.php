@@ -12,7 +12,7 @@
     $uploadOk = 1;
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $check = getimagesize($_FILES['image']['tmp_name']);
+        $check = getimagesize($_FILES['file']['tmp_name']);
         if($check !== false) {
             echo "File is an image - " . $check["mime"] . ".<br>";
             $uploadOk = 1;
@@ -25,11 +25,11 @@
 
         } else {
 
-            $tmp = explode(".", $_FILES['image']['name']);
+            $tmp = explode(".", $_FILES['file']['name']);
             $newFileName = round(microtime(true)) . '.' . end($tmp);
             $saveLocation = $target_dir . '/' . $newFileName;
 
-            if(move_uploaded_file($_FILES['image']['tmp_name'], $saveLocation)) {
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $saveLocation)) {
                 echo "Image was uploaded to $saveLocation";
 
                 // store path in database
