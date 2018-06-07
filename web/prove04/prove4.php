@@ -1,6 +1,8 @@
 <?php
 // Make sure people are logged in before accessing website
     session_start();
+
+
     if ($_SESSION['authenticated'] != true || !isset($_SESSION['id'])) {
         session_unset();
         session_destroy();
@@ -14,12 +16,6 @@
     $statement->execute();
 
     $ROWS = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-/*    $statement = $db->prepare('SELECT image_path FROM images WHERE user_uploaded_id=:id');
-    $statement->bindValue(':id', (int) $_SESSION['id'], PDO::PARAM_INT);
-    $statement->execute();
-
-    $ROWS2 = $statement->fetchAll(PDO::FETCH_ASSOC);*/
 ?>
 <?php
     $TITLE = "Home - Pixel";
@@ -76,10 +72,7 @@
                             <h3>Pixels</h3>
                         </div>
 
-
                         <br>
-
-
 
                         <!-- Dropdown menus -->
                         <div class="dropdown col-5" align="right">
@@ -88,10 +81,9 @@
                                 Pic
                             </a>
                             <form class="dropdown-menu dropdown-menu-right p-4" action="database/uploadPixel.php" method="post" enctype="multipart/form-data">
-
+                                <small class="text-muted">*.jpg, *jpeg, *.gif</small>
                                 <div class="form-group" align="right">
-                                    <input type="file" name="file" id="pictureFile" class="inputfile" accept=".jpg,.jpeg,.gif">
-                                    <label for="file" class="btn btn-info">+</label>
+                                    <input type="file" name="file"> <br>
                                 </div>
 
                                 <div class="form-group">
@@ -113,10 +105,9 @@
                             </a>
 
                             <form class="dropdown-menu dropdown-menu-right p-4" action="database/uploadPixel.php" method="post" enctype="multipart/form-data">
-
+                                <small class="text-muted">*.mp4</small>
                                 <div class="form-group" align="right">
-                                    <input type="file" name="file" id="" class="inputfile">
-                                    <label for="file" class="btn btn-info">+</label>
+                                    <input type="file" name="file" required="true">
                                 </div>
 
                                 <div class="form-group">
@@ -136,35 +127,16 @@
                     </div>
 
                     <!-- The wall -->
-                    <img src="../imgs/mario.jpg" class="img-fluid">
+                    <?php
+                    define('USE_DB', true);
+                    require_once 'include/connectDB.php';
+                        foreach ($db->query('SELECT image_path FROM images WHERE user_uploaded_id=24') as $row) {
+                            echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
+                        }
+
+                    ?>
                 </div>
             </div>
-
-<!--            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-
-                <form class="dropdown-menu p-4">
-                    <div class="form-group">
-                        <label for="exampleDropdownFormEmail2">Email address</label>
-                        <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleDropdownFormPassword2">Password</label>
-                        <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                        <label class="form-check-label" for="dropdownCheck2">
-                            Remember me
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-            </div>-->
-
-
         </div>
 </div>
 
