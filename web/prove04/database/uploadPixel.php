@@ -10,6 +10,7 @@
 
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['id'])) {
         print_r($_FILES);
+        print_r($_POST);
 
         $uploadOk = true;
 
@@ -21,10 +22,6 @@
             $mimeCheck = getimagesize($_FILES['file']['tmp_name']);
             if ($mimeCheck !== false) {
                 echo "File type is - " . $mimeCheck['mime'] . '<br>';
-            } else {
-                $uploadOk = false;
-                header('Location: ../prove4.php?error=uploadEmpty');
-                die();
             }
         } else {
             echo "EMPTY";
@@ -87,7 +84,56 @@
 
             }
 
-        } else if(isset($_POST['submitVideo'])) {
+        }
+
+
+        if(isset($_POST['submitVideo'])) {
+
+
+            if($extension != "mp4") {
+                header('Location: ../prove4.php');
+                die();
+            }
+
+            (string) $newFileName = round(microtime(true));
+
+            (string) $newFileName = $newFileName . '.' . $extension;
+
+
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . '/' . $newFileName)) {
+
+                // TODO: move to database
+                define('USE_DB', true);
+                require '../include/connectDB.php';
+
+                echo "<br>uploading..";
+
+                $SQL = 'INSERT INTO videos(title, description, video_path, user_uploaded_id) values(
+                      ?
+                    , ?
+                    , ?
+                    , ?
+                       )';
+
+                /*$SQL = 'INSERT INTO videos(title, description, video_path, user_uploaded_id) values (
+                        ?, ?, ?, ?
+                        )';*/
+
+                $saveLocation = 'uploads/' . $_SESSION['id'] . '/' . $newFileName;
+
+                $statement = $db->prepare($SQL);
+                $statement->bindParam(1, $_POST['title'], PDO::PARAM_STR);
+                $statement->bindParam(2, $_POST['description'], PDO::PARAM_STR);
+                $statement->bindParam(3, $saveLocation, PDO::PARAM_STR);
+                $statement->bindParam(4, $_SESSION['id'], PDO::PARAM_INT);
+
+                $statement->execute();
+
+                echo "Uploaded video";
+
+
+            }
+
             echo 'You are uploading a video.';
         }
 

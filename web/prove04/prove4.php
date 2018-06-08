@@ -105,7 +105,7 @@
                             </a>
 
                             <form class="dropdown-menu dropdown-menu-right p-4" action="database/uploadPixel.php" method="post" enctype="multipart/form-data">
-                                <small class="text-muted">*.mp4</small>
+                                <small class="text-muted">*.mp4 <strong>NOTE: 12mb filesize limite</strong></small>
                                 <div class="form-group" align="right">
                                     <input type="file" name="file" required="true">
                                 </div>
@@ -126,15 +126,19 @@
 
                     </div>
 
+                    <div align="center">
                     <!-- The wall -->
                     <?php
                     define('USE_DB', true);
                     require_once 'include/connectDB.php';
                         foreach ($db->query('SELECT image_path FROM images WHERE user_uploaded_id=24') as $row) {
+                            echo '<div style="width:320px; height:300px; border: 1px solid black;">';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
+                            echo '</div>';
                         }
 
                     ?>
+                    </div>
                 </div>
             </div>
         </div>
