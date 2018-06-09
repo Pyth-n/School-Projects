@@ -17,6 +17,9 @@
             $statement->bindParam(3, $_SESSION['id'], PDO::PARAM_INT);
             $statement->execute();
 
+            header('Location: ../prove4.php');
+            die();
+
         } else if(isset($_POST['videoCommentSubmit'])) {
             echo 'Uploading vid comment: ' . $_POST['videoID'] . '<br>';
 

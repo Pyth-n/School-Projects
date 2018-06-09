@@ -139,10 +139,22 @@
                             echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . '</h4>';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
 
+                            // display comments from this image
+                            foreach ($db->query('SELECT comment, user_commented FROM image_comments WHERE image_commented=' . $row['id']) as $comment) {
+                                $queryName = 'SELECT first_name, last_name FROM users WHERE id=:ucid';
+                                $nameStatement = $db->prepare($queryName);
+                                $nameStatement->bindValue(':ucid', $comment['user_commented'], PDO::PARAM_INT);
+                                $nameStatement->execute();
+                                $nameRow = $nameStatement->fetchAll(PDO::FETCH_ASSOC);
+                                echo $nameRow[0]['first_name'] . ' ' . $nameRow[0]['last_name'] . ': ';
+                                echo $comment['comment'] . '<br>';
+                            }
+
                             // Make comment form
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="pictureComment" placeholder="Comment" >';
                             echo '<input type="hidden" name="pictureID" value="' . $row['id'] . '">';
+                            
                             echo '<button type="submit" name="pictureCommentSubmit">+</button>';
                             echo '</form>';
                             echo '</div>';
@@ -155,7 +167,18 @@
                             echo '<h4 align="left" >' . $row['title'] . '</h4>';
                             echo '<video class="embed-responsive-item" width="320" height="240" controls>';
                             echo '<source src="' . $vidSrc . '" type="video/mp4">';
-                            echo '</video>';
+                            echo '</video><br>';
+
+                            // display comments from this image
+                            foreach ($db->query('SELECT comment, user_commented FROM video_comments WHERE video_commented=' . $row['id']) as $comment) {
+                                $queryName = 'SELECT first_name, last_name FROM users WHERE id=:ucid';
+                                $nameStatement = $db->prepare($queryName);
+                                $nameStatement->bindValue(':ucid', $comment['user_commented'], PDO::PARAM_INT);
+                                $nameStatement->execute();
+                                $nameRow = $nameStatement->fetchAll(PDO::FETCH_ASSOC);
+                                echo $nameRow[0]['first_name'] . ' ' . $nameRow[0]['last_name'] . ': ';
+                                echo $comment['comment'] . '<br>';
+                            }
 
                             // Make comment form
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
