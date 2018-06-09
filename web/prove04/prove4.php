@@ -134,20 +134,21 @@
 
 
 
-                        foreach ($db->query('SELECT image_path, title FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        foreach ($db->query('SELECT image_path, title, id FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             echo '<div>';
                             echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . '</h4>';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
 
                             // Make comment form
-                            echo '<form action="test.php" method="post" align="left">';
+                            echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="pictureComment" placeholder="Comment" >';
+                            echo '<input type="hidden" name="pictureID" value="' . $row['id'] . '">';
                             echo '<button type="submit" name="pictureCommentSubmit">+</button>';
                             echo '</form>';
                             echo '</div>';
                         }
 
-                        foreach ($db->query('SELECT video_path, title FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        foreach ($db->query('SELECT video_path, title, id FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             $vidSrc = $row['video_path'];
 
                             echo '<div class="embed-responsive-4by3" style="margin-top:20px">';
@@ -157,8 +158,9 @@
                             echo '</video>';
 
                             // Make comment form
-                            echo '<form action="test.php" method="post" align="left">';
+                            echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="videoComment" placeholder="Comment" >';
+                            echo '<input type="hidden" name="videoID" value="' . $row['id'] . '">';
                             echo '<button type="submit" name="videoCommentSubmit">+</button>';
                             echo '</form>';
                             echo '</div>';
