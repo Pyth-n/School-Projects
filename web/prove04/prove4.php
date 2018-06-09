@@ -190,7 +190,7 @@
 
                             // Make comment form
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
-                            echo '<input type="text" name="videoComment" placeholder="Comment" >';
+                            echo '<input type="text" name="videoComment" placeholder="Comment" class="form-control">';
                             echo '<input type="hidden" name="videoID" value="' . $row['id'] . '">';
                             echo '<button type="submit" class="btn btn-primary" name="videoCommentSubmit">Post</button>';
                             echo '<button type="submit" class="btn btn-success" name="videoLike">+</button>';
