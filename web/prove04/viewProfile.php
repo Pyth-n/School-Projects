@@ -242,7 +242,7 @@ require '../scripts/include/meta-head.php';
                         if(isset($visiting)) {
                             echo '<input type="hidden" name="visiting" value="' . $visiting . '">';
                         }
-                        echo '<button type="submit" class="btn btn-light" name="videoCommentSubmit">Post</button>';
+                        echo '<button type="submit" class="btn btn-primary" name="videoCommentSubmit">Post</button>';
                         echo '<button type="submit" class="btn btn-success" name="videoLike">+</button>';
                         echo '<button type="submit" class="btn btn-danger" name="videoDislike">-</button>';
                         echo '</form>';
