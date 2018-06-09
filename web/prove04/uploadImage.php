@@ -39,13 +39,14 @@
                 $sql = "INSERT INTO images(user_uploaded_id, title, image_path) 
                         VALUES(
                           ?
-                          , 'test'
+                          , ?
                           , ?
                         )";
 
                 $statement = $db->prepare($sql);
                 $statement->bindParam(1, $_SESSION['id'], PDO::PARAM_INT);
-                $statement->bindParam(2, $saveLocation);
+                $statement->bindParam(2, $_POST['fileTitle'], PDO::PARAM_STR);
+                $statement->bindParam(3, $saveLocation, PDO::PARAM_STR);
                 $statement->execute();
 
                 $sql = "UPDATE users SET profile_picture_path = ? WHERE id=?";

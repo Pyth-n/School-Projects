@@ -56,6 +56,7 @@
                             <div class="form-group" align="center">
                                 <input type="file" name="file" id="file" class="inputfile">
                                 <label for="file" class="btn btn-info">+</label>
+                                <input type="text" name="fileTitle" placeholder="Title *" required>
                             </div>
                             <div align="center"><button type="submit" class="btn btn-success" >Upload</button></div>
                         </form>
