@@ -168,7 +168,7 @@
 
                             echo '<div class="embed-responsive-4by3" style="margin-top:20px">';
                             echo '<h4 align="left" >' . $row['title'] . ' (' . $row['video_likes'] . ')</h4>';
-                            echo '<em>' . $row['description'] . '</em>';
+                            echo '<em>' . $row['description'] . '</em><br>';
                             echo '<video class="embed-responsive-item" width="320" height="240" controls>';
                             echo '<source src="' . $vidSrc . '" type="video/mp4">';
                             echo '</video><br>';

@@ -41,5 +41,6 @@ VALUES (
         exit();
     }
 
+
     header('Location: login.php?signup=true');
 ?>

@@ -55,6 +55,7 @@
                 $statement->execute();
 
                 echo "<br>Database updated nicely";
+                header('Location: prove4.php');
 
             } else {
                 echo "sorry there was an error";
