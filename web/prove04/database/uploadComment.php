@@ -20,7 +20,33 @@
             header('Location: ../prove4.php');
             die();
 
-        } else if(isset($_POST['videoCommentSubmit'])) {
+        }
+
+        if (isset($_POST['pictureLike'])) {
+            echo "Liking the picture..";
+
+            define('USE_DB', true);
+            require '../include/connectDB.php';
+
+            $SQL = 'UPDATE images SET image_likes = image_likes + 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $_POST['pictureID'], PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        if (isset($_POST['pictureDislike'])) {
+
+            define('USE_DB', true);
+            require '../include/connectDB.php';
+
+            echo "Disliking the picture..";
+            $SQL = 'UPDATE images SET image_likes = image_likes - 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $_POST['pictureID'], PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        if(isset($_POST['videoCommentSubmit'])) {
             echo 'Uploading vid comment: ' . $_POST['videoID'] . '<br>';
 
             define('USE_DB', true);
@@ -34,8 +60,30 @@
             $statement->bindParam(3, $_SESSION['id'], PDO::PARAM_INT);
             $statement->execute();
             echo "Uploaded comment.";
-        } else {
-            header('Location: ../signout.php');
-            die();
         }
+
+        if (isset($_POST['videoLike'])) {
+            echo "Liking the video..";
+            define('USE_DB', true);
+            require '../include/connectDB.php';
+
+            $SQL = 'UPDATE videos SET video_likes = video_likes + 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $_POST['videoID'], PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        if (isset($_POST['videoDislike'])) {
+            echo "Disliking the video..";
+
+            define('USE_DB', true);
+            require '../include/connectDB.php';
+
+            $SQL = 'UPDATE videos SET video_likes = video_likes - 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $_POST['videoID'], PDO::PARAM_INT);
+            $statement->execute();
+        }
+
+        header('Location: ../prove4.php');
     }

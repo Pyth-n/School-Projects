@@ -121,9 +121,6 @@
                                 <div align="center"><button type="submit" class="btn btn-success" name="submitVideo">Upload</button></div>
                             </form>
                         </div>
-
-
-
                     </div>
 
                     <div align="center" style="; border: 1px solid black;">
@@ -133,10 +130,10 @@
                     require_once 'include/connectDB.php';
 
 
-
-                        foreach ($db->query('SELECT image_path, title, id FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        // Display images and comments
+                        foreach ($db->query('SELECT image_path, title, id, image_likes FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             echo '<div>';
-                            echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . '</h4>';
+                            echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . ' (' . $row['image_likes'] . ')</h4> ';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
 
                             // display comments from this image
@@ -154,17 +151,19 @@
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="pictureComment" placeholder="Comment" >';
                             echo '<input type="hidden" name="pictureID" value="' . $row['id'] . '">';
-                            
-                            echo '<button type="submit" name="pictureCommentSubmit">+</button>';
+                            echo '<button type="submit" name="pictureCommentSubmit">Post</button>';
+                            echo '<button type="submit" name="pictureLike">+</button>';
+                            echo '<button type="submit" name="pictureDislike">-</button>';
                             echo '</form>';
                             echo '</div>';
                         }
 
-                        foreach ($db->query('SELECT video_path, title, id FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        // Display videos and comments
+                        foreach ($db->query('SELECT video_path, title, id, video_likes FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             $vidSrc = $row['video_path'];
 
                             echo '<div class="embed-responsive-4by3" style="margin-top:20px">';
-                            echo '<h4 align="left" >' . $row['title'] . '</h4>';
+                            echo '<h4 align="left" >' . $row['title'] . ' (' . $row['video_likes'] . ')</h4>';
                             echo '<video class="embed-responsive-item" width="320" height="240" controls>';
                             echo '<source src="' . $vidSrc . '" type="video/mp4">';
                             echo '</video><br>';
@@ -184,7 +183,9 @@
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="videoComment" placeholder="Comment" >';
                             echo '<input type="hidden" name="videoID" value="' . $row['id'] . '">';
-                            echo '<button type="submit" name="videoCommentSubmit">+</button>';
+                            echo '<button type="submit" name="videoCommentSubmit">Post</button>';
+                            echo '<button type="submit" name="videoLike">+</button>';
+                            echo '<button type="submit" name="videoDislike">-</button>';
                             echo '</form>';
                             echo '</div>';
                         }
