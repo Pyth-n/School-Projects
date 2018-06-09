@@ -115,10 +115,6 @@
                     , ?
                        )';
 
-                /*$SQL = 'INSERT INTO videos(title, description, video_path, user_uploaded_id) values (
-                        ?, ?, ?, ?
-                        )';*/
-
                 $saveLocation = 'uploads/' . $_SESSION['id'] . '/' . $newFileName;
 
                 $statement = $db->prepare($SQL);
@@ -133,8 +129,6 @@
 
 
             }
-
-            echo 'You are uploading a video.';
         }
 
     }

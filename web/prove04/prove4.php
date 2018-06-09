@@ -126,17 +126,43 @@
 
                     </div>
 
-                    <div align="center">
+                    <div align="center" style="; border: 1px solid black;">
                     <!-- The wall -->
                     <?php
                     define('USE_DB', true);
                     require_once 'include/connectDB.php';
-                        foreach ($db->query('SELECT image_path FROM images WHERE user_uploaded_id=24') as $row) {
-                            echo '<div style="width:320px; height:300px; border: 1px solid black;">';
+
+
+
+                        foreach ($db->query('SELECT image_path, title FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                            echo '<div>';
+                            echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . '</h4>';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
+
+                            // Make comment form
+                            echo '<form action="test.php" method="post" align="left">';
+                            echo '<input type="text" name="pictureComment" placeholder="Comment" >';
+                            echo '<button type="submit" name="pictureCommentSubmit">+</button>';
+                            echo '</form>';
                             echo '</div>';
                         }
 
+                        foreach ($db->query('SELECT video_path, title FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                            $vidSrc = $row['video_path'];
+
+                            echo '<div class="embed-responsive-4by3" style="margin-top:20px">';
+                            echo '<h4 align="left" >' . $row['title'] . '</h4>';
+                            echo '<video class="embed-responsive-item" width="320" height="240" controls>';
+                            echo '<source src="' . $vidSrc . '" type="video/mp4">';
+                            echo '</video>';
+
+                            // Make comment form
+                            echo '<form action="test.php" method="post" align="left">';
+                            echo '<input type="text" name="videoComment" placeholder="Comment" >';
+                            echo '<button type="submit" name="videoCommentSubmit">+</button>';
+                            echo '</form>';
+                            echo '</div>';
+                        }
                     ?>
                     </div>
                 </div>
