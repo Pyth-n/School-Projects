@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $liked = true;
+
     // Authentication
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['id'])) {
         if(isset($_POST['pictureCommentSubmit'])) {
@@ -43,6 +45,7 @@
             $statement = $db->prepare($SQL);
             $statement->bindValue(':id', $_POST['pictureID'], PDO::PARAM_INT);
             $statement->execute();
+            $liked = false;
         }
 
         if(isset($_POST['videoCommentSubmit'])) {
@@ -82,7 +85,31 @@
             $statement = $db->prepare($SQL);
             $statement->bindValue(':id', $_POST['videoID'], PDO::PARAM_INT);
             $statement->execute();
+            $liked = false;
         }
+        $updateID = null;
+
+        if(isset($_POST['visiting'])) {
+            $updateID = $_POST['visiting'];
+        } else {
+            $updateID = $_SESSION['id'];
+        }
+
+        if($liked) {
+            define('USE_DB', true);
+            require '../include/connectDB.php';
+
+            $SQL = 'UPDATE users SET popularity = popularity + 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $updateID, PDO::PARAM_INT);
+            $statement->execute();
+        } else {
+            $SQL = 'UPDATE users SET popularity = popularity - 1 WHERE id=:id';
+            $statement = $db->prepare($SQL);
+            $statement->bindValue(':id', $updateID, PDO::PARAM_INT);
+            $statement->execute();
+        }
+
 
         if(isset($_POST['visiting'])) {
             header('Location:../viewProfile.php?profileId=' . $_POST['visiting']);

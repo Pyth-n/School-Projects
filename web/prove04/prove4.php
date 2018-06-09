@@ -123,17 +123,17 @@
                         </div>
                     </div>
 
-                    <div align="center" style="; border: 1px solid black;">
+                    <div  class="container" align="center" style="; border: 1px solid black;">
                     <!-- The wall -->
                     <?php
                     define('USE_DB', true);
                     require_once 'include/connectDB.php';
 
-
                         // Display images and comments
-                        foreach ($db->query('SELECT image_path, title, id, image_likes FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        foreach ($db->query('SELECT image_path, title, id, image_likes, description FROM images WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             echo '<div>';
                             echo '<h4 align="left" style="margin-top:20px">' . $row['title'] . ' (' . $row['image_likes'] . ')</h4> ';
+                            echo '<em>' . $row['description'] . '</em>';
                             echo '<img src="' . $row['image_path'] . '"" class="img-fluid">' ;
 
                             // display comments from this image
@@ -143,8 +143,12 @@
                                 $nameStatement->bindValue(':ucid', $comment['user_commented'], PDO::PARAM_INT);
                                 $nameStatement->execute();
                                 $nameRow = $nameStatement->fetchAll(PDO::FETCH_ASSOC);
+                                echo '<div class="container" align="left" style="padding: 10px 0px 10px 0px">';
+                                echo '<strong>';
                                 echo $nameRow[0]['first_name'] . ' ' . $nameRow[0]['last_name'] . ': ';
+                                echo '</strong>';
                                 echo $comment['comment'] . '<br>';
+                                echo '</div>';
                             }
 
                             // Make comment form
@@ -159,11 +163,12 @@
                         }
 
                         // Display videos and comments
-                        foreach ($db->query('SELECT video_path, title, id, video_likes FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
+                        foreach ($db->query('SELECT video_path, title, id, video_likes, description FROM videos WHERE user_uploaded_id=' . $_SESSION['id']) as $row) {
                             $vidSrc = $row['video_path'];
 
                             echo '<div class="embed-responsive-4by3" style="margin-top:20px">';
                             echo '<h4 align="left" >' . $row['title'] . ' (' . $row['video_likes'] . ')</h4>';
+                            echo '<em>' . $row['description'] . '</em>';
                             echo '<video class="embed-responsive-item" width="320" height="240" controls>';
                             echo '<source src="' . $vidSrc . '" type="video/mp4">';
                             echo '</video><br>';
@@ -175,7 +180,10 @@
                                 $nameStatement->bindValue(':ucid', $comment['user_commented'], PDO::PARAM_INT);
                                 $nameStatement->execute();
                                 $nameRow = $nameStatement->fetchAll(PDO::FETCH_ASSOC);
+                                echo '<div class="container" align="left" style="padding: 10px 0px 10px 0px">';
+                                echo '<strong>';
                                 echo $nameRow[0]['first_name'] . ' ' . $nameRow[0]['last_name'] . ': ';
+                                echo '</strong>';
                                 echo $comment['comment'] . '<br>';
                             }
 

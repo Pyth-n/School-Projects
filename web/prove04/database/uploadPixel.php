@@ -126,6 +126,7 @@
                 $statement->execute();
 
                 echo "Uploaded video";
+                header('Location: ../prove4.php');
 
 
             }

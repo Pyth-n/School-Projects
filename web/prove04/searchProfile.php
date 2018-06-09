@@ -15,6 +15,19 @@ $CSSLOC = "style.css";
 require '../scripts/include/meta-head.php';
 ?>
 
+<?php
+    // check if admin
+    define('USE_DB', true);
+    require 'include/connectDB.php';
+
+    $SQL = 'SELECT is_admin FROM users WHERE id=:id';
+    $statement = $db->prepare($SQL);
+    $statement->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+    $statement->execute();
+
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $adminStatus = (boolean) $rows[0]['is_admin'];
+?>
 <body>
 <div class="container">
 
@@ -38,14 +51,24 @@ require '../scripts/include/meta-head.php';
                 </thead>
 
                 <tbody>
-                <form method="POST" action="profile.php">
+
                     <?php
                     $SEARCH_QUERY = "none";
                     if(isset($_GET['searchQuery'])) {
                         $SEARCH_QUERY = $_GET['searchQuery'];
                     }
 
-                    include 'include/querySearch.php';
+                    if($adminStatus) {
+                        echo '<form method="POST" action="profile.php">';
+                        include 'include/querySearch.php';
+                        echo '</form>';
+                    } else {
+                        echo '<form method="post" action="viewProfile.php">';
+                        include 'include/querySearch.php';
+                        echo '</form>';
+                    }
+
+
                     ?>
                 </form>
 

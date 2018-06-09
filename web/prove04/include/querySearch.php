@@ -1,13 +1,7 @@
 <?php
     define('USE_DB', true);
     require 'connectDB.php';
-
-/*foreach($db->query('SELECT id, first_name, last_name FROM users') as $row) {
-    echo $row['first_name'];
-    echo '<br/>';
-}*/
-
-
+    
     $SEARCH_QUERY = strtolower($SEARCH_QUERY);
     $statement = $db->prepare('SELECT * FROM users WHERE LOWER(last_name)=:last_name');
     $statement->bindValue(':last_name', $SEARCH_QUERY, PDO::PARAM_STR);
