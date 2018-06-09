@@ -16,6 +16,20 @@ $CSSLOC = "style.css";
 require '../scripts/include/meta-head.php';
 ?>
 
+<?php
+    // check if admin
+    define('USE_DB', true);
+    require 'include/connectDB.php';
+
+    $SQL = 'SELECT is_admin FROM users WHERE id=:id';
+    $statement = $db->prepare($SQL);
+    $statement->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+    $statement->execute();
+
+    $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $adminStatus = (boolean) $rows[0]['is_admin'];
+?>
+
 <body>
 <div class="container">
 
@@ -26,10 +40,9 @@ require '../scripts/include/meta-head.php';
 
     <!-- Main body content -->
     <div id="body_content">
-        <div class="jumbotron"><h2>Registered Users</h2>
-
+        <div class="jumbotron"><h2>Registered Users <?php echo ($adminStatus == true ? '(Admin control)' : ''); ?></h2>
             <!-- table that shows people in database -->
-            <table class="table table-striped">
+           <table class="table table-striped">
 
                 <thead>
                     <tr>
@@ -38,12 +51,21 @@ require '../scripts/include/meta-head.php';
                 </thead>
 
                 <tbody>
-                    <form method="POST" action="profile.php">
+
                         <?php
-                            define('query_people', true);
-                            include 'include/queryPeople.php';
+                            if($adminStatus) {
+                                echo '<form method="POST" action="profile.php">';
+                                define('query_people', true);
+                                include 'include/queryPeople.php';
+                                echo '</form>';
+                            } else {
+                                echo '<form method="post" action="viewProfile.php">';
+                                define('query_people', true);
+                                include 'include/queryPeople.php';
+                                echo '</form>';
+                            }
                         ?>
-                    </form>
+
 
                 </tbody>
 

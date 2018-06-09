@@ -17,9 +17,6 @@
             $statement->bindParam(3, $_SESSION['id'], PDO::PARAM_INT);
             $statement->execute();
 
-            header('Location: ../prove4.php');
-            die();
-
         }
 
         if (isset($_POST['pictureLike'])) {
@@ -32,6 +29,8 @@
             $statement = $db->prepare($SQL);
             $statement->bindValue(':id', $_POST['pictureID'], PDO::PARAM_INT);
             $statement->execute();
+
+
         }
 
         if (isset($_POST['pictureDislike'])) {
@@ -85,5 +84,9 @@
             $statement->execute();
         }
 
-        header('Location: ../prove4.php');
+        if(isset($_POST['visiting'])) {
+            header('Location:../viewProfile.php?profileId=' . $_POST['visiting']);
+        } else {
+            header('Location:../prove4.php');
+        }
     }
