@@ -154,11 +154,11 @@
 
                             // Make comment form
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
-                            echo '<input type="text" name="pictureComment" placeholder="Comment" >';
+                            echo '<input type="text" name="pictureComment" placeholder="Comment" class="form-control">';
                             echo '<input type="hidden" name="pictureID" value="' . $row['id'] . '">';
-                            echo '<button type="submit" name="pictureCommentSubmit">Post</button>';
-                            echo '<button type="submit" name="pictureLike">+</button>';
-                            echo '<button type="submit" name="pictureDislike">-</button>';
+                            echo '<button type="submit" class="btn btn-primary" name="pictureCommentSubmit">Post</button>';
+                            echo '<button type="submit" class="btn btn-success" name="pictureLike">+</button>';
+                            echo '<button type="submit" class="btn btn-danger" name="pictureDislike">-</button>';
                             echo '</form>';
                             echo '</div>';
                         }
@@ -192,9 +192,9 @@
                             echo '<form action="database/uploadComment.php" method="post" align="left">';
                             echo '<input type="text" name="videoComment" placeholder="Comment" >';
                             echo '<input type="hidden" name="videoID" value="' . $row['id'] . '">';
-                            echo '<button type="submit" name="videoCommentSubmit">Post</button>';
-                            echo '<button type="submit" name="videoLike">+</button>';
-                            echo '<button type="submit" name="videoDislike">-</button>';
+                            echo '<button type="submit" class="btn btn-primary" name="videoCommentSubmit">Post</button>';
+                            echo '<button type="submit" class="btn btn-success" name="videoLike">+</button>';
+                            echo '<button type="submit" class="btn btn-danger" name="videoDislike">-</button>';
                             echo '</form>';
                             echo '</div>';
                         }
