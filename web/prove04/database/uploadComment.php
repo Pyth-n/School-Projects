@@ -3,6 +3,14 @@
 
     $liked = true;
 
+    $updateID = null;
+
+    if(isset($_POST['visiting'])) {
+        $updateID = $_POST['visiting'];
+    } else {
+        $updateID = $_SESSION['id'];
+    }
+
     // Authentication
     if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['id'])) {
         if(isset($_POST['pictureCommentSubmit'])) {
@@ -43,7 +51,7 @@
             echo "Disliking the picture..";
             $SQL = 'UPDATE images SET image_likes = image_likes - 1 WHERE id=:id';
             $statement = $db->prepare($SQL);
-            $statement->bindValue(':id', $_POST['pictureID'], PDO::PARAM_INT);
+            $statement->bindValue(':id', $updateID, PDO::PARAM_INT);
             $statement->execute();
             $liked = false;
         }
@@ -71,7 +79,7 @@
 
             $SQL = 'UPDATE videos SET video_likes = video_likes + 1 WHERE id=:id';
             $statement = $db->prepare($SQL);
-            $statement->bindValue(':id', $_POST['videoID'], PDO::PARAM_INT);
+            $statement->bindValue(':id', $updateID, PDO::PARAM_INT);
             $statement->execute();
         }
 
@@ -83,17 +91,11 @@
 
             $SQL = 'UPDATE videos SET video_likes = video_likes - 1 WHERE id=:id';
             $statement = $db->prepare($SQL);
-            $statement->bindValue(':id', $_POST['videoID'], PDO::PARAM_INT);
+            $statement->bindValue(':id',$updateID, PDO::PARAM_INT);
             $statement->execute();
             $liked = false;
         }
-        $updateID = null;
 
-        if(isset($_POST['visiting'])) {
-            $updateID = $_POST['visiting'];
-        } else {
-            $updateID = $_SESSION['id'];
-        }
 
         if($liked) {
             define('USE_DB', true);
