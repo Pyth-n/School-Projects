@@ -21,9 +21,7 @@ module.exports = function (weight, mailType, res) {
             break;
     }
 
-    console.log("Your total price is: " + total);
-
-    var params = {weight: weight, mailType: mailType, total:total};
+    var params = {weight: weight, mailType: mailType, total: total};
     res.render('rate_results', params);
 }
 
