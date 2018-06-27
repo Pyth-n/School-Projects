@@ -3,6 +3,8 @@ body {
   }
 .starter-template {
   text-align: center;
+  float: none;
+  margin: 0 auto;
 }
 
 @media(min-width: 1200px) {
