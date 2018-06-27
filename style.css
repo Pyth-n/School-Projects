@@ -2,9 +2,12 @@ body {
     
   }
 .starter-template {
-/* padding: 1rem 1.5rem; */
-text-align: center;
+  text-align: center;
 }
 
-
+@media(min-width: 1200px) {
+  #chart {
+    max-width: 868px;
+  }
+}
 
