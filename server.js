@@ -4,6 +4,8 @@ const app = express();
 app.set('view engine', 'ejs');
 
 app.use(express.static('imgs'));
+app.use('/style', express.static('public'));
+app.use('/script', express.static('public'));
 
 app.get('/', function(req, res) {
     res.render('home');
