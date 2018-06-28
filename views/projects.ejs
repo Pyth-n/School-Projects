@@ -1,115 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no">
 
-    <!-- Bootstrap CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <!-- Bootstrap CDN -->
+        <link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+            integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+            crossorigin="anonymous">
 
-    <!-- Personal CSS -->
-    <link rel="stylesheet" href="style/style.css">
-    <!-- TODO: add Open Sans typeface -->
+        <!-- Personal CSS -->
+        <link rel="stylesheet" href="style/style.css">
+        <!-- TODO: add Open Sans typeface -->
 
-    <title>David's Projects</title>
+        <title>David's Projects</title>
 
-</head>
-<body>
-    <!-- Navigation bar -->
-    <%- include('partials/nav') %>
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <%- include('partials/nav') %>
 
-    <div class="container">
-        <h1>Portfolio</h1>
+            <div class="container">
+                <h1>Portfolio</h1>
 
-        <div class="row">
-            <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-auto mb-3 d-flex aligh-items-stretch">
+                        <!-- Asteroids -->
+                        <div class="card text-center" style="width: 20rem;">
+                            <img class="card-img-top" src="asteroids.jpg"
+                                alt="asteroid">
 
-                <div class="card-deck">
-                            <!-- Asteroids -->
-                <div class="card text-center" style="width: 20rem;">
-                    <img class="card-img-top" src="asteroids.jpg" alt="asteroid">
-    
-                    <div class="card-body">
-                        <h3 class="card-title">Asteroids</h3>
-                        <p>Retro asteroids game. First major project to incorporate 
-                            object-oriented programming. Learned pointers for memory management.</p>
+                            <div class="card-body">
+                                <h3 class="card-title">Asteroids</h3>
+                                <p>Retro asteroids game. First major project to
+                                    incorporate
+                                    object-oriented programming. Learned
+                                    pointers for memory management.</p>
+                            </div>
+
+                            <div class="card-header">
+                                Technologies
+                            </div>
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item">C++</li>
+                                <li class="list-group-item">OpenGL</li>
+                            </ul>
+
+                            <div class="card-body">
+                                <a href="https://github.com/Pyth-n/asteroids"
+                                    class="btn btn-primary">View Source</a>
+                            </div>
+                        </div>
                     </div>
-    
-                    <div class="card-header">
-                        Technologies
+
+                    <div class="col-auto mb-3 d-flex aligh-items-stretch">
+                        <!-- ChiCleaningService -->
+                        <div class="card text-center" style="width: 20rem;">
+                            <img class="card-img-top" src="chi.png"
+                                alt="asteroid">
+
+                            <div class="card-body">
+                                <h3 class="card-title">Chi Cleaning</h3>
+                                <p>A local cleaning company website. Hosted with
+                                    DigitalOcean</p>
+                            </div>
+
+                            <div class="card-header">
+                                Technologies
+                            </div>
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item">HTML & CSS</li>
+                                <li class="list-group-item">BootStrap</li>
+                                <li class="list-group list-group-item">Facebook
+                                    & Google API</li>
+                            </ul>
+
+                            <div class="card-body">
+                                <a href="http://chicleaningservice.com/"
+                                    class="btn btn-primary">View Site</a>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        
-                        <li class="list-group-item">C++</li>
-                        <li class="list-group-item">OpenGL</li>
-                    </ul>
-    
-                    <div class="card-body">
-                        <a href="https://github.com/Pyth-n/asteroids" class="btn btn-primary">View Source</a>
+
+                    <div class="col-auto mb-3 d-flex aligh-items-stretch">
+                        <!-- Pixel -->
+                        <div class="card text-center" style="width: 20rem;">
+                            <img class="card-img-top" src="pixel.png"
+                                alt="asteroid">
+
+                            <div class="card-body">
+                                <h3 class="card-title">Pixel</h3>
+                                <p>A compact website to share images and videos
+                                    which others can view and comment.
+                                    Uses authentication. Deployed to Heroku.</p>
+                            </div>
+
+                            <div class="card-header">
+                                Technologies
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">HTML & CSS</li>
+                                <li class="list-group-item">BootStrap</li>
+                                <li class="list-group list-group-item">PHP</li>
+                                <li class="list-group list-group-item">PostgreSQL</li>
+                            </ul>
+
+                            <div class="card-body">
+                                <a
+                                    href="https://young-castle-94142.herokuapp.com/prove04/login.php"
+                                    class="btn btn-primary">View Site</a>
+                                <a
+                                    href="https://github.com/Perez-David/cs313/tree/master/web/prove04"
+                                    class="btn btn-primary">View Source</a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
-                <!-- ChiCleaningService -->
-                <div class="card text-center" style="width: 20rem;">
-                    <img class="card-img-top" src="chi.png" alt="asteroid">
-    
-                    <div class="card-body">
-                        <h3 class="card-title">Chi Cleaning</h3>
-                        <p>A local cleaning company website. Hosted with DigitalOcean</p>
-                    </div>
-    
-                    <div class="card-header">
-                        Technologies
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        
-                        <li class="list-group-item">HTML & CSS</li>
-                        <li class="list-group-item">BootStrap</li>
-                        <li class="list-group list-group-item">Facebook & Google API</li>
-                    </ul>
-    
-                    <div class="card-body">
-                        <a href="http://chicleaningservice.com/" class="btn btn-primary">View Site</a>
-                    </div>
-                </div>                
-
-                <!-- Pixel -->
-                <div class="card text-center" style="width: 20rem;">
-                    <img class="card-img-top" src="pixel.png" alt="asteroid">
-    
-                    <div class="card-body">
-                        <h3 class="card-title">Pixel</h3>
-                        <p>A compact website to share images and videos which others can view and comment.
-                             Uses authentication. Deployed to Heroku.</p>
-                    </div>
-    
-                    <div class="card-header">
-                        Technologies
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">HTML & CSS</li>
-                        <li class="list-group-item">BootStrap</li>
-                        <li class="list-group list-group-item">PHP</li>
-                        <li class="list-group list-group-item">PostgreSQL</li>
-                    </ul>
-    
-                    <div class="card-body">
-                        <a href="https://young-castle-94142.herokuapp.com/prove04/login.php" class="btn btn-primary">View Site</a>
-                        <a href="https://github.com/Perez-David/cs313/tree/master/web/prove04" class="btn btn-primary">View Source</a>
-                    </div>
-                </div>
             </div>
-            </div>
-        </div>
-            
-
-
-
-
-
-
-
-    </div>
-    <%- include('partials/scripts') %>
-</body>
-</html>
+            <%- include('partials/scripts') %>
+            </body>
+        </html>
