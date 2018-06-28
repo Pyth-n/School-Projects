@@ -5,6 +5,9 @@ const app = express();
 // Get PORT from environment or use a hard-coded one
 const PORT = process.env.PORT || 1337;
 
+// Get GMAILAPP environment variable to send email
+const GMAILAPP = process.env.GMAILAPP;
+
 // Using EJS as viewing engine
 app.set('view engine', 'ejs');
 
@@ -16,6 +19,17 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+// Use for email
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: '3dgar.p@gmail.com',
+        pass: GMAILAPP
+    }
+});
 
 // Use these static files
 app.use(express.static('imgs'));
@@ -44,7 +58,27 @@ app.get('/contact', function(req, res) {
 app.post('/send', function(req, res) {
     const params = { email: req.body.user.email, name: req.body.user.name, message: req.body.user.message };
 
+    var mailOptions = {
+        from: req.body.user.email,
+        to: '3dgar.p@gmail.com',
+        subject: 'Portfolio Contact',
+        text: req.body.user.message + '<br>Email: ' + req.body.user.email + '<br>' + 'Name: ' + req.body.user.name
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            throw error;
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+
     res.render('sent', params);
+    res.end();
+});
+
+app.get('/test', function(req, res) {
+    console.log(process.env.GMAILAPP);
     res.end();
 });
 
