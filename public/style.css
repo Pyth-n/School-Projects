@@ -13,3 +13,23 @@ body {
   }
 }
 
+@media(min-width: 768px) {
+  .form-width {
+    max-width: 768px;
+  }
+}
+
+.form-width {
+  float:none;
+  margin: 0 auto;
+  
+}
+
+.button-center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.jumbotron {
+  margin-top: 50px;
+}
