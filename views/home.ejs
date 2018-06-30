@@ -19,30 +19,32 @@
     <%- include('partials/nav') %>
 
     <div class="container">
-            <h1></h1>
-            
             <!--  -->
 
             <span class="starter-template">
                 
-            <p>Hello, I am David Perez. I am currently enrolled at Brigham Young University - Idaho pursuing 
+            <p class="lead">Hello, I am David Perez. I am currently enrolled at Brigham Young University - Idaho pursuing 
                 a degree in Software Engineering. 
             </p>
             <img src="image.jpg" class="rounded img-fluid mx-auto d-block" alt="me" id="div-intro">
 
                 
             </span>
-            <h1>Languages</h1>
-            <p>(Approximate projects created with technology)</p>
+            <h1 class="display-3" style="margin-top: 20px;">Languages</h1>
+            <p class="small text-muted">(Approximate projects created with technology)</p>
             <div id="chart" class="starter-template">
                 <canvas id="myChart"></canvas>
             </div>
+
+            <p class="small text-muted">Hover/Tap chart to display number</p>
+            <p class="small text-muted">Click/Tap on language label to hide/display result in Polar Area chart.</p>
+
             
 
     </div>
 
     <%- include('partials/scripts') %>
-    <!-- Used for donut chart -->
+    <!-- Used for Polar Area chart -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="script/script.js"></script>
 </body>

@@ -7,9 +7,9 @@ body {
   margin: 0 auto;
 }
 
-@media(min-width: 1200px) {
+@media(min-width: 768px) {
   #chart {
-    max-width: 868px;
+    max-width: 768px;
   }
 }
 
