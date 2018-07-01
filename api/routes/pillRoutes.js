@@ -5,7 +5,7 @@ var pill = require('../controllers/pillController');
 
 module.exports = function(app) {
     app.get('/', function(req, res) {
-        res.end();
+        return res.redirect('/register');
     });
 
     app.route('/register')

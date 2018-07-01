@@ -8,4 +8,4 @@ var routes = require('./api/routes/pillRoutes');
 routes(app);
 
 
-app.listen(1337, () => console.log("Running on port: " + PORT));
+app.listen(PORT, () => console.log("Running on port: " + PORT));
