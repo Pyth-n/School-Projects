@@ -1,8 +1,14 @@
 'use strict';
 
+var pill = require('../controllers/pillController');
+
+
 module.exports = function(app) {
     app.get('/', function(req, res) {
-        console.log('Lol');
-        res.end('hi there');
+        res.end();
     });
+
+    app.route('/register')
+        .get(pill.hello);
+
 }
