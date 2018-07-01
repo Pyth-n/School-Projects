@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/bootstrap/bootstrap.ejs') %>
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+    <div class="jumbotron">
+            <h1 class="display-2">Login</h1>
+
+            <!-- Form -->
+            <form>
+                <!-- Email -->
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email" placeholder="Enter email">
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+                <div class="form-row justify-content-center">
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter password">
+                    </div>
+                </div>
+
+                <!-- Register button -->
+                <div class="form-row justify-content-center">
+                    <button type="submit" name="register_submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+
+
+    </div>
+</div>
+
+<%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
+</body>
+</html>

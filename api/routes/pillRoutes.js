@@ -9,6 +9,9 @@ module.exports = function(app) {
     });
 
     app.route('/register')
-        .get(pill.hello);
+        .get(pill.register_page);
+
+    app.route('/login')
+        .get(pill.login_page);
 
 }
