@@ -9,7 +9,8 @@ module.exports = function(app) {
     });
 
     app.route('/register')
-        .get(pill.register_page);
+        .get(pill.register_page)
+        .post(pill.register);
 
     app.route('/login')
         .get(pill.login_page);
