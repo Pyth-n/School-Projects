@@ -1,0 +1,15 @@
+{
+  "name": "pill",
+  "version": "1.0.0",
+  "description": "An app to remind users to take a pill via SMS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Perez",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  }
+}
