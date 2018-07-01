@@ -1,10 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Register</title>
 </head>
 <body>
-    <h1>Hello world!</h1>
+    <div class="container">
+    <div class="jumbotron">
+            <h1 class="display-2">Register</h1>
 
+            <!-- Form -->
+            <form>
+
+                <!-- First and last name -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name">First name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                            <label for="first_name">Last name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter last name">
+                    </div>
+                </div>
+
+                <!-- Email and password -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email" placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter password">
+                    </div>
+                    <div class="form-group col-md-6">
+                            <input type="hidden">
+                    </div>
+                    <div class="form-group col-md-6">
+                            <input type="password" id="confirm_password" class="form-control" name="confirm_password" placeholder="Enter password again">
+                    </div>
+                </div>
+
+                <!-- Checkbox button -->
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_spanish">
+                        <label class="form-check-label" for="is_spanish">Hablo Español</label>
+                    </div>
+                </div>
+
+                <!-- Register button -->
+                <button type="submit" name="register_submit" class="btn btn-primary">Register</button>
+            </form>
+
+
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
