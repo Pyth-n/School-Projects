@@ -1,6 +1,9 @@
 // Require DB connection and credential
 const pool = require('../../sql/db_auth');
 
+// Bcrypt used to salt and hash passwords
+const bcrypt = require('bcrypt');
+
 // Register user
 exports.register_user = function(data) {
     // Assign POST values
@@ -33,18 +36,27 @@ exports.register_user = function(data) {
         client.query('BEGIN', (err) => {
             if (shouldAbort(err)) return;
 
-            const insertUserText = 'INSERT INTO users(email, password_h, first_name, last_name, is_english) VALUES($1, $2, $3, $4, $5)';
-            const insertUserValues = [email, password, firstName, lastName, english];
-            client.query(insertUserText, insertUserValues, (err, res) => {
-                if (shouldAbort(err)) return;
+            // ensure password is hashed and salted before inserting into database
+            bcrypt.hash(password, 10, function(err, hash) {
 
-                client.query('COMMIT', (err) => {
-                    if (err) {
-                        console.error('Error commiting transaction', err.stack);
-                    }
-                    done();
-                })
+                const insertUserText = 'INSERT INTO users(email, password_h, first_name, last_name, is_english) VALUES($1, $2, $3, $4, $5)';
+                const insertUserValues = [email, hash, firstName, lastName, english];
+                client.query(insertUserText, insertUserValues, (err, res) => {
+                    if (shouldAbort(err)) return;
+    
+                    client.query('COMMIT', (err) => {
+                        if (err) {
+                            console.error('Error commiting transaction', err.stack);
+                        }
+                        done();
+                    })
+                });
+
             });
+
+
+
+
         })
 
     });
