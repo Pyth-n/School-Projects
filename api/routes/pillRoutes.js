@@ -14,6 +14,7 @@ module.exports = function(app) {
         .post(pill.register);
 
     app.route('/login')
-        .get(pill.login_page);
+        .get(pill.login_page)
+        .post(pill.login);
 
 }

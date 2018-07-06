@@ -1,7 +1,6 @@
 // Require DB connection and credential
 const pool = require('../../sql/db_auth');
 
-
 // Register user
 exports.register_user = function(data) {
     // Assign POST values
@@ -15,14 +14,6 @@ exports.register_user = function(data) {
         english = false;
     } 
     
-
-    console.log('First name: ' + firstName);
-    console.log('last name: ' + lastName);
-    console.log('email: ' + email);
-    console.log('password: ' + password);
-    console.log('English: ' + english);
-
-
     // PG Transaction
     pool.connect((err, client, done) => {
 
@@ -57,5 +48,21 @@ exports.register_user = function(data) {
         })
 
     });
+    
+} // register_user
+
+// Login user
+exports.login_user = function(data) {
+    const email = data.email;
+    const password = data.password;
+
+    const loginUserText = 'SELECT id, is_english FROM users WHERE email = $1 AND password_h = $2';
+    const loginUserValues = [email, password];
+
+    pool.query(loginUserText, loginUserValues, (err, res) => {
+        if (err) throw err;
+
+        console.log('id: ', res.rows[0]);
+    })
     
 }
