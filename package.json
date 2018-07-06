@@ -4,12 +4,23 @@
   "description": "An app to remind users to take a pill via SMS",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "David Perez",
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.3"
-  }
+    "express": "^4.16.3",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Perez-David/pill-reminder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Perez-David/pill-reminder/issues"
+  },
+  "homepage": "https://github.com/Perez-David/pill-reminder#readme"
 }

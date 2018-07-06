@@ -3,9 +3,16 @@
 var pill = require('../controllers/pillController');
 
 
-module.exports = function(app) {
+module.exports = function(app, pool) {
     app.get('/', function(req, res) {
-        return res.redirect('/register');
+        pool.query('SELECT * FROM users WHERE id = $1', [1], (err, res) => {
+            if(err) { throw err; }
+        
+            console.log(res.rows[0].email);
+            pool.end();
+        });
+        res.end();
+        //return res.redirect('/register');
     });
 
     app.route('/register')
