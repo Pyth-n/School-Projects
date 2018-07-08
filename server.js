@@ -1,6 +1,7 @@
 // Setup express and app
 const express = require('express');
 const app = express();
+const path = require('path');
 app.set('view engine', 'ejs');
 
 // Body parser
@@ -13,9 +14,10 @@ app.use(bodyParser.json());
 // Get PORT
 const PORT = process.env.PORT || 1337;
 
+// Use static files
+app.use('/', express.static(path.join(__dirname, 'static')));
 
 var routes = require('./api/routes/pillRoutes');
 routes(app);
-
 
 app.listen(PORT, () => console.log("Running on port: " + PORT));

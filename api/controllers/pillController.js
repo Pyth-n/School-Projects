@@ -11,8 +11,6 @@ exports.register_page = function(req, res) {
 exports.register = function(req, res) {
     // Register user with POST values
     pillModel.register_user(req.body.user);
-
-    res.end();
 }
 
 // GET /login

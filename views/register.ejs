@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <%- include('partials/bootstrap/bootstrap.ejs') %>
+    <%- include('partials/jquery.ejs') %>
+    <script src="scripts.js"></script>
     <title>Register</title>
 </head>
 <body>
@@ -10,7 +12,7 @@
             <h1 class="display-2">Register</h1>
 
             <!-- Form -->
-            <form action="/register" method="POST">
+            <form>
 
                 <!-- First and last name -->
                 <div class="form-row">
@@ -47,13 +49,13 @@
                 <!-- Checkbox button -->
                 <div class="form-group">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="is_spanish" checked name="user[english]">
+                        <input class="form-check-input" type="checkbox" id="is_spanish" name="user[english]">
                         <label class="form-check-label" for="is_spanish">Hablo Español</label>
                     </div>
                 </div>
 
                 <!-- Register button -->
-                <button type="submit" name="register_submit" class="btn btn-primary">Register</button>
+                <button type="button" id="registerUser" class="btn btn-primary">Register</button>
             </form>
 
 
