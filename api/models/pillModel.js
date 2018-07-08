@@ -53,28 +53,45 @@ exports.register_user = function(data) {
                 });
 
             });
-
-
-
-
         })
-
     });
-    
 } // register_user
 
 // Login user
 exports.login_user = function(data) {
     const email = data.email;
-    const password = data.password;
+    var password = data.password;
+    var passwordHash = null;
 
-    const loginUserText = 'SELECT id, is_english FROM users WHERE email = $1 AND password_h = $2';
-    const loginUserValues = [email, password];
+    // TODO get hash from DB, then compare to password input
+    const retrievePassText = 'SELECT password_h FROM users WHERE email = $1';
+    pool.query(retrievePassText, [email], (err, res) => {
+        
+        if (err) console.error(err);
+        var tmp = res.rows[0];
 
-    pool.query(loginUserText, loginUserValues, (err, res) => {
-        if (err) throw err;
+        if(tmp != undefined) {
+            passwordHash = tmp.password_h;
+            console.log("Found hash: " + tmp.password_h);
+        } else {
+            // Email doesn't exist
+            console.log("Didn't find hash!");
+            return;
+        }
 
-        console.log('id: ', res.rows[0]);
-    })
-    
+        compare(password, passwordHash);        
+    });
+}
+
+function compare(password, passwordHash) {
+    // Compare here
+    bcrypt.compare(password, passwordHash, function(err, res) {
+        if (res) {
+            console.log("Passwords matched!");
+            return true;
+        } else {
+            console.log("Passwords didn't match!")
+            return false;
+        }
+    });
 }
