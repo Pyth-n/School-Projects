@@ -22,6 +22,9 @@ exports.login_page = function(req, res) {
 
 // POST /login
 exports.login = function(req, res) {
-    pillModel.login_user(req.body.user);
-    res.end();
+    pillModel.login_user(req.body.user, (err) => {
+        if(err) return res.redirect('/login' + '?err=' + err);
+        res.render('home');
+    });
+    
 }

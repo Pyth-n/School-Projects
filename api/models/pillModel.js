@@ -58,7 +58,7 @@ exports.register_user = function(data) {
 } // register_user
 
 // Login user
-exports.login_user = function(data) {
+exports.login_user = function(data, cb) {
     const email = data.email;
     var password = data.password;
     var passwordHash = null;
@@ -76,22 +76,25 @@ exports.login_user = function(data) {
         } else {
             // Email doesn't exist
             console.log("Didn't find hash!");
+            cb("email");
             return;
         }
 
-        compare(password, passwordHash);        
+        compare(password, passwordHash, cb);
     });
+
+    
 }
 
-function compare(password, passwordHash) {
+function compare(password, passwordHash, cb) {
     // Compare here
     bcrypt.compare(password, passwordHash, function(err, res) {
         if (res) {
             console.log("Passwords matched!");
-            return true;
+            cb(false);
         } else {
             console.log("Passwords didn't match!")
-            return false;
+            cb("password");
         }
     });
 }
