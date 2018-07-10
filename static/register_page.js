@@ -40,9 +40,14 @@ function createUser() {
 
     // Send POST request to /register endpoint
     $.post('/register', data, function(result) {
+        console.log(result);
         switch (result.error) {
             case 'email':
                 $('#emailUsed').removeAttr('hidden');
+                break;
+            default:
+                // By default, redirect the user to /login GET
+                $(location).attr('href', result.path + '?email=' + result.email);
                 break;
         }
     });

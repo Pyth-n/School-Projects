@@ -14,6 +14,7 @@ exports.check_email_availability = function(req, res, next) {
         if (err) next('route');
         if (isAvailable) {
             console.log("Email is available");
+            
             next();
         } else {
             console.log("Email is NOT available");
@@ -24,10 +25,19 @@ exports.check_email_availability = function(req, res, next) {
 
 // POST /register
 exports.register = function(req, res, next) {
+
+    var resJson = {
+        "email": req.body.user.email,
+        "path": "/login"
+    }
+
     // Register user with POST values
-    //pillModel.register_user(req.body.user);
-    res.redirect('/login');
+    pillModel.register_user(req.body.user);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(resJson, null, 3));
 }
+
+
 
 // POST /register
 exports.test = function(req, res, next) {
@@ -36,8 +46,6 @@ exports.test = function(req, res, next) {
     }
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(jsonError, null, 3));
-    
-    console.log("This is the TEST middleware");
 }
 
 // GET /login
