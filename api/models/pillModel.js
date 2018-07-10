@@ -4,6 +4,14 @@ const pool = require('../../sql/db_auth');
 // Bcrypt used to salt and hash passwords
 const bcrypt = require('bcrypt');
 
+// exports.register_user = function(data) {
+//     console.log(data);
+// }
+
+exports.test_register_user = function(data) {
+    console.log(data);
+}
+
 // Register user
 exports.register_user = function(data) {
     // Assign POST values
@@ -11,11 +19,8 @@ exports.register_user = function(data) {
     const lastName = data.ln;
     const email = data.email;
     const password = data.password;
-    const isSpanish = data.english;
-    var english = true;
-    if (isSpanish) {
-        english = false;
-    } 
+    const isEnglish = (data.english == 'true');
+
     
     // PG Transaction
     pool.connect((err, client, done) => {
@@ -40,9 +45,12 @@ exports.register_user = function(data) {
             bcrypt.hash(password, 10, function(err, hash) {
 
                 const insertUserText = 'INSERT INTO users(email, password_h, first_name, last_name, is_english) VALUES($1, $2, $3, $4, $5)';
-                const insertUserValues = [email, hash, firstName, lastName, english];
+                const insertUserValues = [email, hash, firstName, lastName, isEnglish];
                 client.query(insertUserText, insertUserValues, (err, res) => {
-                    if (shouldAbort(err)) return;
+                    if (shouldAbort(err)){
+                        console.log("Email currently exists!");
+                        return;
+                    } 
     
                     client.query('COMMIT', (err) => {
                         if (err) {
@@ -84,8 +92,9 @@ exports.login_user = function(data, cb) {
     });
 
     
-}
+} // Login user
 
+// Compare passwords
 function compare(password, passwordHash, cb) {
     // Compare here
     bcrypt.compare(password, passwordHash, function(err, res) {

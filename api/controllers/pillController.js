@@ -8,9 +8,10 @@ exports.register_page = function(req, res) {
 }
 
 // POST /register
-exports.register = function(req, res) {
+exports.register = function(req, res, next) {
     // Register user with POST values
     pillModel.register_user(req.body.user);
+    next();
 }
 
 // GET /login
