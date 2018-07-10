@@ -14,6 +14,10 @@ module.exports = function(app) {
     router.post('/register', pill.check_email_availability, pill.register)
     router.post('/register', pill.test);
 
+    router.get('/login', pill.login_page);
+    router.get('/home', (req, res) => {
+        res.render('home');
+    })
 
     
     app.use('/', router)
