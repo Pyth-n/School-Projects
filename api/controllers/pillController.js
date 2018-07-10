@@ -9,7 +9,7 @@ exports.register_page = function(req, res) {
 
 // POST /register middleware
 exports.check_email_availability = function(req, res, next) {
-    // TODO: if email doesn't exist, register, otherwise return
+    // Check if email is available. If not, send to test(req res)
     pillModel.is_email_available(req.body.user, (err, isAvailable) => {
         if (err) next('route');
         if (isAvailable) {
@@ -26,12 +26,16 @@ exports.check_email_availability = function(req, res, next) {
 exports.register = function(req, res, next) {
     // Register user with POST values
     //pillModel.register_user(req.body.user);
-    res.send("Hopefully registered lol");
+    res.redirect('/login');
 }
 
 // POST /register
 exports.test = function(req, res, next) {
-    res.json('{ "error": "email" }');
+    var jsonError = {
+        "error": "email"
+    }
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(jsonError, null, 3));
     
     console.log("This is the TEST middleware");
 }

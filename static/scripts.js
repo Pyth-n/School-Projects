@@ -40,7 +40,7 @@ function createUser() {
 
     // Send POST request to /register endpoint
     $.post('/register', data, function(result) {
-        switch (JSON.parse(result).error) {
+        switch (result.error) {
             case 'email':
                 $('#emailUsed').removeAttr('hidden');
                 break;
@@ -59,7 +59,6 @@ function passwordsMatch(first, second) {
     } 
     // if passwords DO match
     else {
-        console.log("Passwords match!")
         $('#wrongPassword').attr('hidden','hidden');
         return true;
     }
