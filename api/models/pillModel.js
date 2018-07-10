@@ -4,12 +4,23 @@ const pool = require('../../sql/db_auth');
 // Bcrypt used to salt and hash passwords
 const bcrypt = require('bcrypt');
 
-// exports.register_user = function(data) {
-//     console.log(data);
-// }
+// TODO: Check email
+exports.is_email_available = function(data, cb) {
+    const retrieveEmailQuery = 'SELECT email FROM users WHERE email = $1';
+    const retrieveEmailValue = [data.email];
 
-exports.test_register_user = function(data) {
-    console.log(data);
+    pool.query(retrieveEmailQuery, retrieveEmailValue, (err, res) => {
+        if(err) cb(true, false);
+
+        // check null
+        var tmp = res.rows[0];
+
+        if(tmp != undefined) {
+            cb(false, false);
+        } else {
+            cb(false, true);
+        }        
+    });
 }
 
 // Register user
@@ -48,7 +59,6 @@ exports.register_user = function(data) {
                 const insertUserValues = [email, hash, firstName, lastName, isEnglish];
                 client.query(insertUserText, insertUserValues, (err, res) => {
                     if (shouldAbort(err)){
-                        console.log("Email currently exists!");
                         return;
                     } 
     
@@ -71,7 +81,7 @@ exports.login_user = function(data, cb) {
     var password = data.password;
     var passwordHash = null;
 
-    // TODO get hash from DB, then compare to password input
+    // get hash from DB, then compare to password input
     const retrievePassText = 'SELECT password_h FROM users WHERE email = $1';
     pool.query(retrievePassText, [email], (err, res) => {
         

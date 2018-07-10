@@ -7,11 +7,33 @@ exports.register_page = function(req, res) {
     res.render('register');
 }
 
+// POST /register middleware
+exports.check_email_availability = function(req, res, next) {
+    // TODO: if email doesn't exist, register, otherwise return
+    pillModel.is_email_available(req.body.user, (err, isAvailable) => {
+        if (err) next('route');
+        if (isAvailable) {
+            console.log("Email is available");
+            next();
+        } else {
+            console.log("Email is NOT available");
+            next('route');
+        }
+    });    
+}
+
 // POST /register
 exports.register = function(req, res, next) {
     // Register user with POST values
-    pillModel.register_user(req.body.user);
-    next();
+    //pillModel.register_user(req.body.user);
+    res.send("Hopefully registered lol");
+}
+
+// POST /register
+exports.test = function(req, res, next) {
+    res.json('{ "error": "email" }');
+    
+    console.log("This is the TEST middleware");
 }
 
 // GET /login
