@@ -4,7 +4,10 @@ const pool = require('../../sql/db_auth');
 // Bcrypt used to salt and hash passwords
 const bcrypt = require('bcrypt');
 
-// TODO: Check email
+// TODO: Setup crypto: used to store a random session token
+const crypto = require('crypto');
+
+// Check email
 exports.is_email_available = function(data, cb) {
     const retrieveEmailQuery = 'SELECT email FROM users WHERE email = $1';
     const retrieveEmailValue = [data.email];
@@ -90,10 +93,8 @@ exports.login_user = function(data, cb) {
 
         if(tmp != undefined) {
             passwordHash = tmp.password_h;
-            console.log("Found hash: " + tmp.password_h);
         } else {
             // Email doesn't exist
-            console.log("Didn't find hash!");
             cb("email");
             return;
         }
@@ -108,11 +109,14 @@ exports.login_user = function(data, cb) {
 function compare(password, passwordHash, cb) {
     // Compare here
     bcrypt.compare(password, passwordHash, function(err, res) {
+        // if passwords match
         if (res) {
-            console.log("Passwords matched!");
-            cb(false);
+            // callback that returns a crypto buffer to store in session
+            crypto.randomBytes(32, (err, buff) => {
+                cb(false, buff.toString('hex'));
+            });
+            
         } else {
-            console.log("Passwords didn't match!")
             cb("password");
         }
     });

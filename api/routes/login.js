@@ -5,5 +5,6 @@ const router = express.Router();
 
 // Render login page
 router.get('/', pill.login_page);
+router.post('/', pill.login);
 
 module.exports = router;

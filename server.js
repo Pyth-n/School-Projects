@@ -4,6 +4,14 @@ const app = express();
 const path = require('path');
 app.set('view engine', 'ejs');
 
+// setup sessions
+const session = require('express-session');
+app.use(session({
+    secret: 'tmp',
+    resave: false,
+    saveUninitialized: true
+}));
+
 // Body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
