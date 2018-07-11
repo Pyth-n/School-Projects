@@ -9,6 +9,9 @@ var pill = require('../controllers/pillController');
 
 module.exports = function(app) {
 
+    // Index
+    router.get('/', pill.login_page);
+
     // REGISTER endpoint
     router.get('/register', pill.register_page);
     router.post('/register', pill.check_email_availability, pill.register)

@@ -6,16 +6,17 @@
 </head>
 <body>
     <div class="container">
-    <div class="jumbotron">
-            <h1 class="display-2">Login</h1>
+    <div class="jumbotron" id="portal-content">
+        <h1 class="display-3">Login</h1>
 
-            <!-- Form -->
-        <form method="POST" action="/login">
+        <!-- Form -->
+        <form>
             <!-- Email -->
             <div class="form-row justify-content-center">
                 <div class="form-group col-md-6">
                     <label for="email">Email</label>
                     <input type="email" id="email" class="form-control" name="user[email]" placeholder="Enter email">
+                    <span class="form-text text-danger" id="emptyEmail" hidden>Please enter email</span>
                 </div>
             </div>
 
@@ -24,18 +25,20 @@
                 <div class="form-group col-md-6">
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" name="user[password]" placeholder="Enter password">
+                    <span class="form-text text-danger" id="emptyPassword" hidden>Please enter password</span>
                 </div>
             </div>
 
             <!-- Register button -->
-            <div class="form-row justify-content-center">
-                <button type="submit" name="register_submit" class="btn btn-primary">Login</button>
-            </div>
+            
+            <button type="button" id="loginButton" class="btn btn-primary">Login</button><br>
+            <span class="form-text text-muted" id="registerAnchor">New? <a href="/register">Register Instead</a> </span>
         </form>
         
     </div>
 </div>
 <%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
+<script src="login_page.js"></script>
 
 </body>
 </html>
