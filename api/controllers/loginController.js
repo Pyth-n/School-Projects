@@ -1,5 +1,3 @@
-'use strict';
-
 var pillModel = require('../models/pillModel');
 
 // GET /login
@@ -12,6 +10,5 @@ exports.login = function(req, res) {
     pillModel.login_user(req.body.user, (err) => {
         if(err) return res.redirect('/login' + '?err=' + err);
         res.render('home');
-    });
-    
+    });   
 }
