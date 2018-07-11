@@ -7,15 +7,12 @@ exports.register_page = function(req, res) {
 
 // POST /register middleware
 exports.check_email_availability = function(req, res, next) {
-    // Check if email is available. If not, send to test(req res)
+    // Check if email is available. If not, send to emailUnavailable(req res)
     pillModel.is_email_available(req.body.user, (err, isAvailable) => {
         if (err) next('route');
-        if (isAvailable) {
-            console.log("Email is available");
-            
+        if (isAvailable) {            
             next();
         } else {
-            console.log("Email is NOT available");
             next('route');
         }
     });    
@@ -25,21 +22,25 @@ exports.check_email_availability = function(req, res, next) {
 exports.register = function(req, res, next) {
 
     var resJson = {
-        "email": req.body.user.email,
-        "path": "/"
+        success: true,
+        email: req.body.user.email,
+        nextPath: "/"
     }
 
     // Register user with POST values
     pillModel.register_user(req.body.user);
+    res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(resJson, null, 3));
 }
 
 // POST /register if email is NOT available
-exports.test = function(req, res, next) {
+exports.emailUnavailable = function(req, res, next) {
     var jsonError = {
-        "error": "email"
+        success: "false",
+        error: "email"
     }
+    res.statusCode = 401;
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(jsonError, null, 3));
 }

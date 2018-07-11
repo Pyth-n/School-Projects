@@ -83,6 +83,8 @@ function compare(password, passwordHash, id, cb) {
                     token: buff.toString('hex'),
                     id: id
                 }
+                insertToken(buff.toString('hex'), id);
+                console.log("Saved token to DATABASE");
                 cb(false, JSON.stringify(json));
             });
             
@@ -94,6 +96,7 @@ function compare(password, passwordHash, id, cb) {
 
 // TODO: insertToken into user's database
 function insertToken(token, id) {
-
-
+    let query = 'UPDATE users SET token = $1 WHERE id = $2';
+    let values = [token, id];
+    transaction(pool, query, values);
 }

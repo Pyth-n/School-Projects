@@ -12,7 +12,7 @@ router.get('/register', pill.register_page);
 router.post('/register', pill.check_email_availability, pill.register)
 
 // If not available, send to this route
-router.post('/register', pill.test);
+router.post('/register', pill.emailUnavailable);
 
 
 module.exports = router;
