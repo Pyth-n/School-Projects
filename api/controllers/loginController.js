@@ -7,7 +7,7 @@ exports.login_page = function(req, res) {
 
 // POST /login
 exports.login = function(req, res) {
-    pillModel.login_user(req.body.user, (err, token) => {
+    pillModel.login_user(req.body.user, (err, data) => {
         if(err) {
             const json = {
                 success: false
@@ -18,8 +18,10 @@ exports.login = function(req, res) {
             return;// res.redirect('/' + '?err=' + err);
         }
         
-        req.session.id = token;
-        console.log("Stored in session: " + req.session.id);
+        // Use data callback value to store in session
+        data = JSON.parse(data);
+        req.session.userid = data.id;
+        req.session.token = data.token;
         res.statusCode = 200;
         res.set('Content-Type', 'application/json');
 
@@ -27,5 +29,6 @@ exports.login = function(req, res) {
             success: true
         }
         res.send(JSON.stringify(json, null, 3));
+
     });   
 }

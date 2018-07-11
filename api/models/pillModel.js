@@ -4,7 +4,7 @@ const pool = require('../../sql/db_auth');
 // Bcrypt used to salt and hash passwords
 const bcrypt = require('bcrypt');
 
-// TODO: Setup crypto: used to store a random session token
+// Setup crypto: used to store a random session token
 const crypto = require('crypto');
 
 // Check email
@@ -81,43 +81,54 @@ exports.register_user = function(data) {
 // Login user
 exports.login_user = function(data, cb) {
     const email = data.email;
-    var password = data.password;
-    var passwordHash = null;
+    const password = data.password;
+    let id = null;
+    let passwordHash = null;
 
     // get hash from DB, then compare to password input
-    const retrievePassText = 'SELECT password_h FROM users WHERE email = $1';
+    const retrievePassText = 'SELECT id, password_h FROM users WHERE email = $1';
     pool.query(retrievePassText, [email], (err, res) => {
-        
+        // error
         if (err) console.error(err);
-        var tmp = res.rows[0];
-
-        if(tmp != undefined) {
-            passwordHash = tmp.password_h;
-        } else {
+       
+        // Ensure we retrieved a value
+        if(res.rows[0] != undefined) {
+            passwordHash = res.rows[0].password_h;
+            id = res.rows[0].id;
+        } else { 
             // Email doesn't exist
             cb("email");
             return;
         }
 
-        compare(password, passwordHash, cb);
+        compare(password, passwordHash, id, cb);
     });
 
     
 } // Login user
 
 // Compare passwords
-function compare(password, passwordHash, cb) {
+function compare(password, passwordHash, id, cb) {
     // Compare here
     bcrypt.compare(password, passwordHash, function(err, res) {
         // if passwords match
         if (res) {
             // callback that returns a crypto buffer to store in session
             crypto.randomBytes(32, (err, buff) => {
-                cb(false, buff.toString('hex'));
+                const json = {
+                    token: buff.toString('hex'),
+                    id: id
+                }
+                cb(false, JSON.stringify(json));
             });
             
         } else {
             cb("password");
         }
     });
+}
+
+// TODO: insertToken into user's database
+function insertToken(token, id) {
+    
 }
