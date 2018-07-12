@@ -25,7 +25,6 @@ function login() {
     $.post('/', data, function(result) {
         if (result.success == true) {
             window.location.replace('/home');
-            //console.log(result);
         }
     }).fail(function(result) {
         console.log(result.responseJSON);
