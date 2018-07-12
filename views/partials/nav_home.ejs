@@ -1,4 +1,28 @@
 <h1 class="display-4">Pills <span><button id="addPill" class="btn btn-primary">+</button></span></h1>
-<div class="container" id="pillForm" hidden>
-    <input type="text">
-</div>
+    <!-- TODO: Add form for pill -->
+    <form id="pillForm" hidden>
+            <div class="form-row">
+              <div class="form-group col-sm-10">
+                <label for="pillName">Pill</label>
+                <input type="text" class="form-control" id="pillName" placeholder="Enter pill name">
+              </div>
+              <div class="form-group col-sm-2">
+                <label for="pillAmount">Amount</label>
+                <input type="number" class="form-control" id="pillAmount" placeholder="#">
+              </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-sm-10">
+                    <label for="pillStrength">Strength</label>
+                    <input type="text" class="form-control" id="pillStrength" placeholder="Enter pill strength i.e 25mg">
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="pillRemaining">Pills Left</label>
+                    <input type="number" class="form-control" id="pillRemaining" placeholder="#">
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary">Add</button>
+          </form>
+<!-- Form ROW -->

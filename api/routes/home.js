@@ -8,4 +8,6 @@ router.get('/home', controller.authenticate, controller.home_page);
 
 router.get('/home/:id', controller.authenticate, controller.authenticateID, controller.user_data);
 
+
+
 module.exports = router;
