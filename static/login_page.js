@@ -20,11 +20,9 @@ function login() {
         }
     }
 
-
-
     $.post('/', data, function(result) {
         if (result.success == true) {
-            window.location.replace('/home');
+            $(location).attr('href', result.nextPath);
         }
     }).fail(function(result) {
         console.log(result.responseJSON);
