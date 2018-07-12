@@ -26,7 +26,8 @@ exports.login = function(req, res, next) {
         res.set('Content-Type', 'application/json');
 
         const json = {
-            success: true
+            success: true,
+            nextPath: '/home'
         }
         res.send(JSON.stringify(json, null, 3));
         next();

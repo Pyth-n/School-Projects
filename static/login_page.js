@@ -13,9 +13,25 @@ function login() {
         return;
     }
 
-    
+    const data = {
+        user: {
+            email: email,
+            password: password
+        }
+    }
 
-    console.log(email + ':' + password);
+
+
+    $.post('/', data, function(result) {
+        if (result.success == true) {
+            window.location.replace('/home');
+            //console.log(result);
+        }
+    }).fail(function(result) {
+        console.log(result.responseJSON);
+        $('#failedPassword').removeAttr('hidden');
+    });
+    
 }
 
 function checkInput(email, password) {

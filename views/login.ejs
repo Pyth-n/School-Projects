@@ -15,7 +15,7 @@
             <div class="form-row justify-content-center">
                 <div class="form-group col-md-6">
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" name="user[email]" placeholder="Enter email">
+                    <input type="email" id="email" class="form-control" name="user[email]" value="bob@bob.com" placeholder="Enter email">
                     <span class="form-text text-danger" id="emptyEmail" hidden>Please enter email</span>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="form-row justify-content-center">
                 <div class="form-group col-md-6">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" name="user[password]" placeholder="Enter password">
+                    <input type="password" id="password" class="form-control" name="user[password]" value="bob" placeholder="Enter password">
                     <span class="form-text text-danger" id="emptyPassword" hidden>Please enter password</span>
                 </div>
             </div>
@@ -32,6 +32,7 @@
             <!-- Register button -->
             
             <button type="button" id="loginButton" class="btn btn-primary">Login</button><br>
+            <span class="form-text text-danger" id="failedPassword" hidden>Incorrect email or password. <br>Please try again.</span>
             <span class="form-text text-muted" id="registerAnchor">New? <a href="/register">Register Instead</a> </span>
         </form>
         
