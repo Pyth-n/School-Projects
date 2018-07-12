@@ -13,8 +13,9 @@ module.exports.authenticate = function(req, res, next) {
         if (isValid) {
             next()
         } else {
+            console.log("Tokens do NOT match");
             res.statusCode = 401;
-            res.send("NOT AUTHENTICATED");
+            return res.redirect('/');
         }
     });
 }
