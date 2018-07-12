@@ -6,7 +6,7 @@ exports.login_page = function(req, res) {
 }
 
 // POST /login
-exports.login = function(req, res) {
+exports.login = function(req, res, next) {
     pillModel.login_user(req.body.user, (err, data) => {
         if(err) {
             const json = {
@@ -15,7 +15,7 @@ exports.login = function(req, res) {
             res.statusCode = 401;
             res.set('Content-Type', 'application/json');
             res.send(JSON.stringify(json, null, 3));
-            return;// res.redirect('/' + '?err=' + err);
+            return;
         }
         
         // Use data callback value to store in session
@@ -29,6 +29,6 @@ exports.login = function(req, res) {
             success: true
         }
         res.send(JSON.stringify(json, null, 3));
-
-    });   
+        next();
+    });
 }

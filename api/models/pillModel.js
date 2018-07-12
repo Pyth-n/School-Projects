@@ -99,6 +99,22 @@ exports.verifyToken = function (id, token, cb) {
     });
 }
 
+exports.queryUsersID = function(id, cb) {
+    const query = "SELECT first_name, last_name, is_english FROM users WHERE id = $1";
+
+    pool.query(query, [id], (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            cb(false, JSON.stringify(res.rows[0]));
+            return;
+        } else {
+            cb (true, null);
+            return;
+        }
+    });
+}
+
 // Compare passwords
 function compare(password, passwordHash, id, cb) {
     // Compare here

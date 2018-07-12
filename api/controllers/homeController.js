@@ -23,17 +23,29 @@ module.exports.authenticateID = function(req, res, next) {
     console.log("Authentocating ID");
 
     if (req.session.userid == req.params.id) {
-        console.log("Correct ID");
         next();
     } else {
-        console.log("INCORRECT id");
         res.redirect('/home');
     }
 }
 
 // Render home page
 module.exports.home_page = function(req, res, next) {
-    console.log("Welcome to the home page");
     res.statusCode = 200;
     return res.redirect('/home/' + req.session.userid);
+}
+
+module.exports.user_data = function(req, res, next) {
+    let users = null;
+    console.log("Querying /home/" + req.params.id);
+    pillModel.queryUsersID(req.session.userid, (err, jsonUsers) => {
+        if (err) return;
+
+        
+        req.session.dbUsers = jsonUsers;
+        console.log(req.session.dbUsers);
+        //console.log(req.sessions.dbUsers);
+        res.render('home', JSON.parse(jsonUsers));
+    });
+    
 }
