@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('#loginButton').click(login);
     
-
+    console.log(dateFns.isToday(new Date()));
 });
 
 function login() {

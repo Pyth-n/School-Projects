@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS sms;
-DROP TABLE IF EXISTS mobile_provider;
-DROP TABLE IF EXISTS pill_description;
-DROP TABLE IF EXISTS reminder;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS sms CASCADE;
+DROP TABLE IF EXISTS mobile_provider CASCADE;
+DROP TABLE IF EXISTS reminder CASCADE ;
+DROP TABLE IF EXISTS pill_description CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 -- TODO: Add a column for tokens
 -- User table
@@ -31,7 +31,7 @@ CREATE TABLE reminder(
     ID SERIAL PRIMARY KEY NOT NULL,
     PILL_ID INT NOT NULL REFERENCES pill_description(ID),
     DAY TEXT NOT NULL,
-    DAY_TIME TIMESTAMP NOT NULL
+    DAY_TIME TIMESTAMPTZ NOT NULL
 );
 
 -- Mobile provider table

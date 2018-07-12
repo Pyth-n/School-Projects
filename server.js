@@ -11,13 +11,17 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
+const schedule = require('node-schedule');
 // Body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+
+// Moment: A time JS library
+var moment = require('moment');
+console.log(moment());
 
 // Get PORT
 const PORT = process.env.PORT || 1337;
