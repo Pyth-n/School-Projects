@@ -1,3 +1,10 @@
 $(document).ready(function() {
-    console.log("hmm");
+    $('#addPill').click(function() {
+        if($('#pillForm').is(":hidden")) {
+            console.log("invisible");
+            $('#pillForm').removeAttr('hidden');
+        } else {
+            $('#pillForm').attr('hidden', 'hidden');
+        }
+    })
 });
