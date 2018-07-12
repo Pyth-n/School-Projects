@@ -71,6 +71,34 @@ exports.login_user = function(data, cb) {
     
 } // Login user
 
+// Compare token with database
+exports.verifyToken = function (id, token, cb) {
+    const query = 'SELECT token, id FROM users WHERE id = $1';
+    const value = [id];
+
+    pool.query(query, value, (err, res) => {
+        let getToken = null;
+        
+
+        if (err) {
+            console.error(err);
+            cb(true, false);
+            return;
+        }
+
+        if(res.rows[0] != undefined) {
+            getToken = res.rows[0].token;
+        } else {
+            cb(true, false);
+            return;
+        }
+
+        if ((token == getToken)) cb(false, true);
+        else cb(true, false);
+
+    });
+}
+
 // Compare passwords
 function compare(password, passwordHash, id, cb) {
     // Compare here
@@ -84,7 +112,6 @@ function compare(password, passwordHash, id, cb) {
                     id: id
                 }
                 insertToken(buff.toString('hex'), id);
-                console.log("Saved token to DATABASE");
                 cb(false, JSON.stringify(json));
             });
             
@@ -94,7 +121,7 @@ function compare(password, passwordHash, id, cb) {
     });
 }
 
-// TODO: insertToken into user's database
+// insertToken into user's database
 function insertToken(token, id) {
     let query = 'UPDATE users SET token = $1 WHERE id = $2';
     let values = [token, id];
