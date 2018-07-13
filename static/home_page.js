@@ -7,6 +7,16 @@ $(document).ready(function() {
 
 });
 
+var daysData = {
+        sunday: false,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false
+}
+
 function toggleAddForm() {
     if($('#pillForm').is(":hidden")) {
         $('#pillForm').removeAttr('hidden');
@@ -19,11 +29,11 @@ function pillFormController() {
     verifyTextInput((err) => {
         if (err) return;
 
-        verifyCheckboxes(function(data) {
+        verifyCheckboxes(daysData, function(data) {
             console.log(data);
         })
     });
-    //console.log("Controller days: " + days);
+    
 }
 
 // Verify add pill form input. Check if name and amount are present
@@ -59,27 +69,16 @@ function verifyTextInput(cb) {
 }
 
 // Checks checkmarks, callback function returns days JSON
-function verifyCheckboxes(cb) {
-    // JSON files for day booleans
-    let days = {
-        sunday: false,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false
-    }
-
+function verifyCheckboxes(data, cb) {
     // Check which checkbox are checked
     $('div .form-check input[type=checkbox]').each(function() {
         // Update JSON if it is checked
         if (this.checked) {
-            days[$(this).val()] = true;
+            data[$(this).val()] = true;
         }        
     });
 
     // return that json
     if (typeof cb === "function")
-        cb(JSON.stringify(days));
+        cb(JSON.stringify(data, null, 3));
 }
