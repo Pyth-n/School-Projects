@@ -9,5 +9,9 @@ module.exports = function(app) {
     app.use('/', home_routes);
     app.use('/', register_routes);
     app.use('/', login_routes);
+
+    app.get('/index.html', function(req, res) {
+        res.render('test');
+    })
     
 }
