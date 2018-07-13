@@ -2,7 +2,14 @@ $(document).ready(function() {
     // Prevent submission with submit button
 
     $('#addPill').click(toggleAddForm);
-
+    $('#daily').click(function() {
+        if(this.checked) {
+            console.log("chekd");
+            $('form .form-check-input').attr('checked','checked');
+        } else {
+            $('form .form-check-input').removeAttr('checked');
+        }
+    });
     $('#addPillButton').click(pillFormController);
 
 });
@@ -37,10 +44,10 @@ function toggleAddForm() {
 function pillFormController() {
     verifyTextInput(pillData, (err, pillJson) => {
         if (err) return;
-        console.log(pillJson);
+        //console.log(pillJson);
 
         verifyCheckboxes(daysData, function(dataJson) {
-            //console.log(dataJson);
+            console.log(dataJson);
             
         })
     });
