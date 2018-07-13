@@ -21,7 +21,9 @@ var pillData = {
     pill_name: null,
     amount: null,
     strength: null,
-    remaining: null
+    remaining: null,
+    hour: null,
+    minute: null
 }
 
 function toggleAddForm() {
@@ -38,7 +40,8 @@ function pillFormController() {
         console.log(pillJson);
 
         verifyCheckboxes(daysData, function(dataJson) {
-            console.log(dataJson);
+            //console.log(dataJson);
+            
         })
     });
 }
@@ -76,11 +79,17 @@ function verifyTextInput(data, cb) {
     data.amount = amount;
     
     if (strength != ''){
-            data.strength = strength;
-        }
+        data.strength = strength;
+    } else {
+        data.strength = null;
+    }
     if (left != ''){
         data.remaining = left;
+    } else {
+        data.remaining = null;
     }
+
+
     cb(false, JSON.stringify(data, null, 3));
 }
 
@@ -97,4 +106,9 @@ function verifyCheckboxes(data, cb) {
     // return that json
     if (typeof cb === "function")
         cb(JSON.stringify(data, null, 3));
+}
+
+function clearForm() {
+    $('form .form-control').val("");
+    $('form .form-check-input').removeAttr('checked');
 }
