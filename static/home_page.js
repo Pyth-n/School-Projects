@@ -1,5 +1,8 @@
 $(document).ready(function() {
     $('#addPill').click(toggleAddForm);
+
+    
+
 });
 
 function toggleAddForm() {
