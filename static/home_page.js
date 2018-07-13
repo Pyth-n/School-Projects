@@ -17,6 +17,13 @@ var daysData = {
         saturday: false
 }
 
+var pillData = {
+    pill_name: null,
+    amount: null,
+    strength: null,
+    remaining: null
+}
+
 function toggleAddForm() {
     if($('#pillForm').is(":hidden")) {
         $('#pillForm').removeAttr('hidden');
@@ -26,18 +33,18 @@ function toggleAddForm() {
 }
 
 function pillFormController() {
-    verifyTextInput((err) => {
+    verifyTextInput(pillData, (err, pillJson) => {
         if (err) return;
+        console.log(pillJson);
 
-        verifyCheckboxes(daysData, function(data) {
-            console.log(data);
+        verifyCheckboxes(daysData, function(dataJson) {
+            console.log(dataJson);
         })
     });
-    
 }
 
 // Verify add pill form input. Check if name and amount are present
-function verifyTextInput(cb) {
+function verifyTextInput(data, cb) {
     // Reset error
     $('#pillNameError').attr('hidden', 'hidden');
     $('#pillAmountError').attr('hidden', 'hidden');
@@ -61,11 +68,20 @@ function verifyTextInput(cb) {
         if (amount == '') {
             $('#pillAmountError').removeAttr('hidden');
         }
-        cb(true);
+        cb(true, null);
         return;
     }
-
-    cb(false);
+    
+    data.pill_name = pillName;
+    data.amount = amount;
+    
+    if (strength != ''){
+            data.strength = strength;
+        }
+    if (left != ''){
+        data.remaining = left;
+    }
+    cb(false, JSON.stringify(data, null, 3));
 }
 
 // Checks checkmarks, callback function returns days JSON
