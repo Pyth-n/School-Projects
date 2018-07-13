@@ -18,13 +18,15 @@ function toggleAddForm() {
 function pillFormController() {
     verifyTextInput((err) => {
         if (err) return;
-        console.log("Continuing in callback...");
+
+        verifyCheckboxes(function(data) {
+            console.log(data);
+        })
     });
-    var days = verifyCheckboxes();
     //console.log("Controller days: " + days);
 }
 
-// TODO: Verify add pill form input. Check if name and amount are present
+// Verify add pill form input. Check if name and amount are present
 function verifyTextInput(cb) {
     // Reset error
     $('#pillNameError').attr('hidden', 'hidden');
@@ -56,7 +58,8 @@ function verifyTextInput(cb) {
     cb(false);
 }
 
-function verifyCheckboxes(err, cb) {
+// Checks checkmarks, callback function returns days JSON
+function verifyCheckboxes(cb) {
     // JSON files for day booleans
     let days = {
         sunday: false,
@@ -70,14 +73,13 @@ function verifyCheckboxes(err, cb) {
 
     // Check which checkbox are checked
     $('div .form-check input[type=checkbox]').each(function() {
-        // If it's checked
+        // Update JSON if it is checked
         if (this.checked) {
             days[$(this).val()] = true;
-        }
-
-        
-    }, cb(null, JSON.stringify(days)));
+        }        
+    });
 
     // return that json
-    
+    if (typeof cb === "function")
+        cb(JSON.stringify(days));
 }
