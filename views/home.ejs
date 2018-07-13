@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <%- include('partials/bootstrap/bootstrap.ejs') %>    
-    
+    <%- include('partials/bootstrap/bootstrap.ejs') %>
+
     <title>Home</title>
 </head>
+
 <body>
-<div class="container">
-    <%- include('partials/nav.ejs') %>
+    <div class="container">
+        <%- include('partials/nav.ejs') %>
 
-    <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <%- include('partials/nav_home.ejs') %>
-        </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <%- include('partials/nav_settings.ejs') %>
-        </div>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <%- include('partials/nav_home.ejs') %>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <%- include('partials/nav_settings.ejs') %>
+                </div>
+            </div>
+        
+
+
     </div>
+
 <%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
-
-
-</div>
-<script src="../home_page.js"></script>
-<script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
-
-
+    <script src="../home_page.js"></script>
+    <script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
 </body>
+
 </html>
