@@ -4,88 +4,98 @@
     </span>
 </h1>
 <div class="container">
-<!-- TODO: Add form for pill -->
-<form id="pillForm">
+    <!-- TODO: Add form for pill -->
+    <form id="pillForm">
 
-    <!-- Pill name & amount -->
-    <div class="form-row">
-        <div class="form-group col-10 col-sm-10">
-            <label for="pillName">Pill</label>
-            <input type="text" class="form-control" id="pillName" placeholder="Enter pill name">
+        <!-- Pill name & amount -->
+        <div class="form-row">
+            <div class="form-group col-10 col-sm-10">
+                <label for="pillName">Pill</label>
+                <input type="text" class="form-control" id="pillName" placeholder="Enter pill name" value="adderall">
+            </div>
+            <div class="form-group col-2 col-sm-2">
+                <label for="pillAmount">Amount</label>
+                <input type="number" class="form-control" id="pillAmount" placeholder="#" value="3">
+            </div>
         </div>
-        <div class="form-group col-2 col-sm-2">
-            <label for="pillAmount">Amount</label>
-            <input type="number" class="form-control" id="pillAmount" placeholder="#">
-        </div>
-    </div>
 
-    <!-- Pill strength & remainder -->
-    <div class="form-row">
-        <div class="form-group col-10 col-sm-10">
-            <label for="pillStrength">Strength</label>
-            <input type="text" class="form-control" id="pillStrength" placeholder="Enter pill strength i.e 25mg">
-        </div>
-        
-        <div class="form-group col-2 col-sm-2">
-            <label for="pillRemaining">Left</label>
-            <input type="number" class="form-control" id="pillRemaining" placeholder="#">
-        </div>
-    </div>
+        <!-- Pill strength & remainder -->
+        <div class="form-row">
+            <div class="form-group col-10 col-sm-10">
+                <label for="pillStrength">Strength</label>
+                <input type="text" class="form-control" id="pillStrength" placeholder="Enter pill strength i.e 25mg" value="325mg">
+            </div>
 
-    <!-- TODO: Day checkboxes -->
-    <div class="form-row">
-        <div class="form-group col-12 col-sm-12 text-center">
-            <label>Days</label>
-            <br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="daily" value="daily" disabled>
-                <label class="form-check-label" for="daily">Daily</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="daySunday" value="sunday">
-                <label class="form-check-label" for="daySunday">Sunday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayMonday" value="monday">
-                <label class="form-check-label" for="dayMonday">Monday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayTuesday" value="tuesday">
-                <label class="form-check-label" for="dayTuesday">Tuesday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayWednesday" value="wednesday">
-                <label class="form-check-label" for="dayWednesday">Wednesday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayWednesday" value="thursday">
-                <label class="form-check-label" for="dayThursday">Thursday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayWednesday" value="friday">
-                <label class="form-check-label" for="dayFriday">Friday</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="dayWednesday" value="saturday">
-                <label class="form-check-label" for="daySaturday">Saturday</label>
+            <div class="form-group col-2 col-sm-2">
+                <label for="pillRemaining">Left</label>
+                <input type="number" class="form-control" id="pillRemaining" placeholder="#" value="12">
             </div>
         </div>
-    </div>
 
-    Time
-    <div class="form-row">
-        <div class="form-group col-2 col-sm-2">
+        <!-- TODO: Day checkboxes -->
+        <div class="form-row">
+            <div class="form-group col-12 col-sm-12 text-center">
+                <label>Days</label>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="daily" value="daily" disabled>
+                    <label class="form-check-label" for="daily">Daily</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="daySunday" value="sunday">
+                    <label class="form-check-label" for="daySunday">Sunday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayMonday" value="monday" checked>
+                    <label class="form-check-label" for="dayMonday">Monday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayTuesday" value="tuesday">
+                    <label class="form-check-label" for="dayTuesday">Tuesday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="wednesday">
+                    <label class="form-check-label" for="dayWednesday">Wednesday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="thursday">
+                    <label class="form-check-label" for="dayThursday">Thursday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="friday">
+                    <label class="form-check-label" for="dayFriday">Friday</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="saturday">
+                    <label class="form-check-label" for="daySaturday">Saturday</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">Time</div>
             
-            <input type="number" placeholder="hour" value="12" class="form-control">
-        </div>
-        
-        <div class="form-group col-2 col-sm-2">
-                
-                <input type="number" placeholder="minute" value="00" class="form-control">
+            <div class="form-row d-flex justify-content-center">
+                <!-- Hour -->
+                <div class="form-group col-2 col-sm-2">
+                    <input type="number" placeholder="hour" value="12" class="form-control">
+                </div>
+
+                <!-- Minute -->
+                <div class="form-group col-2 col-sm-2">
+                    <input type="number" placeholder="minute" value="00" class="form-control">
+                </div>
             </div>
+            <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-success">Add</button>
+
+            </div>
+
+    </form>
+
+
+    <!-- TODO: Main Pills are shown here in jumbotron -->
+    <div class="jumbotron">
+        <p>Hi</p>
     </div>
-    
-    <button type="button" class="btn btn-success">Add</button>
-</form>
 
 </div>
