@@ -11,9 +11,6 @@ $(document).ready(function () {
         }
     });
     $('#addPillButton').click(pillFormController);
-
-    
-
 });
 
 var daysData = {
@@ -46,12 +43,14 @@ function toggleAddForm() {
 function pillFormController() {
     verifyTextInput(pillData, (err, pillJson) => {
         if (err) return;
-        //console.log(pillJson);
-
-        verifyCheckboxes(daysData, function (dataJson) {
-            //console.log(dataJson);
-
-        })
+        
+        addTimeToJson(pillData, (err, timeJson) => {
+            
+            verifyCheckboxes(daysData, function (dataJson) {
+                
+    
+            })
+        });
     });
     console.log($('#hour').val() + ':' + $('#minute').val());
 }
@@ -101,6 +100,34 @@ function verifyTextInput(data, cb) {
     }
 
     cb(false, JSON.stringify(data, null, 3));
+}
+
+function addTimeToJson(data, cb) {
+    var hour = null;
+    var minute = $('#minute').val();
+
+    // Ensure hour isn't empty
+    if ($('#hour').val() == '') {
+        cb(true, null);
+        return;
+    }
+
+    // Correct minutes from 0-9 to prepend a 0
+    if($('#minute').val() >= 0 || $('#minute').val() <=9) {
+        //$('#minute').val('0' + $('#minute').val());
+        minute = "0" + $('#minute').val();
+
+ 
+    }
+    if (minute.length > 2) {
+        minute = minute[1] + minute[2];
+    }
+    data.hour = $('#hour').val();
+    data.minute = minute;
+
+    if (typeof cb == "function"){
+        cb(false, data);
+    }
 }
 
 function verifyTimeInput() {
