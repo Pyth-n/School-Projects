@@ -1,27 +1,29 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Prevent submission with submit button
-
+    verifyTimeInput();
     $('#addPill').click(toggleAddForm);
-    $('#daily').click(function() {
-        if(this.checked) {
+    $('#daily').click(function () {
+        if (this.checked) {
             console.log("chekd");
-            $('form .form-check-input').attr('checked','checked');
+            $('form .form-check-input').attr('checked', 'checked');
         } else {
             $('form .form-check-input').removeAttr('checked');
         }
     });
     $('#addPillButton').click(pillFormController);
 
+    
+
 });
 
 var daysData = {
-        sunday: false,
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false
+    sunday: false,
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false
 }
 
 var pillData = {
@@ -34,7 +36,7 @@ var pillData = {
 }
 
 function toggleAddForm() {
-    if($('#pillForm').is(":hidden")) {
+    if ($('#pillForm').is(":hidden")) {
         $('#pillForm').removeAttr('hidden');
     } else {
         $('#pillForm').attr('hidden', 'hidden');
@@ -46,13 +48,15 @@ function pillFormController() {
         if (err) return;
         //console.log(pillJson);
 
-        verifyCheckboxes(daysData, function(dataJson) {
-            console.log(dataJson);
-            
+        verifyCheckboxes(daysData, function (dataJson) {
+            //console.log(dataJson);
+
         })
     });
+    console.log($('#hour').val() + ':' + $('#minute').val());
 }
 
+// TODO: Update HOUR and MINUTE on json
 // Verify add pill form input. Check if name and amount are present
 function verifyTextInput(data, cb) {
     // Reset error
@@ -71,7 +75,7 @@ function verifyTextInput(data, cb) {
     // console.log('hour: ' + hour + ' minute: ' + minute);
 
     if ((pillName == '') || (amount == '')) {
-        if (pillName == ''){
+        if (pillName == '') {
             $('#pillNameError').removeAttr('hidden');
         }
 
@@ -81,33 +85,88 @@ function verifyTextInput(data, cb) {
         cb(true, null);
         return;
     }
-    
+
     data.pill_name = pillName;
     data.amount = amount;
-    
-    if (strength != ''){
+
+    if (strength != '') {
         data.strength = strength;
     } else {
         data.strength = null;
     }
-    if (left != ''){
+    if (left != '') {
         data.remaining = left;
     } else {
         data.remaining = null;
     }
 
-
     cb(false, JSON.stringify(data, null, 3));
+}
+
+function verifyTimeInput() {
+    var hour = null;
+    var minute = null;
+
+    // Reject key E - +
+    $('#hour').keypress(function (e) {
+        var keyPressed = e.originalEvent.code;
+
+        switch (keyPressed) {
+            case 'KeyE':
+            case 'Minus':
+            case 'Equal':
+                e.preventDefault();
+                break;
+        }
+    });
+
+    // Reject key E - +
+    $('#minute').keypress(function (e) {
+        var keyPressed = e.originalEvent.code;
+
+        switch (keyPressed) {
+            case 'KeyE':
+            case 'Minus':
+            case 'Equal':
+                e.preventDefault();
+                break;
+        }
+    });
+
+    // Sanitize hours
+    $('#hour').keyup(function (e) {
+        if ($(this).val() > 12) {
+            $(this).val(12);
+        }
+
+        if ($(this).val() <= 0) {
+            $(this).val(1);
+        }
+    })
+
+    // Sanitize minutes
+    $('#minute').keyup(function (e) {
+        if ($(this).val() < 0) {
+            $(this).val("00");
+        }
+
+        if ($(this).val() >= 60) {
+            $(this).val(59)
+        }
+        if ($(this).val().length > 2) {
+            $(this).val("00");
+        }
+    })
 }
 
 // Checks checkmarks, callback function returns days JSON
 function verifyCheckboxes(data, cb) {
     // Check which checkbox are checked
-    $('div .form-check input[type=checkbox]').each(function() {
+    $('div .form-check input[type=checkbox]').each(function () {
         // Update JSON if it is checked
         if (this.checked) {
             data[$(this).val()] = true;
-        }        
+        }
     });
 
     // return that json
