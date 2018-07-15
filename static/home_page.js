@@ -2,14 +2,7 @@ $(document).ready(function () {
     // Prevent submission with submit button
     verifyTimeInput();
     $('#addPill').click(toggleAddForm);
-    $('#daily').click(function () {
-        if (this.checked) {
-            console.log("chekd");
-            $('form .form-check-input').attr('checked', 'checked');
-        } else {
-            $('form .form-check-input').removeAttr('checked');
-        }
-    });
+    $('#daily').click(dailyCheck);
     $('#addPillButton').click(pillFormController);
 });
 
@@ -115,18 +108,36 @@ function addTimeToJson(data, cb) {
     if($('#minute').val() >= 0 || $('#minute').val() <=9) {
         //$('#minute').val('0' + $('#minute').val());
         minute = "0" + $('#minute').val();
-
- 
     }
     if (minute.length > 2) {
         minute = minute[1] + minute[2];
     }
-    data.hour = $('#hour').val();
+
+    
+
+    data.hour = amOrPM($('#hour').val());
     data.minute = minute;
 
     if (typeof cb == "function"){
         cb(false, data);
     }
+}
+
+function amOrPM (hour) {
+    var inputHour = hour;
+    var newHour = null;
+
+    if($('#PM').is(':checked')) {
+        var mod = inputHour % 12;
+        newHour = mod + 12;
+        
+        console.log("New hour: " + newHour);
+        return newHour;
+    } else {
+        return hour;
+    }
+
+    
 }
 
 function verifyTimeInput() {
@@ -203,4 +214,13 @@ function verifyCheckboxes(data, cb) {
 function clearForm() {
     $('form .form-control').val("");
     $('form .form-check-input').removeAttr('checked');
+}
+
+function dailyCheck() {
+    if (this.checked) {
+        console.log("chekd");
+        $('form .form-check-input').attr('checked', 'checked');
+    } else {
+        $('form .form-check-input').removeAttr('checked');
+    }
 }
