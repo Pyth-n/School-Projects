@@ -45,14 +45,13 @@ function pillFormController() {
         if (err) return;
         
         addTimeToJson(pillData, (err, timeJson) => {
-            
+            console.log(JSON.stringify(timeJson, null, 3))
             verifyCheckboxes(daysData, function (dataJson) {
                 
     
             })
         });
     });
-    console.log($('#hour').val() + ':' + $('#minute').val());
 }
 
 // TODO: Update HOUR and MINUTE on json
@@ -108,8 +107,8 @@ function addTimeToJson(data, cb) {
 
     // Ensure hour isn't empty
     if ($('#hour').val() == '') {
-        cb(true, null);
-        return;
+        $('#hour').val(1);
+        
     }
 
     // Correct minutes from 0-9 to prepend a 0
@@ -166,7 +165,7 @@ function verifyTimeInput() {
             $(this).val(12);
         }
 
-        if ($(this).val() <= 0) {
+        if ($(this).val() < 0) {
             $(this).val(1);
         }
     })

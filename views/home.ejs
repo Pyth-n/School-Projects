@@ -4,7 +4,19 @@
 <head>
     <%- include('partials/bootstrap/bootstrap.ejs') %>
 
-    <title>Home</title>
+        <title>Home</title>
+        <style>
+            input[type="number"] {
+                -webkit-appearance: textfield;
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+            }
+        </style>
 </head>
 
 <body>
@@ -19,14 +31,14 @@
                     <%- include('partials/nav_settings.ejs') %>
                 </div>
             </div>
-        
+
 
 
     </div>
 
-<%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
-    <script src="../home_page.js"></script>
-    <script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
+    <%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
+        <script src="../home_page.js"></script>
+        <script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
 </body>
 
 </html>
