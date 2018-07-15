@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('#addPill').click(toggleAddForm);
     $('#daily').click(dailyCheck);
     $('#addPillButton').click(pillFormController);
+    $('#logOut').click(logOut);
 });
 
 var daysData = {
@@ -228,4 +229,12 @@ function dailyCheck() {
     } else {
         $('form .form-check-input').removeAttr('checked');
     }
+}
+
+function logOut(e) {
+    console.log("Logging out...");
+
+    $.get('/logout', (result) => {
+        $(location).attr('href', result.nextPath);
+    })
 }
