@@ -123,6 +123,7 @@ function addTimeToJson(data, cb) {
     }
 }
 
+
 function amOrPM (hour) {
     var inputHour = hour;
     var newHour = null;
@@ -132,12 +133,16 @@ function amOrPM (hour) {
         newHour = mod + 12;
         
         console.log("New hour: " + newHour);
-        return newHour;
+        
     } else {
-        return hour;
+        if (hour == 12) {
+            newHour = 0;
+        } else {
+            newHour = hour;
+        }
+        
     }
-
-    
+    return newHour;
 }
 
 function verifyTimeInput() {
