@@ -4,7 +4,12 @@ DROP TABLE IF EXISTS reminder CASCADE ;
 DROP TABLE IF EXISTS pill_description CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
--- TODO: Add a column for tokens
+-- Mobile provider table
+CREATE TABLE mobile_provider(
+    ID SERIAL PRIMARY KEY NOT NULL,
+    PROVIDER_URI VARCHAR(32) NOT NULL UNIQUE
+);
+
 -- User table
 CREATE TABLE users(
     ID SERIAL PRIMARY KEY NOT NULL,
@@ -13,7 +18,9 @@ CREATE TABLE users(
     FIRST_NAME VARCHAR(255) NOT NULL,
     LAST_NAME VARCHAR(255) NOT NULL,
     IS_ENGLISH BOOLEAN NOT NULL,
-    TOKEN TEXT
+    TOKEN TEXT,
+    PHONE_NUMBER SMALLINT NOT NULL,
+    PHONE_PROVIDER SMALLINT NOT NULL REFERENCES mobile_provider(ID)
 );
 
 -- Pill table
@@ -34,18 +41,57 @@ CREATE TABLE reminder(
     DAY_TIME TIMESTAMPTZ NOT NULL
 );
 
--- Mobile provider table
-CREATE TABLE mobile_provider(
-    ID SERIAL PRIMARY KEY NOT NULL,
-    PROVIDER_URI VARCHAR(32) NOT NULL UNIQUE
-);
+
 
 -- SMS table
 CREATE TABLE sms(
     ID SERIAL PRIMARY KEY NOT NULL,
     USERS_ID INT REFERENCES users(ID),
-    PILL_DESCRIPTION_ID INT REFERENCES pill_description(ID),
-    PHONE_PROVIDER SMALLINT REFERENCES mobile_provider(ID),
-    PHONE_NUMBER SMALLINT NOT NULL
+    PILL_DESCRIPTION_ID INT REFERENCES pill_description(ID)
 );
 
+-- Populate movile_provider
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@message.alltel.com'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@txt.att.net'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@myboostmobile.com'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@messaging.sprintpcs.com'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@tmomail.net'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@email.uscc.net'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@vtext.com'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@vmobl.com'
+);
+
+INSERT INTO mobile_provider(PROVIDER_URI)
+VALUES (
+    '@text.republicwireless.com'
+);

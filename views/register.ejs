@@ -4,6 +4,18 @@
     <%- include('partials/bootstrap/bootstrap.ejs') %>
 
     <title>Register</title>
+    <style>
+        input[type="number"] {
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -46,6 +58,39 @@
                         <span id="wrongPassword" class="text-danger" hidden>Passwords don't match!</span>
                     </div>
                 </div>
+
+                <!-- TODO: Phone number and provider -->
+                <div class="form-row">
+                    <div class="form-group col-6 col-sm-6">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="number" id="phoneNumber" class="form-control" name="user[number]" value="2065550886" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="form-group col-6 col-sm-6">
+                        <label for="phoneProvider">Provider</label>
+                        <select class="form-control" id="phoneProvider">
+                            <option>Altell</option>
+                            <option>AT&T</option>
+                            <option>T-Mobile</option>
+                            <option>Sprint</option>
+                            <option>Boot Mobile</option>
+                            <option>USCC</option>
+                            <option>U.S. Cellular</option>
+                            <option>Verizon</option>
+                            <option>Virgin Mobile</option>
+                            <option>Republic Wireless</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- <div class="form-row">
+                    <div class="form-group col-6 col-sm-6">
+                        <label for="phoneProvider">Provider</label>
+                        <select class="form-control" id="phoneProvider">
+
+                        </select>
+                    </div>
+                </div> -->
 
                 <!-- Checkbox button -->
                 <div class="form-group">
