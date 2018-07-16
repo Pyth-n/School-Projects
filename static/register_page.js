@@ -21,6 +21,8 @@ function createUser() {
     const lastName = $('#last_name').val();
     const email = $('#email').val();   
     var isSpanish = false;
+    const phoneNumber = $('#phoneNumber').val();
+    const phoneProvider = $('#phoneProvider').val();
 
     // If checkbox is checked, spanish is desired
     if ($('#is_spanish').is(":checked")) {
@@ -34,7 +36,9 @@ function createUser() {
             ln: lastName,
             email: email,
             password: password,
-            english: !isSpanish
+            english: !isSpanish,
+            phoneNumber: phoneNumber,
+            phoneProvider: phoneProvider
         }
     }
 

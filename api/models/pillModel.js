@@ -34,12 +34,22 @@ exports.register_user = function(data) {
     const lastName = data.ln;
     const email = data.email;
     const isEnglish = (data.english == 'true');
+    const phoneNumber = data.phoneNumber;
+    const phoneProvider = data.phoneProvider;
 
     // encrypt password
     bcrypt.hash(data.password, 10, function(err, hash) {
-        const insertUserText = 'INSERT INTO users(email, password_h, first_name, last_name, is_english) VALUES($1, $2, $3, $4, $5)';
-        const insertUserValues = [email, hash, firstName, lastName, isEnglish];
-        transaction(pool, insertUserText, insertUserValues);
+        let phoneProviderID = null;
+
+        // Query phone provider ID
+        pool.query('SELECT id FROM mobile_provider WHERE provider_uri=$1', [phoneProvider], function(err, res) {
+            if (res.rows[0] != undefined) {
+                phoneProviderID = res.rows[0].id;
+            }
+            const insertUserText = 'INSERT INTO users(email, password_h, first_name, last_name, is_english, phone_number, phone_provider) VALUES($1, $2, $3, $4, $5, $6, $7)';
+            const insertUserValues = [email, hash, firstName, lastName, isEnglish, phoneNumber, phoneProviderID];
+            transaction(pool, insertUserText, insertUserValues);
+        })
     });
 } // register_user
 
@@ -143,3 +153,4 @@ function insertToken(token, id) {
     let values = [token, id];
     transaction(pool, query, values);
 }
+
