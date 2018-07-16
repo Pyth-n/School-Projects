@@ -33,3 +33,26 @@ exports.login = function(req, res, next) {
         next();
     });
 }
+
+// GET /logout
+exports.logout = function(req, res) {
+    let jsonRes = {
+        success: null,
+        nextPath: '/'
+    }
+    if(req.session.userid) {
+        req.session.destroy((err) => {
+            if (err) {
+                res.statusCode = 400;
+                jsonRes.success = false;
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.stringify(jsonRes, null, 3));
+            } else {
+                res.statusCode = 200;
+                jsonRes.success = true;
+                res.setHeader('Content-Type', 'application/json');
+                res.send(JSON.stringify(jsonRes, null, 3));
+            }
+        });
+    }
+}

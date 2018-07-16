@@ -7,4 +7,7 @@ const router = express.Router();
 router.get('/', pill.login_page);
 router.post('/', pill.login);
 
+// Log out
+router.get('/logout', pill.logout);
+
 module.exports = router;
