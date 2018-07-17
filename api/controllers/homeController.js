@@ -20,8 +20,9 @@ module.exports.authenticate = function(req, res, next) {
     });
 }
 
+// Authenticates /home/:id
 module.exports.authenticateID = function(req, res, next) {
-    console.log("Authentocating ID");
+    console.log("Authenticating ID");
 
     if (req.session.userid == req.params.id) {
         next();
@@ -43,10 +44,27 @@ module.exports.user_data = function(req, res, next) {
         if (err) return;
 
         
-        req.session.dbUsers = jsonUsers;
-        console.log(req.session.dbUsers);
+        //req.session.dbUsers = jsonUsers;
+        //console.log(req.session.dbUsers);
         //console.log(req.sessions.dbUsers);
         res.render('home', JSON.parse(jsonUsers));
     });
     
+}
+
+module.exports.addPill = function(req, res, next) {
+    let jsonRes = {
+        success: null
+    }
+    if (!req.body.user) {
+        jsonRes.success = false;
+        res.statusCode = 401;
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(jsonRes));
+    }
+
+    pillModel.insertPill(req.params.id, req.body.user, (err) => {
+        if (err) return;
+        res.end();
+    })
 }

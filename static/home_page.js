@@ -18,12 +18,14 @@ var daysData = {
 }
 
 var pillData = {
-    pill_name: null,
-    amount: null,
-    strength: null,
-    remaining: null,
-    hour: null,
-    minute: null
+    user: {
+        pill_name: null,
+        amount: null,
+        strength: null,
+        remaining: null,
+        hour: null,
+        minute: null
+    }
 }
 
 function toggleAddForm() {
@@ -39,10 +41,19 @@ function pillFormController() {
         if (err) return;
         
         addTimeToJson(pillData, (err, timeJson) => {
-            console.log(JSON.stringify(timeJson, null, 3))
             verifyCheckboxes(daysData, function (dataJson) {
                 
-    
+                // TODO: POST pill
+                // get slash
+                var currentURL = (document.URL);
+                var part = currentURL.split("/");
+                var index = part.length - 1;
+                var ID = part[index];
+                $.post('/home/' + ID + '/pill', pillData, function(result) {
+                    console.log(result);
+                }).fail(function(err) {
+                    console.log("Failed");
+                });
             })
         });
     });
@@ -78,21 +89,21 @@ function verifyTextInput(data, cb) {
         return;
     }
 
-    data.pill_name = pillName;
-    data.amount = amount;
+    data.user.pill_name = pillName;
+    data.user.amount = amount;
 
     if (strength != '') {
-        data.strength = strength;
+        data.user.strength = strength;
     } else {
-        data.strength = null;
+        data.user.strength = null;
     }
     if (left != '') {
-        data.remaining = left;
+        data.user.remaining = left;
     } else {
-        data.remaining = null;
+        data.user.remaining = null;
     }
 
-    cb(false, JSON.stringify(data, null, 3));
+    cb(false, JSON.stringify(data.user, null, 3));
 }
 
 function addTimeToJson(data, cb) {
@@ -116,11 +127,11 @@ function addTimeToJson(data, cb) {
 
     
 
-    data.hour = amOrPM($('#hour').val());
-    data.minute = minute;
+    data.user.hour = amOrPM($('#hour').val());
+    data.user.minute = minute;
 
     if (typeof cb == "function"){
-        cb(false, data);
+        cb(false, data.user);
     }
 }
 
@@ -132,9 +143,7 @@ function amOrPM (hour) {
     if($('#PM').is(':checked')) {
         var mod = inputHour % 12;
         newHour = mod + 12;
-        
-        console.log("New hour: " + newHour);
-        
+                
     } else {
         if (hour == 12) {
             newHour = 0;

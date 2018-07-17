@@ -109,6 +109,7 @@ exports.verifyToken = function (id, token, cb) {
     });
 }
 
+// Get user's data
 exports.queryUsersID = function(id, cb) {
     const query = "SELECT first_name, last_name, is_english FROM users WHERE id = $1";
 
@@ -123,6 +124,21 @@ exports.queryUsersID = function(id, cb) {
             return;
         }
     });
+}
+
+// Insert pill
+exports.insertPill = function(id, data, cb) {
+    console.log("ID: " + id);
+    console.log("Data: " + JSON.stringify(data));
+
+    const insertString = 'INSERT INTO pill_description(user_id, pill_name, amount, strength, remaining) VALUES($1, $2, $3, $4, $5)';
+    const insertValue = [id, data.pill_name, data.amount, data.strength, data.remaining];
+
+    // Start pill transaction
+    transaction(pool, insertString, insertValue);
+
+
+    cb(false);
 }
 
 // Compare passwords

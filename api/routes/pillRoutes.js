@@ -10,7 +10,7 @@ module.exports = function(app) {
     app.use('/', register_routes);
     app.use('/', login_routes);
 
-    app.get('/index.html', function(req, res) {
+    app.get('/index.html/:id', function(req, res) {
         res.render('test');
     })
     

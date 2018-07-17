@@ -8,6 +8,8 @@ router.get('/home', controller.authenticate, controller.home_page);
 
 router.get('/home/:id', controller.authenticate, controller.authenticateID, controller.user_data);
 
+// Post a pill
+router.post('/home/:id/pill', controller.addPill);
 
 
 module.exports = router;
