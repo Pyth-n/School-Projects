@@ -63,8 +63,11 @@ module.exports.addPill = function(req, res, next) {
         res.send(JSON.stringify(jsonRes));
     }
 
+    // First insert the pill
     pillModel.insertPill(req.params.id, req.body.user, (err) => {
         if (err) return;
+
+        // Then, insert the time
         res.end();
     })
 }
