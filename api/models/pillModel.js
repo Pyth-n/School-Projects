@@ -128,17 +128,35 @@ exports.queryUsersID = function(id, cb) {
 
 // Insert pill
 exports.insertPill = function(id, data, cb) {
-    console.log("ID: " + id);
-    console.log("Data: " + JSON.stringify(data));
 
-    const insertString = 'INSERT INTO pill_description(user_id, pill_name, amount, strength, remaining) VALUES($1, $2, $3, $4, $5)';
+    const insertString = 'INSERT INTO pill_description(user_id, pill_name, amount, strength, remaining) VALUES($1, $2, $3, $4, $5) RETURNING *';
     const insertValue = [id, data.pill_name, data.amount, data.strength, data.remaining];
 
     // Start pill transaction
-    transaction(pool, insertString, insertValue);
+    transaction(pool, insertString, insertValue, (err, data) => {
+        if(err){
+            if (typeof cb === "function") {
+                cb(true, null);
+            }
+        } else {
+            if (typeof cb === "function") {
+                cb(false, data);
+            }
+        }
+    });
+}
 
+// Insert days
+exports.insertDays = function(id, data, cb) {
+    console.log("ID: " + id);
+    console.log("Data: " + JSON.stringify(data));
 
-    cb(false);
+    const insertString = "INSERT INTO reminder(pill_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday) values($1,$2,$3,$4,$5,$6,$7,$8)";
+    const insertValues = [];
+
+    if(typeof cb === "function") {
+        cb(false);
+    }
 }
 
 // Compare passwords
