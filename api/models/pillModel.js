@@ -152,7 +152,11 @@ exports.insertDays = function(id, data, cb) {
     console.log("Data: " + JSON.stringify(data));
 
     const insertString = "INSERT INTO reminder(pill_id, monday, tuesday, wednesday, thursday, friday, saturday, sunday) values($1,$2,$3,$4,$5,$6,$7,$8)";
-    const insertValues = [];
+    const insertValues = [id, data.monday, data.tuesday, data.wednesday, data.thursday, data.friday, data.saturday, data.sunday];
+
+    transaction(pool, insertString, insertValues, (err, data) => {
+        console.log("DAYS: " + data);
+    });
 
     if(typeof cb === "function") {
         cb(false);

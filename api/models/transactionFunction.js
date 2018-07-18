@@ -21,7 +21,7 @@ module.exports = function(pool, queryText, queryValues, cb) {
                 client.query(queryText, queryValues, (err, res) => {
                     if (shouldAbort(err)){
                         if (typeof cb === "function") {
-                            cb(true, JSON.stringify(res.rows[0]));
+                            cb(true, null);
                         }
                         return;
                     } else {
