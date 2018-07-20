@@ -7,15 +7,15 @@ $(document).ready(function () {
     $('#logOut').click(logOut);
 });
 
-var daysData = {
-    sunday: false,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false
-}
+// var pillData.daysData = {
+//     sunday: false,
+//     monday: false,
+//     tuesday: false,
+//     wednesday: false,
+//     thursday: false,
+//     friday: false,
+//     saturday: false
+// }
 
 var pillData = {
     user: {
@@ -25,6 +25,15 @@ var pillData = {
         remaining: null,
         hour: null,
         minute: null
+    },
+    daysData: {
+        sunday: false,
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false    
     }
 }
 
@@ -41,7 +50,7 @@ function pillFormController() {
         if (err) return;
         
         addTimeToJson(pillData, (err, timeJson) => {
-            verifyCheckboxes(daysData, function (dataJson) {
+            verifyCheckboxes(pillData.daysData, function (dataJson) {
                 
                 // TODO: POST pill
                 // get slash

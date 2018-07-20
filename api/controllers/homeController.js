@@ -49,25 +49,29 @@ module.exports.user_data = function(req, res, next) {
         //console.log(req.sessions.dbUsers);
         res.render('home', JSON.parse(jsonUsers));
     });
-    
 }
 
 module.exports.addPill = function(req, res, next) {
     let jsonRes = {
         success: null
     }
-    if (!req.body.user) {
+    if (!req.body.user || !req.body.daysData) {
         jsonRes.success = false;
         res.statusCode = 401;
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(jsonRes));
     }
 
-    // First insert the pill
-    pillModel.insertPill(req.params.id, req.body.user, (err) => {
+    // First insert the pill, callback data gets the info just inserted
+    pillModel.insertPill(req.params.id, req.body.user, (err, data) => {
         if (err) return;
+        let returnData = JSON.parse(data);
 
+        console.log("OFFICIALS DATA: " + data);
+
+        // TODO: Insert PILL ID instead of USER ID
         // Then, insert the time
+        pillModel.insertDays(returnData.id, req.body.daysData);
         res.end();
     })
 }
