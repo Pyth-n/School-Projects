@@ -39,15 +39,25 @@ module.exports.home_page = function(req, res, next) {
 
 module.exports.user_data = function(req, res, next) {
     let users = null;
-    console.log("Querying /home/" + req.params.id);
+    //console.log("Querying /home/" + req.params.id);
     pillModel.queryUsersID(req.session.userid, (err, jsonUsers) => {
         if (err) return;
 
-        
-        //req.session.dbUsers = jsonUsers;
-        //console.log(req.session.dbUsers);
-        //console.log(req.sessions.dbUsers);
-        res.render('home', JSON.parse(jsonUsers));
+        // TODO: Concat user JSON with pill_description JSON
+        pillModel.queryUsersPill(req.session.userid, (err, jsonPills) => {
+            // There's no pills
+            if (err) {
+                res.render('home', JSON.parse(jsonUsers));
+            } 
+            // Concatenate if there are pills
+            else {
+                
+                res.render('home', {
+                    user: JSON.parse(jsonUsers),
+                    pill: JSON.parse(jsonPills)
+                });
+            }
+        });
     });
 }
 

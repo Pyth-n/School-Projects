@@ -113,15 +113,37 @@ exports.verifyToken = function (id, token, cb) {
 exports.queryUsersID = function(id, cb) {
     const query = "SELECT first_name, last_name, is_english FROM users WHERE id = $1";
 
+    let users = null;
+
     pool.query(query, [id], (err, res) => {
         if (err) throw err;
 
         if (res.rows[0] != undefined) {
-            cb(false, JSON.stringify(res.rows[0]));
+            users = JSON.stringify(res.rows[0], null, 3);
+            
+            cb(false, users);
             return;
         } else {
-            cb (true, null);
+            cb(true, null);
             return;
+        }
+    });
+}
+
+// Get user's pills
+exports.queryUsersPill = function(id, cb) {
+    let pills = null;
+
+    const pillQuery = "SELECT id, pill_name, amount, strength, remaining FROM pill_description WHERE user_id = $1";
+    
+    pool.query(pillQuery, [id], (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            pills = JSON.stringify(res.rows, null, 3);
+            cb(false, pills);    
+        } else {
+            cb (true, null);
         }
     });
 }

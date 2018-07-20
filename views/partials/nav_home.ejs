@@ -102,10 +102,35 @@
 
     </form>
 
+<!-- TODO: Main Pills are shown here in jumbotron -->
+<div class="jumbotron">
+    <!-- Pill table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Pill</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pill.forEach(function(pill) { %>
+                <tr>
+                    <td>
+                        <%- pill.pill_name %> 
+                    </td>
+                    <td>
+                        <%- pill.amount %>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary">-</button>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 
-    <!-- TODO: Main Pills are shown here in jumbotron -->
-    <div class="jumbotron">
-        <h5>Your Pills</h5>
-    </div>
+</div>
+
 
 </div>

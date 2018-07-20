@@ -19,10 +19,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-// Moment: A time JS library
-var moment = require('moment');
-console.log(moment());
-
 // Get PORT
 const PORT = process.env.PORT || 1337;
 
