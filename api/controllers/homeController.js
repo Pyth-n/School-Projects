@@ -47,7 +47,10 @@ module.exports.user_data = function(req, res, next) {
         pillModel.queryUsersPill(req.session.userid, (err, jsonPills) => {
             // There's no pills
             if (err) {
-                res.render('home', JSON.parse(jsonUsers));
+                res.render('home', {
+                    user: JSON.parse(jsonUsers),
+                    pill: null
+                });
             } 
             // Concatenate if there are pills
             else {
