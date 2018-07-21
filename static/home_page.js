@@ -4,18 +4,9 @@ $(document).ready(function () {
     $('#addPill').click(toggleAddForm);
     $('#daily').click(dailyCheck);
     $('#addPillButton').click(pillFormController);
+    $('.edit-pill').click(pillEdit);
     $('#logOut').click(logOut);
 });
-
-// var pillData.daysData = {
-//     sunday: false,
-//     monday: false,
-//     tuesday: false,
-//     wednesday: false,
-//     thursday: false,
-//     friday: false,
-//     saturday: false
-// }
 
 var pillData = {
     user: {
@@ -52,8 +43,8 @@ function pillFormController() {
         addTimeToJson(pillData, (err, timeJson) => {
             verifyCheckboxes(pillData.daysData, function (dataJson) {
                 
-                // TODO: POST pill
-                // get slash
+                // POST pill
+                // get the ID of the current user
                 var currentURL = (document.URL);
                 var part = currentURL.split("/");
                 var index = part.length - 1;
@@ -255,4 +246,9 @@ function logOut(e) {
     $.get('/logout', (result) => {
         $(location).attr('href', result.nextPath);
     })
+}
+
+// TODO: Pill Edit buttons
+function pillEdit(e) {
+    console.log(e.target.id);
 }
