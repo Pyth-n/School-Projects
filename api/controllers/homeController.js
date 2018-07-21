@@ -79,9 +79,29 @@ module.exports.addPill = function(req, res, next) {
 
         console.log("OFFICIALS DATA: " + data);
 
-        // TODO: Insert PILL ID instead of USER ID
+        // Insert PILL ID instead of USER ID
         // Then, insert the time
         pillModel.insertDays(returnData.id, req.body.daysData);
         res.end();
     })
+}
+
+module.exports.getPill = function(req, res) {
+    pillModel.queryUserPill(req.params.id, req.params.pillid, (err, data) => {
+        if (err) {
+            res.statusCode = 402;
+            res.setHeader('Content-Type', 'application/json');
+            res.send("{ success: false }");
+        }
+        
+        dataParsed = JSON.parse(data);
+        let toSend = {
+            success: true,
+            data: dataParsed[0]
+        }
+        
+        res.statusCode = 200;
+        res.setHeader('Content-Type','application/json');
+        res.send(toSend);
+    });
 }

@@ -130,6 +130,22 @@ exports.queryUsersID = function(id, cb) {
     });
 }
 
+exports.queryUserPill = function(id, pillID, cb) {
+    let pills = null;
+    const pillQuery = "SELECT id, pill_name, amount, strength, remaining FROM pill_description WHERE user_id = $1 AND id = $2";
+
+    pool.query(pillQuery, [id, pillID], (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            pills = JSON.stringify(res.rows, null, 3);
+            cb(false, pills);
+        } else {
+            cb (true, null);
+        }
+    })
+}
+
 // Get user's pills
 exports.queryUsersPill = function(id, cb) {
     let pills = null;
