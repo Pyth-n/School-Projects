@@ -190,7 +190,11 @@ exports.insertDays = function(id, data, cb) {
     const insertValues = [id, data.hour, data.minute];
 
     transaction(pool, insertString, insertValues, (err, data) => {
-        console.log(data);
+        if (err) throw err;
+
+        if(typeof cb === "function") {
+            cb(false);
+        }
     });
 
 }
@@ -241,7 +245,6 @@ exports.countUserId = (cb) => {
         if (err) throw err;
 
         if (res.rows[0] != undefined) {
-            //console.log("COUNTED: " + res.rows[0].count);
             if (typeof cb === "function") {
                 cb(false, res.rows[0].count);
             }

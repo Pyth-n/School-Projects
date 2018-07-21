@@ -1,4 +1,6 @@
 var pillModel = require('../models/pillModel');
+var sms = require('./../models/sendSMS');
+const schedule = require('node-schedule');
 
 // Authenticate user
 module.exports.authenticate = function(req, res, next) {
@@ -81,7 +83,22 @@ module.exports.addPill = function(req, res, next) {
         if (err) return;
         let returnData = JSON.parse(data);
         
-        pillModel.insertDays(returnData.id, req.body.user);
+        pillModel.insertDays(returnData.id, req.body.user, (err) => {
+            if (err) return;
+
+            pillModel.getUserData(req.params.id, (err, userData) => {
+                let phoneNumber = userData.phone_number;
+                let phoneProvider = userData.phone_provider;
+
+                var tmp = schedule.scheduleJob('0 ' + req.body.user.minute + ' ' + req.body.user.hour + ' * * *', function() {
+                    console.log("SCHEDULED A PILL");
+                    sms(req.body.user.pill_name, req.body.user.amount, phoneNumber, phoneProvider);
+                    return;
+                });
+
+            });
+
+        });
 
         // Insert PILL ID instead of USER ID
         // Then, insert the time
