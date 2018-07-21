@@ -79,12 +79,12 @@ module.exports.addPill = function(req, res, next) {
     pillModel.insertPill(req.params.id, req.body.user, (err, data) => {
         if (err) return;
         let returnData = JSON.parse(data);
-
-        console.log("OFFICIALS DATA: " + data);
+        
+        pillModel.insertDays(returnData.id, req.body.user);
 
         // Insert PILL ID instead of USER ID
         // Then, insert the time
-        pillModel.insertDays(returnData.id, req.body.daysData);
+        //pillModel.insertDays(returnData.id, req.body.user);
         res.end();
     })
 }
