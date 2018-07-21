@@ -32,10 +32,29 @@ module.exports = function() {
 }
 
 function schedulePill(user_id, pill_id, time) {
-    console.log("Scheduled user " + user_id + " with pill " + pill_id + " at " + time.hour + ":" + time.minute);
+    //console.log("Scheduled user " + user_id + " with pill " + pill_id + " at " + time.hour + ":" + time.minute);
 
-    var tmp = schedule.scheduleJob('0 ' + time.minute + ' ' + time.hour + ' * * *', function() {
-        console.log("This pill gotta get delivered!");
-        return;
-    })
+    pillModel.getPillData(pill_id, (err, pillData) => {
+        let pillName = pillData.pill_name;
+        let amount = pillData.amount;
+        // let strength = pillData.strength;
+        // let remaining = pillData.remaining;
+
+        pillModel.getUserData(user_id, (err, userData) => {
+            let phoneNumber = userData.phone_number;
+            let phoneProvider = userData.phone_provider;
+            
+            var tmp = schedule.scheduleJob('0 ' + time.minute + ' ' + time.hour + ' * * *', function() {
+                sendReminder(pillName, amount, phoneNumber, phoneProvider);
+                return;
+            })
+
+        });
+    });
+}
+
+function sendReminder(pillName, amount, phoneNumber, phoneProvider) {
+    pillModel.getProvider(phoneProvider, (err, provider) => {
+        console.log("Sending " + pillName + " to " + phoneNumber + provider.provider_uri);
+    });
 }

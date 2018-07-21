@@ -290,3 +290,52 @@ exports.getReminderTime = (pillID, cb) => {
         }
     })
 }
+
+exports.getPillData = (pillID, cb) => {
+    let query = "SELECT pill_name, amount, strength, remaining FROM pill_description WHERE id = $1";
+    let value = [pillID];
+
+    pool.query(query, value, (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows[0]);
+            }
+        } else {
+            cb(true, null);
+        }
+    });
+
+}
+
+exports.getUserData = (userID, cb) => {
+    let query = "SELECT phone_number, phone_provider FROM users WHERE id = $1";
+    let value = [userID];
+
+    pool.query(query, value, (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows[0]);
+            }
+        } else {
+            cb(true, null);
+        }
+    });
+}
+
+exports.getProvider = (providerID, cb) => {
+    pool.query('SELECT provider_uri FROM mobile_provider WHERE id = $1', [providerID], (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows[0]);
+            }
+        } else {
+            cb(true, null);
+        }
+    });
+}
