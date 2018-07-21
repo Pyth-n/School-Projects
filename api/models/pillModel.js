@@ -234,3 +234,59 @@ exports.updatePill = (id, updateBody, cb) => {
     cb(false);
     
 }
+
+exports.countUserId = (cb) => {
+    let query = "SELECT COUNT(ID) FROM USERS";
+    pool.query(query, (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            //console.log("COUNTED: " + res.rows[0].count);
+            if (typeof cb === "function") {
+                cb(false, res.rows[0].count);
+            }
+        }
+    });
+}
+
+exports.getIDs = (cb) => {
+    let query = "SELECT id FROM users";
+    pool.query(query, (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows);
+            }
+        }
+    })
+}
+
+exports.getPillIDs = (id, cb) => {
+    let query = "SELECT id FROM pill_description WHERE user_id = $1";
+    let values = [id];
+
+    pool.query(query, values, (err, res) => {
+        if (err) throw err;
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows);
+            }
+        }
+    })
+}
+
+exports.getReminderTime = (pillID, cb) => {
+    let query = "SELECT hour, minute FROM reminder WHERE pill_id = $1";
+    let value = [pillID];
+
+    pool.query(query, value, (err, res) => {
+        if (err) throw err;
+
+        if (res.rows[0] != undefined) {
+            if (typeof cb === "function") {
+                cb(false, res.rows[0]);
+            }
+        }
+    })
+}

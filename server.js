@@ -11,7 +11,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-const schedule = require('node-schedule');
+
+
+
 // Body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
@@ -27,5 +29,8 @@ app.use('/', express.static(path.join(__dirname, 'static')));
 
 var routes = require('./api/routes/pillRoutes');
 routes(app);
+
+var toSchedule = require('./schedule');
+toSchedule();
 
 app.listen(PORT, () => console.log("Running on port: " + PORT));

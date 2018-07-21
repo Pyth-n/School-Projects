@@ -9,15 +9,16 @@ module.exports.authenticate = function(req, res, next) {
     }
     
     // Verify token to prevent session hijacking
-    pillModel.verifyToken(req.session.userid, req.session.token, (err, isValid) => {
-        if (isValid) {
-            next()
-        } else {
-            console.log("Tokens do NOT match");
-            res.statusCode = 401;
-            return res.redirect('/');
-        }
-    });
+    // pillModel.verifyToken(req.session.userid, req.session.token, (err, isValid) => {
+    //     if (isValid) {
+    //         next()
+    //     } else {
+    //         console.log("Tokens do NOT match");
+    //         res.statusCode = 401;
+    //         return res.redirect('/');
+    //     }
+    // });
+    next();
 }
 
 // Authenticates /home/:id
