@@ -6,6 +6,7 @@ $(document).ready(function () {
     $('#addPillButton').click(pillFormController);
     $('.edit-pill').click(pillEdit);
     $('#edit-cancel').click(cancelEdit);
+    $('#edit-pill').click(saveEdit);
     $('#logOut').click(logOut);
 });
 
@@ -27,6 +28,10 @@ var pillData = {
         friday: false,
         saturday: false    
     }
+}
+
+var config = {
+    pillID: null
 }
 
 function toggleAddForm() {
@@ -248,7 +253,7 @@ function logOut(e) {
 // TODO: Pill Edit buttons
 function pillEdit(e) {
     let pillID = e.target.id;
-    console.log(pillID);
+    config.pillID = pillID;
 
     let ID = getID();
     $.get('/home/' + ID + '/pill/' + pillID, function(result) {
@@ -261,8 +266,29 @@ function pillEdit(e) {
         $('#pillRemaining-edit').val(result.data.remaining);
 
         $('#pill-edit').removeAttr('hidden');
-        console.log(result.data);
     })
+}
+
+// Sends a PUT request to edit pill
+function saveEdit(e) {
+    console.log("Saving edit...");
+
+    let ID = getID();
+    let pillID = config.pillID;
+
+    $.ajax({
+        url: '/home/' + ID + '/pill/' + pillID,
+        type: 'PUT',
+        data: {
+            pill_name: $('#pillName-edit').val(),
+            pill_amount: $('#pillAmount-edit').val(),
+            pill_strength: $('#pillStrength-edit').val(),
+            remaining: $('#pillRemaining-edit').val()
+        },
+        success: function(result) {
+            console.log(result);
+        }
+    });
 }
 
 function cancelEdit(e) {

@@ -14,4 +14,7 @@ router.post('/home/:id/pill', controller.authenticateID, controller.addPill);
 // GET a pill
 router.get('/home/:id/pill/:pillid', controller.getPill);
 
+// PUT a pill
+router.put('/home/:id/pill/:id', controller.editPill);
+
 module.exports = router;

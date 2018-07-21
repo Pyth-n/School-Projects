@@ -93,7 +93,7 @@ module.exports.getPill = function(req, res) {
             res.setHeader('Content-Type', 'application/json');
             res.send("{ success: false }");
         }
-        
+
         dataParsed = JSON.parse(data);
         let toSend = {
             success: true,
@@ -104,4 +104,10 @@ module.exports.getPill = function(req, res) {
         res.setHeader('Content-Type','application/json');
         res.send(toSend);
     });
+}
+
+module.exports.editPill = function(req, res) {
+    console.log("putting...");
+    console.log(req.body);
+    res.end();
 }
