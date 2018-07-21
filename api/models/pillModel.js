@@ -227,3 +227,13 @@ function insertToken(token, id) {
     transaction(pool, query, values);
 }
 
+exports.updatePill = (id, updateBody, cb) => {
+    console.log("UPDATING ID: " + id);
+    console.log(updateBody);
+    let query = "UPDATE pill_description SET pill_name = $1, amount = $2, strength = $3, remaining = $4 WHERE id = $5 AND user_id = $6";
+    let values = [updateBody.pill_name, updateBody.pill_amount, updateBody.pill_strength, updateBody.remaining, updateBody.pill_id, id];
+    
+    transaction(pool, query, values);
+    cb(false);
+    
+}

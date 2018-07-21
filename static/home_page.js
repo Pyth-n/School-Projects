@@ -53,6 +53,7 @@ function pillFormController() {
                 let ID = getID();
                 $.post('/home/' + ID + '/pill', pillData, function(result) {
                     console.log(result);
+                    location.reload();
                 }).fail(function(err) {
                     console.log("Failed");
                 });
@@ -271,8 +272,6 @@ function pillEdit(e) {
 
 // Sends a PUT request to edit pill
 function saveEdit(e) {
-    console.log("Saving edit...");
-
     let ID = getID();
     let pillID = config.pillID;
 
@@ -280,13 +279,16 @@ function saveEdit(e) {
         url: '/home/' + ID + '/pill/' + pillID,
         type: 'PUT',
         data: {
+            pill_id: pillID,
             pill_name: $('#pillName-edit').val(),
             pill_amount: $('#pillAmount-edit').val(),
             pill_strength: $('#pillStrength-edit').val(),
             remaining: $('#pillRemaining-edit').val()
         },
         success: function(result) {
-            console.log(result);
+            $('#pill-edit').attr('hidden', 'hidden');
+            $('#pill-body').removeAttr('hidden');
+            location.reload();      
         }
     });
 }

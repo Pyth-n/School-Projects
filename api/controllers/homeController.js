@@ -108,6 +108,8 @@ module.exports.getPill = function(req, res) {
 
 module.exports.editPill = function(req, res) {
     console.log("putting...");
-    console.log(req.body);
-    res.end();
+    pillModel.updatePill(req.session.userid, req.body, (err) => {
+        res.end();
+    });
+    
 }
