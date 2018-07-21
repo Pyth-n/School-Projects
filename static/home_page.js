@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('#daily').click(dailyCheck);
     $('#addPillButton').click(pillFormController);
     $('.edit-pill').click(pillEdit);
+    $('#edit-cancel').click(cancelEdit);
     $('#logOut').click(logOut);
 });
 
@@ -44,11 +45,7 @@ function pillFormController() {
             verifyCheckboxes(pillData.daysData, function (dataJson) {
                 
                 // POST pill
-                // get the ID of the current user
-                var currentURL = (document.URL);
-                var part = currentURL.split("/");
-                var index = part.length - 1;
-                var ID = part[index];
+                let ID = getID();
                 $.post('/home/' + ID + '/pill', pillData, function(result) {
                     console.log(result);
                 }).fail(function(err) {
@@ -250,5 +247,34 @@ function logOut(e) {
 
 // TODO: Pill Edit buttons
 function pillEdit(e) {
-    console.log(e.target.id);
+    let pillID = e.target.id;
+    console.log(pillID);
+
+    let ID = getID();
+    $.get('/home/' + ID + '/pill/' + pillID, function(result) {
+        $('#pill-body').attr('hidden','hidden');
+
+        // Set values
+        $('#pillName-edit').val(result.data.pill_name);
+        $('#pillAmount-edit').val(result.data.amount);
+        $('#pillStrength-edit').val(result.data.strength);
+        $('#pillRemaining-edit').val(result.data.remaining);
+
+        $('#pill-edit').removeAttr('hidden');
+        console.log(result.data);
+    })
+}
+
+function cancelEdit(e) {
+    $('#pill-edit').attr('hidden', 'hidden');
+    $('#pill-body').removeAttr('hidden');
+}
+
+// get the ID of the current user
+function getID() {
+    let currentURL = (document.URL);
+    let part = currentURL.split("/");
+    let index = part.length - 1;
+    let ID = part[index];
+    return ID;
 }
