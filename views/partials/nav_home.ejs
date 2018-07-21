@@ -32,138 +32,98 @@
             </div>
         </div>
 
-        <!-- TODO: Day checkboxes -->
-        <div class="form-row">
-            <div class="form-group col-12 col-sm-12 text-center">
-                <label>Days</label>
-                <br>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="daily" value="daily">
-                    <label class="form-check-label" for="daily">Daily</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="daySunday" value="sunday">
-                    <label class="form-check-label" for="daySunday">Sunday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayMonday" value="monday" checked>
-                    <label class="form-check-label" for="dayMonday">Monday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayTuesday" value="tuesday">
-                    <label class="form-check-label" for="dayTuesday">Tuesday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="wednesday">
-                    <label class="form-check-label" for="dayWednesday">Wednesday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="thursday">
-                    <label class="form-check-label" for="dayThursday">Thursday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="friday">
-                    <label class="form-check-label" for="dayFriday">Friday</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="dayWednesday" value="saturday">
-                    <label class="form-check-label" for="daySaturday">Saturday</label>
-                </div>
-            </div>
-        </div>
-
         <div class="d-flex justify-content-center">Time</div>
-            
-            <div class="form-row d-flex justify-content-center">
-                <!-- Hour -->
-                <div class="form-group col-2 col-sm-2">
-                    <input type="number" id="hour" placeholder="hour" value="12" class="form-control">
-                </div>
 
-                <!-- Minute -->
-                <div class="form-group col-2 col-sm-2">
-                    <input type="number" id="minute" placeholder="minute" value="00" class="form-control">
-                </div>
-
-                <!-- TODO: Add radio buttons for AM PM -->
-                <div class="form-group custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="AM" name="customRadioInline1" class="custom-control-input">
-                    <label class="custom-control-label" for="AM">AM</label>
-                  </div>
-                  <div class="form-group custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="PM" name="customRadioInline1" class="custom-control-input" checked>
-                    <label class="custom-control-label" for="PM">PM</label>
-                  </div>
+        <div class="form-row d-flex justify-content-center">
+            <!-- Hour -->
+            <div class="form-group col-2 col-sm-2">
+                <input type="number" id="hour" placeholder="hour" value="12" class="form-control">
             </div>
-            <div class="d-flex justify-content-center">
+
+            <!-- Minute -->
+            <div class="form-group col-2 col-sm-2">
+                <input type="number" id="minute" placeholder="minute" value="00" class="form-control">
+            </div>
+
+            <!-- TODO: Add radio buttons for AM PM -->
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" id="AM" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="AM">AM</label>
+            </div>
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" id="PM" name="customRadioInline1" class="custom-control-input" checked>
+                <label class="custom-control-label" for="PM">PM</label>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-success" id="addPillButton">Add</button>
-
-            </div>
+        </div>
 
     </form>
 
-<!-- Main Pills are shown here in jumbotron -->
-<div class="jumbotron" id="pill-body">
-    <!-- Pill table -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Pill</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if(pill === null){  } else { pill.forEach(function(pill) { %>
+    <!-- Main Pills are shown here in jumbotron -->
+    <div class="jumbotron" id="pill-body">
+        <!-- Pill table -->
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <%- pill.pill_name %> 
-                    </td>
-                    <td>
-                        <%- pill.amount %>
-                    </td>
-                    <td>
-                        <button type="button" id="<%= pill.id %>" class="btn btn-primary edit-pill">-</button>
-                    </td>
+                    <th scope="col">Pill</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Edit</th>
                 </tr>
-            <% }); }%>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <% if(pill === null){  } else { pill.forEach(function(pill) { %>
+                    <tr>
+                        <td>
+                            <%- pill.pill_name %>
+                        </td>
+                        <td>
+                            <%- pill.amount %>
+                        </td>
+                        <td>
+                            <button type="button" id="<%= pill.id %>" class="btn btn-primary edit-pill">-</button>
+                        </td>
+                    </tr>
+                    <% }); }%>
+            </tbody>
+        </table>
 
-</div>
+    </div>
 
-<!-- TODO: Add a form to update -->
-<div id="pill-edit" hidden>
-    <form>
-        <!-- Pill name & amount -->
-        <div class="form-row">
-            <div class="form-group col-10 col-sm-10">
-                <label for="pillName-edit">Pill</label>
-                <input type="text" class="form-control" id="pillName-edit" placeholder="Enter pill name" value="a pill" required>
+    <!-- TODO: Add a form to update -->
+    <div id="pill-edit" hidden>
+        <form>
+            <!-- Pill name & amount -->
+            <div class="form-row">
+                <div class="form-group col-10 col-sm-10">
+                    <label for="pillName-edit">Pill</label>
+                    <input type="text" class="form-control" id="pillName-edit" placeholder="Enter pill name" value="a pill" required>
+                </div>
+                <div class="form-group col-2 col-sm-2">
+                    <label for="pillAmount-edit">Amount</label>
+                    <input type="number" class="form-control" id="pillAmount-edit" placeholder="#" value="3" required>
+                </div>
             </div>
-            <div class="form-group col-2 col-sm-2">
-                <label for="pillAmount-edit">Amount</label>
-                <input type="number" class="form-control" id="pillAmount-edit" placeholder="#" value="3" required>
+
+            <!-- Pill strength & remainder -->
+            <div class="form-row">
+                <div class="form-group col-10 col-sm-10">
+                    <label for="pillStrength-edit">Strength</label>
+                    <input type="text" class="form-control" id="pillStrength-edit" placeholder="Enter pill strength i.e 25mg" value="325mg">
+                </div>
+
+                <div class="form-group col-2 col-sm-2">
+                    <label for="pillRemaining-edit">Left</label>
+                    <input type="number" class="form-control" id="pillRemaining-edit" placeholder="#" value="12">
+                </div>
             </div>
-        </div>
 
-        <!-- Pill strength & remainder -->
-        <div class="form-row">
-            <div class="form-group col-10 col-sm-10">
-                <label for="pillStrength-edit">Strength</label>
-                <input type="text" class="form-control" id="pillStrength-edit" placeholder="Enter pill strength i.e 25mg" value="325mg">
-            </div>
+            <button type="button" class="btn btn-success" id="edit-pill">Edit</button>
+            <button type="button" class="btn btn-danger" id="edit-cancel">Cancel</button>
 
-            <div class="form-group col-2 col-sm-2">
-                <label for="pillRemaining-edit">Left</label>
-                <input type="number" class="form-control" id="pillRemaining-edit" placeholder="#" value="12">
-            </div>
-        </div>
-
-        <button type="button" class="btn btn-success" id="edit-pill">Edit</button>
-        <button type="button" class="btn btn-danger" id="edit-cancel">Cancel</button>
-
-    </form>
-</div>
+        </form>
+    </div>
 
 </div>
