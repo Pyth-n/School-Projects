@@ -1,6 +1,18 @@
 const schedule = require('node-schedule');
 const pillModel = require('./api/models/pillModel');
 
+// To email
+const GMAILAPP = process.env.GMAILAPP;
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: '3dgar.p@gmail.com',
+        pass: GMAILAPP
+    }
+});
+
 module.exports = function() {
     pillModel.countUserId((err, data) => {
         if (data == 0) {
@@ -47,7 +59,7 @@ function schedulePill(user_id, pill_id, time) {
             var tmp = schedule.scheduleJob('0 ' + time.minute + ' ' + time.hour + ' * * *', function() {
                 sendReminder(pillName, amount, phoneNumber, phoneProvider);
                 return;
-            })
+            });
 
         });
     });
@@ -56,5 +68,18 @@ function schedulePill(user_id, pill_id, time) {
 function sendReminder(pillName, amount, phoneNumber, phoneProvider) {
     pillModel.getProvider(phoneProvider, (err, provider) => {
         console.log("Sending " + pillName + " to " + phoneNumber + provider.provider_uri);
+        var mailOptions = {
+            from: '3dgar.p@gmail.com',
+            to: phoneNumber + provider.provider_uri,
+            subject: 'Pill Reminder',
+            text: 'REMINDER: Take ' + amount + ' ' + pillName + '(s)' 
+        }
+
+        transporter.sendMail(mailOptions, function(err, info) {
+            if (err) throw err;
+
+            console.log("Sent: " + info.response);
+        });
+
     });
 }
