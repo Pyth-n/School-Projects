@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 // Get PORT from environment or use a hard-coded one
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || 1338;
 
 // Get GMAILAPP environment variable to send email
 const GMAILAPP = process.env.GMAILAPP;
