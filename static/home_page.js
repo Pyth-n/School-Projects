@@ -288,7 +288,9 @@ function saveEdit(e) {
             remaining: $('#pillRemaining-edit').val()
         },
         success: function(result) {
-            $(location).attr('href', '/');    
+            $('#pill-edit').attr('hidden', 'hidden');
+            $('#pill-body').removeAttr('hidden');
+            location.reload();  
         }
     });
 }
