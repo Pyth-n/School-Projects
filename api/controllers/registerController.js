@@ -44,3 +44,11 @@ exports.emailUnavailable = function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(jsonError, null, 3));
 }
+
+exports.deleteAccount = function(req, res, next) {
+    let user_id = req.params.id;
+
+    pillModel.deleteUser(user_id, (err, success) => {
+        res.send("{ success: true}");
+    });
+}

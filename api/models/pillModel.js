@@ -253,6 +253,20 @@ exports.deletePill = (userId, pillId, cb) => {
     });
 }
 
+exports.deleteUser = (userId, cb) => {
+    let query = "DELETE FROM users WHERE id = $1";
+    let value = [userId];
+
+    transaction(pool, query, value, (err, res) => {
+        if (err) throw err;
+
+        if (typeof cb === "function") {
+            cb(false, true);
+        }
+        
+    });
+}
+
 exports.countUserId = (cb) => {
     let query = "SELECT COUNT(ID) FROM USERS";
     pool.query(query, (err, res) => {

@@ -8,6 +8,7 @@ $(document).ready(function () {
     $('#edit-cancel').click(cancelEdit);
     $('#edit-pill').click(saveEdit);
     $('#edit-delete').click(deletePill);
+    $('#delete-account').click(deleteAccount);
     $('#logOut').click(logOut);
 });
 
@@ -287,9 +288,7 @@ function saveEdit(e) {
             remaining: $('#pillRemaining-edit').val()
         },
         success: function(result) {
-            $('#pill-edit').attr('hidden', 'hidden');
-            $('#pill-body').removeAttr('hidden');
-            location.reload();      
+            $(location).attr('href', '/');    
         }
     });
 }
@@ -322,4 +321,17 @@ function deletePill(e) {
             location.reload(); 
         }
     })
+}
+
+function deleteAccount(e) {
+    let ID = getID();
+
+    $.ajax({
+        url: '/register/' + ID,
+        type: 'DELETE',
+        success: function(result) {
+            $(location).attr('href', '/');
+        }
+    })
+
 }

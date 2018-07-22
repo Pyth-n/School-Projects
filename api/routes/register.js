@@ -14,5 +14,7 @@ router.post('/register', pill.check_email_availability, pill.register)
 // If not available, send to this route
 router.post('/register', pill.emailUnavailable);
 
+// Delete account
+router.delete('/register/:id', pill.deleteAccount);
 
 module.exports = router;
