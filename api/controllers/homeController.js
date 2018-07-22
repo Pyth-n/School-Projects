@@ -134,3 +134,15 @@ module.exports.editPill = function(req, res) {
     });
     
 }
+
+module.exports.deletePill = function(req, res) {
+    console.log("ID: " + req.params.id + ', PILL: ' + req.params.pillid);
+
+    pillModel.deletePill(req.params.id, req.params.pillid, (err, data) => {
+        if (data) {
+            res.send('{ success: true }');
+        }
+    });
+
+    
+}

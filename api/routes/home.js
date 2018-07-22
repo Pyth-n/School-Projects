@@ -15,6 +15,9 @@ router.post('/home/:id/pill', controller.authenticateID, controller.addPill);
 router.get('/home/:id/pill/:pillid', controller.getPill);
 
 // PUT a pill
-router.put('/home/:id/pill/:id', controller.editPill);
+router.put('/home/:id/pill/:pillid', controller.editPill);
+
+// DELETE a pill
+router.delete('/home/:id/pill/:pillid', controller.deletePill);
 
 module.exports = router;

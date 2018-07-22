@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('.edit-pill').click(pillEdit);
     $('#edit-cancel').click(cancelEdit);
     $('#edit-pill').click(saveEdit);
+    $('#edit-delete').click(deletePill);
     $('#logOut').click(logOut);
 });
 
@@ -251,7 +252,7 @@ function logOut(e) {
     })
 }
 
-// TODO: Pill Edit buttons
+// Pill Edit buttons
 function pillEdit(e) {
     let pillID = e.target.id;
     config.pillID = pillID;
@@ -305,4 +306,20 @@ function getID() {
     let index = part.length - 1;
     let ID = part[index];
     return ID;
+}
+
+// Delete pill
+function deletePill(e) {
+    let ID = getID();
+    let pillID = config.pillID;
+
+    $.ajax({
+        url: '/home/' + ID + '/pill/' + pillID,
+        type: 'DELETE',
+        success: function(result) {
+            $('#pill-edit').attr('hidden', 'hidden');
+            $('#pill-body').removeAttr('hidden');
+            location.reload(); 
+        }
+    })
 }

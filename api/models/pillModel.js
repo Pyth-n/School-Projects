@@ -239,6 +239,20 @@ exports.updatePill = (id, updateBody, cb) => {
     
 }
 
+exports.deletePill = (userId, pillId, cb) => {
+    let query = "DELETE FROM pill_description WHERE user_id = $1 AND id = $2";
+    let value = [userId, pillId];
+
+    transaction(pool, query, value, (err, res) => {
+        if (err) throw err;
+
+        if (typeof cb === "function") {
+            cb(false, true);
+        }
+        
+    });
+}
+
 exports.countUserId = (cb) => {
     let query = "SELECT COUNT(ID) FROM USERS";
     pool.query(query, (err, res) => {
