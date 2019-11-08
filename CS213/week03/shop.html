@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta charset="UTF-8" />
+   <title>The Music Store</title>
+   <link rel="stylesheet" href="style.css" />
+   <style>
+      #catalog {
+         margin:auto;
+      }
+      #catalog td {
+         text-align:center;
+      }
+      h2 {
+         color:red;
+      }
+      h3 {
+         text-align:center;
+      }
+      .text {
+         background-color:black;
+         color:white;
+      }
+      #shop {
+         background-color: #404347;
+      }
+   </style>
+</head>
+<body>
+   <div class="document">
+      <div id="title">
+         <h1>Music Store</h1>
+      </div>
+      <div class="content">
+         <!-- Navigation Links -->
+         <div class="menu">
+            <ul id="list">
+               <li class="item"><a href="index.html">Home</a></li>
+               <li class="item"><a href="shop.html">Shop</a></li>
+            </ul>
+         </div>
+      </div>
+      <!-- Main text -->
+      <div class="text">
+         <h2 style="text-align:center"><em>Shop the classics.</em></h2>
+         <p>
+            We offer dozens of classic albums for low prices. Our
+            collections are a must have at any home. We offer what no one else
+            offers; a physical and digital copy of an album for the same
+            price!
+         </p>
+
+         <h3>Albums</h3>
+         <!-- Catalog with images and prices and buttons -->
+         <!-- Inline styles, sppans and divs used -->
+         <div id="shop">
+            <table id="catalog">
+               <tr>
+                  <td><img src="1.jpg" width="200" height="200" alt="classic"/></td>
+                  <td><img src="2.jpg" width="200" height="200" alt="classic" /></td>
+                  <td><img src="3.jpg" width="200" height="200" alt="classic" /></td>
+               </tr>
+               <tr>
+                  <td>$4.99 
+                     <span style="float:right; margin-right:15%;">
+                        <button>Add to cart</button></span></td>
+                  <td>
+                     $5.99 
+                     <span style="float:right; margin-right:15%;">
+                           <button>Add to cart</button>
+                     </span>
+                  </td>
+                  <td>
+                     $6.99
+                     <span style="float:right; margin-right:15%;">
+                        <button>Add to cart</button>
+                     </span>
+                  </td>
+               </tr>
+               <tr>
+                  <td><img src="4.jpg" width="200" height="200" alt="classic" /></td>
+                  <td><img src="5.jpg" width="200" height="200" alt="classic" /></td>
+                  <td><img src="6.jpg" width="200" height="200" alt="classic" /></td>
+               </tr>
+               <tr>
+                  <td>
+                     $4.99
+                     <span style="float:right; margin-right:15%;">
+                        <button>Add to cart</button>
+                     </span>
+                  </td>
+                  <td>
+                     $5.99
+                     <span style="float:right; margin-right:15%;">
+                        <button>Add to cart</button>
+                     </span>
+                  </td>
+                  <td>
+                     $6.99
+                     <span style="float:right; margin-right:15%;">
+                        <button>Add to cart</button>
+                     </span>
+                  </td>
+               </tr>
+            </table>
+         </div>
+
+         <!-- Make it look responsive -->
+         <h3 style="color:white;">Can't find what you're looking for? Contact us!</h3>
+         <form>
+            First Name:<br />
+            <input type="text" name="name"/><br />
+            E-mail:<br />
+            <input type="text" name="email" /><br />
+            <textarea name="text" rows="10" cols="30"></textarea><br/>
+            <button name="send">Send</button>
+         </form>
+      </div>
+      <div id="footer">
+         &copy; Music Store
+      </div> 
+   </div>
+</body>
+</html>

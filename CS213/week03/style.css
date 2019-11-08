@@ -1,0 +1,88 @@
+﻿body {
+   background-image:url("bg.jpg");
+   color:white;
+   font-family:Arial, sans-serif;
+}
+
+h1 {
+   font-size:50px;
+}
+
+h2 {
+   font-size:30px;
+}
+
+p {
+   font-family:serif;
+}
+.document {
+   width: 800px;
+   margin-left: 20%;
+   margin-right: 20%;
+}
+
+.footer {
+   margin-bottom:10%;
+   margin-top:10px;
+}
+
+#title {
+   text-align:center;
+   margin:0 auto;;
+}
+
+#list {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color:gray;
+}
+
+.item {
+   float:left;
+}
+
+.text h3 {
+   font-family:'Copperplate Gothic';
+   font-size:30px;
+   height:10px;
+   color:yellow;
+}
+.item a {
+   display: block;
+   color: white;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+   margin: 0 auto;
+}
+
+.item a:hover {
+   background-color:black;
+}
+
+.text {
+   margin-top:20px;
+   float:right;
+   padding:10px 30px 30px 30px;
+}
+
+.text {
+   background-color:white;
+   color:black;
+   opacity:.5;
+   border-radius:5px;
+   border:2px solid red;
+}
+
+.text h2{
+   opacity:1;
+}
+
+#footer {
+   color:red;
+   text-align:center;
+   margin-top:20px;
+   clear:both;
+} 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Week 10: AJAX</title>
+   <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+   <h1>Country</h1>
+   <select id="country" onchange="test(this.value)">
+      <option value="default">---</option>
+      <option value="usa.txt">USA</option>
+      <option value="canada.txt">Canada</option>
+      <option value="mexico.txt">Mexico</option>
+      <option value="russia.txt">Russia</option>
+   </select>
+
+   <div id="text">
+
+   </div>
+
+   <h2>Students</h2>
+   <input type="text" id="fileinput" value="json.txt"/>
+   <input type="button" value="Open" onclick="student(fileinput.value)" />
+
+   <div id="text2" style="display:none;">
+   <table id="text3" border="1" >
+
+   </table>
+   </div>
+</body>
+</html>

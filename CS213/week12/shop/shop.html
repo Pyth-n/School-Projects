@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <meta charset="UTF-8" />
+   <title>The Music Store</title>
+   <link rel="stylesheet" href="../style/style.css" />
+   <style>
+      #catalog {
+         margin: auto;
+      }
+
+         #catalog td {
+            text-align: center;
+         }
+
+      h2 {
+         color: red;
+      }
+
+      h3 {
+         text-align: center;
+      }
+
+      .text {
+         background-color: black;
+         color: white;
+      }
+
+      #shop {
+         background-color: #404347;
+      }
+   </style>
+   <script type="text/javascript" src="../scripts/script.js"></script>
+</head>
+<body onload="resetForms()">
+   <div class="document">
+      <div id="title">
+         <h1><a href="../index.html">Music Store</a></h1>
+      </div>
+      <div class="content">
+         <!-- Navigation Links -->
+         <div class="menu">
+            <ul id="list">
+               <li class="item"><a href="../index.html">Home</a></li>
+               <li class="item"><a href="shop.html">Shop</a></li>
+               <li class="item" style="float:right;"><a href="#">Cart <span id="cart">0</span></a></li>
+            </ul>
+         </div>
+      </div>
+      <!-- Main text -->
+      <div class="text">
+         <p style="text-indent:0px;"><a href="../index.html">home</a> > shop</p>
+         <h2 style="text-align:center"><em>Shop the classics.</em></h2>
+         <p>
+            We offer dozens of classic albums for low prices. Our
+            collections are a must have at any home. We offer what no one else
+            offers; a physical and digital copy of an album for the same
+            price!
+         </p>
+
+         <h3>Albums</h3>
+
+         <!-- Catalog with images and prices and buttons -->
+         <!-- Inline styles, sppans and divs used -->
+         <form action="../review.php" id="form1" method="post">
+            <div id="shop" style="text-align: center">
+
+               <table id="catalog">
+                  <tr>
+                     <td><img src="../img/1.jpg" width="200" height="200" alt="classic" /></td>
+                     <td><img src="../img/2.jpg" width="200" height="200" alt="classic" /></td>
+                     <td><img src="../img/3.jpg" width="200" height="200" alt="classic" /></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="checkbox" name="album[]" value="beatles" class="albums" onclick="updateCart(0)">$4.99
+                     </td>
+                     <td>
+                        <input type="checkbox" name="album[]" value="beatles2" class="albums" onclick="updateCart(1)">$5.99
+                     </td>
+                     <td>
+                        <input type="checkbox" name="album[]" value="floyd" class="albums" onclick="updateCart(2)">$6.99
+                     </td>
+                  </tr>
+                  <tr>
+                     <td><img src="../img/4.jpg" width="200" height="200" alt="classic" /></td>
+                     <td><img src="../img/5.jpg" width="200" height="200" alt="classic" /></td>
+                     <td><img src="../img/6.jpg" width="200" height="200" alt="classic" /></td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="checkbox" name="album[]" value="floyd2" class="albums" onclick="updateCart(3)">$4.99
+                     </td>
+                     <td>
+                        <input type="checkbox" name="album[]" value="cash" class="albums" onclick="updateCart(4)">$5.99
+                     </td>
+                     <td>
+                        <input type="checkbox" name="album[]" value="daft" class="albums" onclick="updateCart(5)">$6.99
+                     </td>
+                  </tr>
+               </table>
+
+               <!--<button onclick="checkingOut()" id="coButton" style="display:none">Checkout</button> -->
+            </div>
+
+            <!-- User detail -->
+            <div id="details" style="display: none;">
+               <h2>Please enter the following information: </h2>
+               <!--<form action="" id="form2" onreset="resetForm()" onsubmit="submitForm()">-->
+               First Name:<br />
+               <input type="text" name="firstname" oninput="verifyName(this.value, 'error0')">
+               <span style="color:red" id="error0">Invalid input!</span><br />
+               Last Name:<br />
+               <input type="text" name="lastname" oninput="verifyName(this.value, 'error1')">
+               <span style="color:red" id="error1">Invalid input!</span><br />
+               Address:<br />
+               <input type="text" name="address" oninput="validateAddress(this.value, 'error2')">
+               <span style="color:red" id="error2">Invalid input!</span><br />
+               State:<br />
+               <input type="text" name="state" oninput="validateState(this.value, 'error3')" size="2">
+               <span style="color:red" id="error3">Invalid input!</span><br />
+               Zip:<br />
+               <input type="text" name="zip" oninput="validateZip(this.value, 'error4')">
+               <span style="color:red" id="error4">Invalid input!</span><br />
+               Phone Number:<br />
+               <input type="text" name="phonenumber" oninput="validatePhone(this.value, 'error5')">
+               <span style="color:red" id="error5">Format: 000-000-0000</span><br />
+               Credit Card Number:<br />
+               <input type="text" name="creditcard" oninput="creditCard(this.value, 'error6')">
+               <span style="color:red" id="error6">Invalid input!</span><br />
+               Card type:
+               <select id="cardType" onchange="validateType()" name="ccType">
+                  <option value="none">- - -</option>
+                  <option value="amex">American Express</option>
+                  <option value="visa">Visa</option>
+                  <option value="Discovery">Discovery</option>
+                  <option value="master">Master Card</option>
+               </select>
+               <span style="color:red" id="error7">Invalid input!</span><br />
+               Expiration Date:
+               <input type="text" name="expiration" size="2" oninput="validateExp(this.value, 'error8')">
+               <span style="color:red" id="error8">Invalid input!</span><br /><br />
+
+               <!--
+            <h2>Confirm items: </h2>
+            <div id="toPurchase">
+            </div>
+            <div>
+               Total with Tax: <span style="margin-left: 150px" id="tax"></span>
+            </div>
+            <input type="reset" value="Reset">
+            <input type="submit" action="" value="Purchase">
+            </form>
+            -->
+
+               <input type="submit" value="Confirm">
+               <input type="button" value="Cancel" onclick="resetForms()"/>
+            </div>
+         </form>
+      </div>
+      <div id="footer">
+         &copy; Music Store
+      </div>
+   </div>
+</body>
+</html>
