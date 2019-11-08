@@ -1,0 +1,129 @@
+<h1 class="display-4">Pills
+    <span>
+        <button id="addPill" class="btn btn-primary">+</button>
+    </span>
+</h1>
+<div class="container">
+    <!-- TODO: Add form for pill -->
+    <form id="pillForm" hidden>
+
+        <!-- Pill name & amount -->
+        <div class="form-row">
+            <div class="form-group col-10 col-sm-10">
+                <label for="pillName">Pill</label>
+                <input type="text" class="form-control" id="pillName" placeholder="Enter pill name" value="a pill" required>
+            </div>
+            <div class="form-group col-2 col-sm-2">
+                <label for="pillAmount">Amount</label>
+                <input type="number" class="form-control" id="pillAmount" placeholder="#" value="3" required>
+            </div>
+        </div>
+
+        <!-- Pill strength & remainder -->
+        <div class="form-row">
+            <div class="form-group col-10 col-sm-10">
+                <label for="pillStrength">Strength</label>
+                <input type="text" class="form-control" id="pillStrength" placeholder="Enter pill strength i.e 25mg" value="325mg">
+            </div>
+
+            <div class="form-group col-2 col-sm-2">
+                <label for="pillRemaining">Left</label>
+                <input type="number" class="form-control" id="pillRemaining" placeholder="#" value="12">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">Time</div>
+
+        <div class="form-row d-flex justify-content-center">
+            <!-- Hour -->
+            <div class="form-group col-2 col-sm-2">
+                <input type="number" id="hour" placeholder="hour" value="12" class="form-control">
+            </div>
+
+            <!-- Minute -->
+            <div class="form-group col-2 col-sm-2">
+                <input type="number" id="minute" placeholder="minute" value="00" class="form-control">
+            </div>
+
+            <!-- TODO: Add radio buttons for AM PM -->
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" id="AM" name="customRadioInline1" class="custom-control-input">
+                <label class="custom-control-label" for="AM">AM</label>
+            </div>
+            <div class="form-group custom-control custom-radio custom-control-inline">
+                <input type="radio" id="PM" name="customRadioInline1" class="custom-control-input" checked>
+                <label class="custom-control-label" for="PM">PM</label>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-success" id="addPillButton">Add</button>
+        </div>
+
+    </form>
+
+    <!-- Main Pills are shown here in jumbotron -->
+    <div class="jumbotron" id="pill-body">
+        <!-- Pill table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Pill</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(pill === null){  } else { pill.forEach(function(pill) { %>
+                    <tr>
+                        <td>
+                            <%- pill.pill_name %>
+                        </td>
+                        <td>
+                            <%- pill.amount %>
+                        </td>
+                        <td>
+                            <button type="button" id="<%= pill.id %>" class="btn btn-primary edit-pill">-</button>
+                        </td>
+                    </tr>
+                    <% }); }%>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- TODO: Add a form to update -->
+    <div id="pill-edit" hidden>
+        <form>
+            <!-- Pill name & amount -->
+            <div class="form-row">
+                <div class="form-group col-10 col-sm-10">
+                    <label for="pillName-edit">Pill</label>
+                    <input type="text" class="form-control" id="pillName-edit" placeholder="Enter pill name" value="a pill" required>
+                </div>
+                <div class="form-group col-2 col-sm-2">
+                    <label for="pillAmount-edit">Amount</label>
+                    <input type="number" class="form-control" id="pillAmount-edit" placeholder="#" value="3" required>
+                </div>
+            </div>
+
+            <!-- Pill strength & remainder -->
+            <div class="form-row">
+                <div class="form-group col-10 col-sm-10">
+                    <label for="pillStrength-edit">Strength</label>
+                    <input type="text" class="form-control" id="pillStrength-edit" placeholder="Enter pill strength i.e 25mg" value="325mg">
+                </div>
+
+                <div class="form-group col-2 col-sm-2">
+                    <label for="pillRemaining-edit">Left</label>
+                    <input type="number" class="form-control" id="pillRemaining-edit" placeholder="#" value="12">
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-success" id="edit-pill">Edit</button>
+            <button type="button" class="btn btn-secondary" id="edit-cancel">Cancel</button>
+            <button type="button" class="btn btn-danger" id="edit-delete">Delete</button>
+        </form>
+    </div>
+
+</div>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/bootstrap/bootstrap.ejs') %>
+
+    <title>Register</title>
+    <style>
+        input[type="number"] {
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="jumbotron">
+            <h1 class="display-3">Register</h1>
+
+            <!-- Form -->
+            <form>
+
+                <!-- First and last name -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="first_name">First name</label>
+                        <input type="text" class="form-control" id="first_name" name="user[fn]" value="bob" placeholder="Enter first name">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                            <label for="last_name">Last name</label>
+                            <input type="text" class="form-control" id="last_name" name="user[ln]" value="builder" placeholder="Enter last name">
+                    </div>
+                </div>
+
+                <!-- Email and password -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="user[email]" value="bob@bob.com" placeholder="Enter email">
+                        <span id="emailUsed" class="text-danger" hidden>Email not available. Try another one.</span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="user[password]" value="bob" placeholder="Enter password">
+                    </div>
+                    <div class="form-group col-md-6">
+                            <input type="hidden">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="password" id="confirm_password" class="form-control" name="user[cp]" value="bob" placeholder="Enter password again">
+                        <span id="wrongPassword" class="text-danger" hidden>Passwords don't match!</span>
+                    </div>
+                </div>
+
+                <!-- TODO: Phone number and provider -->
+                <div class="form-row">
+                    <div class="form-group col-6 col-sm-6">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="number" id="phoneNumber" class="form-control" name="user[phoneNumber]" value="2065550886" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="form-group col-6 col-sm-6">
+                        <label for="phoneProvider">Provider</label>
+                        <select class="form-control" id="phoneProvider" name="user[phoneProvider]">
+                            <option value="@tmomail.net">T-Mobile</option>
+                            <option value="@message.alltel.com">Altell</option>
+                            <option value="@txt.att.net">AT&T</option>
+                            <option value="@messaging.sprintpcs.com">Sprint</option>
+                            <option value="@myboostmobile.com">Boot Mobile</option>
+                            <option value="@email.uscc.net">U.S. Cellular</option>
+                            <option value="@vtext.com">Verizon</option>
+                            <option value="@vmobl.com">Virgin Mobile</option>
+                            <option value="@text.republicwireless.com">Republic Wireless</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Checkbox button -->
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_spanish" name="user[english]">
+                        <label class="form-check-label" for="is_spanish">Hablo Español</label>
+                    </div>
+                </div>
+
+                <!-- Register button -->
+                <button type="button" id="registerUser" class="btn btn-primary">Register</button>
+                <span class="form-text text-muted" id="loginInstead">or <a href="/">Login here</a> </span>
+            </form>
+
+    </div>
+</div>
+
+<%- include('partials/bootstrap/bootstrap_scripts.ejs') %>
+<script src="register_page.js"></script>
+
+</body>
+</html>
