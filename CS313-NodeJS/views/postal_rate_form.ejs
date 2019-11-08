@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Postal Rate Calculator</title>
+</head>
+<body>
+    <h1>Postal Rate Calculator</h1>
+
+    <!-- Simple form that does a GET request to /calculateRate -->
+    <form action="/calculateRate" method="GET">
+        Weight (oz.) <input type="text" name="weight">
+        <br>
+        <!-- Radio options -->
+        <input type="radio" name="mailType" value="lettersStamped"> Letters(Stamped) <br>
+        <input type="radio" name="mailType" value="lettersMetered"> Letters(Metered) <br>
+        <input type="radio" name="mailType" value="largeEnvelopes"> Large Envelopes (flats)<br>
+        <input type="radio" name="mailType" value="firstClass"> First-Class Package Service - Retail
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+</body>
+</html>
