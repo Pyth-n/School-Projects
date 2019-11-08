@@ -1,0 +1,17 @@
+*.xcbkptlist
+*.xcscheme
+*.plist
+*.xcworkspacedata
+*.xcuserstate
+*.xcsettings
+*.xcodeproj
+
+#ignoring visual studio stuff
+.vs/
+Debug/
+*.vcxproj
+*.filters
+driver.cpp
+*.sln
+Queue.vcxproj.user
+week04.cpp
