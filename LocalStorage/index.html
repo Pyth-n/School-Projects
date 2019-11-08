@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="charset" value="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script>
+		var vehicle = ["hi", "toyota"];
+		localStorage.setItem("vehicleKey", JSON.stringify(vehicle));
+
+		console.log(JSON.parse(localStorage.getItem("vehicleKey"))[1]);
+		var anotherVehicle = JSON.parse(localStorage.getItem("vehicleKey"));
+		console.log(anotherVehicle[0]);
+		//localStorage.setItem("animalKey", JSON.stringify(animal));
+	</script>
+</head>
+<body>
+	<h1>Local Storage</h1>
+	<p>It is an object that store an object with no expiration date. 
+	Won't be deleted when it's closed.</p>
+	<p>Values are accessed by keys. They can be inserted, retreived, and
+	deleted</p>
+	<p><strong>NOTE: </strong>ONLY strings can be mapped. This means to store
+	an array or a JSON, it needs to be stringed (stringify()).</p>
+	<!-- Syntax -->
+	<h2>Syntax</h2>
+	<strong>Store Data:</strong><br />
+	<code>
+		localStorage.<span class="keyItem">setItem</span>(<span class="key">KEY</span>,
+		<span class="value">VALUE</span>);
+	</code>
+	<br />
+	<br />
+	<strong>Retrieve Data:</strong><br />
+	<code>
+		localStorage.<span class="keyItem">getItem</span>(<span class="key">KEY</span>);
+	</code>
+	<br />
+	<br />
+	<strong>Remove Data:</strong><br />
+	<code>
+		localStorage.<span class="keyItem">removeItem</span>(<span class="key">KEY</span>);
+	</code>
+	
+	<!-- Example -->
+	<h2>Example:</h2>
+	<pre>
+// Store, retrieve, and remove a lastname into localStorage
+localStorage.setItem("lastName", "Perez");
+
+localStorage.getItem("lastName");
+
+localStorage.removeItem("lastName");
+	</pre>
+	
+	<!-- Playground -->
+	<h2>Playground:</h2>
+	<!-- setItem -->
+	<h3>setItem:</h3>
+	<input type="text" size="7" placeholder="Key" id="keyParam" class="key"/>
+	<input type="text" size="7" placeholder="Value" id="valueParam" class="value"/>
+	<input type="button" value="Store" onclick="saveItem(keyParam.value, valueParam.value)"
+	style="color:red"/>
+	<input type="button" value="Show Storage" onClick="showItems()"/>
+	<input type="button" value="Clear Storage" onClick="clearItems()" />
+	<!-- maybe a table of keys -->
+	<div id="storeDiv">
+		
+	</div>
+	<script type="text/javascript">
+		function saveItem(keyVal, valueVal) {
+			localStorage.setItem(keyVal, valueVal);
+			
+			
+		}
+		
+		function showItems() {
+			document.getElementById("storeDiv").innerHTML = "";
+			for (var i = 0; i < localStorage.length; i++) {
+					if (localStorage.getItem(localStorage.key(i)) === "" | " ") {
+						continue;
+					}
+					document.getElementById("storeDiv").innerHTML += 
+					"key: " + localStorage.key(i) + " value: " +
+					localStorage.getItem(localStorage.key(i)) + "<br />"
+				}
+		}
+		
+		function clearItems() {
+			document.getElementById("storeDiv").innerHTML = "";
+			window.localStorage.clear();
+		}
+	</script>
+	
+	<!-- Retrieve Item -->
+	<h3>getItem:</h3>
+	<input type="text" size="7" placeholder="Key" id="keyParam2" class="key"/>
+	<input type="button" value="Load" onclick="loadItem(keyParam2.value)"
+	style="color:red"/>
+	<div id="storeDiv2"></div>
+	<script type="text/javascript">
+		function loadItem(keyParam) {
+			document.getElementById("storeDiv2").innerHTML = "Retrieved: " +
+			localStorage.getItem(keyParam);
+		}
+	</script>
+	
+	<!-- Remove Items -->
+	<h3>removeItem:</h3>
+	<input type="text" size="7" placeholder="Key" id="keyParam3" class="key"/>
+	<input type="button" value="Remove" onclick="removeItem(keyParam3.value)"
+	style="color:red"/>
+	<div id="storeDiv3"></div>
+	<script type="text/javascript">
+		function removeItem(keyParam) {
+			document.getElementById("storeDiv3").innerHTML = "Removed: " +
+			localStorage.getItem(keyParam);
+			localStorage.removeItem(keyParam);
+			showItems();
+		}
+	</script>
+	
+</body>
+</html>

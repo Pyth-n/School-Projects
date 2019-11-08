@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- This is to support characters with various machines -->
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>HTML 5 - Video, Audio, and Canvas</title>
+</head>
+<body>
+	<h1>Videos</h1>
+	<!-- This is the video tag -->
+	<p>The video tag has width and height properties, as well as controls</p>
+	<p>The main video is an mp4, but a backup can be specified if a machine doesn't play this format</p>
+	<video width="320" height="240" controls>
+		<source src="bunny.mp4" type="video/mp4" />
+		<source src"bunny2.3gp" type="video/3gp" />
+		<!-- In case the browser can't show the video, this text will show up -->
+		Your browser does not support the video tag.
+	</video>
+	
+	<!-- Poster video -->
+	<h3>This video has a poster attribute</h3>
+	<p>It is an img that is displayed while video loads.</p>
+	<p>I used an image out of context to show an example</p>
+	<video poster="img/sample.jpg" controls>
+		<source src="bunny.mp4" type="video/mp4" />
+	</video>
+	
+	<!-- Preload attribute -->
+	<h3>Preload attribute</h3>
+	<p>Helps the video buffer before playing</p>
+	<video controls preload="auto">
+		<source src="bunny.mp4" type="video/mp4"/>
+	</video>
+	
+	<!-- Looped -->
+	<h3>Looped/autoplay/muted video</h3>
+	<video loop controls autoplay muted>
+		<source src="bunny.mp4" type="video/mp4" />
+	</video>
+	
+	<!-- No Controls -->
+	<h3>No Controls on this video</h3>
+	<p>This is a video tag without any properties set. Can't do much with it.</p>
+	<video>
+		<source src="bunny.mp4" type="video/mp4" />
+		<source src"bunny2.3gp" type="video/3gp" />
+		Your browser does not support the video tag.
+	</video>
+	
+	
+	<!-- Audio -->
+	<h1>Audio</h1>
+	<h3>Autoplay/muted/controls/loop</h3>
+	<p>The audio tag has a controls property so it can have the play button</p>
+	<audio controls autoplay muted loop>
+		<source src="cheering.mp3" type="audio/mpeg" />
+	</audio>
+	<p>If there is no controls, it won't show</p>
+	<audio>
+		<source src="cheering.mp3" type="audio/mpeg">
+	</audio>
+
+	<!-- Canvas -->
+	<h1>Canvas</h1>
+	<p>Canvas are used to draw graphics</p>
+
+	<p>Initialize a canvas with a border</p>
+	<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+	</canvas> 
+
+	<p>A canvas is only drawn with java script, here we draw a line through it</p>
+	<canvas id="myCanvas2" width="200" height="100" style="border:1px solid #000000;">
+	</canvas> 
+	<script>
+		var canvas = document.getElementById("myCanvas2");
+		var ctx = canvas.getContext("2d");
+		ctx.moveTo(200,0);
+		ctx.lineTo(0,100);
+		ctx.stroke();
+		ctx.moveTo(0,0);
+		ctx.lineTo(200,100);
+		ctx.stroke();
+	</script>
+	</body>
+	</html>

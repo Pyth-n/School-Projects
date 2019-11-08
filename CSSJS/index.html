@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- This is to support characters with various machines -->
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>CSS Properties with JavaScript</title>
+	
+	<script type="text/javascript">
+		function changeColor(value){
+			document.getElementById("box1").style.backgroundColor = value;
+			document.getElementById("box1").innerHTML = value;
+		}
+
+		function changeSize(value) {
+			document.getElementById("box2").style.width = value;
+			document.getElementById("box2").style.height = value;
+		}
+
+		function classArray(index) {
+			var box = document.getElementsByClassName("boxes")[index].style.backgroundColor;
+			if (box == "red") {
+				document.getElementsByClassName("boxes")[index].style.backgroundColor = "blue";
+			} else {
+			document.getElementsByClassName("boxes")[index].style.backgroundColor = "red";
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<h1>CSS Properties modification by JavaScript</h1>
+	<p>This feature is useful to have a dynamic website that can change appearance</p>
+	<p>This is accomplished with the DOM and modifying the <strong>style</strong></p>
+	<h3>Example: Box changing background color with buttons</h3>
+	<div style="width:135px; height:100px; background-color: black" id="box1">
+	</div>
+	<input type="button" value="red" onclick="changeColor(this.value)" />
+	<input type="button" value="blue" onclick="changeColor(this.value)"/>
+	<input type="button" value="green" onclick="changeColor(this.value)"/>
+	
+	<h3>Example: Changing width and height of a box</h3>
+	<div style="width:100px;height:100px;background-color: red;" id="box2"></div>
+	<input type="button" value="200px" onclick="changeSize(this.value)" />
+	<input type="button" value="400px" onclick="changeSize(this.value)"/>
+	<input type="button" value="800px" onclick="changeSize(this.value)"/>
+
+	<h3>Example: An array of divs with the same class name</h3>
+	<p>Classes are accessed like this:</p> <p> document.getElementsByClassName("boxes")[index].style.backgroundColor = "red";</p>
+	<div class="boxes" style="width:100px; height:100px;background-color: blue" ></div>
+	<div class="boxes" style="width:100px; height:100px;background-color: blue" ></div>
+	<div class="boxes" style="width:100px; height:100px;background-color: blue" ></div>
+	<input type="button" value="[0]" onclick="classArray(0)" />
+	<input type="button" value="[1]" onclick="classArray(1)"/>
+	<input type="button" value="[2]" onclick="classArray(2)"/>
+</body>
+</html>

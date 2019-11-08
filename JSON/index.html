@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- This is to support characters with various machines -->
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>JavaScript Fundamentals</title>
+	
+</head>
+<body>
+	
+<h1>JSON</h1>
+<p>JSON stands for <strong>JavaScript Object Notation</strong></p>
+<p>Its purpose is to store and exchange data in a specific format.</p>
+<p>This is used because the data that is exchanged can only be text.</p>
+<p>It is also common to stringify objects to store in APIs such as local storage</p>
+
+<h3>Example: Stringify</h3>
+<p>An object can be converted into JSON with the stringify function</p>
+<pre>
+// A Person object
+var person = {"name":"david", "age": 23, "birthMonth":"December"};
+
+// Convert to JSON
+var JSONed = JSON.stringify(person);
+</pre>
+
+<h3>Example: Parse</h3>
+<p>Parsing is converting JSON text into a JavaScript object</p>
+<pre>
+// Continuing from the previous code
+var toParse = JSON.parse(JSONed);
+</pre>
+
+<h1>Playground</h1>
+<p>The following is an example of JSON being stored in localStorage</p>
+<input type="text" placeholder="type JSON format" id="JSONtxt"/>
+<input type="button" value="Store" onclick="storeJSON(JSONtxt.value)" />
+<script type="text/javascript">
+	function storeJSON(value){
+		localStorage.setItem("JSON", JSON.stringify(value));
+		console.log(localStorage.getItem("JSON"));
+		document.getElementById("toShow").innerHTML = "Stringified then parsed: " + JSON.parse(localStorage.getItem("JSON"));
+	}
+</script>
+<div id="toShow">
+
+</div>
+
+</body>
+</html>

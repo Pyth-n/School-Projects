@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- This is to support characters with various machines -->
+<meta charset="UTF-8">
+<html>
+<head>
+	<title>DOM Manipulation</title>
+	
+	<script type="text/javascript">
+		function idColor() {
+			document.getElementById('box1').style.backgroundColor = "green";
+		}
+
+		function changeTagProp() {
+			var x = document.getElementsByTagName("P");
+			if (x[0].style.fontSize == "20px") {
+				for (var i = 0; i < x.length; i++) {
+				x[i].style.fontSize = "12px";
+			}
+			} else {
+				for (var i = 0; i < x.length; i++) {
+					x[i].style.fontSize = "20px";
+				}
+			}
+		}
+
+		function toCreate() {
+			var div = document.createElement("DIV");
+			var node = document.getElementsByClassName("createdBox");
+			var length = document.getElementsByClassName("createdBox").length;
+			//var text = document.createTextNode("INDEX: " + length);
+			div.setAttribute("class", "createdBox");
+			div.setAttribute("style", "color:white");
+			div.style.width = "100px";
+			div.style.height = "100px";
+			div.style.backgroundColor = "blue";
+			//div.appendChild(text);
+			document.getElementById("storeBoxes").appendChild(div);
+			updateIndex();
+		}
+
+		function toRemove() {
+			var div = document.getElementById("storeBoxes");
+			if (div.hasChildNodes()){
+				div.removeChild(div.lastChild);
+			}
+		}
+
+		function toInsert(value) {
+			// to insert
+			var insert = document.createElement("DIV");
+			insert.style.width = "100px";
+			insert.style.height = "100px";
+			insert.style.backgroundColor = "red";
+			insert.setAttribute("class", "createdBox");
+
+			var node = document.getElementById("storeBoxes");
+			node.insertBefore(insert, node.childNodes[value]);
+
+			updateIndex();
+		}
+
+		function updateIndex() {
+			var parent = document.getElementById("storeBoxes");
+			var children = document.getElementsByClassName("createdBox");
+			
+			for (var i = 0; i < children.length; i++) {
+				children[i].innerHTML = "INDEX: " + i;
+				console.log(i);
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<h1>DOM Manipulation</h1>
+	<p>DOM stands for Document Object Model. This is created when a webpage is loaded.</p>
+	<p>JavaScript has the power to access the DOM and therefore can modify a webpage dynamically.</p>
+	<p>Very widely used functions are getElementsByClassName and getElementById</p>
+	<p>Besides modyfying HTML, JavaScript can modify CSS</p>
+	
+	<h3>Example: getElementById() on a CSS property</h3>
+	<p>The box below is a div that has an id of "box1"</p>
+	<div style="background-color:red; width:100px; height:100px;" id="box1"></div>
+	<p>In order to access it, we need to call the function <strong>getElementById</strong> and then we can modify a property</p>
+	<p>As an example, this <span><input type="button" value="button" onclick="idColor()"></span> will change its color to green.</p>
+	<p>The code used to make it green was:</p>
+	<pre>
+function idColor() {
+	document.getElementById('box1').style.backgroundColor = "green";
+}
+	</pre>
+	<h3>Example: getElementsByTagName()</h3>
+	<p>This can access and modify tag properties</p>
+	<p>Clicking this <input type="button" value="button" onclick="changeTagProp()"> will change the size of <strong>p</strong> tags to 20px.</p>
+
+	<h3>Example: createElement() and removeChild() and appendChild()</h3>
+	<p>Creates a stack with a class of 'createdBox'. Pushes (creates) and pops (removes). Appends to a div</p>
+	<div id="storeBoxes"></div>
+	<input type="button" value="push" onclick="toCreate()">
+	<input type="button" value="pop" onclick="toRemove()">
+	<input type="text" placeholder="index" id="insertIndex">
+	<input type="button" value="insertBefore" onclick="toInsert(insertIndex.value)">
+	
+
+</body>
+</html>

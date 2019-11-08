@@ -1,0 +1,25 @@
+input[type=number] {
+	width: 60px;
+}
+
+#translate, #scale, #rotate, #skewX, #skewY {
+	background-color: red;
+	width: 100px;
+	height: 140px;
+	display: inline-block;
+	color:white;
+	vertical-align: top;
+}
+
+.threeD {
+	background-color: blue;
+	width: 100px;
+	height: 140px;
+	display: inline-block;
+	color:white;
+	vertical-align: top;
+}
+
+#wrap, #wrap2 {
+	display: block;
+}

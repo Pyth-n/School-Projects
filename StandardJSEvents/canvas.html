@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas</title>
+
+    <script>
+      var lastPoint = new Object();
+      function startUp() {
+        var can = document.getElementById('myCanvas');
+        can.addEventListener("touchstart", handleStart, false);
+        can.addEventListener("touchmove", handleMove, false);
+        can.addEventListener("touchend", handleEnd, false);
+      }
+
+      function handleStart(evt) {
+        evt.preventDefault();
+        document.getElementById('coords').innerHTML = "TOUCH START: " + 
+        "(" + evt.touches[0].pageX + ", " + evt.touches[0].pageY +")" + 
+        "<br />";
+        
+      }
+
+      function handleMove(evt) {
+          evt.preventDefault();
+          var ctx = document.getElementById('myCanvas').getContext("2d");
+          
+          for (var i = 0; i < evt.touches.length; i++) {
+            var id = evt.touches[i].identifier;
+            if (lastPoint[id]) {
+              ctx.beginPath();
+              ctx.moveTo(lastPoint[id].x, lastPoint[id].y);
+              ctx.lineTo(evt.touches[i].pageX, evt.touches[i].pageY);
+              ctx.strokeStyle = "green";
+              ctx.stroke();
+            }
+            lastPoint[id] = {x:evt.touches[i].pageX, y:evt.touches[i].pageY};
+          }
+          document.getElementById('log').innerHTML = "TOUCH MOVE";
+      }
+
+      function handleEnd(evt) {
+        evt.preventDefault;
+        for (var i = 0; i < evt.changedTouches.length; i++) {
+          var identifier = evt.changedTouches[i].identifier;
+          delete lastPoint[identifier]; 
+        }
+        document.getElementById('log').innerHTML = "TOUCH ENDED";
+      }
+
+    </script>
+</head>
+<body onload="startUp()">
+<canvas style="border: 1px black solid" id="myCanvas">
+  Browser not supported
+</canvas>
+<p>Draw with one finger</p>
+<div id="coords"></div>
+<div id="log"></div>
+</body>
+</html>
