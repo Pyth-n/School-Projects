@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.byui_cs246_team07.listtracker.SortCategoryOptionsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/gallery_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat.Light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <RadioButton
+        android:id="@+id/radioSortCategoryByName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/sort_by_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelChooseCategorySortOrder" />
+
+    <RadioButton
+        android:id="@+id/radioSortCategoryByDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sort_by_created"
+        app:layout_constraintStart_toStartOf="@+id/radioSortCategoryByName"
+        app:layout_constraintTop_toBottomOf="@+id/radioSortCategoryByName" />
+
+    <RadioButton
+        android:id="@+id/radioSortCategoryByManualSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sort_manual"
+        app:layout_constraintStart_toStartOf="@+id/radioSortCategoryByDate"
+        app:layout_constraintTop_toBottomOf="@+id/radioSortCategoryByDate" />
+
+    <TextView
+        android:id="@+id/labelChooseCategorySortOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/choose_category_sort_order"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_toolbar" />
+
+    <Button
+        android:id="@+id/btnSaveCategorySortOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/save_sort"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioSortCategoryByManualSort" />
+</android.support.constraint.ConstraintLayout>
